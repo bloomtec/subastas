@@ -76,10 +76,10 @@ class DATABASE_CONFIG {
 	var $default = array(
 		'driver' => 'mysql',
 		'persistent' => false,
-		'host' => 'mysql.embalao.org',
-		'login' => 'prueba23',
-		'password' => 'prueba23',
-		'database' => 'portal_parejas',
+		'host' => 'localhost',
+		'login' => 'cake',
+		'password' => 'cake',
+		'database' => 'subastas',
 		'prefix' => '',
 	);
 
@@ -87,9 +87,9 @@ class DATABASE_CONFIG {
 		'driver' => 'mysql',
 		'persistent' => false,
 		'host' => 'localhost',
-		'login' => 'user',
-		'password' => 'password',
-		'database' => 'test_database_name',
+		'login' => 'cake',
+		'password' => 'cake',
+		'database' => 'test_subastas',
 		'prefix' => '',
 	);
 }
