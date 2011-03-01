@@ -31,36 +31,36 @@
  */
 class PagesController extends AppController {
 
-/**
- * Controller name
- *
- * @var string
- * @access public
- */
+	/**
+	 * Controller name
+	 *
+	 * @var string
+	 * @access public
+	 */
 	var $name = 'Pages';
 
-/**
- * Default helper
- *
- * @var array
- * @access public
- */
+	/**
+	 * Default helper
+	 *
+	 * @var array
+	 * @access public
+	 */
 	var $helpers = array('Html', 'Session');
 
-/**
- * This controller does not use a model
- *
- * @var array
- * @access public
- */
+	/**
+	 * This controller does not use a model
+	 *
+	 * @var array
+	 * @access public
+	 */
 	var $uses = array();
 
-/**
- * Displays a view
- *
- * @param mixed What page to display
- * @access public
- */
+	/**
+	 * Displays a view
+	 *
+	 * @param mixed What page to display
+	 * @access public
+	 */
 	function display() {
 		$path = func_get_args();
 
@@ -80,13 +80,11 @@ class PagesController extends AppController {
 			$title_for_layout = Inflector::humanize($path[$count - 1]);
 		}
 		$this->set(compact('page', 'subpage', 'title_for_layout'));
-   
-    if($title_for_layout=="Home"){
-      $this->render(implode('/', $path),"home");
-    }else{
-      $this->render(implode('/', $path));
-    }
-    
-		
+			
+		if($title_for_layout=="Home"){
+			$this->render(implode('/', $path),"home");
+		}else{
+			$this->render(implode('/', $path));
+		}
 	}
 }
