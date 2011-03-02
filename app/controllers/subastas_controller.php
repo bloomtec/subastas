@@ -26,7 +26,7 @@ class SubastasController extends AppController {
 				$this->Session->setFlash(__('The subasta could not be saved. Please, try again.', true));
 			}
 		}
-		$tipoSubastas = $this->Subasta->TipoSubastum->find('list');
+		$tipoSubastas = $this->Subasta->TipoSubasta->find('list');
 		$this->set(compact('tipoSubastas'));
 	}
 
@@ -46,7 +46,7 @@ class SubastasController extends AppController {
 		if (empty($this->data)) {
 			$this->data = $this->Subasta->read(null, $id);
 		}
-		$tipoSubastas = $this->Subasta->TipoSubastum->find('list');
+		$tipoSubastas = $this->Subasta->TipoSubasta->find('list');
 		$this->set(compact('tipoSubastas'));
 	}
 
@@ -85,7 +85,7 @@ class SubastasController extends AppController {
 				$this->Session->setFlash(__('The subasta could not be saved. Please, try again.', true));
 			}
 		}
-		$tipoSubastas = $this->Subasta->TipoSubastum->find('list');
+		$tipoSubastas = $this->Subasta->TipoSubasta->find('list');
 		$this->set(compact('tipoSubastas'));
 	}
 
@@ -105,7 +105,7 @@ class SubastasController extends AppController {
 		if (empty($this->data)) {
 			$this->data = $this->Subasta->read(null, $id);
 		}
-		$tipoSubastas = $this->Subasta->TipoSubastum->find('list');
+		$tipoSubastas = $this->Subasta->TipoSubasta->find('list');
 		$this->set(compact('tipoSubastas'));
 	}
 

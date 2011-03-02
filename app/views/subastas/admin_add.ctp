@@ -1,4 +1,4 @@
-<div class="subastas form">
+<div class="subastas image-form">
 <?php echo $this->Form->create('Subasta');?>
 	<fieldset>
  		<legend><?php __('Admin Add Subasta'); ?></legend>
@@ -6,7 +6,7 @@
 		echo $this->Form->input('tipo_subasta_id');
 		echo $this->Form->input('nombre');
 		echo $this->Form->input('descripcion');
-		echo $this->Form->input('imagen_path');
+		echo $this->Form->input('imagen_path',array("id"=>"single-field","type"=>"hidden"));
 		echo $this->Form->input('valor_actual');
 		echo $this->Form->input('umbral_minimo_creditos');
 		echo $this->Form->input('dias_espera');
@@ -16,18 +16,11 @@
 		echo $this->Form->input('fecha_inicio_subasta');
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit', true));?>
-</div>
-<div class="actions">
-	<h3><?php __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Html->link(__('List Subastas', true), array('action' => 'index'));?></li>
-		<li><?php echo $this->Html->link(__('List Tipo Subastas', true), array('controller' => 'tipo_subastas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Tipo Subasta', true), array('controller' => 'tipo_subastas', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Ventas', true), array('controller' => 'ventas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Venta', true), array('controller' => 'ventas', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Ofertas', true), array('controller' => 'ofertas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Oferta', true), array('controller' => 'ofertas', 'action' => 'add')); ?> </li>
-	</ul>
+<?php echo $this->Form->end(__('Guardar', true));?>
+	<div class="images">
+			<h2>Imagen</h2>
+			<div class="preview">
+			</div>
+			<div id="single-upload" controller="colecciones"> </div>			
+	</div>
 </div>
