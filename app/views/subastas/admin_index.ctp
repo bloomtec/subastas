@@ -30,17 +30,17 @@
 			<?php echo $this->Html->link($subasta['TipoSubasta']['id'], array('controller' => 'tipo_subastas', 'action' => 'view', $subasta['TipoSubasta']['id'])); ?>
 		</td>
 		<td><?php echo $subasta['Subasta']['nombre']; ?>&nbsp;</td>
-		<td><?php echo $subasta['Subasta']['descripcion']; ?>&nbsp;</td>
+		<!-- <td><?php echo $subasta['Subasta']['descripcion']; ?>&nbsp;</td> -->
 		<td><?php echo $subasta['Subasta']['imagen_path']; ?>&nbsp;</td>
-		<td><?php echo $subasta['Subasta']['valor_actual']; ?>&nbsp;</td>
-		<td><?php echo $subasta['Subasta']['umbral_minimo_creditos']; ?>&nbsp;</td>
-		<td><?php echo $subasta['Subasta']['dias_espera']; ?>&nbsp;</td>
-		<td><?php echo $subasta['Subasta']['contenido_pagina']; ?>&nbsp;</td>
-		<td><?php echo $subasta['Subasta']['posicion_en_cola']; ?>&nbsp;</td>
+		<!-- <td><?php echo $subasta['Subasta']['valor_actual']; ?>&nbsp;</td> -->
+		<!-- <td><?php echo $subasta['Subasta']['umbral_minimo_creditos']; ?>&nbsp;</td> -->
+		<!-- <td><?php echo $subasta['Subasta']['dias_espera']; ?>&nbsp;</td> -->
+		<!-- <td><?php echo $subasta['Subasta']['contenido_pagina']; ?>&nbsp;</td> -->
+		<!-- <td><?php echo $subasta['Subasta']['posicion_en_cola']; ?>&nbsp;</td> -->
 		<td><?php echo $subasta['Subasta']['estado']; ?>&nbsp;</td>
-		<td><?php echo $subasta['Subasta']['fecha_inicio_subasta']; ?>&nbsp;</td>
-		<td><?php echo $subasta['Subasta']['created']; ?>&nbsp;</td>
-		<td><?php echo $subasta['Subasta']['updated']; ?>&nbsp;</td>
+		<!-- <td><?php echo $subasta['Subasta']['fecha_inicio_subasta']; ?>&nbsp;</td> -->
+		<!-- <td><?php echo $subasta['Subasta']['created']; ?>&nbsp;</td> -->
+		<!-- <td><?php echo $subasta['Subasta']['updated']; ?>&nbsp;</td> -->
 		<td class="actions">
 			<?php echo $this->Html->link(__('Ver', true), array('action' => 'view', $subasta['Subasta']['id'])); ?>
 			<?php echo $this->Html->link(__('Modificar', true), array('action' => 'edit', $subasta['Subasta']['id'])); ?>
@@ -67,11 +67,13 @@
 	<h3><?php __('Acciones'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('Nueva Subasta', true), array('action' => 'add')); ?></li>
+		<!--
 		<li><?php echo $this->Html->link(__('Tipos De Subasta', true), array('controller' => 'tipo_subastas', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('Nuevo Tipo De Subasta', true), array('controller' => 'tipo_subastas', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('Listado De Ventas', true), array('controller' => 'ventas', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('Nueva Venta', true), array('controller' => 'ventas', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('Listado De Ofertas', true), array('controller' => 'ofertas', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('Nueva Oferta', true), array('controller' => 'ofertas', 'action' => 'add')); ?> </li>
+		-->
 	</ul>
 </div>
