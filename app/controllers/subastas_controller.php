@@ -20,10 +20,10 @@ class SubastasController extends AppController {
 		if (!empty($this->data)) {
 			$this->Subasta->create();
 			if ($this->Subasta->save($this->data)) {
-				$this->Session->setFlash(__('The subasta has been saved', true));
+				$this->Session->setFlash(__('La subasta ha sido guardada.', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The subasta could not be saved. Please, try again.', true));
+				$this->Session->setFlash(__('La subasta no se pudo guardar. Por favor intente de nuevo', true));
 			}
 		}
 		$tipoSubastas = $this->Subasta->TipoSubasta->find('list');
@@ -79,10 +79,10 @@ class SubastasController extends AppController {
 		if (!empty($this->data)) {
 			$this->Subasta->create();
 			if ($this->Subasta->save($this->data)) {
-				$this->Session->setFlash(__('The subasta has been saved', true));
+				$this->Session->setFlash(__('La subasta ha sido guardada.', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The subasta could not be saved. Please, try again.', true));
+				$this->Session->setFlash(__('La subasta no se puedo guardar. Por favor intente de nuevo.', true));
 			}
 		}
 		$tipoSubastas = $this->Subasta->TipoSubasta->find('list');
