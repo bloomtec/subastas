@@ -31,7 +31,7 @@
 		</td>
 		<td><?php echo $subasta['Subasta']['nombre']; ?>&nbsp;</td>
 		<!-- <td><?php echo $subasta['Subasta']['descripcion']; ?>&nbsp;</td> -->
-		<td><?php echo $subasta['Subasta']['imagen_path']; ?>&nbsp;</td>
+		<td><?php echo $html->image($subasta['Subasta']['imagen_path'],array("width"=>"200")); ?>&nbsp;</td>
 		<!-- <td><?php echo $subasta['Subasta']['valor_actual']; ?>&nbsp;</td> -->
 		<!-- <td><?php echo $subasta['Subasta']['umbral_minimo_creditos']; ?>&nbsp;</td> -->
 		<!-- <td><?php echo $subasta['Subasta']['dias_espera']; ?>&nbsp;</td> -->
