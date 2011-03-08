@@ -16,9 +16,9 @@
 			<?php echo $subasta['Subasta']['descripcion']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Valor Actual'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Valor'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $subasta['Subasta']['valor_actual']; ?>
+			<?php echo $subasta['Subasta']['valor']; ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Umbral Minimo Creditos'); ?></dt>
@@ -46,9 +46,9 @@
 			<?php echo $subasta['Subasta']['estado']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Fecha Inicio Subasta'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Fecha De Venta'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $subasta['Subasta']['fecha_inicio_subasta']; ?>
+			<?php echo $subasta['Subasta']['fecha_de_venta']; ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Created'); ?></dt>

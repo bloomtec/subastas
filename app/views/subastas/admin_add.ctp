@@ -5,14 +5,14 @@
 	<?php
 		echo $this->Form->input('nombre');
 		echo $this->Form->input('descripcion');
-		echo $this->Form->input('valor_actual');
 		echo $this->Form->input('tipo_subasta_id');
+		echo $this->Form->input('valor');
 		echo $this->Form->input('umbral_minimo_creditos');
 		//echo $this->Form->input('dias_espera');
 		//echo $this->Form->input('contenido_pagina');
 		//echo $this->Form->input('posicion_en_cola');
-		//echo $this->Form->input('estado');
-		//echo $this->Form->input('fecha_inicio_subasta');
+		echo $this->Form->input('estado', array("type" => "hidden"));
+		//echo $this->Form->input('fecha_de_venta');
 		echo $this->Form->input('imagen_path',array("id"=>"single-field","type"=>"hidden"));
 	?>
 	</fieldset>

@@ -10,7 +10,7 @@ class SubastasController extends AppController {
 
 	function view($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid subasta', true));
+			$this->Session->setFlash(__('Subasta no valida', true));
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->set('subasta', $this->Subasta->read(null, $id));
@@ -20,10 +20,10 @@ class SubastasController extends AppController {
 		if (!empty($this->data)) {
 			$this->Subasta->create();
 			if ($this->Subasta->save($this->data)) {
-				$this->Session->setFlash(__('La subasta ha sido guardada.', true));
+				$this->Session->setFlash(__('La subasta ha sido guardada', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('La subasta no se pudo guardar. Por favor intente de nuevo', true));
+				$this->Session->setFlash(__('La subasta no se pudo guardar. Por favor intente de nuevo.', true));
 			}
 		}
 		$tipoSubastas = $this->Subasta->TipoSubasta->find('list');
@@ -32,15 +32,15 @@ class SubastasController extends AppController {
 
 	function edit($id = null) {
 		if (!$id && empty($this->data)) {
-			$this->Session->setFlash(__('Invalid subasta', true));
+			$this->Session->setFlash(__('Subasta no valida', true));
 			$this->redirect(array('action' => 'index'));
 		}
 		if (!empty($this->data)) {
 			if ($this->Subasta->save($this->data)) {
-				$this->Session->setFlash(__('The subasta has been saved', true));
+				$this->Session->setFlash(__('La subasta ha sido guardada', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The subasta could not be saved. Please, try again.', true));
+				$this->Session->setFlash(__('La subasta no se pudo guardar. Por favor intente de nuevo.', true));
 			}
 		}
 		if (empty($this->data)) {
@@ -52,14 +52,14 @@ class SubastasController extends AppController {
 
 	function delete($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for subasta', true));
+			$this->Session->setFlash(__('id no valida para subasta', true));
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->Subasta->delete($id)) {
-			$this->Session->setFlash(__('Subasta deleted', true));
+			$this->Session->setFlash(__('Subasta borrada', true));
 			$this->redirect(array('action'=>'index'));
 		}
-		$this->Session->setFlash(__('Subasta was not deleted', true));
+		$this->Session->setFlash(__('La subasta no fue borrada', true));
 		$this->redirect(array('action' => 'index'));
 	}
 	function admin_index() {
@@ -69,7 +69,7 @@ class SubastasController extends AppController {
 
 	function admin_view($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid subasta', true));
+			$this->Session->setFlash(__('Subasta no valida', true));
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->set('subasta', $this->Subasta->read(null, $id));
@@ -91,15 +91,15 @@ class SubastasController extends AppController {
 
 	function admin_edit($id = null) {
 		if (!$id && empty($this->data)) {
-			$this->Session->setFlash(__('Invalid subasta', true));
+			$this->Session->setFlash(__('Subasta no valida', true));
 			$this->redirect(array('action' => 'index'));
 		}
 		if (!empty($this->data)) {
 			if ($this->Subasta->save($this->data)) {
-				$this->Session->setFlash(__('The subasta has been saved', true));
+				$this->Session->setFlash(__('La subasta ha sido guardada', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The subasta could not be saved. Please, try again.', true));
+				$this->Session->setFlash(__('La subasta no se pudo guardar. Por favor intente de nuevo.', true));
 			}
 		}
 		if (empty($this->data)) {
@@ -111,14 +111,14 @@ class SubastasController extends AppController {
 
 	function admin_delete($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for subasta', true));
+			$this->Session->setFlash(__('id no valida para subasta', true));
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->Subasta->delete($id)) {
-			$this->Session->setFlash(__('Subasta deleted', true));
+			$this->Session->setFlash(__('Subasta borrada', true));
 			$this->redirect(array('action'=>'index'));
 		}
-		$this->Session->setFlash(__('Subasta was not deleted', true));
+		$this->Session->setFlash(__('La subasta no fue borrada', true));
 		$this->redirect(array('action' => 'index'));
 	}
 }

@@ -2,19 +2,12 @@
 	<h2><?php __('Subastas');?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
-			<!-- <th><?php echo $this->Paginator->sort('tipo_subasta_id');?></th> -->
+
 			<th><?php echo $this->Paginator->sort('nombre');?></th>
-			<!-- <th><?php echo $this->Paginator->sort('descripcion');?></th> -->
 			<th><?php echo $this->Paginator->sort('imagen_path');?></th>
-			<!-- <th><?php echo $this->Paginator->sort('valor_actual');?></th> -->
-			<!-- <th><?php echo $this->Paginator->sort('umbral_minimo_creditos');?></th> -->
-			<!-- <th><?php echo $this->Paginator->sort('dias_espera');?></th> -->
-			<!-- <th><?php echo $this->Paginator->sort('contenido_pagina');?></th> -->
-			<!-- <th><?php echo $this->Paginator->sort('posicion_en_cola');?></th> -->
+
 			<th><?php echo $this->Paginator->sort('estado');?></th>
-			<!-- <th><?php echo $this->Paginator->sort('fecha_inicio_subasta');?></th> -->
-			<!-- <th><?php echo $this->Paginator->sort('created');?></th> -->
-			<!-- <th><?php echo $this->Paginator->sort('updated');?></th> -->
+
 			<th class="actions"><?php __('Acciones');?></th>
 	</tr>
 	<?php
@@ -25,22 +18,14 @@
 			$class = ' class="altrow"';
 		}
 	?>
-	<tr<?php echo $class;?>>
-		<td>
-			<?php echo $this->Html->link($subasta['TipoSubasta']['id'], array('controller' => 'tipo_subastas', 'action' => 'view', $subasta['TipoSubasta']['id'])); ?>
-		</td>
+	<tr<?php echo $class;?>
+
 		<td><?php echo $subasta['Subasta']['nombre']; ?>&nbsp;</td>
-		<!-- <td><?php echo $subasta['Subasta']['descripcion']; ?>&nbsp;</td> -->
+
 		<td><?php echo $html->image($subasta['Subasta']['imagen_path'],array("width"=>"200")); ?>&nbsp;</td>
-		<!-- <td><?php echo $subasta['Subasta']['valor_actual']; ?>&nbsp;</td> -->
-		<!-- <td><?php echo $subasta['Subasta']['umbral_minimo_creditos']; ?>&nbsp;</td> -->
-		<!-- <td><?php echo $subasta['Subasta']['dias_espera']; ?>&nbsp;</td> -->
-		<!-- <td><?php echo $subasta['Subasta']['contenido_pagina']; ?>&nbsp;</td> -->
-		<!-- <td><?php echo $subasta['Subasta']['posicion_en_cola']; ?>&nbsp;</td> -->
+
 		<td><?php echo $subasta['Subasta']['estado']; ?>&nbsp;</td>
-		<!-- <td><?php echo $subasta['Subasta']['fecha_inicio_subasta']; ?>&nbsp;</td> -->
-		<!-- <td><?php echo $subasta['Subasta']['created']; ?>&nbsp;</td> -->
-		<!-- <td><?php echo $subasta['Subasta']['updated']; ?>&nbsp;</td> -->
+
 		<td class="actions">
 			<?php echo $this->Html->link(__('Ver', true), array('action' => 'view', $subasta['Subasta']['id'])); ?>
 			<?php echo $this->Html->link(__('Modificar', true), array('action' => 'edit', $subasta['Subasta']['id'])); ?>
