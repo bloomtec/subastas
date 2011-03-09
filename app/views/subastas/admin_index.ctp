@@ -2,12 +2,9 @@
 	<h2><?php __('Subastas');?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
-
 			<th><?php echo $this->Paginator->sort('nombre');?></th>
 			<th><?php echo $this->Paginator->sort('imagen_path');?></th>
-
 			<th><?php echo $this->Paginator->sort('estado');?></th>
-
 			<th class="actions"><?php __('Acciones');?></th>
 	</tr>
 	<?php
@@ -19,13 +16,9 @@
 		}
 	?>
 	<tr<?php echo $class;?>
-
 		<td><?php echo $subasta['Subasta']['nombre']; ?>&nbsp;</td>
-
 		<td><?php echo $html->image($subasta['Subasta']['imagen_path'],array("width"=>"200")); ?>&nbsp;</td>
-
 		<td><?php echo $subasta['Subasta']['estado']; ?>&nbsp;</td>
-
 		<td class="actions">
 			<?php echo $this->Html->link(__('Ver', true), array('action' => 'view', $subasta['Subasta']['id'])); ?>
 			<?php echo $this->Html->link(__('Modificar', true), array('action' => 'edit', $subasta['Subasta']['id'])); ?>
