@@ -1,5 +1,5 @@
 <?php
-class AddShell extends Shell {
+class ActivarSubastasShell extends Shell {
 
 	var $uses = array('Subasta');
 

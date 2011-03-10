@@ -6,26 +6,33 @@
 			<?php echo $subasta['Subasta']['nombre']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Tipo Subasta'); ?></dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $subasta['TipoSubasta']['nombre']; ?>
-			&nbsp;
-		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Descripcion'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $subasta['Subasta']['descripcion']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Valor'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Tipo Subasta'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $subasta['Subasta']['valor']; ?>
+			<?php echo $subasta['TipoSubasta']['nombre']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Umbral Minimo Creditos'); ?></dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>length
-			<?php echo $subasta['Subasta']['umbral_minimo_creditos']; ?>
-			&nbsp;
-		</dd>
+		<?php
+			echo '<dt';
+			if ($i % 2 == 0) echo $class;
+			echo '>';
+			if($subasta['TipoSubasta']['id'] == 1) {
+				__('Valor');	
+			} else {
+				__('Mínimo De Creditos');
+			}
+			echo '</dt><dd';
+			if ($i++ % 2 == 0) echo $class;
+			if($subasta['TipoSubasta']['id'] == 1) {
+				echo '>$'.$subasta['Subasta']['valor'].'&nbsp;</dd>';
+			} else {
+				echo '>'.$subasta['Subasta']['umbral_minimo_creditos'].'&nbsp;</dd>';
+			}		 
+		?>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Dias Espera'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $subasta['Subasta']['dias_espera']; ?>
@@ -51,12 +58,12 @@
 			<?php echo $subasta['Subasta']['fecha_de_venta']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Created'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Fecha Inicio'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $subasta['Subasta']['created']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Updated'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Fecha Actualización'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $subasta['Subasta']['updated']; ?>
 			&nbsp;
