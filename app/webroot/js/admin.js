@@ -10,16 +10,13 @@ $(function() {
 
 	// iniciar los campos
 	//
-	$("#SubastaValor").val("0");
-	$("#SubastaUmbralMinimoCreditos").val("0");
-	$("#SubastaEstado").val("Esperando Activación");
-	$("#SubastaPosicionEnCola").val("-1");
-	
-	// ocultar campos
-	//
-	$("#SubastaValor").parent().hide();
-	$("#SubastaUmbralMinimoCreditos").parent().hide();
-	
+	if ($("#SubastaValor").val() == "") {
+		$("#SubastaValor").val("0");
+		$("#SubastaUmbralMinimoCreditos").val("0");
+		$("#SubastaEstado").val("Esperando Activación");
+		$("#SubastaPosicionEnCola").val("-1");
+	}
+
 	// mostrar el campo actualmente seleccionado
 	//
 	if ($("#SubastaTipoSubastaId option:selected").val() == "1") {

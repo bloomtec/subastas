@@ -7,7 +7,7 @@
 		echo $this->Form->input('nombre');
 		echo $this->Form->input('descripcion');
 		echo $this->Form->input('tipo_subasta_id');
-		echo $this->Form->input('valor_actual');
+		echo $this->Form->input('valor');
 		echo $this->Form->input('umbral_minimo_creditos');
 		echo $this->Form->input('dias_espera');
 		echo $this->Form->input('contenido_pagina');

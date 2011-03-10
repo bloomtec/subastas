@@ -22,7 +22,7 @@
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Umbral Minimo Creditos'); ?></dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>length
 			<?php echo $subasta['Subasta']['umbral_minimo_creditos']; ?>
 			&nbsp;
 		</dd>
