@@ -13,7 +13,7 @@ $(function() {
 	if ($("#SubastaValor").val() == "") {
 		$("#SubastaValor").val("0");
 		$("#SubastaUmbralMinimoCreditos").val("0");
-		$("#SubastaEstado").val("Esperando Activación");
+		$("#SubastaEstadoId").val("1");
 		$("#SubastaPosicionEnCola").val("-1");
 	}
 

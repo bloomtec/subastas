@@ -8,11 +8,8 @@
 		echo $this->Form->input('tipo_subasta_id');
 		echo $this->Form->input('valor');
 		echo $this->Form->input('umbral_minimo_creditos');
-		//echo $this->Form->input('dias_espera');
-		//echo $this->Form->input('contenido_pagina');
 		echo $this->Form->input('posicion_en_cola', array("type" => "hidden"));
-		echo $this->Form->input('estado', array("type" => "hidden"));
-		//echo $this->Form->input('fecha_de_venta');
+		echo $this->Form->input('estado_id', array("type" => "hidden"));
 		echo $this->Form->input('imagen_path',array("id"=>"single-field","type"=>"hidden"));
 	?>
 	</fieldset>
