@@ -124,8 +124,8 @@ class Subasta extends AppModel {
 			),
 		),
 		'fecha_de_venta' => array(
-			'date' => array(
-				'rule' => array('date'),
+			'notempty' => array(
+				'rule' => array('notempty'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,

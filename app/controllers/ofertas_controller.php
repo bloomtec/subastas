@@ -26,7 +26,7 @@ class OfertasController extends AppController {
 				$this->Session->setFlash(__('The oferta could not be saved. Please, try again.', true));
 			}
 		}
-		$subastas = $this->Oferta->Subastum->find('list');
+		$subastas = $this->Oferta->Subasta->find('list');
 		$users = $this->Oferta->User->find('list');
 		$this->set(compact('subastas', 'users'));
 	}
@@ -47,7 +47,7 @@ class OfertasController extends AppController {
 		if (empty($this->data)) {
 			$this->data = $this->Oferta->read(null, $id);
 		}
-		$subastas = $this->Oferta->Subastum->find('list');
+		$subastas = $this->Oferta->Subasta->find('list');
 		$users = $this->Oferta->User->find('list');
 		$this->set(compact('subastas', 'users'));
 	}
@@ -87,7 +87,7 @@ class OfertasController extends AppController {
 				$this->Session->setFlash(__('The oferta could not be saved. Please, try again.', true));
 			}
 		}
-		$subastas = $this->Oferta->Subastum->find('list');
+		$subastas = $this->Oferta->Subasta->find('list');
 		$users = $this->Oferta->User->find('list');
 		$this->set(compact('subastas', 'users'));
 	}
@@ -108,7 +108,7 @@ class OfertasController extends AppController {
 		if (empty($this->data)) {
 			$this->data = $this->Oferta->read(null, $id);
 		}
-		$subastas = $this->Oferta->Subastum->find('list');
+		$subastas = $this->Oferta->Subasta->find('list');
 		$users = $this->Oferta->User->find('list');
 		$this->set(compact('subastas', 'users'));
 	}

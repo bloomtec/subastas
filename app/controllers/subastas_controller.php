@@ -81,10 +81,11 @@ class SubastasController extends AppController {
 		if (!empty($this->data)) {
 			$this->Subasta->create();
 			if ($this->Subasta->save($this->data)) {
-				$this->Session->setFlash(__('The subasta has been saved', true));
+				$this->Session->setFlash(__('Se añadió la subasta.', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The subasta could not be saved. Please, try again.', true));
+				$this->Session->setFlash(__('La subasta no se pudo añadir. Por favor intente de nuevo.', true));
+				debug($this->Subasta->invalidFields());
 			}
 		}
 		$tipoSubastas = $this->Subasta->TipoSubasta->find('list');
@@ -94,15 +95,15 @@ class SubastasController extends AppController {
 
 	function admin_edit($id = null) {
 		if (!$id && empty($this->data)) {
-			$this->Session->setFlash(__('Invalid subasta', true));
+			$this->Session->setFlash(__('Subasta no valida', true));
 			$this->redirect(array('action' => 'index'));
 		}
 		if (!empty($this->data)) {
 			if ($this->Subasta->save($this->data)) {
-				$this->Session->setFlash(__('The subasta has been saved', true));
+				$this->Session->setFlash(__('Se ha modificado la subasta', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The subasta could not be saved. Please, try again.', true));
+				$this->Session->setFlash(__('La subasta no se pudo modificar. Por favor intente de nuevo.', true));
 			}
 		}
 		if (empty($this->data)) {

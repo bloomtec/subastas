@@ -8,19 +8,8 @@ $(function() {
 	 * añadir subasta (admin)
 	 */
 
-	// iniciar los campos
-	//
-	if ($("#SubastaValor").val() == "") {
-		$("#SubastaValor").val("0");
-		$("#SubastaUmbralMinimoCreditos").val("0");
-		$("#SubastaEstadoId").val("1");
-		$("#SubastaPosicionEnCola").val("-1");
-		$("#SubastaDiasEspera").val("0");
-	} else {
-		//
-	}
-
-	// mostrar el campo actualmente seleccionado
+	// mostrar el campo que corresponde al tipo de subasta
+	// actualmente seleccionado
 	//
 	if ($("#SubastaTipoSubastaId option:selected").val() == "1") {
 		$("#SubastaValor").parent().show();
@@ -30,7 +19,8 @@ $(function() {
 		$("#SubastaUmbralMinimoCreditos").parent().show();
 	}
 
-	// evento para mostrar el nuevo campo seleccionado
+	// evento para mostrar el nuevo campo seleccionado que
+	// corresponde al tipo de subasta
 	//
 	$("#SubastaTipoSubastaId").change(function() {
 		if ($("#SubastaTipoSubastaId option:selected").val() == "1") {
@@ -42,14 +32,4 @@ $(function() {
 		}
 	});
 	
-	// ocultar los campos de posicion en cola y estado si
-	// se encuentra en espera
-	//
-	if ($("#SubastaPosicionEnCola").val() == "-1"){
-		$("#SubastaPosicionEnCola").parent().hide();
-		$("#SubastaEstadoId").parent().hide();
-	} else {
-		//
-	}
-
 });
