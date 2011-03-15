@@ -8,7 +8,7 @@
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Tipo Subasta'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $this->Html->link($subasta['TipoSubasta']['id'], array('controller' => 'tipo_subastas', 'action' => 'view', $subasta['TipoSubasta']['id'])); ?>
+			<?php echo $this->Html->link($subasta['TipoSubasta']['nombre'], array('controller' => 'tipo_subastas', 'action' => 'view', $subasta['TipoSubasta']['id'])); ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Nombre'); ?></dt>
@@ -26,9 +26,9 @@
 			<?php echo $subasta['Subasta']['imagen_path']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Valor Actual'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Valor'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $subasta['Subasta']['valor_actual']; ?>
+			<?php echo $subasta['Subasta']['valor']; ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Umbral Minimo Creditos'); ?></dt>
@@ -51,14 +51,14 @@
 			<?php echo $subasta['Subasta']['posicion_en_cola']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Estado'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Fecha De Venta'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $subasta['Subasta']['estado']; ?>
+			<?php echo $subasta['Subasta']['fecha_de_venta']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Fecha Inicio Subasta'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Estados Subasta'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $subasta['Subasta']['fecha_inicio_subasta']; ?>
+			<?php echo $this->Html->link($subasta['EstadosSubasta']['nombre'], array('controller' => 'estados_subastas', 'action' => 'view', $subasta['EstadosSubasta']['id'])); ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Created'); ?></dt>
@@ -82,6 +82,8 @@
 		<li><?php echo $this->Html->link(__('New Subasta', true), array('action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Tipo Subastas', true), array('controller' => 'tipo_subastas', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Tipo Subasta', true), array('controller' => 'tipo_subastas', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Estados Subastas', true), array('controller' => 'estados_subastas', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Estados Subasta', true), array('controller' => 'estados_subastas', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Ventas', true), array('controller' => 'ventas', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Venta', true), array('controller' => 'ventas', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Ofertas', true), array('controller' => 'ofertas', 'action' => 'index')); ?> </li>
@@ -104,9 +106,9 @@
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 	<?php echo $subasta['Venta']['user_id'];?>
 &nbsp;</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Estado');?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Estados Venta Id');?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-	<?php echo $subasta['Venta']['estado'];?>
+	<?php echo $subasta['Venta']['estados_venta_id'];?>
 &nbsp;</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Created');?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>

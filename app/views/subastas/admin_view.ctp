@@ -1,6 +1,16 @@
-<div class="subastas with-image">
+<div class="subastas view">
 <h2><?php  __('Subasta');?></h2>
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Id'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $subasta['Subasta']['id']; ?>
+			&nbsp;
+		</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Tipo Subasta'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $this->Html->link($subasta['TipoSubasta']['nombre'], array('controller' => 'tipo_subastas', 'action' => 'view', $subasta['TipoSubasta']['id'])); ?>
+			&nbsp;
+		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Nombre'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $subasta['Subasta']['nombre']; ?>
@@ -11,28 +21,21 @@
 			<?php echo $subasta['Subasta']['descripcion']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Tipo Subasta'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Imagen Path'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $subasta['TipoSubasta']['nombre']; ?>
+			<?php echo $subasta['Subasta']['imagen_path']; ?>
 			&nbsp;
 		</dd>
-		<?php
-			echo '<dt';
-			if ($i % 2 == 0) echo $class;
-			echo '>';
-			if($subasta['TipoSubasta']['id'] == 1) {
-				__('Valor');	
-			} else {
-				__('Mínimo De Creditos');
-			}
-			echo '</dt><dd';
-			if ($i++ % 2 == 0) echo $class;
-			if($subasta['TipoSubasta']['id'] == 1) {
-				echo '>$'.$subasta['Subasta']['valor'].'&nbsp;</dd>';
-			} else {
-				echo '>'.$subasta['Subasta']['umbral_minimo_creditos'].'&nbsp;</dd>';
-			}		 
-		?>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Valor'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $subasta['Subasta']['valor']; ?>
+			&nbsp;
+		</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Umbral Minimo Creditos'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $subasta['Subasta']['umbral_minimo_creditos']; ?>
+			&nbsp;
+		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Dias Espera'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $subasta['Subasta']['dias_espera']; ?>
@@ -48,63 +51,83 @@
 			<?php echo $subasta['Subasta']['posicion_en_cola']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Estado'); ?></dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $subasta['Estado']['nombre']; ?>
-			&nbsp;
-		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Fecha De Venta'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $subasta['Subasta']['fecha_de_venta']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Fecha Inicio'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Estados Subasta'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $this->Html->link($subasta['EstadosSubasta']['nombre'], array('controller' => 'estados_subastas', 'action' => 'view', $subasta['EstadosSubasta']['id'])); ?>
+			&nbsp;
+		</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Created'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $subasta['Subasta']['created']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Fecha Actualización'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Updated'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $subasta['Subasta']['updated']; ?>
 			&nbsp;
 		</dd>
 	</dl>
 </div>
-
-<div class="image">
-	<?php echo $html->image($subasta['Subasta']['imagen_path']); ?>
+<div class="actions">
+	<h3><?php __('Actions'); ?></h3>
+	<ul>
+		<li><?php echo $this->Html->link(__('Edit Subasta', true), array('action' => 'edit', $subasta['Subasta']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('Delete Subasta', true), array('action' => 'delete', $subasta['Subasta']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $subasta['Subasta']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('List Subastas', true), array('action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Subasta', true), array('action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Tipo Subastas', true), array('controller' => 'tipo_subastas', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Tipo Subasta', true), array('controller' => 'tipo_subastas', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Estados Subastas', true), array('controller' => 'estados_subastas', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Estados Subasta', true), array('controller' => 'estados_subastas', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Ventas', true), array('controller' => 'ventas', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Venta', true), array('controller' => 'ventas', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Ofertas', true), array('controller' => 'ofertas', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Oferta', true), array('controller' => 'ofertas', 'action' => 'add')); ?> </li>
+	</ul>
 </div>
-
-<div class="related">
-	<h3><?php __('Venta Relacionada');?></h3>
+	<div class="related">
+		<h3><?php __('Related Ventas');?></h3>
 	<?php if (!empty($subasta['Venta'])):?>
-	<dl>	<?php $i = 0; $class = ' class="altrow"';?>
-	<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('ID Subasta');?></dt>
-	<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+		<dl>	<?php $i = 0; $class = ' class="altrow"';?>
+			<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Id');?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+	<?php echo $subasta['Venta']['id'];?>
+&nbsp;</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Subasta Id');?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 	<?php echo $subasta['Venta']['subasta_id'];?>
-	&nbsp;</dd>
-	<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('ID Usuario');?></dt>
-	<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+&nbsp;</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('User Id');?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 	<?php echo $subasta['Venta']['user_id'];?>
-	&nbsp;</dd>
-	<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Estado');?></dt>
-	<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-	<?php echo $subasta['Venta']['estado'];?>
-	&nbsp;</dd>
-	<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Creada');?></dt>
-	<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+&nbsp;</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Estados Venta Id');?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+	<?php echo $subasta['Venta']['estados_venta_id'];?>
+&nbsp;</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Created');?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 	<?php echo $subasta['Venta']['created'];?>
-	&nbsp;</dd>
-	<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Actualizada');?></dt>
-	<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+&nbsp;</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Updated');?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 	<?php echo $subasta['Venta']['updated'];?>
-	&nbsp;</dd>
-	</dl>
+&nbsp;</dd>
+		</dl>
 	<?php endif; ?>
-</div>
-	
-<div class="related">
-	<h3><?php __('Ofertas Relacionadas');?></h3>
+		<div class="actions">
+			<ul>
+				<li><?php echo $this->Html->link(__('Edit Venta', true), array('controller' => 'ventas', 'action' => 'edit', $subasta['Venta']['id'])); ?></li>
+			</ul>
+		</div>
+	</div>
+	<div class="related">
+	<h3><?php __('Related Ofertas');?></h3>
 	<?php if (!empty($subasta['Oferta'])):?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
@@ -132,13 +155,18 @@
 			<td><?php echo $oferta['created'];?></td>
 			<td><?php echo $oferta['updated'];?></td>
 			<td class="actions">
-				<?php echo $this->Html->link(__('Ver', true), array('controller' => 'ofertas', 'action' => 'view', $oferta['id'])); ?>
-				<?php echo $this->Html->link(__('Modificar', true), array('controller' => 'ofertas', 'action' => 'edit', $oferta['id'])); ?>
-				<?php echo $this->Html->link(__('Borrar', true), array('controller' => 'ofertas', 'action' => 'delete', $oferta['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $oferta['id'])); ?>
+				<?php echo $this->Html->link(__('View', true), array('controller' => 'ofertas', 'action' => 'view', $oferta['id'])); ?>
+				<?php echo $this->Html->link(__('Edit', true), array('controller' => 'ofertas', 'action' => 'edit', $oferta['id'])); ?>
+				<?php echo $this->Html->link(__('Delete', true), array('controller' => 'ofertas', 'action' => 'delete', $oferta['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $oferta['id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
 	</table>
 <?php endif; ?>
 
+	<div class="actions">
+		<ul>
+			<li><?php echo $this->Html->link(__('New Oferta', true), array('controller' => 'ofertas', 'action' => 'add'));?> </li>
+		</ul>
+	</div>
 </div>

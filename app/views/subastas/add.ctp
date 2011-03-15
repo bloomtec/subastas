@@ -12,8 +12,8 @@
 		echo $this->Form->input('dias_espera');
 		echo $this->Form->input('contenido_pagina');
 		echo $this->Form->input('posicion_en_cola');
-		echo $this->Form->input('estado');
 		echo $this->Form->input('fecha_de_venta');
+		echo $this->Form->input('estados_subasta_id');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit', true));?>
@@ -25,6 +25,8 @@
 		<li><?php echo $this->Html->link(__('List Subastas', true), array('action' => 'index'));?></li>
 		<li><?php echo $this->Html->link(__('List Tipo Subastas', true), array('controller' => 'tipo_subastas', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Tipo Subasta', true), array('controller' => 'tipo_subastas', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Estados Subastas', true), array('controller' => 'estados_subastas', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Estados Subasta', true), array('controller' => 'estados_subastas', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Ventas', true), array('controller' => 'ventas', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Venta', true), array('controller' => 'ventas', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Ofertas', true), array('controller' => 'ofertas', 'action' => 'index')); ?> </li>

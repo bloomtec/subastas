@@ -15,6 +15,9 @@ $(function() {
 		$("#SubastaUmbralMinimoCreditos").val("0");
 		$("#SubastaEstadoId").val("1");
 		$("#SubastaPosicionEnCola").val("-1");
+		$("#SubastaDiasEspera").val("0");
+	} else {
+		//
 	}
 
 	// mostrar el campo actualmente seleccionado
@@ -38,5 +41,15 @@ $(function() {
 			$("#SubastaUmbralMinimoCreditos").parent().show();
 		}
 	});
+	
+	// ocultar los campos de posicion en cola y estado si
+	// se encuentra en espera
+	//
+	if ($("#SubastaPosicionEnCola").val() == "-1"){
+		$("#SubastaPosicionEnCola").parent().hide();
+		$("#SubastaEstadoId").parent().hide();
+	} else {
+		//
+	}
 
 });

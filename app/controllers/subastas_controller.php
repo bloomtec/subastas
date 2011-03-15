@@ -26,9 +26,9 @@ class SubastasController extends AppController {
 				$this->Session->setFlash(__('The subasta could not be saved. Please, try again.', true));
 			}
 		}
-		$tipoSubastas = $this->Subasta->TipoSubastum->find('list');
-		$estados = $this->Subasta->Estado->find('list');
-		$this->set(compact('tipoSubastas', 'estados'));
+		$tipoSubastas = $this->Subasta->TipoSubasta->find('list');
+		$estadosSubastas = $this->Subasta->EstadosSubasta->find('list');
+		$this->set(compact('tipoSubastas', 'estadosSubastas'));
 	}
 
 	function edit($id = null) {
@@ -47,9 +47,9 @@ class SubastasController extends AppController {
 		if (empty($this->data)) {
 			$this->data = $this->Subasta->read(null, $id);
 		}
-		$tipoSubastas = $this->Subasta->TipoSubastum->find('list');
-		$estados = $this->Subasta->Estado->find('list');
-		$this->set(compact('tipoSubastas', 'estados'));
+		$tipoSubastas = $this->Subasta->TipoSubasta->find('list');
+		$estadosSubastas = $this->Subasta->EstadosSubasta->find('list');
+		$this->set(compact('tipoSubastas', 'estadosSubastas'));
 	}
 
 	function delete($id = null) {
@@ -88,8 +88,8 @@ class SubastasController extends AppController {
 			}
 		}
 		$tipoSubastas = $this->Subasta->TipoSubasta->find('list');
-		$estados = $this->Subasta->Estado->find('list');
-		$this->set(compact('tipoSubastas', 'estados'));
+		$estadosSubastas = $this->Subasta->EstadosSubasta->find('list');
+		$this->set(compact('tipoSubastas', 'estadosSubastas'));
 	}
 
 	function admin_edit($id = null) {
@@ -109,8 +109,8 @@ class SubastasController extends AppController {
 			$this->data = $this->Subasta->read(null, $id);
 		}
 		$tipoSubastas = $this->Subasta->TipoSubasta->find('list');
-		$estados = $this->Subasta->Estado->find('list');
-		$this->set(compact('tipoSubastas', 'estados'));
+		$estadosSubastas = $this->Subasta->EstadosSubasta->find('list');
+		$this->set(compact('tipoSubastas', 'estadosSubastas'));
 	}
 
 	function admin_delete($id = null) {
