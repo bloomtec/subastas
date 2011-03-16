@@ -100,7 +100,7 @@
 	</dl>
 </div>
 <div class="actions">
-	<h3><?php __('Acciones'); ?></h3>
+	<h3><?php __('Menú'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('Modificar', true), array('action' => 'edit', $subasta['Subasta']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('Borrar', true), array('action' => 'delete', $subasta['Subasta']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $subasta['Subasta']['id'])); ?> </li>

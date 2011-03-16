@@ -70,7 +70,7 @@
 	</div>
 </div>
 <div class="actions">
-	<h3><?php __('Acciones'); ?></h3>
+	<h3><?php __('Menú'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('Crear Una Subasta', true), array('action' => 'add')); ?></li>
 		<!-- <li><?php echo $this->Html->link(__('Tipos de Subasta', true), array('controller' => 'tipo_subastas', 'action' => 'index')); ?> </li> -->
@@ -81,5 +81,6 @@
 		<!-- <li><?php echo $this->Html->link(__('Nueva Venta', true), array('controller' => 'ventas', 'action' => 'add')); ?> </li> -->
 		<li><?php echo $this->Html->link(__('Ofertas', true), array('controller' => 'ofertas', 'action' => 'index')); ?> </li>
 		<!-- <li><?php echo $this->Html->link(__('Nueva Oferta', true), array('controller' => 'ofertas', 'action' => 'add')); ?> </li> -->
+		<li><?php echo $this->Html->link(__('Usuarios', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
 	</ul>
 </div>

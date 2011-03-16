@@ -25,13 +25,13 @@
 	</div>
 </div>
 <div class="actions">
-	<h3><?php __('Acciones'); ?></h3>
+	<h3><?php __('Menú'); ?></h3>
 	<ul>
 
 		<li><?php echo $this->Html->link(__('Subastas', true), array('action' => 'index'));?></li>
-		<li><?php echo $this->Html->link(__('Tipos De Subasta', true), array('controller' => 'tipo_subastas', 'action' => 'index')); ?> </li>
+		<!-- <li><?php echo $this->Html->link(__('Tipos De Subasta', true), array('controller' => 'tipo_subastas', 'action' => 'index')); ?> </li> -->
 		<!-- <li><?php echo $this->Html->link(__('Nuevo Tipo De Subasta', true), array('controller' => 'tipo_subastas', 'action' => 'add')); ?> </li> -->
-		<li><?php echo $this->Html->link(__('Estados De Una Subasta', true), array('controller' => 'estados_subastas', 'action' => 'index')); ?> </li>
+		<!-- <li><?php echo $this->Html->link(__('Estados De Una Subasta', true), array('controller' => 'estados_subastas', 'action' => 'index')); ?> </li> -->
 		<!-- <li><?php echo $this->Html->link(__('New Estados Subasta', true), array('controller' => 'estados_subastas', 'action' => 'add')); ?> </li> -->
 		<li><?php echo $this->Html->link(__('Ventas', true), array('controller' => 'ventas', 'action' => 'index')); ?> </li>
 		<!-- <li><?php echo $this->Html->link(__('Nueva Venta', true), array('controller' => 'ventas', 'action' => 'add')); ?> </li> -->
