@@ -15,7 +15,9 @@
 	<h3><?php __('Menú'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('Usuarios', true), array('action' => 'index'));?></li>
-		<li><?php echo $this->Html->link(__('Borrar', true), array('action' => 'delete', $this->Form->value('User.id')), null, sprintf(__('Are you sure you want to delete # %s?', true), $this->Form->value('User.id'))); ?></li>
+		<i>
+			<li><?php echo $this->Html->link(__('Eliminar Usuario', true), array('action' => 'delete', $this->Form->value('User.id')), null, sprintf(__('Are you sure you want to delete # %s?', true), $this->Form->value('User.id'))); ?></li>
+		</i>
 		<li><?php echo $this->Html->link(__('Subastas', true), array('controller' => 'subastas', 'action' => 'index'));?></li>
 		<li><?php echo $this->Html->link(__('Ventas', true), array('controller' => 'ventas', 'action' => 'index'));?></li>
 		<li><?php echo $this->Html->link(__('Ofertas', true), array('controller' => 'ofertas', 'action' => 'index'));?></li>

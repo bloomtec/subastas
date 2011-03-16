@@ -5,10 +5,10 @@
 			<!-- <th><?php echo $this->Paginator->sort('id');?></th> -->
 			<!-- <th><?php echo $this->Paginator->sort('tipo_subasta_id');?></th> -->
 			<th><?php echo $this->Paginator->sort('nombre');?></th>
-			<!-- <th><?php echo $this->Paginator->sort('descripcion');?></th> -->
+			<th><?php echo $this->Paginator->sort('descripcion');?></th>
+			<th><?php echo $this->Paginator->sort('valor');?></th>
+			<th><?php echo $this->Paginator->sort('umbral_minimo_creditos');?></th>
 			<th><?php echo $this->Paginator->sort('imagen_path');?></th>
-			<!-- <th><?php echo $this->Paginator->sort('valor');?></th> -->
-			<!-- <th><?php echo $this->Paginator->sort('umbral_minimo_creditos');?></th> -->
 			<!-- <th><?php echo $this->Paginator->sort('dias_espera');?></th> -->
 			<!-- <th><?php echo $this->Paginator->sort('contenido_pagina');?></th> -->
 			<!-- <th><?php echo $this->Paginator->sort('posicion_en_cola');?></th> -->
@@ -32,11 +32,20 @@
 			<!-- <?php echo $this->Html->link($subasta['TipoSubasta']['nombre'], array('controller' => 'tipo_subastas', 'action' => 'view', $subasta['TipoSubasta']['id'])); ?> -->
 		<!-- </td> -->
 		<td><?php echo $subasta['Subasta']['nombre']; ?>&nbsp;</td>
-		<!-- <td><?php echo $subasta['Subasta']['descripcion']; ?>&nbsp;</td> -->
-		<!-- <td><?php echo $subasta['Subasta']['imagen_path']; ?>&nbsp;</td> -->
-		<td><?php echo $html->image($subasta['Subasta']['imagen_path'],array("width"=>"200")); ?>&nbsp;</td>
+		<td><?php echo $subasta['Subasta']['descripcion']; ?>&nbsp;</td>
+		<?php
+			if($subasta['Subasta']['tipo_subasta_id'] == 1){
+				echo '<td>'.$subasta['Subasta']['valor'].'&nbsp;</td>';
+				echo '<td>'.'&nbsp;</td>';
+			} else {
+				echo '<td>'.'&nbsp;</td>';
+				echo '<td>'.$subasta['Subasta']['umbral_minimo_creditos'].'&nbsp;</td>';
+			}
+		?>
 		<!-- <td><?php echo $subasta['Subasta']['valor']; ?>&nbsp;</td> -->
 		<!-- <td><?php echo $subasta['Subasta']['umbral_minimo_creditos']; ?>&nbsp;</td> -->
+		<!-- <td><?php echo $subasta['Subasta']['imagen_path']; ?>&nbsp;</td> -->
+		<td><?php echo $html->image($subasta['Subasta']['imagen_path'],array("width"=>"200")); ?>&nbsp;</td>
 		<!-- <td><?php echo $subasta['Subasta']['dias_espera']; ?>&nbsp;</td> -->
 		<!-- <td><?php echo $subasta['Subasta']['contenido_pagina']; ?>&nbsp;</td> -->
 		<!-- <td><?php echo $subasta['Subasta']['posicion_en_cola']; ?>&nbsp;</td> -->
@@ -50,7 +59,7 @@
 		<td class="actions">
 			<?php echo $this->Html->link(__('Ver', true), array('action' => 'view', $subasta['Subasta']['id'])); ?>
 			<?php echo $this->Html->link(__('Modificar', true), array('action' => 'edit', $subasta['Subasta']['id'])); ?>
-			<?php echo $this->Html->link(__('Borrar', true), array('action' => 'delete', $subasta['Subasta']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $subasta['Subasta']['id'])); ?>
+			<?php echo $this->Html->link(__('Eliminar', true), array('action' => 'delete', $subasta['Subasta']['id']), null, sprintf(__('¿Eliminar la subasta %s?', true), $subasta['Subasta']['nombre'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -58,7 +67,7 @@
 	<p>
 	<?php
 	echo $this->Paginator->counter(array(
-	'format' => __('Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%', true)
+	'format' => __('Página %page% de %pages%, mostrando %current% registros de %count% en total, mostrando desde el registro %start%, hasta el %end%', true)
 	));
 	?>	</p>
 

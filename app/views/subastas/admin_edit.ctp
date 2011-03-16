@@ -33,7 +33,9 @@
 	<h3><?php __('Menú'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('Subastas', true), array('action' => 'index'));?></li>
-		<li><?php echo $this->Html->link(__('Borrar', true), array('action' => 'delete', $this->Form->value('Subasta.id')), null, sprintf(__('Are you sure you want to delete # %s?', true), $this->Form->value('Subasta.id'))); ?></li>
+		<i>
+			<li><?php echo $this->Html->link(__('Eliminar Subasta', true), array('action' => 'delete', $this->Form->value('Subasta.id')), null, sprintf(__('Are you sure you want to delete # %s?', true), $this->Form->value('Subasta.id'))); ?></li>
+		</i>
 		<!-- <li><?php echo $this->Html->link(__('List Tipo Subastas', true), array('controller' => 'tipo_subastas', 'action' => 'index')); ?> </li> -->
 		<!-- <li><?php echo $this->Html->link(__('New Tipo Subasta', true), array('controller' => 'tipo_subastas', 'action' => 'add')); ?> </li> -->
 		<!-- <li><?php echo $this->Html->link(__('List Estados Subastas', true), array('controller' => 'estados_subastas', 'action' => 'index')); ?> </li> -->

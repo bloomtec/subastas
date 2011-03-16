@@ -2,13 +2,13 @@
 	<h2><?php __('Ofertas');?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
-			<th><?php echo $this->Paginator->sort('id');?></th>
+			<!-- <th><?php echo $this->Paginator->sort('id');?></th> -->
 			<th><?php echo $this->Paginator->sort('subasta_id');?></th>
 			<th><?php echo $this->Paginator->sort('user_id');?></th>
 			<th><?php echo $this->Paginator->sort('creditos_descontados');?></th>
 			<th><?php echo $this->Paginator->sort('created');?></th>
 			<th><?php echo $this->Paginator->sort('updated');?></th>
-			<th class="actions"><?php __('Actions');?></th>
+			<th class="actions"><?php __('Acciones');?></th>
 	</tr>
 	<?php
 	$i = 0;
@@ -19,7 +19,7 @@
 		}
 	?>
 	<tr<?php echo $class;?>>
-		<td><?php echo $oferta['Oferta']['id']; ?>&nbsp;</td>
+		<!-- <td><?php echo $oferta['Oferta']['id']; ?>&nbsp;</td> -->
 		<td>
 			<?php echo $this->Html->link($oferta['Subasta']['nombre'], array('controller' => 'subastas', 'action' => 'view', $oferta['Subasta']['id'])); ?>
 		</td>
@@ -30,9 +30,9 @@
 		<td><?php echo $oferta['Oferta']['created']; ?>&nbsp;</td>
 		<td><?php echo $oferta['Oferta']['updated']; ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View', true), array('action' => 'view', $oferta['Oferta']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit', true), array('action' => 'edit', $oferta['Oferta']['id'])); ?>
-			<?php echo $this->Html->link(__('Delete', true), array('action' => 'delete', $oferta['Oferta']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $oferta['Oferta']['id'])); ?>
+			<?php echo $this->Html->link(__('Ver', true), array('action' => 'view', $oferta['Oferta']['id'])); ?>
+			<?php echo $this->Html->link(__('Modificar', true), array('action' => 'edit', $oferta['Oferta']['id'])); ?>
+			<?php echo $this->Html->link(__('Eliminar', true), array('action' => 'delete', $oferta['Oferta']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $oferta['Oferta']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -40,7 +40,7 @@
 	<p>
 	<?php
 	echo $this->Paginator->counter(array(
-	'format' => __('Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%', true)
+	'format' => __('Página %page% de %pages%, mostrando %current% registros de %count% en total, mostrando desde el registro %start%, hasta el %end%', true)
 	));
 	?>	</p>
 
@@ -56,8 +56,9 @@
 	<ul>
 		<li><?php echo $this->Html->link(__('Crear Una Oferta', true), array('action' => 'add')); ?></li>
 		<li><?php echo $this->Html->link(__('Subastas', true), array('controller' => 'subastas', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Ventas', true), array('controller' => 'ventas', 'action' => 'index')); ?> </li>
 		<!-- <li><?php echo $this->Html->link(__('Crear Una Subasta', true), array('controller' => 'subastas', 'action' => 'add')); ?> </li> -->
-		<!-- <li><?php echo $this->Html->link(__('Usuarios', true), array('controller' => 'users', 'action' => 'index')); ?> </li> -->
+		<li><?php echo $this->Html->link(__('Usuarios', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
 		<!-- <li><?php echo $this->Html->link(__('Crear Un Usuario', true), array('controller' => 'users', 'action' => 'add')); ?> </li> -->
 	</ul>
 </div>
