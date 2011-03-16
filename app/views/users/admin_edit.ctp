@@ -14,7 +14,7 @@
 <div class="actions">
 	<h3><?php __('Menú'); ?></h3>
 	<ul>
-
+		<li><?php echo $this->Html->link(__('Usuarios', true), array('action' => 'index'));?></li>
 		<li><?php echo $this->Html->link(__('Borrar', true), array('action' => 'delete', $this->Form->value('User.id')), null, sprintf(__('Are you sure you want to delete # %s?', true), $this->Form->value('User.id'))); ?></li>
 		<li><?php echo $this->Html->link(__('Subastas', true), array('controller' => 'subastas', 'action' => 'index'));?></li>
 		<li><?php echo $this->Html->link(__('Ventas', true), array('controller' => 'ventas', 'action' => 'index'));?></li>
@@ -23,6 +23,5 @@
 		<!-- <li><?php echo $this->Html->link(__('New Role', true), array('controller' => 'roles', 'action' => 'add')); ?> </li> -->
 		<!-- <li><?php echo $this->Html->link(__('List User Fields', true), array('controller' => 'user_fields', 'action' => 'index')); ?> </li> -->
 		<!-- <li><?php echo $this->Html->link(__('New User Field', true), array('controller' => 'user_fields', 'action' => 'add')); ?> </li> -->
-		<li><?php echo $this->Html->link(__('Atras', true), array('action' => 'index'));?></li>
 	</ul>
 </div>

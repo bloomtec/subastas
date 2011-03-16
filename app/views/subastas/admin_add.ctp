@@ -1,7 +1,7 @@
 <div class="subastas form">
 <?php echo $this->Form->create('Subasta');?>
 	<fieldset>
- 		<legend><?php __('Añadir Subasta'); ?></legend>
+ 		<legend><?php __('Crear Una Subasta'); ?></legend>
 	<?php
 		echo $this->Form->input('nombre');
 		echo $this->Form->input('descripcion');
@@ -39,5 +39,6 @@
 		<!-- <li><?php echo $this->Html->link(__('Nueva Venta', true), array('controller' => 'ventas', 'action' => 'add')); ?> </li> -->
 		<li><?php echo $this->Html->link(__('Ofertas', true), array('controller' => 'ofertas', 'action' => 'index')); ?> </li>
 		<!-- <li><?php echo $this->Html->link(__('Nueva Oferta', true), array('controller' => 'ofertas', 'action' => 'add')); ?> </li> -->
+		<li><?php echo $this->Html->link(__('Usuarios', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
 	</ul>
 </div>
