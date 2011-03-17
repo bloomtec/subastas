@@ -5,7 +5,7 @@
 			<!-- <th><?php echo $this->Paginator->sort('id');?></th> -->
 			<!-- <th><?php echo $this->Paginator->sort('tipo_subasta_id');?></th> -->
 			<th><?php echo $this->Paginator->sort('nombre');?></th>
-			<th><?php echo $this->Paginator->sort('descripcion');?></th>
+			<!-- <th><?php echo $this->Paginator->sort('descripcion');?></th> -->
 			<th><?php echo $this->Paginator->sort('valor');?></th>
 			<th><?php echo $this->Paginator->sort('umbral_minimo_creditos');?></th>
 			<th><?php echo $this->Paginator->sort('imagen_path');?></th>
@@ -32,7 +32,7 @@
 			<!-- <?php echo $this->Html->link($subasta['TipoSubasta']['nombre'], array('controller' => 'tipo_subastas', 'action' => 'view', $subasta['TipoSubasta']['id'])); ?> -->
 		<!-- </td> -->
 		<td><?php echo $subasta['Subasta']['nombre']; ?>&nbsp;</td>
-		<td><?php echo $subasta['Subasta']['descripcion']; ?>&nbsp;</td>
+		<!-- <td><?php echo $subasta['Subasta']['descripcion']; ?>&nbsp;</td> -->
 		<?php
 			if($subasta['Subasta']['tipo_subasta_id'] == 1){
 				echo '<td>'.$subasta['Subasta']['valor'].'&nbsp;</td>';

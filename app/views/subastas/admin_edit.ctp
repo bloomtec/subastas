@@ -20,6 +20,7 @@
 		echo $this->Form->input('tipo_subasta_id');
 		echo $this->Form->input('valor');
 		echo $this->Form->input('umbral_minimo_creditos');
+		echo $this->Form->input('cantidad_creditos_puja');
 		echo $this->Form->input('dias_espera');
 		echo $this->Form->input('posicion_en_cola');
 		echo $this->Form->input('fecha_de_venta');

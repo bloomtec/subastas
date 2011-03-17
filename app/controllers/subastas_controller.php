@@ -126,5 +126,6 @@ class SubastasController extends AppController {
 		$this->Session->setFlash(__('Subasta was not deleted', true));
 		$this->redirect(array('action' => 'index'));
 	}
+
 }
 ?>

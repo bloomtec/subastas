@@ -58,6 +58,7 @@ class TipoSubastasController extends AppController {
 		$this->Session->setFlash(__('Tipo subasta was not deleted', true));
 		$this->redirect(array('action' => 'index'));
 	}
+	
 	function admin_index() {
 		$this->TipoSubasta->recursive = 0;
 		$this->set('tipoSubastas', $this->paginate());

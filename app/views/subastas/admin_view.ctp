@@ -55,6 +55,11 @@
 				echo '>'.$subasta['Subasta']['umbral_minimo_creditos'].'&nbsp;</dd>';
 			}		 
 		?>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Creditos x Puja'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $subasta['Subasta']['cantidad_creditos_puja']; ?>
+			&nbsp;
+		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Días Espera'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $subasta['Subasta']['dias_espera']; ?>
