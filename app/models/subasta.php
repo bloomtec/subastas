@@ -214,6 +214,18 @@ class Subasta extends AppModel {
 			'counterQuery' => ''
 		)
 	);
-	
+	function actualizarEstadoSubasta($subastaId, $nuevoEstadoId){
+		$subasta=$this->read(null,$subastaId);
+		$subasta["Subasta"]["estado_id"]=$nuevoEstadoId;
+		
+		if($this->save($subasta)){
+			return $nuevoEstadoId;
+		}else{
+			return false;
+		}
+	}
+	function usurioGanador($subastaId){
+		
+	}
 }
 ?>
