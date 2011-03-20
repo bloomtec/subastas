@@ -126,6 +126,43 @@ class SubastasController extends AppController {
 		$this->Session->setFlash(__('Subasta was not deleted', true));
 		$this->redirect(array('action' => 'index'));
 	}
+	
+	//METODOS IMPORTANTES
+	function actualizarEstadoSubasta($subastaId, $nuevoEstadoId){
+		$actualizoA=$this->Subasta->actualizarSubasta($subastaId, $nuevoEstadoId);
+		if($actualizoA){
+			/**
+			 *crearVenta() 
+			 * vencimientoSubasta()
+			 * cancelarSubasta()
+			 */
+
+			switch($actualizoA){
+				case 1:
+					
+				break;
+				case 2:
+					
+				break;
+				
+				case 3:
+					
+				break;
+				
+				case 4:// callbak cerrar venta
+				break;
+			}
+		}else{
+			return false;
+		}
+	}
+	
+	function vencimientoSubasta(){
+		
+	}
+	function cancelarSubasta(){
+		
+	}
 
 }
 ?>
