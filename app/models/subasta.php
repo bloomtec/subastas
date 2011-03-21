@@ -214,9 +214,16 @@ class Subasta extends AppModel {
 			'counterQuery' => ''
 		)
 	);
-	function actualizarEstadoSubasta($subastaId, $nuevoEstadoId){
-		$subasta=$this->read(null,$subastaId);
-		$subasta["Subasta"]["estado_id"]=$nuevoEstadoId;
+	
+	/**
+	 * 
+	 * Actualizar el estado de una subasta
+	 * @param unknown_type $subastaID ID de la subasta cuyo estado se va a actualizar
+	 * @param unknown_type $nuevoEstadoID ID del nuevo estado que tendra la subasta
+	 */
+	function actualizarEstadoSubasta($subastaID = null, $nuevoEstadoID = null){
+		$subasta = $this->read(null,$subastaID);
+		$subasta['Subasta']['estados_subasta_id'] = $nuevoEstadoID;
 		
 		if($this->save($subasta)){
 			return $nuevoEstadoId;
@@ -224,7 +231,12 @@ class Subasta extends AppModel {
 			return false;
 		}
 	}
-	function usurioGanador($subastaId){
+	
+	/**
+	 * Recupera el usuario ganador de la subasta
+	 * @param unknown_type $subastaID ID de la subasta que se quiere obtener el ganador
+	 */
+	function usurioGanador($subastaID){
 		
 	}
 }
