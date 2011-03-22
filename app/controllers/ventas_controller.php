@@ -26,9 +26,9 @@ class VentasController extends AppController {
 				$this->Session->setFlash(__('The venta could not be saved. Please, try again.', true));
 			}
 		}
-		$subastas = $this->Venta->Subastum->find('list');
+		$subastas = $this->Venta->Subasta->find('list');
 		$users = $this->Venta->User->find('list');
-		$estadosVentas = $this->Venta->EstadosVentum->find('list');
+		$estadosVentas = $this->Venta->EstadosVenta->find('list');
 		$this->set(compact('subastas', 'users', 'estadosVentas'));
 	}
 
@@ -48,9 +48,9 @@ class VentasController extends AppController {
 		if (empty($this->data)) {
 			$this->data = $this->Venta->read(null, $id);
 		}
-		$subastas = $this->Venta->Subastum->find('list');
+		$subastas = $this->Venta->Subasta->find('list');
 		$users = $this->Venta->User->find('list');
-		$estadosVentas = $this->Venta->EstadosVentum->find('list');
+		$estadosVentas = $this->Venta->EstadosVenta->find('list');
 		$this->set(compact('subastas', 'users', 'estadosVentas'));
 	}
 
@@ -89,9 +89,9 @@ class VentasController extends AppController {
 				$this->Session->setFlash(__('The venta could not be saved. Please, try again.', true));
 			}
 		}
-		$subastas = $this->Venta->Subastum->find('list');
+		$subastas = $this->Venta->Subasta->find('list');
 		$users = $this->Venta->User->find('list');
-		$estadosVentas = $this->Venta->EstadosVentum->find('list');
+		$estadosVentas = $this->Venta->EstadosVenta->find('list');
 		$this->set(compact('subastas', 'users', 'estadosVentas'));
 	}
 
@@ -111,9 +111,9 @@ class VentasController extends AppController {
 		if (empty($this->data)) {
 			$this->data = $this->Venta->read(null, $id);
 		}
-		$subastas = $this->Venta->Subastum->find('list');
+		$subastas = $this->Venta->Subasta->find('list');
 		$users = $this->Venta->User->find('list');
-		$estadosVentas = $this->Venta->EstadosVentum->find('list');
+		$estadosVentas = $this->Venta->EstadosVenta->find('list');
 		$this->set(compact('subastas', 'users', 'estadosVentas'));
 	}
 

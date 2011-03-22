@@ -12,7 +12,7 @@
 <?php echo $this->Form->end(__('Enviar', true));?>
 </div>
 <div class="actions">
-	<h3><?php __('Actions'); ?></h3>
+	<h3><?php __('Menú'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('Ofertas', true), array('action' => 'index'));?></li>
 		<i>

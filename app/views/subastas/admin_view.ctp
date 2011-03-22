@@ -165,12 +165,12 @@
 	<?php if (!empty($subasta['Oferta'])):?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
-		<th><?php __('Id'); ?></th>
-		<th><?php __('Subasta Id'); ?></th>
+		<!-- <th><?php __('Id'); ?></th> -->
 		<th><?php __('User Id'); ?></th>
-		<th><?php __('Creditos Descontados'); ?></th>
+		<th><?php __('Subasta Id'); ?></th>
+		<!-- <th><?php __('Creditos Descontados'); ?></th> -->
 		<th><?php __('Created'); ?></th>
-		<th><?php __('Updated'); ?></th>
+		<!-- <th><?php __('Updated'); ?></th> -->
 		<th class="actions"><?php __('Acciones');?></th>
 	</tr>
 	<?php
@@ -182,12 +182,12 @@
 			}
 		?>
 		<tr<?php echo $class;?>>
-			<td><?php echo $oferta['id'];?></td>
-			<td><?php echo $oferta['subasta_id'];?></td>
+			<!-- <td><?php echo $oferta['id'];?></td> -->
 			<td><?php echo $oferta['user_id'];?></td>
-			<td><?php echo $oferta['creditos_descontados'];?></td>
+			<td><?php echo $oferta['subasta_id'];?></td>
+			<!-- <td><?php echo $oferta['creditos_descontados'];?></td> -->
 			<td><?php echo $oferta['created'];?></td>
-			<td><?php echo $oferta['updated'];?></td>
+			<!-- <td><?php echo $oferta['updated'];?></td> -->
 			<td class="actions">
 				<?php echo $this->Html->link(__('Ver', true), array('controller' => 'ofertas', 'action' => 'view', $oferta['id'])); ?>
 				<?php echo $this->Html->link(__('Modificar', true), array('controller' => 'ofertas', 'action' => 'edit', $oferta['id'])); ?>
