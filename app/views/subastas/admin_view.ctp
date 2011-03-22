@@ -50,7 +50,7 @@
 			echo '</dt><dd';
 			if ($i++ % 2 == 0) echo $class;
 			if($subasta['TipoSubasta']['id'] == 1) {
-				echo '>$'.$subasta['Subasta']['valor'].'&nbsp;</dd>';
+				echo '>'.$subasta['Subasta']['valor'].'&nbsp;</dd>';
 			} else {
 				echo '>'.$subasta['Subasta']['umbral_minimo_creditos'].'&nbsp;</dd>';
 			}		 

@@ -193,7 +193,7 @@ class SubastasController extends AppController {
 	}
 
 	function __subastaEsperandoActivacion($id = null){
-		//
+		//por ahora no se llama este metodo
 	}
 
 	function __subastaActiva($id = null){
