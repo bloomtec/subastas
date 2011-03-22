@@ -59,6 +59,7 @@
 		<td class="actions">
 			<?php echo $this->Html->link(__('Ver', true), array('action' => 'view', $subasta['Subasta']['id'])); ?>
 			<?php echo $this->Html->link(__('Modificar', true), array('action' => 'edit', $subasta['Subasta']['id'])); ?>
+			<?php echo $this->Html->link(__('Cancelar', true), array('action' => 'cancel', $subasta['Subasta']['id']), null, sprintf(__('¿Cancelar la subasta %s?', true), $subasta['Subasta']['nombre'])); ?>
 			<?php echo $this->Html->link(__('Eliminar', true), array('action' => 'delete', $subasta['Subasta']['id']), null, sprintf(__('¿Eliminar la subasta %s?', true), $subasta['Subasta']['nombre'])); ?>
 		</td>
 	</tr>

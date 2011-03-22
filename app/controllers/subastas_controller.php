@@ -64,6 +64,7 @@ class SubastasController extends AppController {
 		$this->Session->setFlash(__('Subasta was not deleted', true));
 		$this->redirect(array('action' => 'index'));
 	}
+
 	function admin_index() {
 		$this->Subasta->recursive = 0;
 		$this->set('subastas', $this->paginate());
@@ -141,8 +142,9 @@ class SubastasController extends AppController {
 		$actualizo = false;
 
 		try {
-			$this->Subasta->id = $id;
-			$this->Subasta->saveField('estados_subasta_id', $estados_subasta_id);
+			$this->Subasta->read(null, $id);
+			$this->Subasta->set('estados_subasta_id', $estados_subasta_id);
+			$this->Subasta->save();
 			$actualizo = true;
 		} catch (Exception $e) {
 			echo debug($e);
@@ -184,12 +186,19 @@ class SubastasController extends AppController {
 				case 4:
 					$this->__subastaVencida($id);
 					break;
+					/**
+					 * Subasta cancelada
+					 */
+				case 5:
+					$this->__cancel($id);
+					break;
 			}
 
-			return true;
 		} else {
-			return false;
+			//
 		}
+		
+		return $actualizo;
 	}
 
 	function __subastaEsperandoActivacion($id = null){
@@ -206,7 +215,7 @@ class SubastasController extends AppController {
 		foreach($subastasActivas as $subastaActiva){
 			$cantidadSubastasActivas++;
 		}
-		
+
 		try {
 			$this->Subasta->id = $id;
 			// No se pone $cantidadSubastasActivas + 1
@@ -224,6 +233,46 @@ class SubastasController extends AppController {
 
 	function __subastaVencida($id = null){
 
+	}
+
+	function admin_cancel($id = null) {
+		if(!$id){
+			$this->Session->setFlash(__('Subasta no valida', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		if($this->actualizarEstadoSubasta($id, 5)){
+			$this->Session->setFlash(__('Se cancelo la subasta', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		$this->Session->setFlash(__('No se pudo cancelar la subasta', true));
+		$this->redirect(array('action' => 'index'));
+	}
+
+	function __cancel(){
+		/**
+		 * Recorrer todas las ofertas de la subasta cancelada y a todos los
+		 * usuarios que ofertaron se les devuelve el credito que habian
+		 * pagado. Enviar correo de notificacion
+		 */
+		
+		// Encontrar las ofertas correspondientes a una subasta
+		//
+		$ofertasHechas = $this->requestAction('/ofertas/obtenerOfertasSubasta/'.$id);
+
+		// Recorrer las ofertas y devolver los creditos
+		//
+		foreach($ofertasHechas as $unaOfertaHecha) {
+			// Reponer los creditos de la oferta
+			//
+			$creditosAReponer = $unaOfertaHecha['Oferta']['creditos_descontados'];
+			$this->requestAction('/users/reponerCreditos/'.$unaOfertaHecha['User']['id'].'/'.$creditosAReponer);
+
+			// Enviar notificacion
+			//
+			// TODO : Codigo para enviar las notificaciones
+		}
+
+		return true;
 	}
 
 }

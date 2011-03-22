@@ -125,5 +125,21 @@ class OfertasController extends AppController {
 		$this->Session->setFlash(__('Oferta was not deleted', true));
 		$this->redirect(array('action' => 'index'));
 	}
+
+	/**
+	 * << metodos no generados por cake >>
+	 */
+
+	function obtenerOfertasSubasta($subastaID = null) {
+		/**
+		 * Obtener todas las ofertas hechas a una subasta
+		 */
+		//Encontrar las ofertas correspondientes a una subasta
+		//
+		echo "Se buscaran las ofertas para la subasta con ID ".$subastaID."\n";
+		return $this->Oferta->find("all", array('conditions' => array('Oferta.subasta_id' => $subastaID)));
+
+	}
+
 }
 ?>

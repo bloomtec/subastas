@@ -331,5 +331,13 @@ class UsersController extends AppController {
 		$this->init();
 		$this->redirect($this->referer());
 	}
+	
+	function reponerCreditos($userID = null, $creditosAReponer){
+		$usuario = $this->User->read(null, $userID);
+		$creditos = $usuario['User']['creditos'];
+		$this->User->set('creditos', $creditos + $creditosAReponer);
+		$this->User->save();
+	}
+	
 }
 ?>
