@@ -23,6 +23,11 @@ class VerificarTablaSubastasShell extends Shell {
 
 	function main(){
 
+		$this->requestAction('/subastas/pruebaLlamado/4');
+		
+	}
+
+	function codigo(){
 		$this->out('Iniciando CRON para verificar la tabla de subastas');
 
 		//Encontrar las subastas con estado activo
@@ -84,7 +89,6 @@ class VerificarTablaSubastasShell extends Shell {
 			$this->out('------------------------------------------------------------------------------');
 
 		}
-
 	}
 
 	function __actualizarEstado($unaSubasta = null, $nuevoEstadoID = null) {

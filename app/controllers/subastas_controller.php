@@ -126,42 +126,104 @@ class SubastasController extends AppController {
 		$this->Session->setFlash(__('Subasta was not deleted', true));
 		$this->redirect(array('action' => 'index'));
 	}
-	
-	//METODOS IMPORTANTES
-	function actualizarEstadoSubasta($subastaId, $nuevoEstadoId){
-		$actualizoA=$this->Subasta->actualizarSubasta($subastaId, $nuevoEstadoId);
-		if($actualizoA){
+
+	/**
+	 * << seccion de metodos no generados por cake >>
+	 */
+
+	/**
+	 * Metodo para actualizar el estado de una subasta
+	 * @param unknown_type $subastaID		ID de la subasta a actualizar
+	 * @param unknown_type $nuevoEstadoID	ID del nuevo estado para la subasta
+	 */
+	function actualizarEstadoSubasta($id = null, $estados_subasta_id = null){
+
+		$actualizo = false;
+
+		try {
+			$this->Subasta->id = $id;
+			$this->Subasta->saveField('estados_subasta_id', $estados_subasta_id);
+			$actualizo = true;
+		} catch (Exception $e) {
+			echo debug($e);
+		}
+
+		if($actualizo){
+
 			/**
-			 *crearVenta() 
+			 *crearVenta()
 			 * vencimientoSubasta()
 			 * cancelarSubasta()
 			 */
 
-			switch($actualizoA){
+			switch($estados_subasta_id){
+				/**
+				 * Subasta Esperando Activacion
+				 */
 				case 1:
-					
-				break;
+					// Por ahora no se daria este caso
+					break;
+
+					/**
+					 * Subasta Activa
+					 */
 				case 2:
-					
-				break;
-				
+					$this->__subastaActiva($id);
+					break;
+
+					/**
+					 * Subasta Pendiente De Pago
+					 */
 				case 3:
-					
-				break;
-				
-				case 4:// callbak cerrar venta
-				break;
+					$this->__subastaPendienteDePago($id);
+					break;
+
+					/**
+					 * Subasta Vencida
+					 */
+				case 4:
+					$this->__subastaVencida($id);
+					break;
 			}
-		}else{
+
+			return true;
+		} else {
 			return false;
 		}
 	}
-	
-	function vencimientoSubasta(){
-		
+
+	function __subastaEsperandoActivacion($id = null){
+		//
 	}
-	function cancelarSubasta(){
+
+	function __subastaActiva($id = null){
+		//Encontrar la cantidad de subastas activas
+		//
+		$subastasActivas = $this->Subasta->find("all", array('conditions' => array('Subasta.estados_subasta_id' => '2')));
+
+		$cantidadSubastasActivas = 0;
+
+		foreach($subastasActivas as $subastaActiva){
+			$cantidadSubastasActivas++;
+		}
 		
+		try {
+			$this->Subasta->id = $id;
+			// No se pone $cantidadSubastasActivas + 1
+			// porque ya se activo la subasta actual y daria una de mas
+			//
+			$this->Subasta->saveField('posicion_en_cola', $cantidadSubastasActivas);
+		} catch (Exception $e) {
+			echo debug($e);
+		}
+	}
+
+	function __subastaPendienteDePago($id = null){
+
+	}
+
+	function __subastaVencida($id = null){
+
 	}
 
 }
