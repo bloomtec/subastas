@@ -129,5 +129,16 @@ class VentasController extends AppController {
 		$this->Session->setFlash(__('Venta was not deleted', true));
 		$this->redirect(array('action' => 'index'));
 	}
+
+	function crearVenta($subastaID = null, $usuarioID = null){
+		$this->Venta->create();
+		$this->Venta->set('subasta_id', $subastaID);
+		$this->Venta->set('user_id', $usuarioID);
+		$this->Venta->set('estados_venta_id', 1);
+		$this->Venta->save();
+		
+		// TODO : Enviar correo al ganador
+	}
+
 }
 ?>

@@ -22,12 +22,6 @@ class VerificarTablaSubastasShell extends Shell {
 	var $uses = array('Subasta');
 
 	function main(){
-
-		$this->requestAction('/subastas/pruebaLlamado/4');
-		
-	}
-
-	function codigo(){
 		$this->out('Iniciando CRON para verificar la tabla de subastas');
 
 		//Encontrar las subastas con estado activo
@@ -51,37 +45,42 @@ class VerificarTablaSubastasShell extends Shell {
 			//
 			$this->out('La subasta es de tipo: '.$subastaActivaParaVender['TipoSubasta']['nombre']);
 
-			// Revisar el total de creditos descontados
-			//
-			$totalCreditosDescontados = 0;
-			foreach($subastaActivaParaVender['Oferta'] as $oferta){
-				$totalCreditosDescontados += $oferta['Oferta']['creditos_descontados'];
-			}
-			$this->out('Se descontaron un total de: '.$totalCreditosDescontados.' creditos');
-
 			// Verificar que tipo de subasta es (Venta Fija == 1 || Minimo De Creditos == 2)
 			//
 			if($subastaActivaParaVender['TipoSubasta']['id'] == 1) {
 				// Subasta tipo venta fija
+				//
+				
 				// Si una subasta está en el dia de venta y es de tipo "venta_fija"
 				// invoca el metodo actualizarEstado le pasa como parametro "en_espera_de_pago"
 				//
-				$this->__actualizarEstado($subastaActivaParaVender, 3);
+				$this->requestAction('/subastas/actualizarEstadoSubasta/'.$subastaActivaParaVender['Subasta']['id'].'/3');
 			} else {
 				// Subasta tipo minimo de creditos
 				//
+
+				// Revisar el total de creditos descontados
+				//
+				$totalCreditosDescontados = 0;
+				
+				foreach($subastaActivaParaVender['Oferta'] as $oferta){
+				 $totalCreditosDescontados += $oferta['Oferta']['creditos_descontados'];
+				}
+
+				$this->out('Se descontaron un total de: '.$totalCreditosDescontados.' creditos');
+
 				if($subastaActivaParaVender['Subasta']['umbral_minimo_creditos'] <= $totalCreditosDescontados){
 					// Se alcanzó el umbral minimo de creditos, invocar el metodo actualizarEstado
 					// y pasar como parametro "en_espera_de_pago"
 					//
 					$this->out('Se alcanzo el umbral minimo de creditos para la subasta ('.$subastaActivaParaVender['Subasta']['umbral_minimo_creditos'].' creditos)');
-					$this->__actualizarEstado($subastaActivaParaVender, 3);
+					$this->requestAction('/subastas/actualizarEstadoSubasta/'.$subastaActivaParaVender['Subasta']['id'].'/3');
 				} else {
 					// NO se alcanzó el umbral minimo de creditos. Invocar el metodo actualizarEstado
 					// y pasar como parametro "vencida".
 					//
 					$this->out('No se alcanzo el umbral minimo de creditos para la subasta ('.$subastaActivaParaVender['Subasta']['umbral_minimo_creditos'].' creditos)');
-					$this->__actualizarEstado($subastaActivaParaVender, 4);
+					$this->requestAction('/subastas/actualizarEstadoSubasta/'.$subastaActivaParaVender['Subasta']['id'].'/4');
 				}
 
 			}
@@ -90,13 +89,5 @@ class VerificarTablaSubastasShell extends Shell {
 
 		}
 	}
-
-	function __actualizarEstado($unaSubasta = null, $nuevoEstadoID = null) {
-		//Cambiar el estado de la subasta al nuevo estado
-		//
-		$this->Subasta->id=$unaSubasta['Subasta']['id'];
-		return $this->Subasta->saveField('estados_subasta_id', $nuevoEstadoID);
-	}
-
 }
 ?>

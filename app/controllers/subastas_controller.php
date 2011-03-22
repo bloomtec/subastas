@@ -152,12 +152,8 @@ class SubastasController extends AppController {
 
 		if($actualizo){
 
-			/**
-			 *crearVenta()
-			 * vencimientoSubasta()
-			 * cancelarSubasta()
-			 */
-
+			// Tomar acciones acorde el nuevo estado de la subasta
+			//
 			switch($estados_subasta_id){
 				/**
 				 * Subasta Esperando Activacion
@@ -175,9 +171,10 @@ class SubastasController extends AppController {
 
 					/**
 					 * Subasta Pendiente De Pago
+					 * Se crea una venta para proceder con el pago
 					 */
 				case 3:
-					$this->__subastaPendienteDePago($id);
+					$this->__crearVenta($id);
 					break;
 
 					/**
@@ -197,7 +194,7 @@ class SubastasController extends AppController {
 		} else {
 			//
 		}
-		
+
 		return $actualizo;
 	}
 
@@ -227,12 +224,16 @@ class SubastasController extends AppController {
 		}
 	}
 
-	function __subastaPendienteDePago($id = null){
-
+	function __crearVenta($id = null){
+		/**
+		 * Crea un regitros en la tabla ventas, user_id = usuarioGanador()
+		 * y subasta_id = (parametro subasta_id) y estado="pendiente_de_pago"
+		 */
+		$this->requestAction('/ventas/crearVenta/'.$id.'/'.$this->requestAction('/ofertas/obtenerUsuarioGanadorSubasta/'.$id));
 	}
 
 	function __subastaVencida($id = null){
-
+		// TODO : SUBASTA VENCIDA (Falta definicion del cliente)
 	}
 
 	function admin_cancel($id = null) {
@@ -254,7 +255,7 @@ class SubastasController extends AppController {
 		 * usuarios que ofertaron se les devuelve el credito que habian
 		 * pagado. Enviar correo de notificacion
 		 */
-		
+
 		// Encontrar las ofertas correspondientes a una subasta
 		//
 		$ofertasHechas = $this->requestAction('/ofertas/obtenerOfertasSubasta/'.$id);
@@ -273,6 +274,11 @@ class SubastasController extends AppController {
 		}
 
 		return true;
+	}
+	
+	function creditosADescontar($subastaID = null){
+		$unaSubasta = $this->Subasta->read(null, $subastaID);
+		return $unaSubasta['Subasta']['cantidad_creditos_puja'];
 	}
 
 }

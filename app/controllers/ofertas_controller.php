@@ -136,9 +136,19 @@ class OfertasController extends AppController {
 		 */
 		//Encontrar las ofertas correspondientes a una subasta
 		//
-		echo "Se buscaran las ofertas para la subasta con ID ".$subastaID."\n";
-		return $this->Oferta->find("all", array('conditions' => array('Oferta.subasta_id' => $subastaID)));
+		return $this->Oferta->find("first", array(
+			'conditions' => array('Oferta.subasta_id' => $subastaID),
+			'order' => array('Oferta.created DESC')
+		));
+	}
 
+	function obtenerTotalCreditosDescontados($subastaID = null){
+		return $this->requestAction('/subastas/creditosADescontar/'.$subastaID) * $this->Oferta->find("count", array('conditions' => array('Oferta.subasta_id' => $subastaID)));
+	}
+
+	function obtenerUsuarioGanadorSubasta($subastaID = null){
+		$ofertaGanadora = $this->Oferta->find("first", array('conditions' => array('Oferta.subasta_id' => $subastaID)));
+		return $ofertaGanadora['User']['id'];
 	}
 
 }
