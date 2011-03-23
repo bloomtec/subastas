@@ -2,7 +2,7 @@
 
 class AppController extends Controller {
 	
-	var $components=array("Acl","Session", "Auth");
+	var $components=array("Acl","Session", "Auth","Config");
 
 	function beforeFilter(){
 		if(isset($this->params["prefix"])&&$this->params["prefix"]=="admin") $this->layout="admin";
