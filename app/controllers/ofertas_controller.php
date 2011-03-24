@@ -134,12 +134,7 @@ class OfertasController extends AppController {
 		/**
 		 * Obtener todas las ofertas hechas a una subasta
 		 */
-		//Encontrar las ofertas correspondientes a una subasta
-		//
-		return $this->Oferta->find("first", array(
-			'conditions' => array('Oferta.subasta_id' => $subastaID),
-			'order' => array('Oferta.created DESC')
-		));
+		return $this->Oferta->find("all", array('conditions' => array('Oferta.subasta_id' => $subastaID)));
 	}
 
 	function obtenerTotalCreditosDescontados($subastaID = null){

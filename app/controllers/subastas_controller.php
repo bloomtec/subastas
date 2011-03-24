@@ -6,58 +6,58 @@ class SubastasController extends AppController {
 	function index() {
 		$this->Subasta->recursive = 0;
 		$config=$this->Config->read(null,1);
-		 if (!empty($this->params['requested'])) {
-			 return $this->Subasta->find("all",array(
+		if (!empty($this->params['requested'])) {
+			return $this->Subasta->find("all",array(
 			 	"conditions"=>array(
 			 		"Subasta.estados_subasta_id"=>2,//activa
 			 		"Subasta.posicion_en_cola <="=>$config["Config"]["tamano_cola"]
-				)
-				));
-		 } else {
-		 	$this->Paginate=array("Subasta",array(
+			)
+			));
+		} else {
+			$this->Paginate=array("Subasta",array(
 			 	"conditions"=>array(
 			 		"Subasta.estados_subasta_id"=>2,//activa
 					"Subasta.posicion_en_cola <="=>$config["Config"]["tamano_cola"]
-				)
-				));
-		 	$this->set('subastas', $this->paginate());
-		 }
-		
+			)
+			));
+			$this->set('subastas', $this->paginate());
+		}
+
 	}
 
 	function ultimasSubastas(){
 		if (!empty($this->params['requested'])) {
-			 return $this->Subasta->find("all",array(
+			return $this->Subasta->find("all",array(
 			 	"conditions"=>array(
 			 		"Subasta.estados_subasta_id"=>7//vendida
-				)
-				));
-		 } else {
-		 	$this->Paginate=array("Subasta",array(
+			)
+			));
+		} else {
+			$this->Paginate=array("Subasta",array(
 			 	"conditions"=>array(
 			 		"Subasta.estados_subasta_id"=>7//vendida
-				)
-				));
-		 	$this->set('subastas', $this->paginate());
-		 }
+			)
+			));
+			$this->set('subastas', $this->paginate());
+		}
 	}
 	function proximasSubastas(){
 	 if (!empty($this->params['requested'])) {
-			 return $this->Subasta->find("all",array(
+	 	return $this->Subasta->find("all",array(
 			 	"conditions"=>array(
 			 		"Subasta.estados_subasta_id"=>2,//activa
 			 		"Subasta.posicion_en_cola >"=>$config["Config"]["tamano_cola"]
-				)
-				));
-		 } else {
-		 	$this->Paginate=array("Subasta",array(
+	 	)
+	 	));
+	 } else {
+	 	$this->Paginate=array("Subasta",array(
 			 	"conditions"=>array(
 			 		"Subasta.estados_subasta_id"=>2,//activa
 					"Subasta.posicion_en_cola >"=>$config["Config"]["tamano_cola"]
-				)
-				));
-		 	$this->set('subastas', $this->paginate());
-		 }	
+	 	)
+	 	));
+	 	$this->set('subastas', $this->paginate());
+	 }
 	}
 
 	function view($id = null) {
@@ -184,6 +184,33 @@ class SubastasController extends AppController {
 	 * << seccion de metodos no generados por cake >>
 	 */
 
+	function __sincronizarPosiciones(){
+		// << Sacar la subasta de la cola si su estado no es "Activa" >>
+		//
+		$subastasNoActivas = $this->Subasta->find("all", array('conditions' => array('Subasta.estados_subasta_id <>' => '2', 'Subasta.posicion_en_cola >' => '0')));
+
+		foreach($subastasNoActivas as $subastaNoActiva) {
+			$this->Subasta->read(null, $subastaNoActiva["Subasta"]["id"]);
+			$this->Subasta->set('posicion_en_cola', -1);
+			$this->Subasta->save();
+		}
+
+		// << Reasignar numeros a las subastas con estado "Activa" >>
+		//
+
+		$subastasActivas = $this->Subasta->find("all", array('conditions' => array('Subasta.estados_subasta_id' => '2'), 'order' => array('Subasta.posicion_en_cola')));
+
+		$posicion_en_cola = 1;
+
+		foreach($subastasActivas as $subastasActiva) {
+			$this->Subasta->read(null, $subastasActiva["Subasta"]["id"]);
+			$this->Subasta->set('posicion_en_cola', $posicion_en_cola);
+			$this->Subasta->save();
+			$posicion_en_cola++;
+		}
+
+	}
+
 	/**
 	 * Metodo para actualizar el estado de una subasta
 	 * @param unknown_type $subastaID		ID de la subasta a actualizar
@@ -193,16 +220,21 @@ class SubastasController extends AppController {
 
 		$actualizo = false;
 
-		try {
-			$this->Subasta->read(null, $id);
-			$this->Subasta->set('estados_subasta_id', $estados_subasta_id);
-			$this->Subasta->save();
-			$actualizo = true;
-		} catch (Exception $e) {
-			echo debug($e);
-		}
+		$this->Subasta->read(null, $id);
+		$this->Subasta->set('estados_subasta_id', $estados_subasta_id);
+		$this->Subasta->save();
+		$actualizo = true;
 
 		if($actualizo){
+			// Si el nuevo estado es diferente a "Activa" verificar
+			// las posiciones en cola asignadas para garantizar el
+			// orden numerico.
+			//
+			if ($estados_subasta_id != 2) {
+				$this->__sincronizarPosiciones();
+			} else {
+				//
+			}
 
 			// Tomar acciones acorde el nuevo estado de la subasta
 			//
@@ -255,8 +287,8 @@ class SubastasController extends AppController {
 
 		return $actualizo;
 	}
-	
-	function __cerrar(){
+
+	function __cerrar($id = null){
 		// TODO
 	}
 
@@ -275,15 +307,9 @@ class SubastasController extends AppController {
 			$cantidadSubastasActivas++;
 		}
 
-		try {
-			$this->Subasta->id = $id;
-			// No se pone $cantidadSubastasActivas + 1
-			// porque ya se activo la subasta actual y daria una de mas
-			//
-			$this->Subasta->saveField('posicion_en_cola', $cantidadSubastasActivas);
-		} catch (Exception $e) {
-			echo debug($e);
-		}
+		$this->Subasta->id = $id;
+		$this->Subasta->saveField('posicion_en_cola', $cantidadSubastasActivas);
+
 	}
 
 	function __crearVenta($id = null){
@@ -304,10 +330,10 @@ class SubastasController extends AppController {
 			$this->redirect(array('action' => 'index'));
 		}
 		if($this->actualizarEstadoSubasta($id, 6)){
-			$this->Session->setFlash(__('Se cancelo la subasta', true));
+			$this->Session->setFlash(__('Se cerro la subasta', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->Session->setFlash(__('No se pudo cancelar la subasta', true));
+		$this->Session->setFlash(__('No se pudo cerrar la subasta', true));
 		$this->redirect(array('action' => 'index'));
 	}
 
@@ -324,7 +350,7 @@ class SubastasController extends AppController {
 		$this->redirect(array('action' => 'index'));
 	}
 
-	function __cancel(){
+	function __cancel($id = null){
 		/**
 		 * Recorrer todas las ofertas de la subasta cancelada y a todos los
 		 * usuarios que ofertaron se les devuelve el credito que habian
