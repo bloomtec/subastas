@@ -189,6 +189,12 @@ class SubastasController extends AppController {
 				case 5:
 					$this->__cancel($id);
 					break;
+					/**
+					 * Se cerro la subasta
+					 */
+				case 6:
+					$this->__cerrar($id);
+					break;
 			}
 
 		} else {
@@ -196,6 +202,10 @@ class SubastasController extends AppController {
 		}
 
 		return $actualizo;
+	}
+	
+	function __cerrar(){
+		// TODO
 	}
 
 	function __subastaEsperandoActivacion($id = null){
@@ -234,6 +244,19 @@ class SubastasController extends AppController {
 
 	function __subastaVencida($id = null){
 		// TODO : SUBASTA VENCIDA (Falta definicion del cliente)
+	}
+
+	function admin_cerrar($id = null) {
+		if(!$id){
+			$this->Session->setFlash(__('Subasta no valida', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		if($this->actualizarEstadoSubasta($id, 6)){
+			$this->Session->setFlash(__('Se cancelo la subasta', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		$this->Session->setFlash(__('No se pudo cancelar la subasta', true));
+		$this->redirect(array('action' => 'index'));
 	}
 
 	function admin_cancel($id = null) {
@@ -275,7 +298,7 @@ class SubastasController extends AppController {
 
 		return true;
 	}
-	
+
 	function creditosADescontar($subastaID = null){
 		$unaSubasta = $this->Subasta->read(null, $subastaID);
 		return $unaSubasta['Subasta']['cantidad_creditos_puja'];

@@ -61,11 +61,7 @@ class VerificarTablaSubastasShell extends Shell {
 
 				// Revisar el total de creditos descontados
 				//
-				$totalCreditosDescontados = 0;
-				
-				foreach($subastaActivaParaVender['Oferta'] as $oferta){
-				 $totalCreditosDescontados += $oferta['Oferta']['creditos_descontados'];
-				}
+				$totalCreditosDescontados = $this->requestAction('/ofertas/obtenerTotalCreditosDescontados/'.$subastaActivaParaVender['Subasta']['id']);
 
 				$this->out('Se descontaron un total de: '.$totalCreditosDescontados.' creditos');
 

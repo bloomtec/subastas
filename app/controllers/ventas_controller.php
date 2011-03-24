@@ -139,6 +139,10 @@ class VentasController extends AppController {
 		
 		// TODO : Enviar correo al ganador
 	}
+	
+	function verificarFechaVencimiento($id = null){
+		$venta = $this->Venta->read(null, $id);
+	}
 
 }
 ?>
