@@ -30,6 +30,7 @@ class VerificarTablaSubastasShell extends Shell {
 		$gmt = 3600*-5; // GMT -5 para hora colombiana
 		$fechaActual = gmdate('Y-m-d H:i:s', time() + $gmt); // Generar la fecha actual formateada para comparar con la fecha de mysql
 		$this->out("\nHora actual del sistema: ".$fechaActual."\n");
+		
 		$subastasActivasParaVender = $this->Subasta->find("all", array('conditions' => array('Subasta.estados_subasta_id' => '2', 'Subasta.fecha_de_venta <=' => $fechaActual)));
 
 		foreach($subastasActivasParaVender as $subastaActivaParaVender){

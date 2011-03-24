@@ -136,12 +136,18 @@ class VentasController extends AppController {
 		$this->Venta->set('user_id', $usuarioID);
 		$this->Venta->set('estados_venta_id', 1);
 		$this->Venta->save();
-		
+
 		// TODO : Enviar correo al ganador
 	}
+
+	function fechaCreacionVenta($id = null) {
+		$unaVenta = $this->Venta->read(null, $id);
+		return $unaVenta['Venta']['created'];
+	}
 	
-	function verificarFechaVencimiento($id = null){
-		$venta = $this->Venta->read(null, $id);
+	function noPagada($id = null) {
+		$this->Venta->read(null, $id);
+		$this->Venta->set('estados_venta_id', 3);
 	}
 
 }

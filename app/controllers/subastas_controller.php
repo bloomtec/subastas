@@ -377,9 +377,18 @@ class SubastasController extends AppController {
 		return true;
 	}
 
-	function creditosADescontar($subastaID = null){
+	function creditosADescontar($subastaID = null) {
 		$unaSubasta = $this->Subasta->read(null, $subastaID);
 		return $unaSubasta['Subasta']['cantidad_creditos_puja'];
+	}
+	
+	function diasEspera($subastaID = null) {
+		$unaSubasta = $this->Subasta->read(null, $subastaID);
+		return $unaSubasta['Subasta']['dias_espera'];
+	}
+	
+	function enviarCorreoGanador($id = null) {
+		
 	}
 
 }
