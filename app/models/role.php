@@ -1,7 +1,10 @@
 <?php
 class Role extends AppModel {
 	var $name = 'Role';
+	var $actsAs = array('Acl' => array('type' => 'requester'));
 	var $displayField = 'name';
+	
+	
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 	var $hasMany = array(
@@ -17,8 +20,11 @@ class Role extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		)
-	);
+			)
+			);
 
+			function parentNode() {
+				return null;
+			}
 }
 ?>

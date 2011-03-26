@@ -73,7 +73,7 @@
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Posicion En Cola'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php
-				if ($subasta['Subasta']['posicion_en_cola'] == -1) {
+				if ($subasta['Subasta']['posicion_en_cola'] < 1) {
 					echo $subasta['EstadosSubasta']['nombre'];
 				} else {
 					echo $subasta['Subasta']['posicion_en_cola'];

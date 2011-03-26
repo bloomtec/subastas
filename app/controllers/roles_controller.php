@@ -58,6 +58,7 @@ class RolesController extends AppController {
 		$this->Session->setFlash(__('Role was not deleted', true));
 		$this->redirect(array('action' => 'index'));
 	}
+	
 	function admin_index() {
 		$this->Role->recursive = 0;
 		$this->set('roles', $this->paginate());

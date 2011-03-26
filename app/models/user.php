@@ -1,11 +1,12 @@
 <?php
 class User extends AppModel {
 	var $name = 'User';
+	var $actsAs = array('Acl' => array('type' => 'requester'));
 	var $displayField = 'username';
 	var $validate = array(
 		'role_id' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
+			'numeric' => array(
+				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -42,24 +43,8 @@ class User extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
-			'notempty' => array(
-				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
 		),
 		'creditos' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
 			'numeric' => array(
 				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
@@ -124,5 +109,20 @@ class User extends AppModel {
 		)
 	);
 
+	function parentNode() {
+		if (!$this->id && empty($this->data)) {
+			return null;
+		}
+		if (isset($this->data['User']['role_id'])) {
+			$roleId = $this->data['User']['role_id'];
+		} else {
+			$roleId = $this->field('role_id');
+		}
+		if (!$roleId) {
+			return null;
+		} else {
+			return array('Role' => array('id' => $roleId));
+		}
+	}
 }
 ?>

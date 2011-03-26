@@ -3,6 +3,23 @@ class SubastasController extends AppController {
 
 	var $name = 'Subastas';
 
+	function ofertar($id = null) {
+		if (!$id) {
+			$this->Session->setFlash(__('ID no valida para la subasta', true));
+			$this->redirect(array('action'=>'index'));
+		}
+		if ($this->__ofertar($id)) {
+			$this->Session->setFlash(__('Subasta pedida', true));
+			$this->redirect(array('action'=>'index'));
+		}
+		$this->Session->setFlash(__('La subasta no fue pedida', true));
+		$this->redirect(array('action' => 'index'));
+	}
+
+	function __ofertar($id = null) {
+		return true;
+	}
+
 	function index() {
 		$this->Subasta->recursive = 0;
 		$config=$this->Config->read(null,1);
@@ -22,7 +39,6 @@ class SubastasController extends AppController {
 			));
 			$this->set('subastas', $this->paginate());
 		}
-
 	}
 
 	function ultimasSubastas(){
@@ -381,14 +397,14 @@ class SubastasController extends AppController {
 		$unaSubasta = $this->Subasta->read(null, $subastaID);
 		return $unaSubasta['Subasta']['cantidad_creditos_puja'];
 	}
-	
+
 	function diasEspera($subastaID = null) {
 		$unaSubasta = $this->Subasta->read(null, $subastaID);
 		return $unaSubasta['Subasta']['dias_espera'];
 	}
-	
+
 	function enviarCorreoGanador($id = null) {
-		
+
 	}
 
 }
