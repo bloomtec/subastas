@@ -3,21 +3,39 @@ class SubastasController extends AppController {
 
 	var $name = 'Subastas';
 
-	function ofertar($id = null) {
-		if (!$id) {
+	function ofertar($subastaID = null) {
+		if (!$subastaID) {
 			$this->Session->setFlash(__('ID no valida para la subasta', true));
 			$this->redirect(array('action'=>'index'));
 		}
-		if ($this->__ofertar($id)) {
-			$this->Session->setFlash(__('Subasta pedida', true));
+		if ($this->__ofertar($subastaID)) {
+			$this->Session->setFlash(__('Se oferto por la subasta exitosamente', true));
 			$this->redirect(array('action'=>'index'));
 		}
-		$this->Session->setFlash(__('La subasta no fue pedida', true));
+		$this->Session->setFlash(__('No se pudo ofertar por la subasta', true));
 		$this->redirect(array('action' => 'index'));
 	}
 
-	function __ofertar($id = null) {
-		return true;
+	function __ofertar($subastaID = null) {
+		// Obtener la informacion de la subasta
+		//
+		$subasta = $this->Subasta->read(null, $subastaID);
+		
+		// Validar que el usuario tenga suficientes creditos para ofertar
+		//
+		if($this->requestAction('/users/creditosSuficientes/' . $this->Session->read('Auth.User.id') . '/' . $subasta['Subasta']['cantidad_creditos_puja'])) {
+			// Como el usuario tiene suficientes creditos proceder a descontar los creditos
+			//
+			$this->requestAction('/users/descontarCreditos/' . $this->Session->read('Auth.User.id') . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
+			
+			// Crear la oferta para finalizar el proceso
+			//
+			$this->requestAction('ofertas/crearOferta/' . $this->Session->read('Auth.User.id') . '/' . $subasta['Subasta']['id'] . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
+			
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	function index() {
@@ -391,11 +409,6 @@ class SubastasController extends AppController {
 		}
 
 		return true;
-	}
-
-	function creditosADescontar($subastaID = null) {
-		$unaSubasta = $this->Subasta->read(null, $subastaID);
-		return $unaSubasta['Subasta']['cantidad_creditos_puja'];
 	}
 
 	function diasEspera($subastaID = null) {
