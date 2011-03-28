@@ -1,7 +1,6 @@
 <?php
 class Role extends AppModel {
 	var $name = 'Role';
-	var $actsAs = array('Acl' => array('type' => 'requester'));
 	var $displayField = 'name';
 	
 	
@@ -23,8 +22,6 @@ class Role extends AppModel {
 			)
 			);
 
-			function parentNode() {
-				return null;
-			}
+			
 }
 ?>

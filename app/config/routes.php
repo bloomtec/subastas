@@ -26,7 +26,7 @@
  * its action called 'display', and we pass a param to select the view file
  * to use (in this case, /app/views/pages/home.ctp)...
  */
-Router::connect('/', array('controller' => 'subastas', 'action' => 'index'));
+Router::connect('/', array('controller' => 'users', 'action' => 'login'));
 Router::connect('/admin', array('controller' => 'users', 'action' => 'login', "admin" => true));
 /**
  * ...and connect the rest of 'Pages' controller's urls.

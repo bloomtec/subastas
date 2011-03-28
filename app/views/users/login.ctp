@@ -10,7 +10,4 @@
 	?>
 	</fieldset>
 	<?php echo $this->Form->end(__('Ingresar', true));?>
-	<div class="register">
-		<?php echo $this->Html->link(__('Registro', true), array('action' => 'register', null)); ?>
-	</div>
 </div>

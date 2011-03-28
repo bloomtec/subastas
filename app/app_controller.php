@@ -2,7 +2,8 @@
 
 class AppController extends Controller {
 
-	var $components=array("Acl","Session", "Auth","Config");
+	var $components=array("Acl","Session", "Auth");
+	var $uses=array("Config");
 
 	function beforeFilter(){
 		$this->Auth->actionPath = 'controllers/';

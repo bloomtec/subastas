@@ -1,7 +1,7 @@
 <?php
 class User extends AppModel {
 	var $name = 'User';
-	var $actsAs = array('Acl' => array('type' => 'requester'));
+	/*var $actsAs = array('Acl' => array('type' => 'requester'));*/
 	var $displayField = 'username';
 	var $validate = array(
 		'role_id' => array(
@@ -109,7 +109,7 @@ class User extends AppModel {
 		)
 	);
 
-	function parentNode() {
+	/*function parentNode() {
 		if (!$this->id && empty($this->data)) {
 			return null;
 		}
@@ -123,6 +123,6 @@ class User extends AppModel {
 		} else {
 			return array('Role' => array('id' => $roleId));
 		}
-	}
+	}*/
 }
 ?>

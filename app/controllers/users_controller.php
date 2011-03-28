@@ -6,7 +6,7 @@ class UsersController extends AppController {
 	private $directorioFoto="";
 	private $administradorRolId=1;
 	private $clienteRolId=2;
-	private $registradoRolId =3;
+	private $registradoRolId =2;
 
 	function beforeFilter(){
 		parent::beforeFilter();
@@ -22,10 +22,12 @@ class UsersController extends AppController {
 		if (!empty($this->data)) {
 			$this->User->create();
 			if ($this->User->saveAll($this->data)) {
+				
 				$aro =& $this->Acl->Aro;
+				$elaro=$aro->find("first",array("conditions"=>array("Model"=>"Role","foreign_key"=>2)));
 				$newAro=array(
 					"alias"=>$this->data["User"]["username"],
-					"parent_id"=>$this->registradoRolId,
+					"parent_id"=>$elaro["Aro"]["id"],
 					"foreign_key"=>$this->User->id,
 					"model"=>"User",
 				);
@@ -271,7 +273,7 @@ class UsersController extends AppController {
 			}
 		}
 	}
-	
+
 	function init() {
 		$aro =& $this->Acl->Aro;
 		$aco =& $this->Acl->Aco;
@@ -304,9 +306,11 @@ class UsersController extends AppController {
 					$aco->create();
 					$aco->save($newAro);
 				}
+				
 				$this->Acl->allow('Administrador', 'admin_menu');
 				$this->Acl->allow('Cliente', 'menu');
 				$this->redirect($this->referer());
+
 	}
 
 	function reset(){
@@ -345,6 +349,6 @@ class UsersController extends AppController {
 		$usuario['User']['creditos'] = $usuario['User']['creditos'] - $creditosADescontar;
 		return $usuario['User']['creditos'];
 	}
-	
+
 }
 ?>
