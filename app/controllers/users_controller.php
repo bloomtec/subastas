@@ -344,7 +344,7 @@ class UsersController extends AppController {
 		}
 	}
 
-	function descontarCreditos($userID = null, $creditosADescontar = null){
+	function descontarCreditos ( $userID = null, $creditosADescontar = null ) {
 		$user = $this->User->read(null, $userID);
 		$this->User->read(null, $userID);
 		$this->User->set('creditos', $user['User']['creditos'] - $creditosADescontar);

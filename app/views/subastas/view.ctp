@@ -109,7 +109,6 @@
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
 		<th><?php __('User Id'); ?></th>
-		<th><?php __('Subasta Id'); ?></th>
 		<th><?php __('Created'); ?></th>
 		<th class="actions"><?php __('Acciones');?></th>
 	</tr>
@@ -123,7 +122,6 @@
 		?>
 		<tr<?php echo $class;?>>
 			<td><?php echo $oferta['user_id'];?></td>
-			<td><?php echo $oferta['subasta_id'];?></td>
 			<td><?php echo $oferta['created'];?></td>
 			<td class="actions">
 				<?php echo $this->Html->link(__('Ver', true), array('controller' => 'ofertas', 'action' => 'view', $oferta['id'])); ?>
