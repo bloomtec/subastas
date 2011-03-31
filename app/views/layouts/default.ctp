@@ -28,8 +28,8 @@
 	<?php
 		echo $this->Html->meta('icon');
 
-		echo $this->Html->css('front');
-		echo $this->Html->css('layout'); //EStilos del layout
+		//echo $this->Html->css('front');
+		echo $this->Html->css('screen'); //EStilos del layout
 		echo $this->Html->script("https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js");
 		//echo $this->Html->script("front.js");
 
@@ -39,17 +39,18 @@
 <body>
 	<div id="container">
 		<div id="header">
-			
+			<?php echo $this->element("header");?>
 		</div>
 		
 		<div id="content">
 			<?php echo $this->Session->flash(); ?>
+			<?php echo $this->element("animacion") ?> 
 			<?php echo $content_for_layout; ?> 
 
 		</div>
 		
 		<div id="footer">
-			
+			<?php echo $this->element("footer");?>
 		</div>
 	</div>
 	
