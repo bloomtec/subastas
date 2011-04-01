@@ -1,5 +1,17 @@
 /** General Style Info **/
 
+body {
+	background: url("../img/background.jpg");
+	/*background-color:#1b1b1b;
+	/*background-repeat:no-repeat;
+	/*background-attachment:fixed;
+	/*background-position:center; 
+	/* These properties specifically for Safari, which does support multiple 
+	backgrounds */
+	font-family:Arial, Helvetica, sans-serif;
+	color: black;
+	}
+
 span{
   
 }
@@ -29,7 +41,9 @@ h4 {
 	font-weight: normal;
 }
 ul, li {
-	margin: 0 12px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
 }
 .clear{
   clear:both;
@@ -216,8 +230,19 @@ form .submit input[type=submit]:hover {
 **/
 
 /** Project's Styles **/
-
+#container {
+	width:960px;
+	margin: 0 auto;
+}
 /** Start Home **/
+
+
+
+.header_wrap{
+  background:url("../img/fondo_header.png") no-repeat;
+  width:100%;
+  height:92px;
+}
 
 .color_home{
   color:#0DAACE;
@@ -227,9 +252,6 @@ form .submit input[type=submit]:hover {
 
 .content_wrap{
   background:url("../img/board_cont.png") no-repeat;
-  width:991px;
-  height:523px;
-  margin-right:15.5px;
   
 }
 
@@ -243,7 +265,7 @@ form .submit input[type=submit]:hover {
   -webkit-border-radius: 1em;
   border-radius: 1em;
   background:#fbfbfb;
-  width: 950px;
+  width: 960px;
  
 }
 
@@ -293,3 +315,156 @@ form .submit input[type=submit]:hover {
  
   
 /** End Pages **/
+
+
+#main-navigation{
+    width:960px;
+    height:32px;
+    margin-top:5px;
+    font-size:18px;
+  }
+  
+  
+#header h1 {
+	float: left;
+	margin-left: 22px;
+	width: 389px;
+	margin-bottom:10px;
+	}
+
+#header h1 a {
+	display: block;
+	width: 389px;
+	height: 30px;
+	background: url("../img/logo.png") no-repeat;
+	text-decoration:none;
+	color:black;
+	}
+  
+  ul.main_nav{
+	float:left;
+	margin-left:42px;
+	font-size: 14px;
+  }
+  
+  .main_nav  li {
+    float: left;
+    margin: 0 2px;
+  }
+  
+  .main_nav li a{
+  	display: block;
+    height:30px;
+    width:150px;
+    text-align: center;
+    text-decoration: none;
+    padding-top:6px;
+    border-radius: 10px 10px 0px 0px;
+    -moz-border-radius: 10px 10px 0px 0px;
+    text-decoration: none;
+    line-height: 30px;
+    border: 1px solid #434345;
+    
+  }
+  
+  .main_nav li a.other{
+    background: url("../img/trama_tab_inactivo.png") repeat-x;
+  }
+  
+  .main_nav li a.final{
+    background: url("../img/trama_tab_inactivo.png") repeat-x;
+  }
+  
+  .main_nav li a.current {
+    background: url("../img/trama_tab_activo.png") repeat-x;
+  }
+  
+  #home .main_nav li a.home, #nuestra-empresa .main_nav li a.nuestra-empresa , #servicios .main_nav li a.servicios, #contactenos .main_nav li a.contactenos{
+    background: url("../img/trama_tab_activo.png") repeat-x;
+  }
+  
+  .main_nav li a:hover {
+    background: url("../img/trama_tab_activo.png") repeat-x;
+  }
+  
+  .animacion {
+	background: #efbf00;
+	width: 100%;
+	height: 240px;
+	border-radius: 15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+    margin: 5px 0;
+  }
+  
+  #main-content{
+	float:left;
+	width: 770px;
+  }
+  
+  #main-content ul h2{
+	background:#4d4d4d;
+	border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+  }
+  
+  #second-content{
+	float:left;
+  }
+
+/** Footer**/
+
+#footer{
+	font-family: Arial, Helvetica, sans-serif;
+	color:black;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+#footer_links {
+	float: left;
+    padding: 1px;
+    width: 100%;
+}
+
+#footer_links ul {
+    padding-top: 15px;
+	font-size: 12px;
+	color:black;
+	text-align: center;
+	}
+
+#footer_links li {
+	display:inline;
+	padding-left:21px;
+	padding-right:20px;
+	}
+
+#footer_links li:first-child {
+	background:none;
+	}
+
+
+#footer_links ul a {
+	line-height: 24px;
+	}	
+
+#footer_links ul a:link, #footer_links ul a:active, #footer_links ul a:visited {
+	text-decoration: none;
+	font-size: 12px;
+	color:black;
+	}
+#footer_links ul a:hover{
+	color:black;
+	}
+
+#footer h4{
+	font-size: 12px;
+	float:left;
+	margin-left: 318px;
+    margin-top: 15px;
+}
+
+
+/** End Footer **/
+
+
