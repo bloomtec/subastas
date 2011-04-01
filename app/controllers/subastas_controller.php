@@ -252,74 +252,65 @@ class SubastasController extends AppController {
 	 */
 	function actualizarEstadoSubasta($id = null, $estados_subasta_id = null){
 
-		$actualizo = false;
-
 		$this->Subasta->read(null, $id);
 		$this->Subasta->set('estados_subasta_id', $estados_subasta_id);
 		$this->Subasta->save();
-		$actualizo = true;
 
-		if($actualizo){
-			// Si el nuevo estado es diferente a "Activa" verificar
-			// las posiciones en cola asignadas para garantizar el
-			// orden numerico.
-			//
-			if ($estados_subasta_id != 2) {
-				$this->__sincronizarPosiciones();
-			} else {
-				//
-			}
-
-			// Tomar acciones acorde el nuevo estado de la subasta
-			//
-			switch($estados_subasta_id){
-				/**
-				 * Subasta Esperando Activacion
-				 */
-				case 1:
-					// Por ahora no se daria este caso
-					break;
-
-					/**
-					 * Subasta Activa
-					 */
-				case 2:
-					$this->__subastaActiva($id);
-					break;
-
-					/**
-					 * Subasta Pendiente De Pago
-					 * Se crea una venta para proceder con el pago
-					 */
-				case 3:
-					$this->__crearVenta($id);
-					break;
-
-					/**
-					 * Subasta Vencida
-					 */
-				case 4:
-					$this->__subastaVencida($id);
-					break;
-					/**
-					 * Subasta cancelada
-					 */
-				case 5:
-					$this->__cancel($id);
-					break;
-					/**
-					 * Se cerro la subasta
-					 */
-				case 6:
-					$this->__cerrar($id);
-					break;
-			}
-
+		// Si el nuevo estado es diferente a "Activa" verificar
+		// las posiciones en cola asignadas para garantizar el
+		// orden numerico.
+		//
+		if ($estados_subasta_id != 2) {
+			$this->__sincronizarPosiciones();
 		} else {
 			//
 		}
 
-		return $actualizo;
+		// Tomar acciones acorde el nuevo estado de la subasta
+		//
+		switch($estados_subasta_id){
+			/**
+			 * Subasta Esperando Activacion
+			 */
+			case 1:
+				// Por ahora no se daria este caso
+				break;
+
+				/**
+				 * Subasta Activa
+				 */
+			case 2:
+				$this->__subastaActiva($id);
+				break;
+
+				/**
+				 * Subasta Pendiente De Pago
+				 * Se crea una venta para proceder con el pago
+				 */
+			case 3:
+				$this->__crearVenta($id);
+				break;
+
+				/**
+				 * Subasta Vencida
+				 */
+			case 4:
+				$this->__subastaVencida($id);
+				break;
+				/**
+				 * Subasta cancelada
+				 */
+			case 5:
+				$this->__cancel($id);
+				break;
+				/**
+				 * Se cerro la subasta
+				 */
+			case 6:
+				$this->__cerrar($id);
+				break;
+		}
+		
 	}
 
 	function __cerrar($id = null){

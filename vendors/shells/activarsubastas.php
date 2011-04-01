@@ -16,7 +16,7 @@ class ActivarSubastasShell extends Shell {
 		foreach($subastasEnEspera as $subastaEnEspera){
 			//Cambiar el estado de la subasta a 'Activa'
 			//
-			$actualizado = $this->requestAction('/subastas/actualizarEstadoSubasta/'.$subastaEnEspera['Subasta']['id'].'/2');
+			$this->requestAction('/subastas/actualizarEstadoSubasta/'.$subastaEnEspera['Subasta']['id'].'/2');
 		}
 
 		$this->out('CRON job finalizado');
