@@ -11,7 +11,7 @@ class UsersController extends AppController {
 	function beforeFilter(){
 		parent::beforeFilter();
 		$this->Auth->allow(array('*'));
-		
+
 	}
 
 	function index() {
@@ -23,7 +23,7 @@ class UsersController extends AppController {
 		if (!empty($this->data)) {
 			$this->User->create();
 			if ($this->User->saveAll($this->data)) {
-				
+
 				$aro =& $this->Acl->Aro;
 				$elaro=$aro->find("first",array("conditions"=>array("Model"=>"Role","foreign_key"=>2)));
 				$newAro=array(
@@ -307,7 +307,7 @@ class UsersController extends AppController {
 					$aco->create();
 					$aco->save($newAro);
 				}
-				
+
 				$this->Acl->allow('Administrador', 'admin_menu');
 				$this->Acl->allow('Cliente', 'menu');
 				$this->redirect($this->referer());
@@ -351,9 +351,22 @@ class UsersController extends AppController {
 		$this->User->set('creditos', $user['User']['creditos'] - $creditosADescontar);
 		$this->User->save();
 	}
-	
-	function redimirCreditos ($userID = null, $creditosARedimir = null ) {
-		
+
+	function redimirCreditos () {
+		if(!empty($this->data)){
+			if($user = $this->User->read(null, $this->data['User']['user_id'])){
+				$creditos = $this->requestAction('/codes/redimirCodigo/' . $this->data['User']['codigo_a_redimir']);
+				if ($creditos == 0) {
+					$this->Session->setFlash(__('Código no válido.', true));
+				} else {
+					$this->User->set('creditos', $user['User']['creditos'] + $creditos);
+					$this->User->save();
+					$this->Session->setFlash(__('Se redimió el código', true));
+				}
+			} else {
+				$this->Session->setFlash(__('No hay un usuario con esa ID', true));
+			}
+		}
 	}
 
 }

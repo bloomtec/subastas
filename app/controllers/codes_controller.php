@@ -131,17 +131,43 @@ class CodesController extends AppController {
 			$char = $possible[mt_rand(0, strlen($possible)-1)];
 			$string .= $char;
 		}
-		
+
 		$this->Code->create();
 		$this->Code->set('batch_code_id', $batchCodeID);
 		$this->Code->set('codigo', $string);
 		$this->Code->set('estado', 1);
 		$this->Code->set('fecha_experacion', $año . '-' . $mes . '-' . $dia);
-		
+
 		if ($this->Code->save()) {
 			return true;
 		} else {
 			return false;
+		}
+	}
+
+	function redimirCodigo($codigo = null) {
+		$elCodigo = $this->Code->find('first', array('conditions' => array('codigo' => $codigo)));
+		if (isset($elCodigo)){
+			// Validar que el codigo este activo
+			//
+			if ($elCodigo['Code']['estado'] == 1) {
+				// Validar que el codigo no se haya expirado
+				//
+				$fecha_1 = date('Y-m-d', strtotime($elCodigo['Code']['fecha_experacion']));
+				$fecha_2 = date('Y-m-d', time('now'));
+				if ($fecha_1 >= $fecha_2) {
+					$this->Code->read(null, $elCodigo['Code']['id']);
+					$this->Code->set('estado', 0);
+					$this->Code->save();
+					return $elCodigo['Code']['creditos'];
+				} else {
+					return 0;
+				}
+			} else {
+				return 0;
+			}
+		} else {
+			return 0;
 		}
 	}
 

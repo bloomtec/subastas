@@ -1,8 +1,14 @@
 <?php
     class pruebasShell extends Shell {
     	function main(){
-    		$this->out(date('Y') . '-' . date('m') . '-' . date('d'));
-    		$this->out(date('Y-m-d H:i:s', mktime(date('H')-5, date('i'), date('s'), date('m'), date('d'), date('Y'))));
+    		$string_fecha_1 = '2011-4-10';
+    		$fecha_1 = date('Y-m-d', strtotime($string_fecha_1));
+    		$fecha_2 = date('Y-m-d', time('now'));
+    		if ($fecha_1 >= $fecha_2) {
+    			$this->out('Valido');
+    		} else {
+    			$this->out('Expirado');
+    		}
     	}
     }
 ?>
