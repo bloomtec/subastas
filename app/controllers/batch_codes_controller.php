@@ -73,8 +73,6 @@ class BatchCodesController extends AppController {
 
 	function admin_add() {
 		if (!empty($this->data)) {
-			debug($this->data['BatchCode']);
-
 			// Validar que los datos enviados sean números positivos
 			//
 
@@ -88,32 +86,62 @@ class BatchCodesController extends AppController {
 				if (!preg_match("/^\d+$/", $this->data['BatchCode']['cantidad_de_codigos']) || !$this->data['BatchCode']['cantidad_de_codigos'] > 0 ) {
 					$this->Session->setFlash(__('El valor para "Cantidad De Códigos" no es válido.', true));
 				} else {
-					// Ambos campos son validos --> Crear el batch_code
+					// La cantidad de creditos y la cantidad de codigos estan bien
 					//
-					$this->BatchCode->create();
-					$this->BatchCode->set('nombre', $this->data['BatchCode']['nombre']);
-					$this->BatchCode->set('descripcion', $this->data['BatchCode']['descripcion']);
+					if ($this->__validarFecha($this->data['BatchCode']['fecha_expiracion'])) {
+						// La fecha de expiracion es valida
+						// Ahora si crear el batch code
+						//
+						$this->BatchCode->create();
+						$this->BatchCode->set('nombre', $this->data['BatchCode']['nombre']);
+						$this->BatchCode->set('descripcion', $this->data['BatchCode']['descripcion']);
 
-					// Guardar el batch_code
-					//
-					if($this->BatchCode->save()){
-						// Crear ahora los codigos para el batchcode
+						// Guardar el batch_code
 						//
-						debug("El ID es: " . $this->BatchCode->id);
-						for ($i = $this->data['BatchCode']['cantidad_de_codigos']; $i > 0; $i--) {
-							while (!$this->requestAction('/codes/generarCodigo/' . $this->BatchCode->id . '/' . $this->data['BatchCode']['creditos_por_codigo'])) {
-								// Repetir hasta que se genere un codigo valido
-								//
+						if($this->BatchCode->save()){
+							// Crear ahora los codigos para el batchcode
+							//
+							for ($i = $this->data['BatchCode']['cantidad_de_codigos']; $i > 0; $i--) {
+								while (!$this->requestAction('/codes/generarCodigo/' . $this->BatchCode->id . '/' . $this->data['BatchCode']['creditos_por_codigo'])) {
+									// Repetir hasta que se genere un codigo valido
+									//
+								}
 							}
+							$this->Session->setFlash(__('Se creo el batch de codigos', true));
+							$this->redirect(array('action' => 'index'));
+						} else {
+							// Ocurrio un error al guardar el batch code
+							//
+							$this->Session->setFlash(__('Error al crear el batch code.', true));
 						}
-						$this->Session->setFlash(__('Se creo el batch de codigos', true));
-						$this->redirect(array('action' => 'index'));
 					} else {
-						// Ocurrio un error al guardar el batch code
-						//
-						$this->Session->setFlash(__('Error al crear el batch code.', true));
+						$this->Session->setFlash(__('La fecha de expiración no puede ser menor que la actual.', true));
 					}
 				}
+			}
+		}
+	}
+
+	function __validarFecha($fechaIngresada = null) {
+		if ($fechaIngresada['year'] > date('Y')) {
+			// El año es mayor que el actual, retornar true
+			//
+			return true;
+		} else {
+			// Validar que el año sea igual que el actual
+			//
+			if ($fechaIngresada['year'] == date('Y')) {
+				// Año igual al actual, validar el mes
+				//
+				if ($fechaIngresada['month'] >= date('m') && $fechaIngresada['day'] >= date('d')) {
+					// El mes y el día estan bien
+					//
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
 			}
 		}
 	}
