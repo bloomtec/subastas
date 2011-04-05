@@ -122,7 +122,7 @@ class CodesController extends AppController {
 		$this->redirect(array('action' => 'index'));
 	}
 
-	function generarCodigo($batchCodeID = 0, $creditos = 0){
+	function generarCodigo($batchCodeID = 0, $creditos = 0, $dia = 0, $mes = 0, $año = 0){
 		$length = 12;
 		$string = "";
 		$possible = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -136,6 +136,7 @@ class CodesController extends AppController {
 		$this->Code->set('batch_code_id', $batchCodeID);
 		$this->Code->set('codigo', $string);
 		$this->Code->set('estado', 1);
+		$this->Code->set('fecha_experacion', $año . '-' . $mes . '-' . $dia);
 		
 		if ($this->Code->save()) {
 			return true;

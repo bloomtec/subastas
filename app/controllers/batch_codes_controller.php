@@ -102,7 +102,7 @@ class BatchCodesController extends AppController {
 							// Crear ahora los codigos para el batchcode
 							//
 							for ($i = $this->data['BatchCode']['cantidad_de_codigos']; $i > 0; $i--) {
-								while (!$this->requestAction('/codes/generarCodigo/' . $this->BatchCode->id . '/' . $this->data['BatchCode']['creditos_por_codigo'])) {
+								while (!$this->requestAction('/codes/generarCodigo/' . $this->BatchCode->id . '/' . $this->data['BatchCode']['creditos_por_codigo'] . '/' . $this->data['BatchCode']['fecha_expiracion']['day'] . '/' . $this->data['BatchCode']['fecha_expiracion']['month'] . '/' . $this->data['BatchCode']['fecha_expiracion']['year'])) {
 									// Repetir hasta que se genere un codigo valido
 									//
 								}
