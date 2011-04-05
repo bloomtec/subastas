@@ -73,12 +73,47 @@ class BatchCodesController extends AppController {
 
 	function admin_add() {
 		if (!empty($this->data)) {
-			$this->BatchCode->create();
-			if ($this->BatchCode->save($this->data)) {
-				$this->Session->setFlash(__('The batch code has been saved', true));
-				$this->redirect(array('action' => 'index'));
+			debug($this->data['BatchCode']);
+
+			// Validar que los datos enviados sean números positivos
+			//
+
+			// Creditos por codigo
+			//
+			if (!preg_match("/^\d+$/", $this->data['BatchCode']['creditos_por_codigo']) || !$this->data['BatchCode']['creditos_por_codigo'] > 0 ) {
+				$this->Session->setFlash(__('El valor para "Creditos Por Código" no es válido.', true));
 			} else {
-				$this->Session->setFlash(__('The batch code could not be saved. Please, try again.', true));
+				// Cantidad de codigos
+				//
+				if (!preg_match("/^\d+$/", $this->data['BatchCode']['cantidad_de_codigos']) || !$this->data['BatchCode']['cantidad_de_codigos'] > 0 ) {
+					$this->Session->setFlash(__('El valor para "Cantidad De Códigos" no es válido.', true));
+				} else {
+					// Ambos campos son validos --> Crear el batch_code
+					//
+					$this->BatchCode->create();
+					$this->BatchCode->set('nombre', $this->data['BatchCode']['nombre']);
+					$this->BatchCode->set('descripcion', $this->data['BatchCode']['descripcion']);
+
+					// Guardar el batch_code
+					//
+					if($this->BatchCode->save()){
+						// Crear ahora los codigos para el batchcode
+						//
+						debug("El ID es: " . $this->BatchCode->id);
+						for ($i = $this->data['BatchCode']['cantidad_de_codigos']; $i > 0; $i--) {
+							while (!$this->requestAction('/codes/generarCodigo/' . $this->BatchCode->id . '/' . $this->data['BatchCode']['creditos_por_codigo'])) {
+								// Repetir hasta que se genere un codigo valido
+								//
+							}
+						}
+						$this->Session->setFlash(__('Se creo el batch de codigos', true));
+						$this->redirect(array('action' => 'index'));
+					} else {
+						// Ocurrio un error al guardar el batch code
+						//
+						$this->Session->setFlash(__('Error al crear el batch code.', true));
+					}
+				}
 			}
 		}
 	}

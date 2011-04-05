@@ -5,6 +5,8 @@
 	<?php
 		echo $this->Form->input('nombre');
 		echo $this->Form->input('descripcion');
+		echo $this->Form->input('creditos_por_codigo');
+		echo $this->Form->input('cantidad_de_codigos');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit', true));?>

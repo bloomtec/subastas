@@ -122,7 +122,7 @@ class CodesController extends AppController {
 		$this->redirect(array('action' => 'index'));
 	}
 
-	function generarCodigo(){
+	function generarCodigo($batchCodeID = 0, $creditos = 0){
 		$length = 12;
 		$string = "";
 		$possible = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -131,8 +131,17 @@ class CodesController extends AppController {
 			$char = $possible[mt_rand(0, strlen($possible)-1)];
 			$string .= $char;
 		}
-
-		return $string;
+		
+		$this->Code->create();
+		$this->Code->set('batch_code_id', $batchCodeID);
+		$this->Code->set('codigo', $string);
+		$this->Code->set('estado', 1);
+		
+		if ($this->Code->save()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }
