@@ -351,6 +351,10 @@ class UsersController extends AppController {
 		$this->User->set('creditos', $user['User']['creditos'] - $creditosADescontar);
 		$this->User->save();
 	}
+	
+	function redimirCreditos ($userID = null, $creditosARedimir = null ) {
+		
+	}
 
 }
 ?>
