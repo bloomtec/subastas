@@ -20,6 +20,7 @@ class UsersController extends AppController {
 	}
 
 	function register(){
+		debug($this->data);
 		if (!empty($this->data)) {
 			$this->User->create();
 			if ($this->User->saveAll($this->data)) {
@@ -367,6 +368,50 @@ class UsersController extends AppController {
 				$this->Session->setFlash(__('No hay un usuario con esa ID', true));
 			}
 		}
+	}
+
+	function recomendar() {
+		if(!empty($this->data)){
+			debug($this->data);
+			// Proceder a enviar correos
+			//
+			$this->__enviarCorreoRecomendado($this->data['User']['id'], $this->data['User']['correo_amigo_1']);
+			$this->__enviarCorreoRecomendado($this->data['User']['id'], $this->data['User']['correo_amigo_2']);
+			$this->__enviarCorreoRecomendado($this->data['User']['id'], $this->data['User']['correo_amigo_3']);
+			$this->__enviarCorreoRecomendado($this->data['User']['id'], $this->data['User']['correo_amigo_4']);
+			$this->__enviarCorreoRecomendado($this->data['User']['id'], $this->data['User']['correo_amigo_5']);
+		} else {
+			$this->Session->setFlash(__('Error al leer los datos ingresados', true));
+		}
+	}
+
+	function enviarCorreoRecomendado($userID = null, $correoDestino = null){		
+		// Encriptar el ID de quien envía la recomendacion
+		//
+		$IDEncriptada = crypt($userID, "23()23*$%g4F^aN!^^%");
+		
+		// TODO : Enviar el correo a $correoDestino con el enlace y la $IDEncriptada
+		//
+
+		/**
+		 if (!empty($this->data)) {
+		 $asunto="Nuevo Mensaje de la Página Web";
+		 $from=$this->data["Page"]["nombre_completo"]."<".$this->data["Page"]["email"].">";
+		 $nombreDestinatario=$this->data["Page"]["nombre_completo"];
+		 $asunto=$this->data["Page"]["asunto"]." - Enviado desde la página web";
+		 $telefono=$this->data["Page"]["telefono"];
+		 $texto=$this->data["Page"]["asunto"];
+		 $cadena="Enviado por ".$nombreDestinatario." <".$from."> \n\n".$texto;
+		 $to      = 'carolina.lugo@narujoyeriadeautor.com';
+		 $headers = 'From: '.$from . "\r\n" .
+		 'Reply-To: '.$from . "\r\n" .
+		 'X-Mailer: PHP/' . phpversion();
+
+		 mail($to, $asunto, $cadena, $headers);
+			}
+			$this->set("title","Contacto");
+		 */
+
 	}
 
 }

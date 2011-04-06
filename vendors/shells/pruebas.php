@@ -1,14 +1,14 @@
 <?php
-    class pruebasShell extends Shell {
-    	function main(){
-    		$string_fecha_1 = '2011-4-10';
-    		$fecha_1 = date('Y-m-d', strtotime($string_fecha_1));
-    		$fecha_2 = date('Y-m-d', time('now'));
-    		if ($fecha_1 >= $fecha_2) {
-    			$this->out('Valido');
-    		} else {
-    			$this->out('Expirado');
-    		}
-    	}
-    }
+class pruebasShell extends Shell {
+	function main(){
+		$datoInicial = 1;
+		$datoEncriptado = crypt($datoInicial, "23()23*$%g4F^aN!^^%");
+		$this->out($datoEncriptado);
+		if ($datoEncriptado == crypt(1, "23()23*$%g4F^aN!^^%")) {
+			$this->out("Iguales");
+		} else {
+			$this->out("Diferentes");
+		}
+	}
+}
 ?>

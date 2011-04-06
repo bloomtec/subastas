@@ -2,7 +2,7 @@
 
 class AppController extends Controller {
 
-	var $components=array("Acl","Session", "Auth");
+	var $components=array("Acl","Session", "Auth", "Email");
 	var $uses=array("Config");
 
 	function beforeFilter(){
