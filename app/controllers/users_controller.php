@@ -19,12 +19,29 @@ class UsersController extends AppController {
 		$this->set('users', $this->paginate());
 	}
 
+	function abonarCreditosPorRecomendacion($encryptedID = null){
+		// Encontrar el total de usuarios registrados
+		//
+		$totalUsuarios = $this->User->find('count', array('conditions' => array('User.id >' => 0)));
+		for ($id = 1; $id < $totalUsuarios; $id++) {
+			if ($encryptedID == crypt($id, "23()23*$%g4F^aN!^^%")) {
+				// Las ID son iguales, abonar por recomendacion
+				// 
+				$this->User->read(null, $id);
+				$this->User->set('creditos', $this->User->creditos + $this->requestAction('/configs/creditosPorRecomendacion'));
+				$this->User->save();
+				break;
+			} else {
+				// Seguir buscando
+				//
+			}
+		}
+	}
+
 	function register(){
-		debug($this->data);
 		if (!empty($this->data)) {
 			$this->User->create();
 			if ($this->User->saveAll($this->data)) {
-
 				$aro =& $this->Acl->Aro;
 				$elaro=$aro->find("first",array("conditions"=>array("Model"=>"Role","foreign_key"=>2)));
 				$newAro=array(
@@ -35,6 +52,13 @@ class UsersController extends AppController {
 				);
 				$aro->create();
 				$aro->save($newAro);
+				
+				// Abonar al remitente si es un registro recomendado
+				//
+				if (isset($this->data['Recomendado'])) {
+					$this->abonarCreditosPorRecomendacion($this->data['Recomendado']['id']);
+				}
+				
 				$this->Session->setFlash(__('The user has been saved', true));
 				//	$this->redirect(array('action' => 'index'));
 			} else {
@@ -385,11 +409,11 @@ class UsersController extends AppController {
 		}
 	}
 
-	function enviarCorreoRecomendado($userID = null, $correoDestino = null){		
+	function enviarCorreoRecomendado($userID = null, $correoDestino = null){
 		// Encriptar el ID de quien envía la recomendacion
 		//
 		$IDEncriptada = crypt($userID, "23()23*$%g4F^aN!^^%");
-		
+
 		// TODO : Enviar el correo a $correoDestino con el enlace y la $IDEncriptada
 		//
 

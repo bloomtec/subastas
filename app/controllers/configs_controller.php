@@ -113,5 +113,11 @@ class ConfigsController extends AppController {
 		$this->Session->setFlash(__('Config was not deleted', true));
 		$this->redirect(array('action' => 'index'));
 	}
+	
+	function creditosPorRecomendacion () {
+		$this->Config->read(null, 1);
+		return $this->Config->creditos_recomendados;
+	}
+	
 }
 ?>

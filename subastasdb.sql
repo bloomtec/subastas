@@ -449,7 +449,8 @@ DROP TABLE IF EXISTS `subastas`.`configs` ;
 
 CREATE  TABLE IF NOT EXISTS `subastas`.`configs` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `tamano_cola` INT(11)  NOT NULL ,
+  `tamano_cola` INT NOT NULL ,
+  `creditos_recomendados` INT NOT NULL ,
   `created` DATETIME NULL ,
   `updated` DATETIME NULL ,
   PRIMARY KEY (`id`) )
@@ -527,7 +528,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `subastas`;
-INSERT INTO `subastas`.`configs` (`id`, `tamano_cola`, `created`, `updated`) VALUES (1, 3, NULL, NULL);
+INSERT INTO `subastas`.`configs` (`id`, `tamano_cola`, `creditos_recomendados`, `created`, `updated`) VALUES (1, 3, NULL, NULL, NULL);
 
 COMMIT;
 
