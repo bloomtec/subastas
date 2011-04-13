@@ -1,7 +1,6 @@
 /** General Style Info **/
 
 body {
-	background: url("../img/background.jpg");
 	/*background-color:#1b1b1b;
 	/*background-repeat:no-repeat;
 	/*background-attachment:fixed;
@@ -239,9 +238,8 @@ form .submit input[type=submit]:hover {
 
 
 .header_wrap{
-  background:url("../img/fondo_header.png") no-repeat;
   width:100%;
-  height:92px;
+  
 }
 
 .color_home{
@@ -277,16 +275,6 @@ form .submit input[type=submit]:hover {
 
 /** Header Form Login **/
 
-.login{
-  /*-moz-border-radius: 1em;
-  -webkit-border-radius: 1em;
-  border-radius: 0em;*/ 
-  background: url("../img/board_login.png") no-repeat;
-  width: 347px;
-  float: right;
-  margin-right: 4em;
-  margin-top: 76px;
-}
 
 
 /** Footer Home **/
@@ -328,63 +316,252 @@ form .submit input[type=submit]:hover {
 #header h1 {
 	float: left;
 	margin-left: 22px;
-	width: 389px;
 	margin-bottom:10px;
 	}
 
 #header h1 a {
 	display: block;
-	width: 389px;
-	height: 30px;
+	width: 261px;
+	height: 130px;
 	background: url("../img/logo.png") no-repeat;
 	text-decoration:none;
 	color:black;
+	text-indent: -999px;
 	}
+
+#header .info {
+	margin: 70px 10px 0px 0px;
+	float: right;
+}
+
+#header p.slogan {
+	font-size: 17px;
+	color:black;
+	float:left;
+	margin-right: 50px;
+	margin-top: 15px;
+	
+}
+
+#header p.slogan strong{
+	font-size: 21px;
+	color:#CB2128;
+}
+
+#header .reloj {
+	float:left;
+	width: 180px;
+}
+
+#header .reloj img{
+	float:left;
+}
+
+#header .plugin-hora{
+	float:left;
+	width: 105px;
+	margin-left:5px;
+	margin-top:9px;
+}
+
+#header .reloj p{
+	margin:0px;
+	display: block;
+}
+
+#header .reloj .dia {
+	font-size:10px;
+}
+
+#header .reloj .hora {
+	font-size:15px;
+}
+
+#header .reloj .fecha {
+	font-size: 10px;
+}
+  
+  .nav{
+  
+  }
   
   ul.main_nav{
-	float:left;
-	margin-left:42px;
-	font-size: 14px;
+	font-size: 16px;
+	padding-bottom: 30px;
+    padding-top: 10px;
+	background: url("../img/trama-amarillo-nav.png") repeat-x;
+	color:black;
+	right: 14px;
+    position: absolute;
+    border-radius: 15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
   }
   
   .main_nav  li {
     float: left;
     margin: 0 2px;
   }
-  
+
+  .main_nav li {
+	display:inline;
+	padding: 5px 15px;
+	background: url("../img/linea-separadora-footer.png") left repeat-y;
+	}
+	
+	
+  .main_nav li:first-child {
+	background:none;
+	}
+	
+	
   .main_nav li a{
-  	display: block;
-    height:30px;
+    color:black;
+    text-decoration: none;
+  }
+  
+  .contenido_header{
+  	height: 165px;
+	position: relative;
+	width: 100%;
+  }
+  
+  .prueba{
+    position: absolute;
+    bottom:0;
+  }
+  
+  .banner-falabella{
+    background: url("../img/trama-verde-banner.png") repeat-x;
+    width: 383px;
+    height:117px;
+    float: left;
+     border-radius: 15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+    -moz-box-shadow: 0px 2px 3px #969696; /* for Firefox 3.5+ */
+    -webkit-box-shadow: 0px 2px 3px #969696; /* for Safari and Chrome */
+    filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=180, Strength=3);
+    margin-right:9px;
+  }
+  
+  .banner-falabella img{
+  	float:right;
+  	padding-top:5px;
+  }
+  .banner-falabella p{
+  	text-align: center;
+  	float:left;
+  	margin:0;
+  	color: white;
+  	width: 290px;
+  	margin: 8px 0 0 45px;
+ 
+  }
+  
+   .banner-registro{
+    margin-right:9px;
+    background-color:white;
+    width: 383px;
+    padding: 41.5px 0;
+    float: left;
+    border-radius: 15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+    -moz-box-shadow: 0px 2px 3px #969696; /* for Firefox 3.5+ */
+    -webkit-box-shadow: 0px 2px 3px #969696; /* for Safari and Chrome */
+    filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=180, Strength=3);
+  }
+  
+  .banner-registro img{
+  	float:right;
+  	padding-top:5px;
+  }
+  
+  
+   .banner-registro .leyenda {
+  	float:left;
+  	margin: 0 15px;
+  }
+  
+  .banner-registro .leyenda strong{
+  	font-size: 15px;
+  }
+  
+  .banner-registro .leyenda p{
+  	margin:0;
+  	color: black;
+  	font-size: 12px;
+  }
+  
+  .banner-registro .registro{
+  	background: url("../img/trama-amarillo.png") repeat-x;
+  	border-radius: 15px;
+    -moz-border-radius: 15px;
+    float: left;
+    padding:5px 0;
     width:150px;
+    text-align: center; 
+    text-decoration: none;
+    color:black;
+  }
+  
+  #header .login{
+  	background: url("../img/trama-cuenta.png") repeat-x;
+  	border-radius: 15px;
+    -moz-border-radius: 15px;
+    float: left;
+    height:116px;
+    width:175px;
+    text-align: center; 
+    text-decoration: none;
+    color:black;
+  }
+  
+  #header .login h1{
+  	margin:0;
+  	text-align: center;
+  	float: none;
+  	padding-top:5px; 
+  	 
+  }
+  
+  #header .login label{
+  	float: left;
+    font-size: 10px;
+    line-height: 22px;
+    margin-right: 5px;
+    text-align: right;
+    width: 65px;
+  }
+  #header .login input[type=text]{
+  	float:left;
+  	width: 90px;
+  	border: 0;
+  }
+  #header .login input[type=password]{
+  	float:left;
+  	width: 90px;
+  	border:0;
+  }
+  
+  #header .login input[type=submit]{
+  	border:0;
+  	background: url("../img/trama-verde.png") repeat-x;
+  	border-radius: 15px;
+    -moz-border-radius: 15px;
+    color: white;
+    height: 21px;
     text-align: center;
-    text-decoration: none;
-    padding-top:6px;
-    border-radius: 10px 10px 0px 0px;
-    -moz-border-radius: 10px 10px 0px 0px;
-    text-decoration: none;
-    line-height: 30px;
-    border: 1px solid #434345;
-    
+    float:right;
+    margin-right:15px;
+    width: 80px;
+  	margin-top:3px;
   }
   
-  .main_nav li a.other{
-    background: url("../img/trama_tab_inactivo.png") repeat-x;
-  }
-  
-  .main_nav li a.final{
-    background: url("../img/trama_tab_inactivo.png") repeat-x;
-  }
-  
-  .main_nav li a.current {
-    background: url("../img/trama_tab_activo.png") repeat-x;
-  }
-  
-  #home .main_nav li a.home, #nuestra-empresa .main_nav li a.nuestra-empresa , #servicios .main_nav li a.servicios, #contactenos .main_nav li a.contactenos{
-    background: url("../img/trama_tab_activo.png") repeat-x;
-  }
-  
-  .main_nav li a:hover {
-    background: url("../img/trama_tab_activo.png") repeat-x;
+  #header .login a{
+  	color:black;
+  	text-decoration: none;
+  	font-size: 10px;
+  	float:right;
+  	margin-right: 10px;
   }
   
   .animacion {
@@ -394,6 +571,9 @@ form .submit input[type=submit]:hover {
 	border-radius: 15px 15px 15px 15px;
     -moz-border-radius: 15px 15px 15px 15px;
     margin: 5px 0;
+    -moz-box-shadow: 2px 2px 3px #969696; /* for Firefox 3.5+ */
+    -webkit-box-shadow: 2px 2px 3px #969696; /* for Safari and Chrome */
+    filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=180, Strength=3);
   }
   
   #main-content{
@@ -407,17 +587,216 @@ form .submit input[type=submit]:hover {
     -moz-border-radius: 5px 5px 5px 5px;
   }
   
-  #second-content{
+  #left-content{
 	float:left;
+	width: 200px;
+	text-align: center;
+	margin-top:15px;
   }
+  
+  #right-content{
+	float:left;
+	width: 732px;
+	margin-left:20px;
+	margin-top:15px;
+  }
+  
+  .estilo-borde{
+  	width: 100%;
+  	border-radius: 15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+	-moz-box-shadow: 0px 2px 3px #969696; /* for Firefox 3.5+ */
+    -webkit-box-shadow: 0px 2px 3px #969696; /* for Safari and Chrome */
+    filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=180, Strength=3);
+    background-color:white;
+    margin-bottom: 10px;
+  }
+  
+  .medio-de-pago{
+  	
+  }
+  
+  .medio-de-pago img{
+	margin-bottom:10px;
+  }
+  
+  .social{
+  
+  }
+   
+  .social img{
+  	margin-bottom:15px;
+  }
+  
+  .seguridad {
+    
+  }
+  
+  .ultimo-ganador{
+  }
+  
+  .proxima-oferta{
+  	
+  }
+  
+  #left-content h1{
+  	margin:0;
+  }
+  
+  #left-content p.mensaje{
+  	padding-bottom:10px;
+  	font-size: 12px;
+  }
+  
+  #left-content .pvp{
+  	font-size: 13px;
+  	color:#6C6D70;
+  }
+  
+  #left-content .precio{
+  	font-size: 20px;
+  	color:#CB2128;
+  }
+  
+  #left-content .fecha{
+  	font-size: 20px;
+  	color:#CB2128;
+  }
+  
+  #left-content .usuario{
+  	font-size: 13px;
+  	color:#6C6D70;
+  }
+  
+  
+  #left-content .titulo-verde{
+  	background: url("../img/trama-verde.png") repeat-x;
+  	height: 33px;
+  	line-height:33px;
+  	border-radius: 15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+  	color:white;
+  	font-weight: normal;
+  	margin-bottom:10px;
+  }
+  
+  #left-content .titulo-amarillo{
+  	background: url("../img/trama-amarillo.png") repeat-x;
+  	height: 33px;
+  	line-height:33px;
+  	border-radius: 15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+  	color:black;
+  	font-weight: normal;
+  	margin-bottom:10px;
+  }
+  
+  #right-content h1{
+  	margin:0;
+  	margin-bottom: 5px;
+  }
+  
+  #right-content .titulo-amarillo{
+  	background: url("../img/trama-amarillo.png") repeat-x;
+  	height: 33px;
+  	line-height:33px;
+  	border-radius: 15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+  	color:black;
+  	font-weight: normal;
+  	text-align: center;
+  }
+  
+  #right-content .boton{
+  	background-color: #f8dc38;
+  	line-height:20px;
+  	border-radius: 15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+  	padding:5px 0;
+    width:120px;
+    margin: 0 auto; 
+    text-decoration: none;
+    color:black;
+    font-weight: bold;
+    font-size: 17px;
+    display:block;
+    margin-bottom:10px;
+  }
+  
+  /** Subastas activas **/
+  
+  #right-content .usuario-ultima-oferta{
+  	font-size: 15px;
+  }
+  
+  #right-content .pvp{
+  	font-size: 13px;
+  	color:#6C6D70;
+  }
+  
+  #right-content .precio{
+  	font-size: 20px;
+  	color:#CB2128;
+  }
+  
+  #right-content .contador{
+  	font-size: 18px;
+  	color:#CB2128;
+  }
+  
+  
+  #right-content ul{
+  	float:left;
+	margin-top: 5px;
+	text-decoration: none;
+	color:black;
+  }
+  
+  #right-content ul p{
+  	margin:2px 0;
+  }
+
+  #right-content ul li{
+	display: block;
+	float:left;
+	width: 234px;
+	text-align: center;
+	margin-bottom: 15px;
+	border-radius: 15px 15px 15px 15px;
+	background-color:white;
+    -moz-border-radius: 15px 15px 15px 15px;
+	-moz-box-shadow: 0px 2px 3px #969696; /* for Firefox 3.5+ */
+    -webkit-box-shadow: 0px 2px 3px #969696; /* for Safari and Chrome */
+    filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=180, Strength=3);
+  }
+
+  #right-content ul li.centro{
+	margin: 0 15px;
+  }
+
+  #right-content ul a:hover {
+	color: white;
+  }
+
+  #right-content ul img {
+  	margin-bottom: 15px;
+  	height: 200px;
+  	width: 200px;
+  }
+  
 
 /** Footer**/
 
 #footer{
 	font-family: Arial, Helvetica, sans-serif;
-	color:black;
+	color:white;
 	margin-top:10px;
 	margin-bottom:10px;
+    background: url("../img/trama-verde-footer.png") repeat-x;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	behavior:url("../files/border-radius.htc");
 }
 
 #footer_links {
@@ -427,16 +806,15 @@ form .submit input[type=submit]:hover {
 }
 
 #footer_links ul {
-    padding-top: 15px;
-	font-size: 12px;
-	color:black;
+    padding: 15px 0;
+	font-size: 15px;
 	text-align: center;
 	}
 
 #footer_links li {
 	display:inline;
-	padding-left:21px;
-	padding-right:20px;
+	padding: 5px 15px;
+	background: url("../img/linea-separadora-footer.png") left repeat-y;
 	}
 
 #footer_links li:first-child {
@@ -450,11 +828,11 @@ form .submit input[type=submit]:hover {
 
 #footer_links ul a:link, #footer_links ul a:active, #footer_links ul a:visited {
 	text-decoration: none;
-	font-size: 12px;
-	color:black;
+	font-size: 15px;
+	color:white;
 	}
 #footer_links ul a:hover{
-	color:black;
+	color:white;
 	}
 
 #footer h4{

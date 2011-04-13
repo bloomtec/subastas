@@ -76,6 +76,7 @@ class SubastasController extends AppController {
 		}
 	}
 	function proximasSubastas(){
+	 $config=$this->Config->read(null,1);	
 	 if (!empty($this->params['requested'])) {
 	 	return $this->Subasta->find("all",array(
 			 	"conditions"=>array(

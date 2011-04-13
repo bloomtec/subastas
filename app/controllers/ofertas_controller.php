@@ -144,7 +144,21 @@ class OfertasController extends AppController {
 		 */
 		return $this->Oferta->find("all", array('conditions' => array('Oferta.subasta_id' => $subastaID)));
 	}
-
+    
+	function proximaOferta() {
+		/**
+		 * Obtener una oferta de las subastas (aleatorio) para hacer (aqui se esta tomando muy literal el diseño puede cambiar )
+		 */
+		return null;
+	}
+	
+	function ultimoGanador() {
+		/**
+		 * Obtener una último ganador
+		 */
+		return null;
+	}
+	
 	function obtenerTotalCreditosDescontados($subastaID = null){
 		return $this->requestAction('/subastas/creditosADescontar/'.$subastaID) * $this->Oferta->find("count", array('conditions' => array('Oferta.subasta_id' => $subastaID)));
 	}

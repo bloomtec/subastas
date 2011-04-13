@@ -31,6 +31,8 @@
 		//echo $this->Html->css('front');
 		echo $this->Html->css('screen'); //EStilos del layout
 		echo $this->Html->script("https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js");
+		//echo $this->Html->script("https://getfirebug.com/firebug-lite.js");
+		
 		//echo $this->Html->script("front.js");
 
 		echo $scripts_for_layout;
@@ -44,9 +46,9 @@
 		
 		<div id="content">
 			<?php echo $this->Session->flash(); ?>
-			<?php echo $this->element("animacion") ?> 
+			<?php //echo $this->element("animacion") ?> 
 			<?php echo $content_for_layout; ?> 
-
+        <div style="clear:both"></div>
 		</div>
 		
 		<div id="footer">

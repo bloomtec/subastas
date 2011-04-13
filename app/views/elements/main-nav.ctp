@@ -11,7 +11,7 @@
             </li>
             <li>
             	<?php 
-            	echo $html->link("Como Funciona",
+            	echo $html->link("¿Como Funciona?",
             			array(
 							"controller"=>"pages","action"=>"view","como-funciona"),
 						array(
@@ -54,4 +54,4 @@
 				?>
             </li>
             
-          </ul>
+</ul>
