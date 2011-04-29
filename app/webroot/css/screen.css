@@ -469,7 +469,9 @@ form .submit input[type=submit]:hover {
     -webkit-box-shadow: 0px 2px 3px #969696; /* for Safari and Chrome */
     filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=180, Strength=3);
   }
-  
+  a.registro{
+  	font-weight: bold;
+  }
   .banner-registro img{
   	float:right;
   	padding-top:5px;

@@ -1,12 +1,19 @@
-<?php echo $form -> create("User", array("action" => "register"));
-$datos = explode("/", $_GET['url']);
-if(isset($datos['2']) & !empty($datos['2'])) {
-	echo $form -> input("Recomendado.id", array('type' => 'hidden', 'value' => $datos['2']));
-}
-echo $form -> input("username");
-echo $form -> input("email");
-echo $form -> input("password");
-echo $form -> input("UserField.nombre");
-echo $form -> input("UserField.apellido");
-echo $form -> end("Guardar");
-?>
+<div class="register">
+	<?php echo $form -> create("User", array("action" => "register","id"=>"registerForm"));
+	$datos = explode("/", $_GET['url']);
+	if(isset($datos['2']) & !empty($datos['2'])) {
+		echo $form -> input("Recomendado.id", array('type' => 'hidden', 'value' => $datos['2']));
+	}
+	echo $form -> input("UserField.nombre");
+	echo $form -> input("UserField.apellido");
+	//echo $form -> input("username",array("required"=>"required"));
+	?>
+	<div class="input text required">
+		<label for="UserEmail">Email</label>
+		<input type="email" id="UserEmail" maxlength="45" name="data[User][email]">
+	</div>
+	<?php
+	echo $form -> input("password");
+	echo $form -> end("Guardar");
+	?>
+</div>

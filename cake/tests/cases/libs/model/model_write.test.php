@@ -1586,7 +1586,6 @@ class ModelWriteTest extends BaseModelTest {
 		);
 		$TestModel->save($data);
 		$result = $TestModel->read(null, 1);
-		$time = date('Y-M-D H:i:s');
 		$expected = array(4, 5);
 		$this->assertEqual(Set::extract('/JoinC/JoinAsJoinC/id', $result), $expected);
 		$expected = array('new record', 'new record');
@@ -3052,7 +3051,8 @@ class ModelWriteTest extends BaseModelTest {
 					'published' => 'Y',
 					'user_id' => 1
 			))
-		), array('validate' => 'only'));
+		), array('validate' => 'first'));
+		$this->assertFalse($result);
 	}
 
 /**

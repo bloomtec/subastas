@@ -35,7 +35,7 @@
             	<?php 
             	echo $html->link("Registrarse",
             			array(
-							"controller"=>"pages","action"=>"view","registrarse"),
+							"controller"=>"users","action"=>"register"),
 						array(
 							"class"=>"final color registrarse",
 						)

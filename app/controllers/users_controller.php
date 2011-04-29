@@ -38,44 +38,83 @@ class UsersController extends AppController {
 		}
 	}
 
+	function checkEmail(){
+		$checkMail=$this->User->findByEmail($_GET["data"]["User"]["email"]);
+			if($checkMail){
+				echo json_encode(array("data[User][email]"=>"el email se encuentra registrado"));
+				Configure::write("debug",0);
+				$this->autoRender=false;
+				exit(0);
+
+			}else{
+				echo json_encode(true);
+				Configure::write("debug",0);
+				$this->autoRender=false;
+				exit(0);
+			}
+			Configure::write("debug",0);
+				$this->autorender=false;
+				exit(0);
+	}
 	function register(){
 		if (!empty($this->data)) {
+		  	$this->User->recursive = 0;		  
 			$this->User->create();
-			if ($this->User->saveAll($this->data)) {
-				$aro =& $this->Acl->Aro;
-				$elaro=$aro->find("first",array("conditions"=>array("Model"=>"Role","foreign_key"=>2)));
-				$newAro=array(
-					"alias"=>$this->data["User"]["username"],
-					"parent_id"=>$elaro["Aro"]["id"],
-					"foreign_key"=>$this->User->id,
-					"model"=>"User",
-				);
-				$aro->create();
-				$aro->save($newAro);
-				
-				// Abonar al remitente si es un registro recomendado
-				//
+			$this->data["User"]["role_id"]=2;// Is set as a Basic user for default
+		  if ($this->User->saveAll($this->data)) 
+			{
 				if (isset($this->data['Recomendado'])) {
-					$this->abonarCreditosPorRecomendacion($this->data['Recomendado']['id']);
-				}
-				
-				$this->Session->setFlash(__('The user has been saved', true));
-				//	$this->redirect(array('action' => 'index'));
+                    $this->abonarCreditosPorRecomendacion($this->data['Recomendado']['id']);
+                }
+		        $para      = $this->data['User']['email'];
+				$asunto    = 'Bienvenido a Tecnocenter';
+				$mensaje   = 'Bienvenido, sus datos de ingreso al portal Tecnocenter son los siguientes:<br> Nombre de usuario (email) :'.$this->data['User']['email'].
+							 '<br>Contraseña: '.$this->data['User']['password'];
+				 
+				$cabeceras = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
+				// Cabeceras adicionales
+				$cabeceras .= 'From: Tecnocenter <info@llevatelo.com>' . "\r\n";
+
+				/*if(mail($para, $asunto, $mensaje, $cabeceras))
+				{
+					$this->Session->setFlash(__('Bienvenido', true));
+				}else 
+				{
+						$this->Session->setFlash(__('Bienvenido', true));
+					//$this->Session->setFlash(__('Datos de logueo no enviados a su correo, por favor intenta mas tarde', true));
+				}*/
+			
+				//$rol=$this->Session->read("Auth.User.role_id");
+				$this->Session->setFlash(__('Su registro ha sido éxitoso', true));
+				$this->Auth->login($this->data);
+				$this->redirect(array("controller"=>"users",'action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The user could not be saved. Please, try again.', true));
+				$this->Session->setFlash(__('No se pudo completar el registro. Por favor, intente de nuevo', true));
 			}
 		}
-		//$user=$this->User->read(null,1);
-
-		$roles = $this->User->Role->find('list');
-		$this->set(compact('roles'));
+	}	
+	function checkPassword(){
+		$this->User->recursive=0;
+		$user=$this->User->read(null,$this->Auth->user("id"));
+		if($user["User"]["password"]==$this->Auth->password($_GET["data"]["User"]["actualPassword"])){
+			$user["User"]["password"]=$this->Auth->password($_GET["data"]["User"]["password"]);
+			$this->User->save($user,array("validate"=>false));
+			$this->Session->setFlash(__('Se ha modificado su contraseña', true));
+			echo json_encode(true);
+		}else{
+			echo json_encode(array("data[User][actualPassword]"=>"Contraseña Actual no valida"));
+		}
+		Configure::write("debug",0);
+		$this->autoRender=false;
+		exit(0);
 	}
-
-	function pruebas(){
-		debug($this->User->read(null,1));
-
-	}
-
+  	function changePassword(){
+  		if(!empty($this->data)){
+  			
+  		}
+  	}
+	
 	function view($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid user', true));
@@ -213,64 +252,7 @@ class UsersController extends AppController {
 		$this->redirect($this->Auth->logout());
 	}
 
-	//Configurar el reporte
-	function admin_selectReport(){
-		$roles=$this->User->Role->find('list');
-		$this->set(compact('roles'));
-	}
-
-	//Reporte por tipos de usuario
-	function admin_userReports(){
-		$this->User->recursive = 0;
-		$rol = $this->data['User']['role_id'];
-		foreach($this->data['User'] as $indice =>$valor)
-		{
-			if($valor==1)
-			{
-				$array[] = $indice;
-			}
-		}
-		$reporte = $this->User->find('all', array('fields'=>$array,'conditions'=>array('User.role_id'=>$rol)));
-		$this->set(compact('reporte'));
-	}
-
-	//$foto array del archivo
-	//nombre_foto es igual al username ya que sera unico
-	function uploadPicture($foto, $nombre_foto)	{
-		//Caracteristicas de la imagen
-		$nombre = $foto['name'];
-		$tipo = $foto['type'];
-		$tamano = $foto['size'];
-
-		//Comprobamos la extensión de la  imagen
-		if(strpos($tipo, "gif")) {
-			$nombre_foto=$nombre_foto.".gif";
-		} else if(strpos($tipo, "jpeg")) {
-			$nombre_foto=$nombre_foto.".jpg";
-		}
-
-		//Directorio donde sera guardada la imagen
-		$directorio = WWW_ROOT."img\\fotos\\".$nombre_foto;
-
-		//Comprobamos que la extensión y el tamaño sean los adecuados
-		if (!((strpos($tipo, "gif") || strpos($tipo, "jpeg")) && ($tamano < 2000000)))	{
-			$this->Session->setFlash(__("La extensión o el tamaño de la imagen no es correcta,
-						solo se permiten imagenes .gif o .jpg y el tamaño es de 2 mb máximo.", true)); 
-		} else {
-			//Copiamos la imagen al directorio, especificado
-			if (copy($foto["tmp_name"], $directorio))
-			{
-				$this->directorioFoto=$directorio;
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-
-	}
-
+	
 	//Recordar email
 	function rememberPassword(){
 		if (!empty($this->data)) {
@@ -300,55 +282,7 @@ class UsersController extends AppController {
 		}
 	}
 
-	function init() {
-		$aro =& $this->Acl->Aro;
-		$aco =& $this->Acl->Aco;
-		$firstAroId=$aro->id;
-		$roles=array("Administrador","Cliente");
-		foreach($roles as $theRole){
-			$role["Role"]["name"]=$theRole;
-			$this->User->Role->create();
-			if($this->User->Role->save($role)){
-				$newAro=array(
-					"alias"=>$role["Role"]["name"],
-					"model"=>"Role",
-					"foreign_key"=>$this->User->Role->id,
-				);
-				$aro->create();
-				$aro->save($newAro);
-			}
-			$this->User->Role->id=0;
-		}
-
-		$firsAcos=array(
-		0=>array(
-				"alias"=>"admin_menu"				
-				),
-				1=>array(
-				"alias"=>"menu"	
-				)
-				);
-				foreach($firsAcos as $newAro){
-					$aco->create();
-					$aco->save($newAro);
-				}
-
-				$this->Acl->allow('Administrador', 'admin_menu');
-				$this->Acl->allow('Cliente', 'menu');
-				$this->redirect($this->referer());
-
-	}
-
-	function reset(){
-		$this->User->query("TRUNCATE TABLE `users`");
-		$this->User->query("TRUNCATE TABLE `roles`");
-		$this->User->query("TRUNCATE TABLE `aros_acos`");
-		$this->User->query("TRUNCATE TABLE `aros`");
-		$this->User->query("TRUNCATE TABLE `acos`");
-		$this->init();
-		$this->redirect($this->referer());
-	}
-
+	
 	function reponerCreditos($userID = null, $creditosAReponer){
 		$usuario = $this->User->read(null, $userID);
 		$creditos = $usuario['User']['creditos'];

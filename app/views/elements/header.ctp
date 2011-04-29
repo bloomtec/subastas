@@ -26,7 +26,7 @@
 			<strong>¿Aún no eres miembro?</strong>
 			<p>Házlo en menos de 60 segundos</p>
 		</div>
-			<a href="#" class="registro"><strong>Regístrate</strong></a>
+			<?php echo $html->link("Registrate",array("controller"=>"users","action"=>"register"),array("class"=>"registro"));?>
 	</div>
 	<div class="login">
 		 <?php echo $form->create("User",array("action"=>"login","controller"=>"users"));?>
@@ -36,7 +36,7 @@
          <?php echo $form->input("password",array("label"=>"Contraseña:"));?>
          <div style="clear:both"></div>
          <?php echo $form->end(__('Ingresar', true), array('div' => false));?> 
-         <?php echo $html->link('¿Olvidó su contraseña?',array("controller"=>"users","action"=>"forgot"), array("id"=>"olvidar"));?>  
+         <?php echo $html->link('¿Olvidó su contraseña?',array("controller"=>"users","action"=>"rememberPassword"), array("id"=>"olvidar"));?>  
 	</div>
 	<div style="clear:both"></div>
 	</div>

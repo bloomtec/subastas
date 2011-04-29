@@ -339,14 +339,14 @@ class TimeHelperTest extends CakeTestCase {
 		if (date('Y', $time) == date('Y')) {
 			$this->assertEqual(date('M jS, H:i', $time), $this->Time->niceShort($time));
 		} else {
-			$this->assertEqual(date('M jSY, H:i', $time), $this->Time->niceShort($time));
+			$this->assertEqual(date('M jS Y, H:i', $time), $this->Time->niceShort($time));
 		}
 
 		$time = time();
-		$this->assertEqual('Today, '.date('H:i', $time), $this->Time->niceShort($time));
+		$this->assertEqual('Today, ' . date('H:i', $time), $this->Time->niceShort($time));
 
 		$time = time() - DAY;
-		$this->assertEqual('Yesterday, '.date('H:i', $time), $this->Time->niceShort($time));
+		$this->assertEqual('Yesterday, ' . date('H:i', $time), $this->Time->niceShort($time));
 	}
 
 /**
@@ -737,6 +737,25 @@ class TimeHelperTest extends CakeTestCase {
 
 		$result = $this->Time->convertSpecifiers('%X', $time);
 		$expected = '%H:%M:%S';
+		$this->assertEqual($result, $expected);
+	}
+
+/**
+ * test convert %e on windows.
+ *
+ * @return void
+ */
+	function testConvertPercentE() {
+		if ($this->skipIf(DS !== '\\', 'Cannot run windows tests on non-windows OS')) {
+			return;
+		}
+		$time = strtotime('Thu Jan 14 11:43:39 2010');
+		$result = $this->Time->convertSpecifiers('%e', $time);
+		$expected = '14';
+		$this->assertEqual($result, $expected);
+
+		$result = $this->Time->convertSpecifiers('%e', strtotime('2011-01-01'));
+		$expected = ' 1';
 		$this->assertEqual($result, $expected);
 	}
 

@@ -253,7 +253,7 @@ class CakeLog {
  * @return void
  */
 	function handleError($code, $description, $file = null, $line = null, $context = null) {
-		if ($code === 2048 || $code === 8192) {
+		if ($code === 2048 || $code === 8192 || error_reporting() === 0) {
 			return;
 		}
 		switch ($code) {
@@ -287,5 +287,6 @@ class CakeLog {
 }
 
 if (!defined('DISABLE_DEFAULT_ERROR_HANDLING')) {
-	set_error_handler(array('CakeLog', 'handleError'));
+	$cakeLog =& CakeLog::getInstance();
+	set_error_handler(array($cakeLog, 'handleError'));
 }
