@@ -24,7 +24,7 @@
             	<?php 
             	echo $html->link("Subastas Finalizadas",
             			array(
-							"controller"=>"pages","action"=>"view","subastas-finalizadas"),
+							"controller"=>"subastas","action"=>"subastasFinalizadas"),
 						array(
 							"class"=>"other color subastas-finalizadas",
 						)

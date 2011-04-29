@@ -1,19 +1,19 @@
 <div id="footer_links">
 	<ul>
 		<li>
-			<a href="#">Términos y Condiciones </a>
+			<?php echo $html->link("Términos y Condiciones",array("controller"=>"pages","action"=>"view","terminos-condiciones"));?>
 		</li>
 		<li>
-			<a href="#">Juego responsable</a>
+			<?php echo $html->link("Juego responsable",array("controller"=>"pages","action"=>"view","juego-responsable"));?>
 		</li>
 		<li>
-			<a href="#">Privacidad</a>
+			<?php echo $html->link("Privacidad",array("controller"=>"pages","action"=>"view","privacidad"));?>
 		</li>
 		<li>
-			<a href="#">Contacto</a>
+			<?php echo $html->link("Contacto",array("controller"=>"pages","action"=>"view","contacto"));?>
 		</li>
 		<li>
-			<a href="#">Sobre Nosotros</a>
+			<?php echo $html->link("Sobre Nosotros",array("controller"=>"pages","action"=>"view","sobre-nosotros"));?>
 		</li>
 		<li>
 			<a href="#">Mapa del sitio </a>
