@@ -10,8 +10,7 @@ class UsersController extends AppController {
 
 	function beforeFilter(){
 		parent::beforeFilter();
-		$this->Auth->allow(array('*'));
-
+		$this->Auth->allow("login","abonarCreditosPorRecomendacion","checkEmail","register","checkPassword","rememberPassword","reponerCreditos","creditosUsuario","creditosSuficientes","descontarCreditos");
 	}
 
 	function index() {
@@ -56,7 +55,7 @@ class UsersController extends AppController {
 				$this->autorender=false;
 				exit(0);
 	}
-	function register(){
+	function register(){ 
 		if (!empty($this->data)) {
 		  	$this->User->recursive = 0;		  
 			$this->User->create();
@@ -254,32 +253,57 @@ class UsersController extends AppController {
 
 	
 	//Recordar email
-	function rememberPassword(){
-		if (!empty($this->data)) {
-			$datos=$this->User->find("first", array('fields'=>array('email','username','password'),
+	//Recordar email
+	function generarPassword(){
+	$str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+	$cad = "";
+	for($i=0;$i<8;$i++) {
+	$cad .= substr($str,rand(0,62),1);
+	}
+	return $cad;
+	}
+	function rememberPassword()
+	{
+		if (!empty($this->data)) 
+		{
+			$this->User->recursive=0;
+			$datos=$this->User->find("first", array( 
 									'conditions'=>array('User.email'=>trim($this->data['User']['email']))));
-
-			if($datos['User']['email'])	{
+									
+			$newPassword=$this->generarPassword();
+			debug($newPassword);
+			$datos["User"]["password"]=$this->Auth->password($newPassword);
+			//debug($datos);
+			if($datos['User']['email'])
+			{				
 				$para      = $datos['User']['email'];
-				$asunto    = 'Recuperación de datos logueo';
-				$mensaje   = 'Hola, sus datos de logueo son :<br> Nombre de usuario :'.$datos['User']['username'].
-							 '<br>Contraseña: '.$datos['User']['password'];
-					
-				$cabeceras = 'From: webmaster@example.com' . "\r\n" .
-				    		 'Reply-To: webmaster@example.com' . "\r\n" .
-				    		 'X-Mailer: PHP/' . phpversion();
+				$asunto    = 'Recuperacion de contraseña';
+				$mensaje   = 'Sus datos para ingresar al portal tecnocenter.com.co son los siguientes: <br /> Nombre de usuario: '.$datos['User']['email'].
+							 ' <br /> Contraseña: '.$newPassword;
+						 
+				$cabeceras  = 'MIME-Version: 1.0' . "\r\n";
+				$cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
-				if(mail($para, $asunto, $mensaje, $cabeceras)) {
-					$this->Session->setFlash(__('Datos enviados a su correo', true));
-				} else {
-					$this->Session->setFlash(__('Datos no enviados a su correo, por favor intenta mas tarde', true));
+				// Cabeceras adicionales
+				$cabeceras .= "To:< ".$datos['User']['email'].">" . "\r\n";
+				$cabeceras .= 'From: Tecnocenter <info@tecnocenter.com.co>' . "\r\n";
+
+				if(mail($para, $asunto, $mensaje, $cabeceras))
+				{
+					$this->User->save($datos,array("validate"=>false));
+					$this->set("mensaje",'Datos enviados a su correo');
+				}else 
+				{
+					$this->set("mensaje",'Datos no enviados a su correo, por favor intenta mas tarde');
 				}
 				return;
-			} else {
-				$this->Session->setFlash(__('No existe ningun usuario registrado con ese email', true));
+			}
+			else 
+			{
+				$this->set("mensaje",'No existe ningun usuario registrado con ese email');
 				return;
 			}
-		}
+		}	
 	}
 
 	

@@ -35,6 +35,9 @@
 
 		echo $scripts_for_layout;
 	?>
+<script type="text/javascript">
+	var server="<?php echo $base_url;?>";
+</script>
 </head>
 <body id="home">
 	<div id="container">

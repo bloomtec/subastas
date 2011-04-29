@@ -1,5 +1,5 @@
 <div class="header_wrap">
-	<h1><a href="/">Llevatelos.com</a></h1>
+	<h1><a href="<?php echo $base_url;?>">Llevatelos.com</a></h1>
 	<div class="info">
 		<p class="slogan">Lo que más deseas el <strong>15%</strong> del precio comercial</p>
 		<div class="reloj">
@@ -31,7 +31,7 @@
 	<div class="login">
 		 <?php echo $form->create("User",array("action"=>"login","controller"=>"users"));?>
          <h1>Mi cuenta</h1>
-         <?php echo $form->input("username",array("label"=>"Usuario:"));?>
+         <?php echo $form->input("email",array("label"=>"Usuario:"));?>
          <div style="clear:both"></div>   
          <?php echo $form->input("password",array("label"=>"Contraseña:"));?>
          <div style="clear:both"></div>

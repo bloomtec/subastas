@@ -1,4 +1,4 @@
-<div class="register">
+<div class="register usuarios">
 	<?php echo $form -> create("User", array("action" => "register","id"=>"registerForm"));
 	$datos = explode("/", $_GET['url']);
 	if(isset($datos['2']) & !empty($datos['2'])) {
@@ -6,7 +6,7 @@
 	}
 	echo $form -> input("UserField.nombre");
 	echo $form -> input("UserField.apellido");
-	//echo $form -> input("username",array("required"=>"required"));
+	//echo $form -> input("username",array("type"=>"hidden","value"=>"web"));
 	?>
 	<div class="input text required">
 		<label for="UserEmail">Email</label>

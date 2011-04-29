@@ -28,7 +28,7 @@
 	<?php
 		echo $this->Html->meta('icon');
 
-		//echo $this->Html->css('front');
+		echo $this->Html->css('usuarios');
 		echo $this->Html->css('screen'); //EStilos del layout
 		echo $this->Html->script("https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js");
 		echo $this->Html->script("http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js");
@@ -37,6 +37,9 @@
 
 		echo $scripts_for_layout;
 	?>
+<script type="text/javascript">
+	var server="<?php echo $base_url;?>";
+</script>
 </head>
 <body>
 	<div id="container">

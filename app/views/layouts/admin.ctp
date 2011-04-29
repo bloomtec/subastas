@@ -41,6 +41,9 @@
 		echo $this->Html->script("superfish.js");
 		echo $scripts_for_layout;
 	?>
+<script type="text/javascript">
+	var server="<?php echo $base_url;?>";
+</script>
 </head>
 <body>
 	<div id="container">
