@@ -101,7 +101,6 @@ CREATE  TABLE IF NOT EXISTS `subastas`.`users` (
   `updated` DATETIME NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_users_roles1` (`role_id` ASC) ,
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC) ,
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) ,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) ,
   CONSTRAINT `fk_users_roles1`
@@ -350,64 +349,19 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `subastas`.`images`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`images` ;
-
-CREATE  TABLE IF NOT EXISTS `subastas`.`images` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `caption` TEXT NULL DEFAULT NULL ,
-  `path` VARCHAR(45) NOT NULL ,
-  `thumb` VARCHAR(45) NULL DEFAULT NULL ,
-  `created` DATETIME NULL DEFAULT NULL ,
-  `updated` DATETIME NULL DEFAULT NULL ,
-  `model` VARCHAR(45) NULL DEFAULT NULL ,
-  `foreign_key` VARCHAR(45) NULL DEFAULT NULL ,
-  `field_name` VARCHAR(45) NULL DEFAULT NULL ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
-
-
--- -----------------------------------------------------
 -- Table `subastas`.`pages`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `subastas`.`pages` ;
 
 CREATE  TABLE IF NOT EXISTS `subastas`.`pages` (
-  `id` INT(11) NOT NULL ,
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `title` VARCHAR(45) NULL DEFAULT NULL ,
   `description` VARCHAR(45) NULL DEFAULT NULL ,
   `content` LONGTEXT NULL DEFAULT NULL ,
+  `slug` VARCHAR(45) NULL ,
+  `created` DATETIME NULL ,
+  `updated` DATETIME NULL ,
   PRIMARY KEY (`id`) )
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
-
-
--- -----------------------------------------------------
--- Table `subastas`.`images_pages`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`images_pages` ;
-
-CREATE  TABLE IF NOT EXISTS `subastas`.`images_pages` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `page_id` INT(11) NULL DEFAULT NULL ,
-  `image_id` INT(11) NULL DEFAULT NULL ,
-  `created` DATETIME NULL DEFAULT NULL ,
-  `updated` DATETIME NULL DEFAULT NULL ,
-  PRIMARY KEY (`id`) ,
-  INDEX `imagespages_image` (`image_id` ASC) ,
-  INDEX `imagespages_page` (`page_id` ASC) ,
-  CONSTRAINT `imagespages_image`
-    FOREIGN KEY (`image_id` )
-    REFERENCES `subastas`.`images` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `imagespages_page`
-    FOREIGN KEY (`page_id` )
-    REFERENCES `subastas`.`pages` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
@@ -528,7 +482,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `subastas`;
-INSERT INTO `subastas`.`configs` (`id`, `tamano_cola`, `creditos_recomendados`, `created`, `updated`) VALUES (1, 3, NULL, NULL, NULL);
+INSERT INTO `subastas`.`configs` (`id`, `tamano_cola`, `creditos_recomendados`, `created`, `updated`) VALUES (1, 5, 0, NULL, NULL);
 
 COMMIT;
 
