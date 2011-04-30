@@ -1,5 +1,5 @@
-<div class="batchCodes index">
-	<h2><?php __('Batch Codes');?></h2>
+<div>
+	<h2><?php __('PIN\'s');?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('id');?></th>
@@ -44,12 +44,4 @@
  |
 		<?php echo $this->Paginator->next(__('next', true) . ' >>', array(), null, array('class' => 'disabled'));?>
 	</div>
-</div>
-<div class="actions">
-	<h3><?php __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Batch Code', true), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Codes', true), array('controller' => 'codes', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Code', true), array('controller' => 'codes', 'action' => 'add')); ?> </li>
-	</ul>
 </div>

@@ -59,20 +59,48 @@
 			<?php if(!isset($login)): ?> 
 			<ul class="nav">
 				<li>
-					<?php echo $html->link("Colecciones",array("controller"=>"colecciones","action"=>"index")); ?>
+					<?php echo $html->link("Subastas",array("controller"=>"subastas", "action"=>"index")); ?>
 					<ul>
-						<li>1</li>
-						<li>2</li>
-						<li>3</li>
+						<li><?php echo $html->link("Listar Subastas", array("controller"=>"subastas", "action"=>"index")); ?></li>
+						<li><?php echo $html->link("Añadir Subasta", array("controller"=>"subastas", "action"=>"add")); ?></li>
 					</ul>
 				</li>
-				<li><?php echo $html->link("Datos de Usaurio",array("controller"=>"users","action"=>"edit",1)); ?></li>
-				<li><?php echo $html->link("Eventos",array("controller"=>"eventos","action"=>"index")); ?></li>
-				<li><?php echo $html->link("Paginas",array("controller"=>"pages","action"=>"index")); ?></li>
-				<li><?php echo $html->link(__("logout",true),array("controller"=>"users","action"=>"logout"),array("class"=>"logout"))?><li> 
+				<li>
+					<?php echo $html->link("Usuarios",array("controller"=>"users","action"=>"index")); ?>
+					<ul>
+						<li>
+							<?php echo $html->link("Listar Usuarios", array("controller"=>"users","action"=>"index")); ?>
+						</li>
+						<li>
+							<?php echo $html->link("Añadir Usuario", array("controller"=>"users","action"=>"add")); ?>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<?php echo $html->link("PIN's", array("controller"=>"batch_codes", "action"=>"index")); ?>
+					<ul>
+						<li>
+							<?php echo $html->link("Listar PIN's", array("controller"=>"batch_codes", "action"=>"index")); ?>
+						</li>
+						<li>
+							<?php echo $html->link("Añadir PIN", array("controller"=>"batch_codes", "action"=>"add")); ?>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<?php echo $html->link("Paginas", array("controller"=>"pages","action"=>"index")); ?>
+				</li>
+				<li>
+					<?php echo $html->link("Configuración",array("controller"=>"configs", "action"=>"edit", "1")); ?>
+				</li>
+				<li>
+					<?php echo $html->link("Contactos",array("controller"=>"contacts", "action"=>"index")); ?>
+				</li>
+				<li>
+					<?php echo $html->link(__("logout",true),array("controller"=>"users","action"=>"logout"), array("class"=>"logout"))?>
+				<li>
 			</ul>
 			<?php endif;?>
-		<?php //if(!isset($login)) echo $html->link(__("logout",true),array("controller"=>"users","action"=>"logout"),array("class"=>"logout"))?>
 		</div>
 		<div id="content">
 

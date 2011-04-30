@@ -2,7 +2,7 @@
 class SubastasController extends AppController {
 
 	var $name = 'Subastas';
-
+	
 	function ofertar($subastaID = null) {
 		if (!$subastaID) {
 			$this->Session->setFlash(__('ID no valida para la subasta', true));
@@ -75,6 +75,7 @@ class SubastasController extends AppController {
 			$this->set('subastas', $this->paginate());
 		}
 	}
+	
 	function proximasSubastas(){
 	 $config=$this->Config->read(null,1);	
 	 if (!empty($this->params['requested'])) {

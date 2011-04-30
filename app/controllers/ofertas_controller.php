@@ -3,6 +3,25 @@ class OfertasController extends AppController {
 
 	var $name = 'Ofertas';
 
+	function obtenerUsuarioUltimaOferta($subastaID = null){
+		$this->autoRender = false;
+		
+		if(isset($_POST['subasta_id'])){
+			$subastaID = $_POST['subasta_id'];
+		}
+		
+		if($subastaID){
+			$result = $this->Oferta->find('first', array('conditions'=>array('Oferta.subasta_id' => $subastaID), 'order' => array('Oferta.created DESC')));
+			if(isset($result['User']['username'])){
+				return $result['User']['username'];
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
+	
 	function index() {
 		$this->Oferta->recursive = 0;
 		$this->set('ofertas', $this->paginate());

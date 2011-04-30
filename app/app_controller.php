@@ -6,6 +6,7 @@ class AppController extends Controller {
 	var $uses=array("Config");
 
 	function beforeFilter(){
+		$this->Auth->allow("*");
 		$this->Auth->fields = array(
 		'username' => 'email',
 		'password' => 'password'

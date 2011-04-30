@@ -1,4 +1,4 @@
-<div class="subastas view">
+<div>
 <h2><?php  __('Subasta');?></h2>
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
 		<!-- <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Id'); ?></dt> -->
@@ -104,26 +104,6 @@
 		</dd>
 	</dl>
 </div>
-<div class="actions">
-	<h3><?php __('Menú'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Subastas', true), array('action' => 'index')); ?> </li>
-		<i>
-			<li><?php echo $this->Html->link(__('Modificar Subasta', true), array('action' => 'edit', $subasta['Subasta']['id'])); ?> </li>
-			<li><?php echo $this->Html->link(__('Eliminar Subasta', true), array('action' => 'delete', $subasta['Subasta']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $subasta['Subasta']['id'])); ?> </li>
-		</i>
-		<li><?php echo $this->Html->link(__('Ventas', true), array('controller' => 'ventas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Ofertas', true), array('controller' => 'ofertas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Usuarios', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<!-- <li><?php echo $this->Html->link(__('New Subasta', true), array('action' => 'add')); ?> </li> -->
-		<!-- <li><?php echo $this->Html->link(__('List Tipo Subastas', true), array('controller' => 'tipo_subastas', 'action' => 'index')); ?> </li> -->
-		<!-- <li><?php echo $this->Html->link(__('New Tipo Subasta', true), array('controller' => 'tipo_subastas', 'action' => 'add')); ?> </li> -->
-		<!-- <li><?php echo $this->Html->link(__('List Estados Subastas', true), array('controller' => 'estados_subastas', 'action' => 'index')); ?> </li> -->
-		<!-- <li><?php echo $this->Html->link(__('New Estados Subasta', true), array('controller' => 'estados_subastas', 'action' => 'add')); ?> </li> -->
-		<!-- <li><?php echo $this->Html->link(__('New Venta', true), array('controller' => 'ventas', 'action' => 'add')); ?> </li> -->
-		<!-- <li><?php echo $this->Html->link(__('New Oferta', true), array('controller' => 'ofertas', 'action' => 'add')); ?> </li> -->
-	</ul>
-</div>
 	<div class="related">
 		<h3><?php __('Venta');?></h3>
 		<?php if (!empty($subasta['Venta'])):?>
@@ -154,11 +134,6 @@
 <!-- &nbsp;</dd> -->
 		</dl>
 	<?php endif; ?>
-		<div class="actions">
-			<ul>
-				<li><?php echo $this->Html->link(__('Modificar', true), array('controller' => 'ventas', 'action' => 'edit', $subasta['Venta']['id'])); ?></li>
-			</ul>
-		</div>
 	</div>
 	<div class="related">
 	<h3><?php __('Ofertas');?></h3>
@@ -186,19 +161,8 @@
 			<!-- <td><?php echo $oferta['creditos_descontados'];?></td> -->
 			<td><?php echo $oferta['created'];?></td>
 			<!-- <td><?php echo $oferta['updated'];?></td> -->
-			<td class="actions">
-				<?php echo $this->Html->link(__('Ver', true), array('controller' => 'ofertas', 'action' => 'view', $oferta['id'])); ?>
-				<?php echo $this->Html->link(__('Modificar', true), array('controller' => 'ofertas', 'action' => 'edit', $oferta['id'])); ?>
-				<?php echo $this->Html->link(__('Eliminar', true), array('controller' => 'ofertas', 'action' => 'delete', $oferta['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $oferta['id'])); ?>
-			</td>
 		</tr>
 	<?php endforeach; ?>
 	</table>
 <?php endif; ?>
-
-	<div class="actions">
-		<ul>
-			<li><?php echo $this->Html->link(__('Ofertar', true), array('controller' => 'ofertas', 'action' => 'add'));?> </li>
-		</ul>
-	</div>
 </div>
