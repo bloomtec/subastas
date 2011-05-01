@@ -21,7 +21,9 @@ class OfertasController extends AppController {
 			return null;
 		}
 	}
-	
+	function getOfertas($subastaId){
+		return $this->Oferta->find("all",array("conditions"=>array("subasta_id"=>$subastaId)));
+	}
 	function index() {
 		$this->Oferta->recursive = 0;
 		$this->set('ofertas', $this->paginate());

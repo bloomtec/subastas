@@ -66,7 +66,21 @@ class User extends AppModel {
 			'order' => ''
 		)
 	);
-
+	var $hasOne=array(
+		'UserField' => array(
+			'className' => 'UserField',
+			'foreignKey' => 'user_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		)
+	);
 	var $hasMany = array(
 		'Oferta' => array(
 			'className' => 'Oferta',
@@ -81,19 +95,7 @@ class User extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
-		'UserField' => array(
-			'className' => 'UserField',
-			'foreignKey' => 'user_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
+		
 		'Venta' => array(
 			'className' => 'Venta',
 			'foreignKey' => 'user_id',

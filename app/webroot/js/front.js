@@ -9,7 +9,7 @@ var usuario=function(){
 			// submit with AJAX
 			$.getJSON(server+"users/checkEmail?" + form.serialize(), function(json) {
 				if (json === true)  {
-					$("form#UserRegisterForm").unbind('submit').submit();
+					$("form#registerForm").unbind('submit').submit();
 					return true;	
 				// server-side validation failed. use invalidate() to show errors
 				} else {

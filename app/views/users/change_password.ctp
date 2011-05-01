@@ -3,9 +3,9 @@
 	
 </div>
 
-<div id="right-content" class="cambiar-contrasena">
-	<div id="crear-usuario" class="cambiar form">
-	<?php echo $this->Form->create('User');?>
+<div id="right-content" class="cambiar-contrasena estilo-borde">
+	<div id="crear-usuario" class="cambiar forms">
+	<?php echo $this->Form->create('User',array("style"=>"width:100%"));?>
 		<fieldset>
 			<p>
 			Por favor ingrese su actual contraseña y su contraseña anterior

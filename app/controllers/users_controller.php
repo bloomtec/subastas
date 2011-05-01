@@ -14,10 +14,12 @@ class UsersController extends AppController {
 	}
 
 	function index() {
-		$this->User->recursive = 0;
-		$this->set('users', $this->paginate());
+		//debug($this->User->read(null,$this->Auth->user("id")));
+		$this->set('user', $this->User->read(null,$this->Auth->user("id")));
 	}
-
+	function modificarDatos(){
+		$this->data=$this->User->read(null,$this->Auth->user("id"));
+	}
 	function abonarCreditosPorRecomendacion($encryptedID = null){
 		// Encontrar el total de usuarios registrados
 		//
@@ -60,8 +62,10 @@ class UsersController extends AppController {
 		  	$this->User->recursive = 0;		  
 			$this->User->create();
 			$this->data["User"]["role_id"]=2;// Is set as a Basic user for default
-		  if ($this->User->saveAll($this->data)) 
+		  if ($this->User->save($this->data)) 
 			{
+				$this->data["UserField"]["user_id"]=$this->User->id;
+				$this->User->UserField->save($this->data["UserField"]);
 				if (isset($this->data['Recomendado'])) {
                     $this->abonarCreditosPorRecomendacion($this->data['Recomendado']['id']);
                 }

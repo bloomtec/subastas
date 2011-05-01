@@ -3,6 +3,18 @@ class SubastasController extends AppController {
 
 	var $name = 'Subastas';
 	
+	function subastasActivas(){
+		$userID=$this->Auth->user("id");
+		$subastas=""/*condicion qeu devuelva todas las subastas activas
+		 * 			en la que este usuario ha participaso*/;
+		return $subastas;
+	}
+	function finalizadas(){
+		$userID=$this->Auth->user("id");
+		$subastas=""/*condicion qeu devuelva todas las subastas finalizadas
+		 * 			en la que este usuario ha participaso*/;
+		$this->set(compact($subastas));
+	}
 	function ofertar($subastaID = null) {
 		if (!$subastaID) {
 			$this->Session->setFlash(__('ID no valida para la subasta', true));
@@ -15,7 +27,7 @@ class SubastasController extends AppController {
 		$this->Session->setFlash(__('No se pudo ofertar por la subasta', true));
 		$this->redirect(array('action' => 'index'));
 	}
-
+	
 	function __ofertar($subastaID = null) {
 		// Obtener la informacion de la subasta
 		//
