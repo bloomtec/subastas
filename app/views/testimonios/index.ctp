@@ -25,7 +25,7 @@
 	<tr<?php echo $class;?>>
 		<td><?php echo $testimonio['Testimonio']['titulo']; ?>&nbsp;</td>
 		<td><?php echo $testimonio['Testimonio']['texto']; ?>&nbsp;</td>
-		<td><?php echo $testimonio['Testimonio']['imagen_path']; ?>&nbsp;</td>
+		<td><?php echo $html->image($subasta['Testimonio']['imagen_path'],array("width"=>"200")); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('Ver', true), array('action' => 'view', $testimonio['Testimonio']['id'])); ?>
 			<?php echo $this->Html->link(__('Modificar', true), array('action' => 'edit', $testimonio['Testimonio']['id'])); ?>
