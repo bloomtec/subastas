@@ -82,6 +82,7 @@ class SubastasController extends AppController {
 			)
 			));
 			$this->set('subastas', $this->paginate());
+			$this->set("registrado",$this->Cookie->read("registrado"));
 		}
 	}
 

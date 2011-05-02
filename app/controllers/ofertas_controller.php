@@ -3,22 +3,25 @@ class OfertasController extends AppController {
 
 	var $name = 'Ofertas';
 
-	function obtenerUsuarioUltimaOferta($subastaID = null){
+	function obtenerUsuarioUltimaOferta($subastaID = null,$ofertID=null){
 		$this->autoRender = false;
 		
 		if(isset($_POST['subasta_id'])){
 			$subastaID = $_POST['subasta_id'];
 		}
+		if(isset($_POST['oferta_id'])){
+			$ofertID = $_POST['oferta_id'];
+		}
 		
 		if($subastaID){
-			$result = $this->Oferta->find('first', array('conditions'=>array('Oferta.subasta_id' => $subastaID), 'order' => array('Oferta.created DESC')));
+			$result = $this->Oferta->find('first', array('conditions'=>array('Oferta.subasta_id' => $subastaID,"Oferta.id >"=>$ofertID), 'order' => array('Oferta.created DESC')));
 			if(isset($result['User']['username'])){
 				return $result['User']['username'];
 			} else {
-				return null;
+				return false;
 			}
 		} else {
-			return null;
+			return false;
 		}
 	}
 	
@@ -47,7 +50,7 @@ class OfertasController extends AppController {
 		$this->Oferta->save();
 	}
 
-	function add() {
+	/*function add() {
 		if (!empty($this->data)) {
 			$this->Oferta->create();
 			if ($this->Oferta->save($this->data)) {
@@ -60,7 +63,7 @@ class OfertasController extends AppController {
 		$subastas = $this->Oferta->Subasta->find('list');
 		$users = $this->Oferta->User->find('list');
 		$this->set(compact('subastas', 'users'));
-	}
+	}*/
 
 	function edit($id = null) {
 		if (!$id && empty($this->data)) {

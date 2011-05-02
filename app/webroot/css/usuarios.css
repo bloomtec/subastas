@@ -96,7 +96,7 @@ ESTILOS CSS DE LOS FORMULARIOS DE USUARIO
 	padding:3px 10px;
 	margin-left:-2px;
 
-
+	z-index: 10000;
 	/* CSS3 spicing for mozilla and webkit */
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;

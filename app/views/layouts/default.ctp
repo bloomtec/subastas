@@ -27,9 +27,11 @@
 	</title>
 	<?php
 		echo $this->Html->meta('icon');
-
+		echo $this->Html->css("ie");
+		echo $this->Html->css('reset');
 		echo $this->Html->css('usuarios');
 		echo $this->Html->css('screen'); //EStilos del layout
+		
 		echo $this->Html->script("https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js");
 		echo $this->Html->script("http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js");
 		
@@ -59,6 +61,6 @@
 		</div>
 	</div>
 	
-	<?php echo $this->element('sql_dump'); ?>
+	<?php echo $this->element('register-overlay'); ?>
 </body>
 </html>

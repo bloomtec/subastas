@@ -23,7 +23,7 @@
 		?>
 		<div class="input text required">
 			<label for="UserEmail">Email</label>
-			<input type="email" id="UserEmail" maxlength="45" name="data[User][email]">
+			<input type="email" id="UserEmail" maxlength="45" name="data[User][email]" required="required">
 		</div>
 		<?php
 			echo $form -> input("password");
