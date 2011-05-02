@@ -3,6 +3,18 @@ class TestimoniosController extends AppController {
 
 	var $name = 'Testimonios';
 
+	private function añadirTestimonio() {
+		if (!empty($this->data)) {
+			$this->Testimonio->create();
+			if ($this->Testimonio->save($this->data)) {
+				$this->Session->setFlash(__('Se guardo su testimonio.', true));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('No se pudo guardar su testimonio.', true));
+			}
+		}
+	}
+	
 	function index() {
 		$this->Testimonio->recursive = 0;
 		$this->set('testimonios', $this->paginate());
@@ -17,15 +29,8 @@ class TestimoniosController extends AppController {
 	}
 
 	function add() {
-		if (!empty($this->data)) {
-			$this->Testimonio->create();
-			if ($this->Testimonio->save($this->data)) {
-				$this->Session->setFlash(__('The testimonio has been saved', true));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The testimonio could not be saved. Please, try again.', true));
-			}
-		}
+		// titulo, texto descriptivo e imagen
+		$this->añadirTestimonio();
 	}
 
 	function edit($id = null) {
