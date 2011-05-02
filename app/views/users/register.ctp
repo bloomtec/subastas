@@ -17,13 +17,13 @@
 		if(isset($datos['2']) & !empty($datos['2'])) {
 			echo $form -> input("Recomendado.id", array('type' => 'hidden', 'value' => $datos['2']));
 		}
-		echo $form -> input("UserField.nombres");
-		echo $form -> input("UserField.apellidos");
-		echo $form -> input("username",array("div"=>"input text required","value"=>"web","label"=>"Nombre de usuario"));
+		echo $form -> input("UserField.nombres",array("required"=>"required"));
+		echo $form -> input("UserField.apellidos",array("required"=>"required"));
+		echo $form -> input("username",array("div"=>"input text required","value"=>"web","label"=>"Nombre de usuario","required"=>"required"));
 		?>
 		<div class="input text required">
 			<label for="UserEmail">Email</label>
-			<input type="email" id="UserEmail" maxlength="45" name="data[User][email]">
+			<input type="email" id="UserEmail" maxlength="45" name="data[User][email]" required="required">
 		</div>
 		<?php
 		echo $form -> input("password");

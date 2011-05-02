@@ -91,6 +91,8 @@ class UsersController extends AppController {
 				//$rol=$this->Session->read("Auth.User.role_id");
 				$this->Session->setFlash(__('Su registro ha sido éxitoso', true));
 				$this->Auth->login($this->data);
+				$this->Cookie->write("registrado", true);
+				if($this->referer()=="/") $this->redirect(array("controller"=>"subastas",'action' => 'index'));
 				$this->redirect(array("controller"=>"users",'action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('No se pudo completar el registro. Por favor, intente de nuevo', true));
