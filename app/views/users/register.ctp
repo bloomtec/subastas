@@ -13,21 +13,21 @@
 			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
 		</p>
 		<?php echo $form -> create("User", array("action" => "register","id"=>"registerForm"));
-		$datos = explode("/", $_GET['url']);
-		if(isset($datos['2']) & !empty($datos['2'])) {
-			echo $form -> input("Recomendado.id", array('type' => 'hidden', 'value' => $datos['2']));
-		}
-		echo $form -> input("UserField.nombres");
-		echo $form -> input("UserField.apellidos");
-		echo $form -> input("username",array("div"=>"input text required","value"=>"web","label"=>"Nombre de usuario"));
+			$datos = explode("/", $_GET['url']);
+			if(isset($datos['2']) & !empty($datos['2'])) {
+				echo $form -> hidden("Recomendado.id", array('value' => $datos['2']));
+			}
+			echo $form -> input("UserField.nombres");
+			echo $form -> input("UserField.apellidos");
+			echo $form -> hidden("username",array("div"=>"input text required","value"=>"web","label"=>"Nombre de usuario"));
 		?>
 		<div class="input text required">
 			<label for="UserEmail">Email</label>
 			<input type="email" id="UserEmail" maxlength="45" name="data[User][email]">
 		</div>
 		<?php
-		echo $form -> input("password");
-		echo $form -> end("Guardar");
+			echo $form -> input("password");
+			echo $form -> end("Guardar");
 		?>
 	</div>
 </div>

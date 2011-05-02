@@ -5,14 +5,14 @@
 	 <?php foreach ($subastas as $subasta):?>
 	 <li> 
 		<div class="imagen">
-			<?php echo $this->Html->image($subasta['Subasta']['imagen_path'],array("width"=>"200"))?>
-			<?php echo $this->Html->para("nombre",$subasta["Subasta"]["nombre"]) ?>	
+			<?php echo $this->Html->image($subasta['Subasta']['imagen_path'],array("width"=>"200")); ?>
+			<?php echo $this->Html->para("nombre",$subasta["Subasta"]["nombre"]); ?>	
 		</div> 
 		<div class="ofertas">
 			<ul class="ofertas">
-				<?php $ofertas=$this->requestActions("/ofertas/getOfertas/".$subasta["Subasta"]["id"]);?>
+				<?php $ofertas=$this->requestAction("/ofertas/getOfertas/".$subasta["Subasta"]["id"]); ?>
 				<?php foreach($ofertas as $oferta):?>
-					<li><?php echo $oferta["Usert"]["username"]."-".$oferta["Oferta"]["created"]?></li>
+					<li><?php echo $oferta["Oferta"]["created"]?></li>
 				<?php endforeach;?>
 			</ul>
 		</div>

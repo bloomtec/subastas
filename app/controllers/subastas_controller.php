@@ -2,19 +2,33 @@
 class SubastasController extends AppController {
 
 	var $name = 'Subastas';
+	var $uses = array('Subasta', 'Oferta');
 	
 	function subastasActivas(){
-		$userID=$this->Auth->user("id");
-		$subastas=""/*condicion qeu devuelva todas las subastas activas
-		 * 			en la que este usuario ha participaso*/;
+		$userID = $this->Auth->user("id");
+		$subastas = $this->Subasta->find("all", array('conditions'=>array('Subasta.estados_subasta_id'=>'2')));
+		/**
+		 * condicion qeu devuelva todas las subastas activas
+		 * en la que este usuario ha participado
+		 * NOTA:	Segun la lógica del elemento subastas-activas se requiere en este metodo
+		 * 			es saber cuales subastas estan activas.
+		 * 			La razon de esto es que luego se filtran las ofertas por el user_id
+		 */
 		return $subastas;
 	}
+	
 	function finalizadas(){
-		$userID=$this->Auth->user("id");
-		$subastas=""/*condicion qeu devuelva todas las subastas finalizadas
-		 * 			en la que este usuario ha participaso*/;
+		$userID = $this->Auth->user("id");
+		$subastas = $this->Subasta->find("all", array('conditions'=>array('User.id'=>$userID, 'Subasta.estados_subasta_id'=>'2')));
+		/** 
+		 * condicion qeu devuelva todas las subastas finalizadas
+		 * en la que este usuario ha participado
+		 * NOTA :	Se esta tomando como subasta finalizada las condiciones siguientes:
+		 * 			Vencida, Cancelada, Cerrada, Vendida
+		 */
 		$this->set(compact($subastas));
 	}
+	
 	function ofertar($subastaID = null) {
 		if (!$subastaID) {
 			$this->Session->setFlash(__('ID no valida para la subasta', true));
@@ -24,7 +38,7 @@ class SubastasController extends AppController {
 			$this->Session->setFlash(__('Se oferto por la subasta exitosamente', true));
 			$this->redirect(array('action'=>'index'));
 		}
-		$this->Session->setFlash(__('No se pudo ofertar por la subasta', true));
+		$this->Session->setFlash(__('No se pudo ofertar por la subasta, verifique si dispone de créditos suficientes.', true));
 		$this->redirect(array('action' => 'index'));
 	}
 	
