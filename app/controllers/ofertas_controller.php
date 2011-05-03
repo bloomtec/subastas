@@ -6,17 +6,17 @@ class OfertasController extends AppController {
 	function obtenerUsuarioUltimaOferta($subastaID = null,$ofertID=null){
 		$this->autoRender = false;
 		
-		if(isset($_POST['subasta_id'])){
-			$subastaID = $_POST['subasta_id'];
+		if(isset($_GET['subasta_id'])){
+			$subastaID = $_GET['subasta_id'];
 		}
-		if(isset($_POST['oferta_id'])){
-			$ofertID = $_POST['oferta_id'];
+		if(isset($_GET['oferta_id'])){
+			$ofertID = $_GET['oferta_id'];
 		}
 		
 		if($subastaID){
 			$result = $this->Oferta->find('first', array('conditions'=>array('Oferta.subasta_id' => $subastaID,"Oferta.id >"=>$ofertID), 'order' => array('Oferta.created DESC')));
 			if(isset($result['User']['username'])){
-				return $result['User']['username'];
+				return json_encode($result);
 			} else {
 				return false;
 			}
