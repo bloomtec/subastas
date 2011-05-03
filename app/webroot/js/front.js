@@ -1,16 +1,16 @@
 
 $(function(){
 	//Codigo Jquery
-	var usuario=function(){
-		$.tools.validator.localize("es", {
-			'*'			: 'Virheellinen arvo',
-			':email'  	: 'Correo electronico no valido',
-			':number' 	: 'El campo debe ser numerico',
-			':url' 		: 'El campo debe ser una URL',
-			'[max]'	 	: 'El campo debe ser mayot a $1',
-			'[min]'		: 'El campo debe ser menor a $1',
-			'[required]'	: 'Este campo es obligatorio '
-		});
+var usuario=function(){
+	$.tools.validator.localize("es", {
+		'*'			: 'Virheellinen arvo',
+		':email'  	: 'Correo electronico no valido',
+		':number' 	: 'El campo debe ser numerico',
+		':url' 		: 'El campo debe ser una URL',
+		'[max]'	 	: 'El campo debe ser mayot a $1',
+		'[min]'		: 'El campo debe ser menor a $1',
+		'[required]'	: 'Este campo es obligatorio '
+	});
 	//Registro
 	var send=false;
 	$("form#registerForm").validator({lang: 'es'}).submit(function(e){
@@ -44,7 +44,7 @@ $(function(){
 					$(".add-cart").fadeIn().delay(1000).fadeOut();
 					$("#cesta").load(server+"/carts/cesta");
 				}else{
-					//
+					
 				}
 			});
 			e.preventDefault()

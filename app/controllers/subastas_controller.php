@@ -2,30 +2,41 @@
 class SubastasController extends AppController {
 
 	var $name = 'Subastas';
-	var $uses = array('Subasta', 'Oferta');
 	
 	function subastasActivas(){
+		$this->autoRender=false;
 		$userID = $this->Auth->user("id");
-		$subastas = $this->Subasta->find("all", array('conditions'=>array('Subasta.estados_subasta_id'=>'2')));
 		/**
 		 * condicion qeu devuelva todas las subastas activas
 		 * en la que este usuario ha participado
-		 * NOTA:	Segun la lógica del elemento subastas-activas se requiere en este metodo
-		 * 			es saber cuales subastas estan activas.
-		 * 			La razon de esto es que luego se filtran las ofertas por el user_id
 		 */
+		$query = 
+			"SELECT *
+			FROM subastas as Subasta, users as User, ofertas as Oferta
+			WHERE User.id = $userID
+			AND Oferta.user_id = User.id
+			AND Subasta.id = Oferta.subasta_id
+			AND Subasta.estados_subasta_id >= '2'";
+		$subastas = $this->Subasta->query($query);
 		return $subastas;
 	}
 	
 	function finalizadas(){
 		$userID = $this->Auth->user("id");
-		$subastas = $this->Subasta->find("all", array('conditions'=>array('User.id'=>$userID, 'Subasta.estados_subasta_id'=>'2')));
 		/** 
 		 * condicion qeu devuelva todas las subastas finalizadas
 		 * en la que este usuario ha participado
 		 * NOTA :	Se esta tomando como subasta finalizada las condiciones siguientes:
 		 * 			Vencida, Cancelada, Cerrada, Vendida
 		 */
+		$query = 
+			"SELECT *
+			FROM subastas as Subasta, users as User, ofertas as Oferta
+			WHERE User.id = $userID
+			AND Oferta.user_id = User.id
+			AND Subasta.id = Oferta.subasta_id
+			AND Subasta.estados_subasta_id <> '2'";
+		$subastas = $this->Subasta->query($query);
 		$this->set(compact($subastas));
 	}
 	
@@ -76,11 +87,12 @@ class SubastasController extends AppController {
 			));
 		} else {
 			$this->Paginate=array("Subasta",array(
-			 	"conditions"=>array(
-			 		"Subasta.estados_subasta_id"=>2,//activa
-					"Subasta.posicion_en_cola <="=>$config["Config"]["tamano_cola"]
-			)
-			));
+							 		"conditions"=>array(
+								 			"Subasta.estados_subasta_id"=>'2',//activa
+											"Subasta.posicion_en_cola <="=>$config["Config"]["tamano_cola"]
+										)
+									)
+								);
 			$this->set('subastas', $this->paginate());
 			$this->set("registrado",$this->Cookie->read("registrado"));
 		}
