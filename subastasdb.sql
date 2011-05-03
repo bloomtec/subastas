@@ -49,6 +49,8 @@ CREATE  TABLE IF NOT EXISTS `subastas`.`subastas` (
   `valor` VARCHAR(45) NOT NULL ,
   `umbral_minimo_creditos` INT NOT NULL COMMENT 'miimo de creditos para que se venda' ,
   `cantidad_creditos_puja` INT NOT NULL ,
+  `precio` INT NOT NULL ,
+  `aumento_creditos` INT NOT NULL ,
   `dias_espera` INT NOT NULL COMMENT 'dias que se espera para la venta' ,
   `contenido_pagina` LONGTEXT NULL COMMENT 'html pagina producto' ,
   `posicion_en_cola` INT NOT NULL ,
