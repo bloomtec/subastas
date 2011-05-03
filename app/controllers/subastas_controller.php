@@ -44,7 +44,7 @@ class SubastasController extends AppController {
 			WHERE User.id = $userID
 			AND Oferta.user_id = User.id
 			AND Subasta.id = Oferta.subasta_id
-			AND Subasta.estados_subasta_id <> '2'";
+			AND Subasta.estados_subasta_id > '2'";
 		$subastas = $this->Subasta->query($query);
 		$this->set(compact($subastas));
 	}
