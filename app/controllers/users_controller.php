@@ -372,34 +372,49 @@ class UsersController extends AppController {
 			$this->Session->setFlash(__('Error al leer los datos ingresados', true));
 		}
 	}
+	
+	function getUsuario($userID = null) {
+		if ($userID) {
+			return $this->User->find('first', array('conditions'=>array('User.id'=>$userID)));
+		} else {
+			return null;
+		}
+	}
 
 	function enviarCorreoRecomendado($userID = null, $correoDestino = null){
 		// Encriptar el ID de quien envía la recomendacion
 		//
-		$IDEncriptada = crypt($userID, "23()23*$%g4F^aN!^^%");
-
-		// TODO : Enviar el correo a $correoDestino con el enlace y la $IDEncriptada
-		//
-
-		/**
-		 if (!empty($this->data)) {
-		 $asunto="Nuevo Mensaje de la Página Web";
-		 $from=$this->data["Page"]["nombre_completo"]."<".$this->data["Page"]["email"].">";
-		 $nombreDestinatario=$this->data["Page"]["nombre_completo"];
-		 $asunto=$this->data["Page"]["asunto"]." - Enviado desde la página web";
-		 $telefono=$this->data["Page"]["telefono"];
-		 $texto=$this->data["Page"]["asunto"];
-		 $cadena="Enviado por ".$nombreDestinatario." <".$from."> \n\n".$texto;
-		 $to      = 'carolina.lugo@narujoyeriadeautor.com';
-		 $headers = 'From: '.$from . "\r\n" .
-		 'Reply-To: '.$from . "\r\n" .
-		 'X-Mailer: PHP/' . phpversion();
-
-		 mail($to, $asunto, $cadena, $headers);
+		if ($userID) {
+			$IDEncriptada = crypt($userID, "23()23*$%g4F^aN!^^%");
+			
+			// TODO : Enviar el correo a $correoDestino con el enlace y la $IDEncriptada
+			//
+	
+			if ($correoDestino) {
+					$para = $correoDestino;
+					$asunto = 'Te han recomendado la página LLEVATELO.COM';
+					$mensaje = 'Hola, te han recomendado en nuestra página.' . 
+						'<br />Registrate usando este link para llevarte un beneficio de creditos.' . 
+						'<br /> http://www.llevatelos.com/users/register/' . $IDEncriptada;
+				
+					$cabeceras = 'From: webmaster@example.com' . 
+						"\r\n" . 
+						'Reply-To: webmaster@example.com' . "\r\n" . 
+						'X-Mailer: PHP/' . phpversion();
+				
+					if(mail($para, $asunto, $mensaje, $cabeceras)) {
+						$this->Session->setFlash(__('Datos enviados a su correo', true));
+					} else {
+						$this->Session->setFlash(__('Datos no enviados a su correo, por favor intenta mas tarde', true));
+					}
+					
+					return;
+			} else {
+				// TODO : El correo destino no es valido
 			}
-			$this->set("title","Contacto");
-		 */
-
+		} else {
+			// TODO : La ID de usuario no es valida
+		}
 	}
 
 }
