@@ -28,7 +28,6 @@ class SubastasController extends AppController {
 			AND Subasta.id = Oferta.subasta_id
 			AND Subasta.estados_subasta_id = '2'
 			AND Subasta.fecha_de_venta <= '$fechaActual'";
-		debug($query);
 		$subastas = $this->Subasta->query($query);
 		return $subastas;
 	}
