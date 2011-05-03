@@ -21,13 +21,14 @@ class SubastasController extends AppController {
 		$gmt = 3600*-5; // GMT -5 para hora colombiana
 		$fechaActual = gmdate('Y-m-d H:i:s', time() + $gmt); // Generar la fecha actual formateada para comparar con la fecha de mysql
 		$query = 
-			"SELECT DISTINCT Subasta.id, Subasta.nombre, Subasta.valor, Subasta.precio, Subasta.imagen_path, Subasta.fecha_de_venta
+			"SELECT Subasta.id, Subasta.nombre, Subasta.valor, Subasta.precio, Subasta.imagen_path, Subasta.fecha_de_venta
 			FROM subastas as Subasta, users as User, ofertas as Oferta
 			WHERE User.id = $userID
 			AND Oferta.user_id = User.id
 			AND Subasta.id = Oferta.subasta_id
-			AND Subasta.estados_subasta_id >= '2'
-			AND Subasta.fecha_de_venta <= $fechaActual";
+			AND Subasta.estados_subasta_id = '2'
+			AND Subasta.fecha_de_venta <= '$fechaActual'";
+		debug($query);
 		$subastas = $this->Subasta->query($query);
 		return $subastas;
 	}
