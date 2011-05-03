@@ -80,8 +80,8 @@ var usuario=function(){
 	}
 function iniciarContador($val){
 	var subasta_id=$val.parent().attr("rel");
-	var now = new Date($(".hora_servidor").text());
-	var fechaFinal = new Date($(".fecha_vencimiento").text());
+	var now = new Date($("[rel='"+subasta_id+"']").children(".hora_servidor").text());
+	var fechaFinal = new Date($("[rel='"+subasta_id+"']").children(".fecha_vencimiento").text());
 	diferencia=(fechaFinal - now);
 	contador();
 	function contador () {

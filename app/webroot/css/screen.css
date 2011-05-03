@@ -1020,3 +1020,6 @@ form .submit input[type=submit]:hover {
 .actualizado{
 	color:#CB2128;
 }
+.fecha_vencimiento, .hora_servidor{
+	display:none;
+}
