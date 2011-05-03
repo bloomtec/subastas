@@ -43,13 +43,21 @@ class SubastasController extends AppController {
 		if (!$subastaID) {
 			$this->Session->setFlash(__('ID no valida para la subasta', true));
 			$this->redirect(array('action'=>'index'));
+		} else {
+			$this->Subasta->read(null, $subastaID);
+			if ($this->Subasta->estados_subasta_id != 2) {
+				$this->Session->setFlash(__('La subasta por la que oferto no esta activa', true));
+				$this->redirect(array('action'=>'index'));
+			} else {
+				if ($this->__ofertar($subastaID)) {
+					$this->Session->setFlash(__('Se oferto por la subasta exitosamente', true));
+					$this->redirect(array('action'=>'index'));
+				} else {
+					$this->Session->setFlash(__('No se pudo ofertar por la subasta, verifique si dispone de créditos suficientes.', true));
+					$this->redirect(array('action' => 'index'));
+				}
+			}
 		}
-		if ($this->__ofertar($subastaID)) {
-			$this->Session->setFlash(__('Se oferto por la subasta exitosamente', true));
-			$this->redirect(array('action'=>'index'));
-		}
-		$this->Session->setFlash(__('No se pudo ofertar por la subasta, verifique si dispone de créditos suficientes.', true));
-		$this->redirect(array('action' => 'index'));
 	}
 	
 	function __ofertar($subastaID = null) {
@@ -448,7 +456,7 @@ class SubastasController extends AppController {
 	}
 
 	function enviarCorreoGanador($id = null) {
-
+		
 	}
 
 }
