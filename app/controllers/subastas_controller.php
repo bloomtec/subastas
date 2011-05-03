@@ -26,8 +26,7 @@ class SubastasController extends AppController {
 		/** 
 		 * condicion qeu devuelva todas las subastas finalizadas
 		 * en la que este usuario ha participado
-		 * NOTA :	Se esta tomando como subasta finalizada las condiciones siguientes:
-		 * 			Vencida, Cancelada, Cerrada, Vendida
+		 * NOTA :	Se esta tomando como subasta finalizada todas las condiciones diferentes a Activa
 		 */
 		$query = 
 			"SELECT *
