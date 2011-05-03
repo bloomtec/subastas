@@ -14,7 +14,7 @@ class SubastasController extends AppController {
 		 * en la que este usuario ha participado
 		 */
 		$query = 
-			"SELECT *
+			"SELECT DISTINCT Subasta.id, Subasta.nombre, Subasta.valor, Subasta.precio, Subasta.imagen_path, Subasta.fecha_de_venta
 			FROM subastas as Subasta, users as User, ofertas as Oferta
 			WHERE User.id = $userID
 			AND Oferta.user_id = User.id

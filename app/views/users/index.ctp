@@ -22,6 +22,7 @@
 					<?php echo $html->link("cambiar contraseña",array("controller"=>"users","action"=>"changePassword"));?>
 					<?php echo $html->link("mis datos",array("controller"=>"users","action"=>"modificarDatos"));?>
 					<?php echo $html->link("subastas finalizadas",array("controller"=>"subastas","action"=>"finalizadas"));?>
+					<div style="clear:both;"></div>
 				</div>
 			</div>	
 			<div class="clear"></div>

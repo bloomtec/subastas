@@ -27,7 +27,7 @@ class OfertasController extends AppController {
 	}
 	
 	function getOfertas($subastaID){
-		return $this->Oferta->find("all",array("conditions"=>array("subasta_id"=>$subastaID)));
+		return $this->Oferta->find("all",array("conditions"=>array("subasta_id"=>$subastaID),"order"=>array("Oferta.created DESC")));
 	}
 	
 	function index() {

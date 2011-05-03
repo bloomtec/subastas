@@ -902,7 +902,7 @@ form .submit input[type=submit]:hover {
 	
 }
 .panel{
-	padding:0 1em;
+	padding:1em 1em;
 }
 .datos-usuarios .imagen{
 	width: 250px;
@@ -940,6 +940,7 @@ form .submit input[type=submit]:hover {
 	display:block;
 	float:left;
 	margin-left:0.5em;
+	margin-top: 1em;
 }
 /*OVERLAY*/
 	#register-overlay {
@@ -982,4 +983,40 @@ form .submit input[type=submit]:hover {
 		height:35px;
 		width:35px;
 	}
+/*PANEL SUBASTAS*/
+.subastas-activas{
 	
+}
+#right-content  .subastas-activas ul{
+	width:100%;
+}	
+#right-content  .subastas-activas  li{
+	width:100%;
+	margin:0 auto;	
+	min-height:280px;
+}
+.subastas-activas .imagen, .subastas-activas .ofertas, .acciones-ofertas{
+	float:left;
+	margin: 2%; 
+}
+.subastas-activas .imagen{
+	width:30%;
+}
+.subastas-activas .ofertas{
+	width:25%;
+	height:230px;
+	overflow: auto;
+	font-size: 13px;
+}
+.ofertas div:nth-child(2n){
+	background:gray;
+}
+.subastas-activas .acciones-ofertas{
+	
+	width:30%;
+	height: 117px;
+	margin-top: 81px;
+}
+.actualizado{
+	color:#CB2128;
+}
