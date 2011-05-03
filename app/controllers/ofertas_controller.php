@@ -16,6 +16,7 @@ class OfertasController extends AppController {
 		if($subastaID){
 			$result = $this->Oferta->find('first', array('conditions'=>array('Oferta.subasta_id' => $subastaID,"Oferta.id >"=>$ofertID), 'order' => array('Oferta.created DESC')));
 			if(isset($result['User']['username'])){
+				$result["Oferta"]["cantidad"]=$this->Oferta->find('count', array('conditions'=>array('Oferta.subasta_id' => $subastaID)));
 				return json_encode($result);
 			} else {
 				return false;
@@ -47,7 +48,13 @@ class OfertasController extends AppController {
 		$this->Oferta->set('subasta_id', $subastaID);
 		$this->Oferta->set('user_id', $userID);
 		$this->Oferta->set('creditos_descontados', $creditosDescontados);
-		$this->Oferta->save();
+		$oferta=$this->Oferta->save();
+		if($oferta){
+			return $this->Oferta->read(null,$oferta["Oferta"]["id"]);
+		}else{
+			return false;
+		}
+		
 	}
 
 	/*function add() {

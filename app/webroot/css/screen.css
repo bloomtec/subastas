@@ -746,7 +746,9 @@ form .submit input[type=submit]:hover {
   	font-size: 18px;
   	color:#CB2128;
   }
-  
+  .pvp, .precio, .contador, .ultimo-usuario{
+  	min-height:1em;
+  }
   
   #right-content ul{
   	float:left;

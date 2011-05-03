@@ -2,7 +2,10 @@
 class SubastasController extends AppController {
 
 	var $name = 'Subastas';
-	
+	function beforeFilter(){
+		parent::beforeFilter();
+		$this->Auth->allow("*");
+	}
 	function subastasActivas(){
 		$this->autoRender=false;
 		$userID = $this->Auth->user("id");
@@ -40,16 +43,31 @@ class SubastasController extends AppController {
 	}
 	
 	function ofertar($subastaID = null) {
+		if($this->RequestHandler->isAjax()){
+			$subastaID=$_GET["subasta_id"];
+			$subasta=$this->Subasta->read(null, $subastaID);
+			if ($subasta["Subasta"]["estados_subasta_id"] != 2) {
+				Configure::write("debug",0);
+			$this->autoRender=false;
+			exit(0);
+			} else {
+				echo json_encode($this->__ofertar($subastaID));
+				
+			}
+			Configure::write("debug",0);
+			$this->autoRender=false;
+			exit(0);	
+		}
 		if (!$subastaID) {
 			$this->Session->setFlash(__('ID no valida para la subasta', true));
 			$this->redirect(array('action'=>'index'));
 		} else {
-			$this->Subasta->read(null, $subastaID);
-			if ($this->Subasta->estados_subasta_id != 2) {
+			$subasta=$this->Subasta->read(null, $subastaID);
+			if ($subasta["Subasta"]["estados_subasta_id"] != 2) {
 				$this->Session->setFlash(__('La subasta por la que oferto no esta activa', true));
 				$this->redirect(array('action'=>'index'));
 			} else {
-				if ($this->__ofertar($subastaID)) {
+				if (($laOferta=$this->__ofertar($subastaID))) {
 					$this->Session->setFlash(__('Se oferto por la subasta exitosamente', true));
 					$this->redirect(array('action'=>'index'));
 				} else {
@@ -74,9 +92,8 @@ class SubastasController extends AppController {
 			
 			// Crear la oferta para finalizar el proceso
 			//
-			$this->requestAction('ofertas/crearOferta/' . $this->Session->read('Auth.User.id') . '/' . $subasta['Subasta']['id'] . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
-			
-			return true;
+			return $this->requestAction('ofertas/crearOferta/' . $this->Session->read('Auth.User.id') . '/' . $subasta['Subasta']['id'] . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
+
 		} else {
 			return false;
 		}

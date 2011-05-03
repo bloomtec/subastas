@@ -8,8 +8,8 @@
 	     <?php echo $this->Html->para("pvp","PVP $".number_format($subasta["Subasta"]['valor'], 0, ' ', '.')) ?>
 	     <p class="contador">00</p>
 	     <p class="precio">00<p>
-	     <p class="ultimo-usuario"><p>
-	     <?php echo $this->Html->link("¡Oferte ya!",array("controller"=>"subastas","action"=>"ofertar",$subasta["Subasta"]['id']),array('class'=>'boton')) ?>
+	     <p class="ultimo-usuario"> <p>
+	     <?php echo $this->Html->link("¡Oferte ya!",array("controller"=>"subastas","action"=>"ofertar",$subasta["Subasta"]['id']),array('class'=>'boton ofertar')) ?>
 	 </li>
 	 <?php 
 	 $i++;

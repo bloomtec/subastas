@@ -44,6 +44,18 @@ var usuario=function(){
 			});
 			
 		}
+		$("a.ofertar").click(function(e){
+			var link=$(this);
+			var ruta=link.attr("href");
+			e.preventDefault();
+			$.getJSON(ruta,{subasta_id:link.parent().parent().attr("rel")},function(oferta){
+				if(oferta){
+					$("li[rel='"+subasta_id+"']").children(".ultimo-usuario").html(oferta.User.username);
+					$("li[rel='"+subasta_id+"']").children(".precio").html(oferta.Oferta.precio);
+					$("li[rel='"+subasta_id+"']").children(".contador").html(oferta.Oferta.cantidad);
+				}
+			});
+		});
 		
 	}();
 	function obtenerUsuarioUltimaOferta($val,ultimaOferta){
@@ -53,6 +65,7 @@ var usuario=function(){
 				if(oferta){
 					$("li[rel='"+subasta_id+"']").children(".ultimo-usuario").html(oferta.User.username);
 					$("li[rel='"+subasta_id+"']").children(".precio").html(oferta.Oferta.precio);
+					$("li[rel='"+subasta_id+"']").children(".contador").html(oferta.Oferta.cantidad);
 					ultimaOferta=oferta.Oferta.id;
 				}else{
 					
