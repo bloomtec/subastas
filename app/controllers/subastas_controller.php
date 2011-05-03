@@ -455,8 +455,37 @@ class SubastasController extends AppController {
 		return $unaSubasta['Subasta']['dias_espera'];
 	}
 
-	function enviarCorreoGanador($id = null) {
-		
+	function enviarCorreoGanador($subastaID = null) {
+		$this->autoRender = false;
+
+		if (!empty($subastaID)) {
+			$subasta = $this->Subasta->read(null, $subastaID);
+			$userID = $this->requestAction('/ofertas/obtenerUsuarioGanadorSubasta/' . $subastaID);
+			$usuario = $this->requestAction('/users/getUsuario/' . $userID);
+			
+			if($usuario['User']['email']) {
+				$para = $usuario['User']['email'];
+				$asunto = 'Te has llevado un articulo!!!';
+				$mensaje = 'Hola, te has llevado un articulo: ' . 
+					'<br>Nombre de la subasta: ' . $subasta['Subasta']['nombre'];
+			
+				$cabeceras = 'From: webmaster@example.com' . 
+					"\r\n" . 
+					'Reply-To: webmaster@example.com' . "\r\n" . 
+					'X-Mailer: PHP/' . phpversion();
+			
+				if(mail($para, $asunto, $mensaje, $cabeceras)) {
+					$this->Session->setFlash(__('Datos enviados a su correo', true));
+				} else {
+					$this->Session->setFlash(__('Datos no enviados a su correo, por favor intenta mas tarde', true));
+				}
+				
+				return;
+			} else {
+				$this->Session->setFlash(__('No existe ningun usuario registrado con ese email', true));
+				return;
+			}
+		} 
 	}
 
 }
