@@ -33,21 +33,33 @@ var usuario=function(){
 			}
 		});
 	}();
+	
 	var subasta = function () {
-		$(".boton-carrito").click(function(e){
-			var productTalla=$("ul.cuadros-colores li.selected").attr("rel").split("-");
-			var productID=productTalla[0];
-			var colorID=productTalla[1];
-			var tallaID=$("ul.cuadros-tallas li.selected").attr("rel");
-			$.post(server+"carts/ajaxAdd",{product_id:productID,color_id:colorID,talla_id:tallaID},function(data){
-				if(data){
-					$(".add-cart").fadeIn().delay(1000).fadeOut();
-					$("#cesta").load(server+"/carts/cesta");
+		var contadores=$(".contador");
+		if(contadores.length){//envia solicitud de la subasta al servidor
+			$.each(contadores,function(index,val){
+				var ultimaOferta=0;
+				obtenerUsuarioUltimaOferta($(val),ultimaOferta);
+				
+			});
+			
+		}
+		
+	}();
+	function obtenerUsuarioUltimaOferta($val,ultimaOferta){
+		setTimeout(function(){
+			subasta_id=$val.parent().attr("rel");
+			$.getJSON(server+"ofertas/obtenerUsuarioUltimaOferta",{subasta_id:subasta_id,oferta_id:ultimaOferta},function(oferta){
+				if(oferta){
+					$("li[rel='"+subasta_id+"']").children(".ultimo-usuario").html(oferta.User.username);
+					$("li[rel='"+subasta_id+"']").children(".precio").html(oferta.Oferta.precio);
+					ultimaOferta=oferta.Oferta.id;
 				}else{
 					
 				}
+				obtenerUsuarioUltimaOferta($val,ultimaOferta)
 			});
-			e.preventDefault()
-		});
-	}();
+		},1000);
+		
+	}
 });
