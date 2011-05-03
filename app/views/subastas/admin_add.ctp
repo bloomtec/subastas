@@ -17,6 +17,8 @@
 		echo $this->Form->input('valor', array("value" => "0"));
 		echo $this->Form->input('umbral_minimo_creditos', array("value" => "0"));
 		echo $this->Form->input('cantidad_creditos_puja', array("value" => "0"));
+		echo $this->Form->input('precio', array("value" => "0"));
+		echo $this->Form->input('aumento_creditos', array("value" => "0"));
 		echo $this->Form->input('fecha_de_venta');
 		echo $this->Form->input('dias_espera', array("value" => "0"));
 		echo $this->Form->input('estados_subasta_id', array("type"=>"hidden", "value" => "1"));
