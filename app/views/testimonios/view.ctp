@@ -13,8 +13,7 @@
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Imagen'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $testimonio['Testimonio']['imagen_path']; ?>
-			&nbsp;
+			<?php echo $html->image($testimonio['Testimonio']['imagen_path'],array("width"=>"200")); ?>
 		</dd>
 	</dl>
 </div>
