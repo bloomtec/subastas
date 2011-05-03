@@ -88,6 +88,17 @@
 					</ul>
 				</li>
 				<li>
+					<?php echo $html->link("Testimonios", array("controller"=>"testimonios", "action"=>"index")); ?>
+					<ul>
+						<li>
+							<?php echo $html->link("Listar Testimonios", array("controller"=>"testimonios", "action"=>"index")); ?>
+						</li>
+						<li>
+							<?php echo $html->link("Añadir Testimonio", array("controller"=>"testimonios", "action"=>"add")); ?>
+						</li>
+					</ul>
+				</li>
+				<li>
 					<?php echo $html->link("Paginas", array("controller"=>"pages","action"=>"index")); ?>
 				</li>
 				<li>

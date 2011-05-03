@@ -1,21 +1,19 @@
-<div class="testimonios form">
+<div>
 <?php echo $this->Form->create('Testimonio');?>
 	<fieldset>
- 		<legend><?php __('Admin Edit Testimonio'); ?></legend>
-	<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('imagen_path');
-		echo $this->Form->input('titulo');
-		echo $this->Form->input('texto');
-	?>
+ 		<legend><?php __('Modifique El Testimonio'); ?></legend>
+		<?php
+			echo $this->Form->input('titulo', array('label'=>'Título'));
+			echo $this->Form->input('texto', array('label'=>'Descripción'));
+			echo $this->Form->hidden('imagen_path', array('id'=>'single-field'));
+		?>
+		<div class="images">
+			<h2>Imagen</h2>
+			<div class="preview">
+				<?php echo $html->image($this->data["Testimonio"]["imagen_path"]);?>
+			</div>
+			<div id="single-upload" controller="testimonios"> </div>			
+		</div>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit', true));?>
-</div>
-<div class="actions">
-	<h3><?php __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Html->link(__('Delete', true), array('action' => 'delete', $this->Form->value('Testimonio.id')), null, sprintf(__('Are you sure you want to delete # %s?', true), $this->Form->value('Testimonio.id'))); ?></li>
-		<li><?php echo $this->Html->link(__('List Testimonios', true), array('action' => 'index'));?></li>
-	</ul>
+	<?php echo $this->Form->end(__('Enviar', true));?>
 </div>

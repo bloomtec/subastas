@@ -1,19 +1,18 @@
-<div class="testimonios form">
+<div>
 <?php echo $this->Form->create('Testimonio');?>
 	<fieldset>
- 		<legend><?php __('Admin Add Testimonio'); ?></legend>
-	<?php
-		echo $this->Form->input('imagen_path');
-		echo $this->Form->input('titulo');
-		echo $this->Form->input('texto');
-	?>
+ 		<legend><?php __('Ingrese Su Testimonio'); ?></legend>
+		<?php
+			echo $this->Form->input('titulo', array('label'=>'Título'));
+			echo $this->Form->input('texto', array('label'=>'Descripción'));
+			echo $this->Form->hidden('imagen_path', array('id'=>'single-field'));
+		?>
+		<div class="images">
+			<h2>Imagen</h2>
+			<div class="preview">
+			</div>
+			<div id="single-upload" controller="testimonios"> </div>			
+		</div>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit', true));?>
-</div>
-<div class="actions">
-	<h3><?php __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Html->link(__('List Testimonios', true), array('action' => 'index'));?></li>
-	</ul>
+	<?php echo $this->Form->end(__('Enviar', true));?>
 </div>
