@@ -53,8 +53,10 @@ class OfertasController extends AppController {
 		$this->Oferta->set('user_id', $userID);
 		$this->Oferta->set('creditos_descontados', $creditosDescontados);
 		$oferta=$this->Oferta->save();
-		if($oferta){
-			return $this->Oferta->read(null,$oferta["Oferta"]["id"]);
+		if(!empty($oferta)){
+			$oferta=$this->Oferta->read(null,$this->Oferta->id);
+			$oferta["success"]=true;
+			return $oferta;
 		}else{
 			return false;
 		}

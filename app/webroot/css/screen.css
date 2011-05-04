@@ -272,6 +272,24 @@ form .submit input[type=submit]:hover {
 #pages .login{
        display:none;
 }
+.login h2.logueado{
+	margin-bottom:0.5em;
+	margin-top: 0.5em;
+
+}
+#header h2.logueado a{
+	font-size:15px;	
+	float:none;
+}
+div.logueado{
+	text-align: left;
+	padding:5px;
+	
+}
+div.logueado span{
+	font-weight: bold;
+}
+
 
 /** Header Form Login **/
 
@@ -491,6 +509,8 @@ form .submit input[type=submit]:hover {
   	margin:0;
   	color: black;
   	font-size: 12px;
+  	max-width: 195px;
+  	margin-top:2px;
   }
   
   .banner-registro .registro{
@@ -987,10 +1007,16 @@ form .submit input[type=submit]:hover {
 .subastas-activas{
 	
 }
-#right-content  .subastas-activas ul{
+
+
+#right-content  .index  li{
+	margin:0 auto;	
+	min-height:280px;
+}
+#right-content  ul#user-subastas {
 	width:100%;
-}	
-#right-content  .subastas-activas  li{
+}
+#right-content  #user-subastas  li{
 	width:100%;
 	margin:0 auto;	
 	min-height:280px;

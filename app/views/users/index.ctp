@@ -9,8 +9,8 @@
 <div id="right-content" class="estilo-borde">
 	<div class="panel index">
 		<div class="datos-usuarios">
-			<div class="imagen">
-			</div>
+		<!--	<div class="imagen">
+		</div>-->
 			<div class="datos">
 				<div class="info">
 					<p><span>Nombres: </span><?php echo $user["UserField"]["nombres"];?></p>
@@ -22,6 +22,7 @@
 					<?php echo $html->link("cambiar contraseña",array("controller"=>"users","action"=>"changePassword"));?>
 					<?php echo $html->link("mis datos",array("controller"=>"users","action"=>"modificarDatos"));?>
 					<?php echo $html->link("subastas finalizadas",array("controller"=>"subastas","action"=>"finalizadas"));?>
+					<?php echo $html->link("comprar creditos",array("controller"=>"users","action"=>"comprarCreditos"));?>
 					<div style="clear:both;"></div>
 				</div>
 			</div>	

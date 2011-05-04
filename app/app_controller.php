@@ -31,7 +31,7 @@ class AppController extends Controller {
 	}
 
 	function beforeRender(){
-		$PAGE_TITLE="Titulo de la pagina";
+		$PAGE_TITLE="llevatelos.com";
 		$this->set(compact("PAGE_TITLE"));
 		$this->set('base_url', 'http://'.$_SERVER['SERVER_NAME'].Router::url('/'));
 	}

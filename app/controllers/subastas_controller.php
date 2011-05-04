@@ -102,7 +102,7 @@ class SubastasController extends AppController {
 			return $this->requestAction('ofertas/crearOferta/' . $this->Session->read('Auth.User.id') . '/' . $subasta['Subasta']['id'] . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
 
 		} else {
-			return false;
+			return array("success"=>false,"mensaje"=>"No tiene suficiente credito, Por favor compra mas creditos para poder ofertar","code"=>"1");
 		}
 	}
 

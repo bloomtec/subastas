@@ -20,6 +20,19 @@ class UsersController extends AppController {
 	function modificarDatos(){
 		$this->data=$this->User->read(null,$this->Auth->user("id"));
 	}
+	function getCreditos(){
+		$this->User->recursive=-1;
+		$user=$this->User->read(null,$this->Auth->user("id"));
+		if(!empty($this->params['requested'])){
+			return $user["User"]["creditos"];
+		}
+		if($this->RequestHandler->isAjax()){
+			echo $user["User"]["creditos"];
+			Configure::write("debug",0);
+			$this->autoRender=false;
+			exit(0);	
+		}
+	}
 	function abonarCreditosPorRecomendacion($encryptedID = null){
 		// Encontrar el total de usuarios registrados
 		//

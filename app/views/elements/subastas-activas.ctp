@@ -1,6 +1,6 @@
 <?php $subastas=$this->requestAction("/subastas/subastasActivas");?>
 <?php if (!empty($subastas)):?>
- <ul class="subastas-activas">
+ <ul class="subastas-activas " id="user-subastas">
 	 <?php $i=0;?>
 	 <?php foreach ($subastas as $subasta):?>
 	<li <?php if($i%3==1) echo "class='centro'"?>  rel="<?php echo $subasta["Subasta"]["id"]; ?>">

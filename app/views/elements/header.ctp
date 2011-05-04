@@ -22,21 +22,36 @@
 			<p> <strong>Todos</strong> los productos de llévatelos.com tienen la garantía de falabella</p>
 	</div>
 	<div class="banner-registro">
+		<?php if(!$session->read("Auth.User.id")){?>
 		<div class="leyenda">
 			<strong>¿Aún no eres miembro?</strong>
 			<p>Házlo en menos de 60 segundos</p>
 		</div>
 			<?php echo $html->link("Registrate",array("controller"=>"users","action"=>"register"),array("class"=>"registro"));?>
+		<?php }else{?>
+			<div class="leyenda">
+			<strong>¿Se te acaban tus creditos?</strong>
+			<p>Compra mas creditos y aprovecha nuestra ofertas!</p>
+		</div>
+			<?php echo $html->link("Comprar",array("controller"=>"users","action"=>"comprarCreditos"),array("class"=>"registro"));?>
+		<?php }?>
 	</div>
 	<div class="login">
+		 
+		<?php if(!$session->read("Auth.User.id")){?>
 		 <?php echo $form->create("User",array("action"=>"login","controller"=>"users"));?>
-         <h1>Mi cuenta</h1>
+        <h1>Mi cuenta</h1>
          <?php echo $form->input("email",array("label"=>"Usuario:"));?>
          <div style="clear:both"></div>   
          <?php echo $form->input("password",array("label"=>"Contraseña:"));?>
          <div style="clear:both"></div>
          <?php echo $form->end(__('Ingresar', true), array('div' => false));?> 
          <?php echo $html->link('¿Olvidó su contraseña?',array("controller"=>"users","action"=>"rememberPassword"), array("id"=>"olvidar"));?>  
+		<?php }else{ ?>
+			<h2 class="logueado"><?php echo $html->link("Mi cuenta",array("controller"=>"users"));?></h2>
+			<div class="logueado"><span>Usuario: </span><?php echo $session->read("Auth.User.username")?></div>
+			<div class="logueado"><span>Creditos: </span><?php echo $this->requestAction("/users/getCreditos"); ?></div>
+		<?php }?>
 	</div>
 	<div style="clear:both"></div>
 	</div>
