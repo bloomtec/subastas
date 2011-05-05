@@ -4,7 +4,7 @@ class SubastasController extends AppController {
 	var $name = 'Subastas';
 	function beforeFilter(){
 		parent::beforeFilter();
-		$this->Auth->allow("*");
+		$this->Auth->allow("index","subastasFinalizadas");
 	}
 	
 	/**
@@ -112,22 +112,24 @@ class SubastasController extends AppController {
 	function index() {
 		$this->Subasta->recursive = 0;
 		$config=$this->Config->read(null,1);
+		$gmt = 3600*-5; 
+		$fechaActual = gmdate('Y-m-d H:i:s', time() + $gmt); 
 		if (!empty($this->params['requested'])) {
 			return $this->Subasta->find("all",array(
 			 	"conditions"=>array(
 			 		"Subasta.estados_subasta_id"=>2,//activa
-			 		"Subasta.posicion_en_cola <="=>$config["Config"]["tamano_cola"]
+			 		"Subasta.posicion_en_cola <="=>$config["Config"]["tamano_cola"],
+			 		"Subasta.fecha_de_venta >"=>"$fechaActual"
 			)
 			));
 		} else {
-			$this->Paginate=array("Subasta",array(
-							 		"conditions"=>array(
-								 			"Subasta.estados_subasta_id"=>'2',//activa
-											"Subasta.posicion_en_cola <="=>$config["Config"]["tamano_cola"]
-										)
-									)
-								);
-			$this->set('subastas', $this->paginate());
+			$subastas=$this->Subasta->find("all",array(
+			 	"conditions"=>array(
+			 		"Subasta.estados_subasta_id"=>2,//activa
+			 		"Subasta.posicion_en_cola <="=>$config["Config"]["tamano_cola"],
+			 		"Subasta.fecha_de_venta >"=>"$fechaActual"
+			)));
+			$this->set('subastas',$subastas);
 			$this->set("registrado",$this->Cookie->read("registrado"));
 		}
 	}
