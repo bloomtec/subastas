@@ -428,6 +428,24 @@ CREATE  TABLE IF NOT EXISTS `subastas`.`lista_correos` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `subastas`.`paquetes`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `subastas`.`paquetes` ;
+
+CREATE  TABLE IF NOT EXISTS `subastas`.`paquetes` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `nombre` VARCHAR(40) NOT NULL ,
+  `estado` TINYINT(1) NOT NULL COMMENT 'redimino,sin_redimir,vencido' ,
+  `creditos` INT NOT NULL ,
+  `precio` INT NOT NULL ,
+  `created` DATETIME NULL ,
+  `updated` DATETIME NULL ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `codigo_UNIQUE` (`nombre` ASC) )
+ENGINE = InnoDB;
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
