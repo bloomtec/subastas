@@ -1,0 +1,1 @@
+<!-- Vista para el procedimiento de adquirir paquetes --> 

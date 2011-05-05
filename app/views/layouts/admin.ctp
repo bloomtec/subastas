@@ -88,6 +88,17 @@
 					</ul>
 				</li>
 				<li>
+					<?php echo $html->link("Paquetes", array("controller"=>"paquetes", "action"=>"index")); ?>
+					<ul>
+						<li>
+							<?php echo $html->link("Listar Paquetes", array("controller"=>"paquetes", "action"=>"index")); ?>
+						</li>
+						<li>
+							<?php echo $html->link("Añadir Paquetes", array("controller"=>"paquetes", "action"=>"add")); ?>
+						</li>
+					</ul>
+				</li>
+				<li>
 					<?php echo $html->link("Testimonios", array("controller"=>"testimonios", "action"=>"index")); ?>
 					<ul>
 						<li>
