@@ -51,6 +51,7 @@
 			<h2 class="logueado"><?php echo $html->link("Mi cuenta",array("controller"=>"users"));?></h2>
 			<div class="logueado"><span>Usuario: </span><?php echo $session->read("Auth.User.username")?></div>
 			<div class="logueado"><span>Creditos: </span><?php echo $this->requestAction("/users/getCreditos"); ?></div>
+			<?php echo $html->link('Salir',array("controller"=>"users","action"=>"logout"), array("id"=>"olvidar"));?>  
 		<?php }?>
 	</div>
 	<div style="clear:both"></div>

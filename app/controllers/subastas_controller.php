@@ -46,9 +46,12 @@ class SubastasController extends AppController {
 			AND Subasta.id = Oferta.subasta_id
 			AND Subasta.estados_subasta_id > '2'";
 		$subastas = $this->Subasta->query($query);
-		$this->set(compact($subastas));
+		$this->set(compact("subastas"));
 	}
-	
+	function subastasFinalizadas(){
+		$subastas=$this->Subasta->find("all",array("conditions"=>array("estados_subasta_id >"=>2)));
+		$this->set(compact("subastas"));
+	}
 	function ofertar($subastaID = null) {
 		if($this->RequestHandler->isAjax()){
 			$subastaID=$_GET["subasta_id"];

@@ -557,6 +557,8 @@ div.logueado span{
   	float:left;
   	width: 90px;
   	border: 0;
+
+  	margin-bottom:3px;
   }
   #header .login input[type=password]{
   	float:left;
@@ -905,11 +907,71 @@ div.logueado span{
     text-align: center;
     width: 80px;
 }
-.register{
-	height:376px;
+.form-container{
+	width:469px;
+	margin: 0 auto;
+
+	
+		
 }
+.form-container form{
+	
+}
+.form-container .layer{
+	border:1px solid #96918E;
+	border-radius:10px 10px 10px 10px;
+	margin-top:1em;
+	padding:1em;
+}
+.form-container fieldset{
+	background:url("../img/trama-cuenta.png") ;
+	border-radius: 15px 15px 15px 15px;
+	padding:1em;
+}
+.form-container .input,.form-container .submit{
+	margin-top:1em;
+	clear: both;
+	float:right;
+}
+.form-container input{
 
-
+}
+.form-container label{
+	padding-right: 5px;
+}
+.form-container .submit input{
+	background: url("../img/trama-amarillo.png") repeat-x scroll 0 0 transparent;
+	padding:5px 30px;
+	border-radius:10px 10px 10px 10px;
+	font-weight:bold;
+}
+.form-container input#UserUsername{
+	width:370px;
+}
+.form-container input#password{
+	width:343px;
+}
+.form-container input#password2{
+	width:270px;
+}
+.form-container input#UserFieldNombres{
+	width:360px;
+}
+.form-container input#UserFieldApellidos{
+	width:359px;
+}
+.form-container input#UserEmail{
+	width:294px;
+}
+.form-container input#UserEmailConfirm{
+	width:221px;
+}
+.form-container input#UserFechaNacimiento{
+	
+}
+.form-container input#UserReferidoPor{
+	width:335px;
+}
 
 
 
@@ -973,9 +1035,10 @@ div.logueado span{
 		
 		/* styling */
 		background-color:#333;
+		background:url("../img/fondo-overlay.jpg");
 		
-		width:675px;	
-		min-height:200px;
+		width:650px;	
+		height:395px;
 		border:1px solid #666;
 		
 		/* CSS3 styling for latest browsers */
@@ -1002,6 +1065,87 @@ div.logueado span{
 		cursor:pointer;
 		height:35px;
 		width:35px;
+	}
+	#register-overlay h1 , #register-overlay h2{
+		color:#4E4E50;
+	}
+	#register-overlay h1 {
+		padding:20px 20px 10px 200px;
+		font-size:25px;
+		
+	}
+	#register-overlay h2 {
+		padding-left:200px;
+		
+	}
+	#register-overlay h2 span{
+		color:#EC3237;
+		
+	}
+	#register-overlay .producto{
+		width:482px;
+		height:214px;
+		float:right;
+		margin-top: 20px;
+		margin-right: 20px;	
+	}
+	#register-overlay .banner{
+		width:170px;
+		height:98px;
+		float:left;	
+		margin-top:75px;
+		background: #B1B1B2;
+		font-size:12px;
+	}
+	#register-overlay .banner h1{
+		padding:0;
+		font-size:16px;
+		margin-bottom: 5px;
+	}
+	#register-overlay .banner h1,#register-overlay .banner p{
+		padding-left:33px;
+		padding-right:10px;
+		
+	}
+	
+	#register-overlay .imagen{
+		width:310px;
+		height:214px;
+		float:left;	
+		border:1px solid #4E4E50;
+	}
+	#register-overlay .bottom{
+		height:60px;
+		bottom:0;
+		position:absolute;
+		font-size:12px;
+		width:100%;
+	}
+	#register-overlay .slogan{
+		float:left;
+		width:135px;
+		margin-left: 20px;
+	}
+	#register-overlay .slogan span{
+		color:#4E4E50;
+		display:block;
+	}
+	#register-overlay .registrate{
+		float:right;
+		width:136px;
+		padding-left:46px;
+		background:url("../img/flecha-overlay.png") ;
+		background-repeat:no-repeat;
+		background-position-x: right;
+		margin-right: 60px;
+	}
+	#register-overlay .registrate h1{
+		padding:0;
+		
+	}
+	.registrate h1 a {
+		color:#EC3237;
+		text-decoration: none;
 	}
 /*PANEL SUBASTAS*/
 .subastas-activas{
@@ -1048,4 +1192,16 @@ div.logueado span{
 }
 .fecha_vencimiento, .hora_servidor{
 	display:none;
+}
+#right-content ul#subastas-vendidas  li{
+	position:relative;
+}
+#right-content ul#subastas-vendidas  li .mascara{
+	position:absolute;
+	width:100%;
+	height:100%;
+	
+	opacity:0.8;
+	background: url("../img/vendida.png") white;
+
 }

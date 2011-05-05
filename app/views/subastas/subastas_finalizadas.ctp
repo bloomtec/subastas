@@ -40,5 +40,22 @@
 <?php endif; ?>
 
 
-
+<?php $proximasSubastas = $this->requestAction('/subastas/proximasSubastas'); ?>
+<?php if (!empty($proximasSubastas)):?>
+	<ul class="proximas-subastas">
+		 <h1 class="titulo-amarillo">Próximas subastas<h1>
+		 <?php $i=0;?>
+		 <?php foreach ($proximasSubastas as $subasta):?>
+		 <li <?php if($i%3==1) echo "class='centro'"?> rel="<?php echo $subasta["Subasta"]["id"]; ?>"> 
+			 <?php echo $this->Html->image($subasta['Subasta']['imagen_path'],array("width"=>"200"))?>
+			 <?php echo $this->Html->para("nombre",$subasta["Subasta"]["nombre"]) ?>
+		     <?php echo $this->Html->para("pvp","PVP $".number_format($subasta["Subasta"]['valor'], 0, ' ', '.')) ?>
+		 
+		 </li>
+		 <?php 
+		 $i++;
+		 endforeach; ?>
+ 	</ul>
+ <div style="clear:both"></div>
+<?php endif; ?>
 </div>
