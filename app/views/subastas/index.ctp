@@ -16,6 +16,7 @@
 </div>
 <?php if(!$session->read("Auth.User.id")):?>
 <script type="text/javascript">
+
 $(function(){
 	$("#register-overlay").overlay({
 

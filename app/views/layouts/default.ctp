@@ -41,6 +41,7 @@
 	?>
 <script type="text/javascript">
 	var server="<?php echo $base_url;?>";
+	var auth=<?php echo json_encode($session->read("Auth"));?>;
 </script>
 </head>
 <body>

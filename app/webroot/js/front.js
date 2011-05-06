@@ -45,7 +45,7 @@ var usuario=function(){
 	}();
 	
 	var subasta = function () {
-
+	
 		var contadores=$(".contador");
 		if(contadores.length){//envia solicitud de la subasta al servidor
 			var conteos=Object;//VAriable donde se guardanlos conteos regresivos 
@@ -105,8 +105,8 @@ var usuario=function(){
 			var ruta=link.attr("href");
 			subasta_id=link.parent().parent().attr("rel");
 			e.preventDefault();
-			
-			$.getJSON(ruta,{subasta_id:subasta_id},function(oferta){
+			if(auth.User!=undefined){ 
+				$.getJSON(ruta,{subasta_id:subasta_id},function(oferta){
 				if(oferta.success){
 					$("li[rel='"+subasta_id+"']").children(".ultimo-usuario").fadeOut("slow",function(){
 						$(this).html(oferta.User.username);
@@ -121,6 +121,10 @@ var usuario=function(){
 					alert(oferta.mensaje);
 				}
 			});
+			}else{
+				$("#register-overlay").overlay().load()
+			}
+			
 		});
 		
 	}();
