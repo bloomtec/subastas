@@ -105,7 +105,7 @@ var usuario=function(){
 			var ruta=link.attr("href");
 			subasta_id=link.parent().parent().attr("rel");
 			e.preventDefault();
-			if(auth.User!=undefined){ 
+			if(auth.User!=null&&auth.User!=undefined){ 
 				$.getJSON(ruta,{subasta_id:subasta_id},function(oferta){
 				if(oferta.success){
 					$("li[rel='"+subasta_id+"']").children(".ultimo-usuario").fadeOut("slow",function(){
