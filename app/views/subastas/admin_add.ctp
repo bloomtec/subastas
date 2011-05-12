@@ -21,9 +21,9 @@
 		echo $this->Form->input('aumento_creditos', array("value" => "0"));
 		echo $this->Form->input('fecha_de_venta');
 		echo $this->Form->input('dias_espera', array("value" => "0"));
-		echo $this->Form->input('estados_subasta_id', array("type"=>"hidden", "value" => "1"));
-		echo $this->Form->input('imagen_path', array("id"=>"single-field","type"=>"hidden"));
-		echo $this->Form->input('posicion_en_cola', array("type" => "hidden", "value" => "-1"));
+		echo $this->Form->hidden('estados_subasta_id', array("value" => "2"));
+		echo $this->Form->hidden('imagen_path', array("id"=>"single-field"));
+		echo $this->Form->hidden('posicion_en_cola', array("value" => "-1"));
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Enviar', true));?>
