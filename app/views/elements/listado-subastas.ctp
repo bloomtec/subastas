@@ -11,7 +11,8 @@
 			 </div>
 			 <div class="hora_servidor">
 			 	<?php 
-			 		$fecha= date("Y M d H:i:s",strtotime("now")); 
+			 		$gmt = 3600*-5; 
+					$fecha = gmdate('Y M d H:i:s', time() + $gmt); 
 			 		echo $fecha;
 			 	?>
 			 </div>
@@ -41,8 +42,7 @@
 			 <?php echo $this->Html->image($subasta['Subasta']['imagen_path'],array("width"=>"200"))?>
 			 <?php echo $this->Html->para("nombre",$subasta["Subasta"]["nombre"]) ?>
 		     <?php echo $this->Html->para("pvp","PVP $".number_format($subasta["Subasta"]['valor'], 0, ' ', '.')) ?>
-		     <p class="contador">00</p>
-		     <p class="precio">00<p>
+		    
 		 </li>
 		 <?php 
 		 $i++;
