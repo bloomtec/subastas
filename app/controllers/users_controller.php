@@ -18,7 +18,20 @@ class UsersController extends AppController {
 		$this->set('user', $this->User->read(null,$this->Auth->user("id")));
 	}
 	function modificarDatos(){
-		$this->data=$this->User->read(null,$this->Auth->user("id"));
+				$id=$this->Auth->user("id");
+		if (!empty($this->data)){
+			$this->data["User"]["id"]=$id;
+			if ($this->User->saveAll($this->data,array("validate"=>false))) {
+				$this->Session->setFlash(__('Usuario modificado', true));
+				
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('El usuario no pudo ser modificado. Por favor, inténtelo de nuevo.', true));
+			}
+		}
+		if (empty($this->data)) {
+			$this->data = $this->User->read(null, $id);
+		}
 	}
 	function getCreditos(){
 		$this->User->recursive=-1;

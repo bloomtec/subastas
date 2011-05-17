@@ -8,7 +8,7 @@
 </div>
 <div id="right-content" class="estilo-borde">
 	<div class="forms">
-	<?php echo $this->Form->create('UserField');?>
+	<?php echo $this->Form->create('User');?>
 		<fieldset>
 			<legend><?php __('Mis Datos'); ?></legend>
 		<?php
@@ -19,7 +19,7 @@
 			echo $this->Form->input('UserField.cedula');
 			echo $this->Form->input('UserField.fecha_de_nacimiento');
 			echo $this->Form->input('UserField.sexo');
-			echo $this->Form->input('UserField.email');
+			//echo $this->Form->input('email');
 			echo $this->Form->input('UserField.direccion');
 			echo $this->Form->input('UserField.ciudad');
 			echo $this->Form->input('UserField.telefono_fijo');
