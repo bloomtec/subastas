@@ -199,7 +199,10 @@ class OfertasController extends AppController {
 	}
 	
 	function obtenerTotalCreditosDescontados($subastaID = null){
-		return $this->requestAction('/subastas/creditosADescontar/'.$subastaID) * $this->Oferta->find("count", array('conditions' => array('Oferta.subasta_id' => $subastaID)));
+		$this->loadModel('Subasta');
+		$subasta = $this->Subasta->read(null, $subastaID);
+		//return $this->requestAction('/subastas/creditosADescontar/'.$subastaID) * $this->Oferta->find("count", array('conditions' => array('Oferta.subasta_id' => $subastaID)));
+		return $subasta['Subasta']['cantidad_creditos_puja'] * $this->Oferta->find("count", array('conditions' => array('Oferta.subasta_id' => $subastaID)));
 	}
 
 	function obtenerUsuarioGanadorSubasta($subastaID = null){
