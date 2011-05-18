@@ -539,7 +539,7 @@ class SubastasController extends AppController {
 				$this->Session->setFlash(__('No existe ningun usuario registrado con ese email', true));
 				return;
 			}
-		} 
+		}
 	}
 
 }

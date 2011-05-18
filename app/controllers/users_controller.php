@@ -17,8 +17,9 @@ class UsersController extends AppController {
 		//debug($this->User->read(null,$this->Auth->user("id")));
 		$this->set('user', $this->User->read(null,$this->Auth->user("id")));
 	}
+	
 	function modificarDatos(){
-				$id=$this->Auth->user("id");
+		$id=$this->Auth->user("id");
 		if (!empty($this->data)){
 			$this->data["User"]["id"]=$id;
 			if ($this->User->saveAll($this->data,array("validate"=>false))) {
@@ -33,6 +34,7 @@ class UsersController extends AppController {
 			$this->data = $this->User->read(null, $id);
 		}
 	}
+	
 	function getCreditos(){
 		$this->User->recursive=-1;
 		$user=$this->User->read(null,$this->Auth->user("id"));
@@ -283,21 +285,18 @@ class UsersController extends AppController {
 		$this->redirect($this->Auth->logout());
 	}
 
-	
 	//Recordar email
 	//Recordar email
 	function generarPassword(){
-	$str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
-	$cad = "";
-	for($i=0;$i<8;$i++) {
-	$cad .= substr($str,rand(0,62),1);
+		$str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+		$cad = "";
+		for($i=0;$i<8;$i++) {
+			$cad .= substr($str,rand(0,62),1);
+		}
+		return $cad;
 	}
-	return $cad;
-	}
-	function rememberPassword()
-	{
-		if (!empty($this->data)) 
-		{
+	function rememberPassword(){
+		if (!empty($this->data)) {
 			$this->User->recursive=0;
 			$datos=$this->User->find("first", array( 
 									'conditions'=>array('User.email'=>trim($this->data['User']['email']))));
@@ -306,8 +305,7 @@ class UsersController extends AppController {
 			debug($newPassword);
 			$datos["User"]["password"]=$this->Auth->password($newPassword);
 			//debug($datos);
-			if($datos['User']['email'])
-			{				
+			if($datos['User']['email']){				
 				$para      = $datos['User']['email'];
 				$asunto    = 'Recuperacion de contraseña';
 				$mensaje   = 'Sus datos para ingresar al portal tecnocenter.com.co son los siguientes: <br /> Nombre de usuario: '.$datos['User']['email'].
@@ -320,18 +318,14 @@ class UsersController extends AppController {
 				$cabeceras .= "To:< ".$datos['User']['email'].">" . "\r\n";
 				$cabeceras .= 'From: Tecnocenter <info@tecnocenter.com.co>' . "\r\n";
 
-				if(mail($para, $asunto, $mensaje, $cabeceras))
-				{
+				if(mail($para, $asunto, $mensaje, $cabeceras)){
 					$this->User->save($datos,array("validate"=>false));
 					$this->set("mensaje",'Datos enviados a su correo');
-				}else 
-				{
+				} else {
 					$this->set("mensaje",'Datos no enviados a su correo, por favor intenta mas tarde');
 				}
 				return;
-			}
-			else 
-			{
+			} else {
 				$this->set("mensaje",'No existe ningun usuario registrado con ese email');
 				return;
 			}
@@ -405,6 +399,12 @@ class UsersController extends AppController {
 		} else {
 			return null;
 		}
+	}
+	
+	function comprarCreditos(){
+		$this->loadModel('Paquete');
+		$paquetes = $this->Paquete->find('all');
+		$this->set('paquetes', $paquetes);
 	}
 
 	function enviarCorreoRecomendado($userID = null, $correoDestino = null){
