@@ -269,6 +269,7 @@ class SubastasController extends AppController {
 		if (!empty($this->data)) {
 			$this->Subasta->create();
 			if ($this->Subasta->save($this->data)) {
+				$this->__sincronizarPosiciones();
 				$this->Session->setFlash(__('Se añadió la subasta.', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
