@@ -17,7 +17,7 @@
  * @author Julio César Domínguez Giraldo
  *
  */
-class VerificarTablaSubastasShell extends Shell {
+class VtstreesShell extends Shell {
 
 	var $uses = array('Subasta');
 

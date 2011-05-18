@@ -6,7 +6,7 @@
  *
  * @author Julio César Domínguez Giraldo
  */
-class VerificarTablaVentasShell extends Shell {
+class VtablavcinncoShell extends Shell {
 
 	var $uses = array('Venta');
 
