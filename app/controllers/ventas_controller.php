@@ -149,6 +149,10 @@ class VentasController extends AppController {
 		$this->Venta->read(null, $id);
 		$this->Venta->set('estados_venta_id', 3);
 	}
+	
+	function ultimoGanador() {
+		return $this->Venta->find('first', array("order"=>array("Venta.id DESC")));
+	}
 
 }
 ?>
