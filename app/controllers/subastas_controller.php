@@ -334,7 +334,7 @@ class SubastasController extends AppController {
 		// << Reasignar numeros a las subastas con estado "Activa" >>
 		//
 
-		$subastasActivas = $this->Subasta->find("all", array('conditions' => array('Subasta.estados_subasta_id' => '2'), 'order' => array('Subasta.posicion_en_cola')));
+		$subastasActivas = $this->Subasta->find("all", array('conditions' => array('Subasta.estados_subasta_id' => '2'), 'order' => array('Subasta.id')));
 
 		$posicion_en_cola = 1;
 
