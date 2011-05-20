@@ -116,7 +116,15 @@
 					<?php echo $html->link("Configuración",array("controller"=>"configs", "action"=>"edit", "1")); ?>
 				</li>
 				<li>
-					<?php echo $html->link("Contactos",array("controller"=>"contacts", "action"=>"index")); ?>
+					<?php echo $html->link("Contactos",array("controller"=>"lista_correos", "action"=>"index")); ?>
+					<ul>
+						<li>
+							<?php echo $html->link("Listar Contactos", array("controller"=>"lista_correos", "action"=>"index")); ?>
+						</li>
+						<li>
+							<?php echo $html->link("Añadir Contacto", array("controller"=>"lista_correos", "action"=>"add")); ?>
+						</li>
+					</ul>
 				</li>
 				<li>
 					<?php echo $html->link(__("logout",true),array("controller"=>"users","action"=>"logout"), array("class"=>"logout"))?>

@@ -1,17 +1,10 @@
-<div class="listaCorreos form">
+<div>
 <?php echo $this->Form->create('ListaCorreo');?>
 	<fieldset>
- 		<legend><?php __('Admin Add Lista Correo'); ?></legend>
+ 		<legend><?php __('Añadir Contacto'); ?></legend>
 	<?php
 		echo $this->Form->input('correo');
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit', true));?>
-</div>
-<div class="actions">
-	<h3><?php __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Html->link(__('List Lista Correos', true), array('action' => 'index'));?></li>
-	</ul>
+<?php echo $this->Form->end(__('Añadir', true));?>
 </div>

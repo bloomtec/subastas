@@ -19,15 +19,8 @@
 	?>
 	<tr<?php echo $class;?>>
 		<td><?php echo $subasta['Subasta']['nombre']; ?>&nbsp;</td>
-		<?php
-			if($subasta['Subasta']['tipo_subasta_id'] == 1){
-				echo '<td>'.$subasta['Subasta']['valor'].'&nbsp;</td>';
-				echo '<td>'.'&nbsp;</td>';
-			} else {
-				echo '<td>'.'&nbsp;</td>';
-				echo '<td>'.$subasta['Subasta']['umbral_minimo_creditos'].'&nbsp;</td>';
-			}
-		?>
+		<td><?php echo $subasta['Subasta']['valor']; ?>&nbsp;</td>
+		<td><?php echo $subasta['Subasta']['umbral_minimo_creditos']; ?>&nbsp;</td>
 		<td><?php echo $html->image($subasta['Subasta']['imagen_path'],array("width"=>"200")); ?>&nbsp;</td>
 		<td><?php echo $subasta['EstadosSubasta']['nombre']; ?>&nbsp;</td>
 		<td class="actions">

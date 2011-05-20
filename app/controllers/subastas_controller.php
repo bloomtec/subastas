@@ -48,18 +48,20 @@ class SubastasController extends AppController {
 		$subastas = $this->Subasta->query($query);
 		$this->set(compact("subastas"));
 	}
+	
 	function subastasFinalizadas(){
 		$subastas=$this->Subasta->find("all",array("conditions"=>array("estados_subasta_id >"=>2)));
 		$this->set(compact("subastas"));
 	}
+	
 	function ofertar($subastaID = null) {
 		if($this->RequestHandler->isAjax()){
 			$subastaID=$_GET["subasta_id"];
 			$subasta=$this->Subasta->read(null, $subastaID);
 			if ($subasta["Subasta"]["estados_subasta_id"] != 2) {
 				Configure::write("debug",0);
-			$this->autoRender=false;
-			exit(0);
+				$this->autoRender=false;
+				exit(0);
 			} else {
 				echo json_encode($this->__ofertar($subastaID));
 			}

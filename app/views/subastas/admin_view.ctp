@@ -1,11 +1,6 @@
 <div>
 <h2><?php  __('Subasta');?></h2>
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
-		<!-- <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Id'); ?></dt> -->
-		<!-- <dd<?php if ($i++ % 2 == 0) echo $class;?>> -->
-			<!-- <?php echo $subasta['Subasta']['id']; ?> -->
-			<!-- &nbsp; -->
-		<!-- </dd> -->
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Nombre'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $subasta['Subasta']['nombre']; ?>
@@ -28,33 +23,16 @@
 			<?php echo $subasta['TipoSubasta']['nombre']; ?>
 			&nbsp;
 		</dd>
-		<!-- <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Valor'); ?></dt> -->
-		<!-- <dd<?php if ($i++ % 2 == 0) echo $class;?>> -->
-			<!-- <?php echo $subasta['Subasta']['valor']; ?> -->
-			<!-- &nbsp; -->
-		<!-- </dd> -->
-		<!-- <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Umbral Minimo Creditos'); ?></dt> -->
-		<!-- <dd<?php if ($i++ % 2 == 0) echo $class;?>> -->
-			<!-- <?php echo $subasta['Subasta']['umbral_minimo_creditos']; ?> -->
-			<!-- &nbsp; -->
-		<!-- </dd> -->
-		<?php
-			echo '<dt';
-			if ($i % 2 == 0) echo $class;
-			echo '>';
-			if($subasta['TipoSubasta']['id'] == 1) {
-				__('Valor');	
-			} else {
-				__('Mínimo De Creditos');
-			}
-			echo '</dt><dd';
-			if ($i++ % 2 == 0) echo $class;
-			if($subasta['TipoSubasta']['id'] == 1) {
-				echo '>'.$subasta['Subasta']['valor'].'&nbsp;</dd>';
-			} else {
-				echo '>'.$subasta['Subasta']['umbral_minimo_creditos'].'&nbsp;</dd>';
-			}		 
-		?>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Valor'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $subasta['Subasta']['valor']; ?>
+			&nbsp;
+		</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Umbral Minimo Creditos'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+		<?php echo $subasta['Subasta']['umbral_minimo_creditos']; ?>
+		&nbsp;
+		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Creditos x Puja'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $subasta['Subasta']['cantidad_creditos_puja']; ?>
@@ -155,7 +133,7 @@
 		<!-- <th><?php __('Creditos Descontados'); ?></th> -->
 		<th><?php __('Created'); ?></th>
 		<!-- <th><?php __('Updated'); ?></th> -->
-		<th class="actions"><?php __('Acciones');?></th>
+<!-- 		<th class="actions"><?php __('Acciones');?></th> -->
 	</tr>
 	<?php
 		$i = 0;

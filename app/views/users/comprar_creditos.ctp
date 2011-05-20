@@ -22,11 +22,14 @@
 				<td>
 					<?php
 						echo $this->Form->create(null, array('type'=>'POST', 'url'=>'http://demo.tucompra.com.co/tc/app/inputs/compra.jsp'));
-						echo $this->Form->hidden('usuario', array('value'=>'administracion@grupokotai.com'));
-						echo $this->Form->hidden('factura', array('value'=>''));
-						echo $this->Form->hidden('valor', array('value'=>$paquete['Paquete']['precio']));
+						echo $this->Form->input('usuario', array('name'=>'usuario', 'value'=>'o61qja192w81o1zb'));
+						$gmt = 3600*-5; // GMT -5 para hora colombiana
+						$fechaActual = gmdate('YmdHis', time() + $gmt);
+						$factura_id = $user_id . $fechaActual;
+						echo $this->Form->input('factura', array('name'=>'factura', 'value'=>"$factura_id"));
+						echo $this->Form->input('valor', array('name'=>'valor', 'value'=>$paquete['Paquete']['precio']));
 						$nombre = $paquete['Paquete']['nombre'];
-						echo $this->Form->hidden('descripcionFactura', array('value'=>"Compra del paquete $nombre"));
+						echo $this->Form->input('descripcionFactura', array('name'=>'descripcionFactura', 'value'=>"Compra del paquete $nombre"));
 						echo $this->Form->submit("Enviar");
 					?>
 				</td>

@@ -1,8 +1,7 @@
-<div class="listaCorreos index">
+<div>
 	<h2><?php __('Lista Correos');?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
-			<th><?php echo $this->Paginator->sort('id');?></th>
 			<th><?php echo $this->Paginator->sort('correo');?></th>
 			<th><?php echo $this->Paginator->sort('created');?></th>
 			<th><?php echo $this->Paginator->sort('updated');?></th>
@@ -17,14 +16,13 @@
 		}
 	?>
 	<tr<?php echo $class;?>>
-		<td><?php echo $listaCorreo['ListaCorreo']['id']; ?>&nbsp;</td>
 		<td><?php echo $listaCorreo['ListaCorreo']['correo']; ?>&nbsp;</td>
 		<td><?php echo $listaCorreo['ListaCorreo']['created']; ?>&nbsp;</td>
 		<td><?php echo $listaCorreo['ListaCorreo']['updated']; ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View', true), array('action' => 'view', $listaCorreo['ListaCorreo']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit', true), array('action' => 'edit', $listaCorreo['ListaCorreo']['id'])); ?>
-			<?php echo $this->Html->link(__('Delete', true), array('action' => 'delete', $listaCorreo['ListaCorreo']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $listaCorreo['ListaCorreo']['id'])); ?>
+			<?php echo $this->Html->link(__('Ver', true), array('action' => 'view', $listaCorreo['ListaCorreo']['id'])); ?>
+			<?php echo $this->Html->link(__('Editar', true), array('action' => 'edit', $listaCorreo['ListaCorreo']['id'])); ?>
+			<?php echo $this->Html->link(__('Borrar', true), array('action' => 'delete', $listaCorreo['ListaCorreo']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $listaCorreo['ListaCorreo']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -42,10 +40,4 @@
  |
 		<?php echo $this->Paginator->next(__('next', true) . ' >>', array(), null, array('class' => 'disabled'));?>
 	</div>
-</div>
-<div class="actions">
-	<h3><?php __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Lista Correo', true), array('action' => 'add')); ?></li>
-	</ul>
 </div>

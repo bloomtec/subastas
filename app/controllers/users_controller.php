@@ -402,9 +402,11 @@ class UsersController extends AppController {
 	}
 	
 	function comprarCreditos(){
+		$id=$this->Auth->user("id");
 		$this->loadModel('Paquete');
 		$paquetes = $this->Paquete->find('all');
 		$this->set('paquetes', $paquetes);
+		$this->set('user_id', $id);
 	}
 
 	function enviarCorreoRecomendado($userID = null, $correoDestino = null){
