@@ -6,7 +6,7 @@ class SubastasController extends AppController {
 		parent::beforeFilter();
 		$this->Auth->allow("index","subastasFinalizadas");
 	}
-	
+
 	/**
 	 * Devuelve todas las subastas activas
 	 * en la que este usuario ha participado
@@ -14,13 +14,13 @@ class SubastasController extends AppController {
 	function subastasActivas(){
 		$this->autoRender=false;
 		$userID = $this->Auth->user("id");
-		
+
 		//Encontrar las subastas con estado activo
 		// y que se encuentren en sus 'fecha_de_venta'
 		//
 		$gmt = 3600*-5; // GMT -5 para hora colombiana
 		$fechaActual = gmdate('Y-m-d H:i:s', time() + $gmt); // Generar la fecha actual formateada para comparar con la fecha de mysql
-		$query = 
+		$query =
 			"SELECT DISTINCT Subasta.id, Subasta.nombre, Subasta.valor, Subasta.precio, Subasta.imagen_path, Subasta.fecha_de_venta, Subasta.aumento_creditos
 			FROM subastas as Subasta, users as User, ofertas as Oferta
 			WHERE User.id = $userID
@@ -31,14 +31,14 @@ class SubastasController extends AppController {
 		$subastas = $this->Subasta->query($query);
 		return $subastas;
 	}
-	
+
 	/**
 	 * Devuelve todas las subastas finalizadas
 	 * en la que este usuario ha participado
 	 */
 	function finalizadas(){
 		$userID = $this->Auth->user("id");
-		$query = 
+		$query =
 			"SELECT DISTINCT Subasta.id, Subasta.nombre, Subasta.valor, Subasta.precio, Subasta.imagen_path, Subasta.fecha_de_venta, Subasta.aumento_creditos
 			FROM subastas as Subasta, users as User, ofertas as Oferta
 			WHERE User.id = $userID
@@ -48,12 +48,12 @@ class SubastasController extends AppController {
 		$subastas = $this->Subasta->query($query);
 		$this->set(compact("subastas"));
 	}
-	
+
 	function subastasFinalizadas(){
 		$subastas=$this->Subasta->find("all",array("conditions"=>array("estados_subasta_id >"=>2)));
 		$this->set(compact("subastas"));
 	}
-	
+
 	function ofertar($subastaID = null) {
 		if($this->RequestHandler->isAjax()){
 			$subastaID=$_GET["subasta_id"];
@@ -67,9 +67,9 @@ class SubastasController extends AppController {
 			}
 			Configure::write("debug",0);
 			$this->autoRender=false;
-			exit(0);	
+			exit(0);
 		}
-		
+
 		if (!$subastaID) {
 			$this->Session->setFlash(__('ID no valida para la subasta', true));
 			$this->redirect(array('action'=>'index'));
@@ -89,40 +89,60 @@ class SubastasController extends AppController {
 			}
 		}
 	}
-	
+
 	function __ofertar($subastaID = null) {
-		
+
 		/**
 		 * LOS CAMBIOS PIDEN QUE AQUI SE VALIDE QUE TIPO DE
 		 * SUBASTA ES Y VER SI SE PUEDE O NO OFERTAR PARA
 		 * CUANDO LA SUBASTA SEA POR MINIMO DE CREDITOS
+		 * SE CAMBIO EL METODO CREDITOSSUFICIENTES PARA VERIFICAR
+		 * SI SE TIENE EL MINIMO DE CREDITOS; SE ENVIA COMO TERCER
+		 * PARAMETRO DICHO VALOR
 		 */
-		
+
 		// Obtener la informacion de la subasta
 		//
 		$subasta = $this->Subasta->read(null, $subastaID);
-		
-		// Validar que el usuario tenga suficientes creditos para ofertar
-		//
-		if($this->requestAction('/users/creditosSuficientes/' . $this->Session->read('Auth.User.id') . '/' . $subasta['Subasta']['cantidad_creditos_puja'])) {
-			// Como el usuario tiene suficientes creditos proceder a descontar los creditos
-			//
-			$this->requestAction('/users/descontarCreditos/' . $this->Session->read('Auth.User.id') . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
-			
-			// Crear la oferta para finalizar el proceso
-			//
-			return $this->requestAction('ofertas/crearOferta/' . $this->Session->read('Auth.User.id') . '/' . $subasta['Subasta']['id'] . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
 
+		// Validar que el usuario tenga suficientes creditos para ofertar
+		// SUBASTA VENTA FIJA
+		if ($subasta['TipoSubasta']['id'] == 1) {
+			if($this->requestAction('/users/creditosSuficientes/' . $this->Session->read('Auth.User.id') . '/' . $subasta['Subasta']['cantidad_creditos_puja'])) {
+				// Como el usuario tiene suficientes creditos proceder a descontar los creditos
+				//
+				$this->requestAction('/users/descontarCreditos/' . $this->Session->read('Auth.User.id') . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
+					
+				// Crear la oferta para finalizar el proceso
+				//
+				return $this->requestAction('ofertas/crearOferta/' . $this->Session->read('Auth.User.id') . '/' . $subasta['Subasta']['id'] . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
+
+			} else {
+				return array("success"=>false,"mensaje"=>"No tiene suficiente credito, Por favor compra mas creditos para poder ofertar","code"=>"1");
+			}
 		} else {
-			return array("success"=>false,"mensaje"=>"No tiene suficiente credito, Por favor compra mas creditos para poder ofertar","code"=>"1");
+			// Validar que el usuario tenga suficientes creditos para ofertar
+			// SUBASTA MINIMO DE CREDITOS
+			if($this->requestAction('/users/creditosSuficientes/' . $this->Session->read('Auth.User.id') . '/' . $subasta['Subasta']['cantidad_creditos_puja'] . '/' . $subasta['Subasta']['umbral_minimo_creditos'])) {
+				// Como el usuario tiene suficientes creditos proceder a descontar los creditos
+				//
+				$this->requestAction('/users/descontarCreditos/' . $this->Session->read('Auth.User.id') . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
+					
+				// Crear la oferta para finalizar el proceso
+				//
+				return $this->requestAction('ofertas/crearOferta/' . $this->Session->read('Auth.User.id') . '/' . $subasta['Subasta']['id'] . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
+
+			} else {
+				return array("success"=>false,"mensaje"=>"No tiene suficiente credito, Por favor compra mas creditos para poder ofertar","code"=>"1");
+			}
 		}
 	}
 
 	function index() {
 		$this->Subasta->recursive = 0;
 		$config=$this->Config->read(null,1);
-		$gmt = 3600*-5; 
-		$fechaActual = gmdate('Y-m-d H:i:s', time() + $gmt); 
+		$gmt = 3600*-5;
+		$fechaActual = gmdate('Y-m-d H:i:s', time() + $gmt);
 		if (!empty($this->params['requested'])) {
 			return $this->Subasta->find("all",array(
 			 	"conditions"=>array(
@@ -159,9 +179,9 @@ class SubastasController extends AppController {
 			$this->set('subastas', $this->paginate());
 		}
 	}
-	
+
 	function proximasSubastas(){
-	 $config=$this->Config->read(null,1);	
+	 $config=$this->Config->read(null,1);
 	 if (!empty($this->params['requested'])) {
 	 	return $this->Subasta->find("all",array(
 			 	"conditions"=>array(
@@ -180,7 +200,7 @@ class SubastasController extends AppController {
 	 }
 	}
 	function proximaSubasta(){
-	 $config=$this->Config->read(null,1);	
+	 $config=$this->Config->read(null,1);
 	 if (!empty($this->params['requested'])) {
 	 	$subastas=$this->Subasta->find("all",array(
 			 	"conditions"=>array(
@@ -332,7 +352,7 @@ class SubastasController extends AppController {
 	function sync() {
 		$this->__sincronizarPosiciones();
 	}
-	
+
 	function __sincronizarPosiciones(){
 		// << Sacar la subasta de la cola si su estado no es "Activa" >>
 		//
@@ -425,7 +445,7 @@ class SubastasController extends AppController {
 				$this->__cerrar($id);
 				break;
 		}
-		
+
 	}
 
 	function __cerrar($id = null){
@@ -489,7 +509,7 @@ class SubastasController extends AppController {
 		$this->Session->setFlash(__('No se pudo cancelar la subasta', true));
 		$this->redirect(array('action' => 'index'));
 	}
-	
+
 	function __cancel($subasta_id = null){
 		/**
 		 * Recorrer todas las ofertas de la subasta cancelada y a todos los
@@ -529,24 +549,24 @@ class SubastasController extends AppController {
 			$subasta = $this->Subasta->read(null, $subastaID);
 			$userID = $this->requestAction('/ofertas/obtenerUsuarioGanadorSubasta/' . $subastaID);
 			$usuario = $this->requestAction('/users/getUsuario/' . $userID);
-			
+
 			if($usuario['User']['email']) {
 				$para = $usuario['User']['email'];
 				$asunto = 'Te has llevado un articulo!!!';
-				$mensaje = 'Hola, te has llevado un articulo: ' . 
+				$mensaje = 'Hola, te has llevado un articulo: ' .
 					'<br>Nombre de la subasta: ' . $subasta['Subasta']['nombre'];
-			
-				$cabeceras = 'From: webmaster@example.com' . 
+					
+				$cabeceras = 'From: webmaster@example.com' .
 					"\r\n" . 
 					'Reply-To: webmaster@example.com' . "\r\n" . 
 					'X-Mailer: PHP/' . phpversion();
-			
+					
 				if(mail($para, $asunto, $mensaje, $cabeceras)) {
 					$this->Session->setFlash(__('Datos enviados a su correo', true));
 				} else {
 					$this->Session->setFlash(__('Datos no enviados a su correo, por favor intenta mas tarde', true));
 				}
-				
+
 				return;
 			} else {
 				$this->Session->setFlash(__('No existe ningun usuario registrado con ese email', true));

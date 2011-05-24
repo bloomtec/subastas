@@ -17,14 +17,14 @@ class UsersController extends AppController {
 		//debug($this->User->read(null,$this->Auth->user("id")));
 		$this->set('user', $this->User->read(null,$this->Auth->user("id")));
 	}
-	
+
 	function modificarDatos(){
 		$id=$this->Auth->user("id");
 		if (!empty($this->data)){
 			$this->data["User"]["id"]=$id;
 			if ($this->User->saveAll($this->data,array("validate"=>false))) {
 				$this->Session->setFlash(__('Usuario modificado', true));
-				
+
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('El usuario no pudo ser modificado. Por favor, inténtelo de nuevo.', true));
@@ -34,7 +34,7 @@ class UsersController extends AppController {
 			$this->data = $this->User->read(null, $id);
 		}
 	}
-	
+
 	function getCreditos(){
 		$this->User->recursive=-1;
 		$user=$this->User->read(null,$this->Auth->user("id"));
@@ -45,7 +45,7 @@ class UsersController extends AppController {
 			echo $user["User"]["creditos"];
 			Configure::write("debug",0);
 			$this->autoRender=false;
-			exit(0);	
+			exit(0);
 		}
 	}
 	function abonarCreditosPorRecomendacion($encryptedID = null){
@@ -55,7 +55,7 @@ class UsersController extends AppController {
 		for ($id = 1; $id < $totalUsuarios; $id++) {
 			if ($encryptedID == crypt($id, "23()23*$%g4F^aN!^^%")) {
 				// Las ID son iguales, abonar por recomendacion
-				// 
+				//
 				$this->User->read(null, $id);
 				$this->User->set('creditos', $this->User->creditos + $this->requestAction('/configs/creditosPorRecomendacion'));
 				$this->User->save();
@@ -69,53 +69,53 @@ class UsersController extends AppController {
 
 	function checkEmail(){
 		$checkMail=$this->User->findByEmail($_GET["data"]["User"]["email"]);
-			if($checkMail){
-				echo json_encode(array("data[User][email]"=>"el email se encuentra registrado"));
-				Configure::write("debug",0);
-				$this->autoRender=false;
-				exit(0);
-
-			}else{
-				echo json_encode(true);
-				Configure::write("debug",0);
-				$this->autoRender=false;
-				exit(0);
-			}
+		if($checkMail){
+			echo json_encode(array("data[User][email]"=>"el email se encuentra registrado"));
 			Configure::write("debug",0);
-				$this->autorender=false;
-				exit(0);
+			$this->autoRender=false;
+			exit(0);
+
+		}else{
+			echo json_encode(true);
+			Configure::write("debug",0);
+			$this->autoRender=false;
+			exit(0);
+		}
+		Configure::write("debug",0);
+		$this->autorender=false;
+		exit(0);
 	}
-	function register(){ 
+	function register(){
 		if (!empty($this->data)) {
-		  	$this->User->recursive = 0;		  
+			$this->User->recursive = 0;
 			$this->User->create();
 			$this->data["User"]["role_id"]=2;// Is set as a Basic user for default
-		  if ($this->User->save($this->data)) 
+			if ($this->User->save($this->data))
 			{
 				$this->data["UserField"]["user_id"]=$this->User->id;
 				$this->User->UserField->save($this->data["UserField"]);
 				if (isset($this->data['Recomendado'])) {
-                    $this->abonarCreditosPorRecomendacion($this->data['Recomendado']['id']);
-                }
-		        $para      = $this->data['User']['email'];
+					$this->abonarCreditosPorRecomendacion($this->data['Recomendado']['id']);
+				}
+				$para      = $this->data['User']['email'];
 				$asunto    = 'Bienvenido a Tecnocenter';
 				$mensaje   = 'Bienvenido, sus datos de ingreso al portal Tecnocenter son los siguientes:<br> Nombre de usuario (email) :'.$this->data['User']['email'].
 							 '<br>Contraseña: '.$this->data['User']['password'];
-				 
+					
 				$cabeceras = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
 				// Cabeceras adicionales
 				$cabeceras .= 'From: Tecnocenter <info@llevatelo.com>' . "\r\n";
 
 				/*if(mail($para, $asunto, $mensaje, $cabeceras))
-				{
+				 {
 					$this->Session->setFlash(__('Bienvenido', true));
-				}else 
-				{
-						$this->Session->setFlash(__('Bienvenido', true));
+					}else
+					{
+					$this->Session->setFlash(__('Bienvenido', true));
 					//$this->Session->setFlash(__('Datos de logueo no enviados a su correo, por favor intenta mas tarde', true));
-				}*/
-			
+					}*/
+					
 				//$rol=$this->Session->read("Auth.User.role_id");
 				$this->Session->setFlash(__('Su registro ha sido éxitoso', true));
 				$this->Auth->login($this->data);
@@ -126,7 +126,7 @@ class UsersController extends AppController {
 				$this->Session->setFlash(__('No se pudo completar el registro. Por favor, intente de nuevo', true));
 			}
 		}
-	}	
+	}
 	function checkPassword(){
 		$this->User->recursive=0;
 		$user=$this->User->read(null,$this->Auth->user("id"));
@@ -142,12 +142,12 @@ class UsersController extends AppController {
 		$this->autoRender=false;
 		exit(0);
 	}
-  	function changePassword(){
-  		if(!empty($this->data)){
-  			
-  		}
-  	}
-	
+	function changePassword(){
+		if(!empty($this->data)){
+				
+		}
+	}
+
 	function view($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid user', true));
@@ -298,19 +298,19 @@ class UsersController extends AppController {
 	function rememberPassword(){
 		if (!empty($this->data)) {
 			$this->User->recursive=0;
-			$datos=$this->User->find("first", array( 
+			$datos=$this->User->find("first", array(
 									'conditions'=>array('User.email'=>trim($this->data['User']['email']))));
-									
+				
 			$newPassword=$this->generarPassword();
 			debug($newPassword);
 			$datos["User"]["password"]=$this->Auth->password($newPassword);
 			//debug($datos);
-			if($datos['User']['email']){				
+			if($datos['User']['email']){
 				$para      = $datos['User']['email'];
 				$asunto    = 'Recuperacion de contraseña';
 				$mensaje   = 'Sus datos para ingresar al portal tecnocenter.com.co son los siguientes: <br /> Nombre de usuario: '.$datos['User']['email'].
 							 ' <br /> Contraseña: '.$newPassword;
-						 
+					
 				$cabeceras  = 'MIME-Version: 1.0' . "\r\n";
 				$cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
@@ -329,10 +329,10 @@ class UsersController extends AppController {
 				$this->set("mensaje",'No existe ningun usuario registrado con ese email');
 				return;
 			}
-		}	
+		}
 	}
 
-	
+
 	function reponerCreditos($userID = null, $creditosAReponer){
 		$usuario = $this->User->read(null, $userID);
 		$creditos = $usuario['User']['creditos'];
@@ -345,10 +345,18 @@ class UsersController extends AppController {
 		return $usuario['User']['creditos'];
 	}
 
-	function creditosSuficientes($userID = null, $cantidadAVerificar = null){
+	function creditosSuficientes($userID = null, $cantidadAVerificar = null, $minimoDeCreditos = null){
 		$usuario = $this->User->read(null, $userID);
 		if($usuario['User']['creditos'] >= $cantidadAVerificar){
-			return true;
+			if(!$minimoDeCreditos){
+				return true;
+			} else {
+				if ($usuario['User']['creditos'] >= $minimoDeCreditos) {
+					return true;
+				} else {
+					return false;
+				}
+			}
 		} else {
 			return false;
 		}
@@ -392,7 +400,7 @@ class UsersController extends AppController {
 			$this->Session->setFlash(__('Error al leer los datos ingresados', true));
 		}
 	}
-	
+
 	function getUsuario($userID = null) {
 		if ($userID) {
 			return $this->User->find('first', array('conditions'=>array('User.id'=>$userID)));
@@ -400,7 +408,7 @@ class UsersController extends AppController {
 			return null;
 		}
 	}
-	
+
 	function comprarCreditos(){
 		$id=$this->Auth->user("id");
 		$this->loadModel('Paquete');
@@ -414,29 +422,29 @@ class UsersController extends AppController {
 		//
 		if ($userID) {
 			$IDEncriptada = crypt($userID, "23()23*$%g4F^aN!^^%");
-			
+				
 			// TODO : Enviar el correo a $correoDestino con el enlace y la $IDEncriptada
 			//
-	
+
 			if ($correoDestino) {
-					$para = $correoDestino;
-					$asunto = 'Te han recomendado la página LLEVATELO.COM';
-					$mensaje = 'Hola, te han recomendado en nuestra página.' . 
+				$para = $correoDestino;
+				$asunto = 'Te han recomendado la página LLEVATELO.COM';
+				$mensaje = 'Hola, te han recomendado en nuestra página.' .
 						'<br />Registrate usando este link para llevarte un beneficio de creditos.' . 
 						'<br /> http://www.llevatelos.com/users/register/' . $IDEncriptada;
-				
-					$cabeceras = 'From: webmaster@example.com' . 
+
+				$cabeceras = 'From: webmaster@example.com' .
 						"\r\n" . 
 						'Reply-To: webmaster@example.com' . "\r\n" . 
 						'X-Mailer: PHP/' . phpversion();
-				
-					if(mail($para, $asunto, $mensaje, $cabeceras)) {
-						$this->Session->setFlash(__('Datos enviados a su correo', true));
-					} else {
-						$this->Session->setFlash(__('Datos no enviados a su correo, por favor intenta mas tarde', true));
-					}
+
+				if(mail($para, $asunto, $mensaje, $cabeceras)) {
+					$this->Session->setFlash(__('Datos enviados a su correo', true));
+				} else {
+					$this->Session->setFlash(__('Datos no enviados a su correo, por favor intenta mas tarde', true));
+				}
 					
-					return;
+				return;
 			} else {
 				// TODO : El correo destino no es valido
 			}
