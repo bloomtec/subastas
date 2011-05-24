@@ -177,18 +177,23 @@ class OfertasController extends AppController {
 	 * << metodos no generados por cake >>
 	 */
 
+	function obtenerTotalOfertas($subastaID = null) {
+		return $this->Oferta->find('count', array('conditions' => array('Oferta.subasta_id' => $subastaID)));
+	}
+	
 	function obtenerOfertasSubasta($subastaID = null) {
 		/**
 		 * Obtener todas las ofertas hechas a una subasta
 		 */
-		return $this->Oferta->find("all", array('conditions' => array('Oferta.subasta_id' => $subastaID)));
+		return $this->Oferta->find('all', array('conditions' => array('Oferta.subasta_id' => $subastaID)));
 	}
 	
 	function obtenerTotalCreditosDescontados($subastaID = null){
 		$this->loadModel('Subasta');
 		$subasta = $this->Subasta->read(null, $subastaID);
-		//return $this->requestAction('/subastas/creditosADescontar/'.$subastaID) * $this->Oferta->find("count", array('conditions' => array('Oferta.subasta_id' => $subastaID)));
-		return $subasta['Subasta']['cantidad_creditos_puja'] * $this->Oferta->find("count", array('conditions' => array('Oferta.subasta_id' => $subastaID)));
+		$cantidadCreditos = $subasta['Subasta']['cantidad_creditos_puja'];
+		$cantidadPujas = $this->Oferta->find("count", array('conditions' => array('Oferta.subasta_id' => $subastaID)));
+		return $cantidadCreditos * $cantidadPujas;
 	}
 
 	function obtenerUsuarioGanadorSubasta($subastaID = null){

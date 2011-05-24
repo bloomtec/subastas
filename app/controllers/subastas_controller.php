@@ -91,6 +91,13 @@ class SubastasController extends AppController {
 	}
 	
 	function __ofertar($subastaID = null) {
+		
+		/**
+		 * LOS CAMBIOS PIDEN QUE AQUI SE VALIDE QUE TIPO DE
+		 * SUBASTA ES Y VER SI SE PUEDE O NO OFERTAR PARA
+		 * CUANDO LA SUBASTA SEA POR MINIMO DE CREDITOS
+		 */
+		
 		// Obtener la informacion de la subasta
 		//
 		$subasta = $this->Subasta->read(null, $subastaID);
@@ -322,6 +329,10 @@ class SubastasController extends AppController {
 	 * << seccion de metodos no generados por cake >>
 	 */
 
+	function sync() {
+		$this->__sincronizarPosiciones();
+	}
+	
 	function __sincronizarPosiciones(){
 		// << Sacar la subasta de la cola si su estado no es "Activa" >>
 		//
@@ -478,8 +489,8 @@ class SubastasController extends AppController {
 		$this->Session->setFlash(__('No se pudo cancelar la subasta', true));
 		$this->redirect(array('action' => 'index'));
 	}
-
-	function __cancel($id = null){
+	
+	function __cancel($subasta_id = null){
 		/**
 		 * Recorrer todas las ofertas de la subasta cancelada y a todos los
 		 * usuarios que ofertaron se les devuelve el credito que habian
@@ -488,7 +499,7 @@ class SubastasController extends AppController {
 
 		// Encontrar las ofertas correspondientes a una subasta
 		//
-		$ofertasHechas = $this->requestAction('/ofertas/obtenerOfertasSubasta/'.$id);
+		$ofertasHechas = $this->requestAction('/ofertas/obtenerOfertasSubasta/' . $subasta_id);
 
 		// Recorrer las ofertas y devolver los creditos
 		//
