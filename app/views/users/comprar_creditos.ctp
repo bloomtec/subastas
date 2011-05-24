@@ -21,15 +21,33 @@
 				</td>
 				<td>
 					<?php
+						// Crear el form
+						//
 						echo $this->Form->create(null, array('type'=>'POST', 'url'=>'http://demo.tucompra.com.co/tc/app/inputs/compra.jsp'));
-						echo $this->Form->input('usuario', array('name'=>'usuario', 'value'=>'o61qja192w81o1zb'));
+						// Datos de comercio
+						//
+						echo $this->Form->hidden('usuario', array('name'=>'usuario', 'value'=>'o61qja192w81o1zb'));
 						$gmt = 3600*-5; // GMT -5 para hora colombiana
 						$fechaActual = gmdate('YmdHis', time() + $gmt);
 						$factura_id = $user_id . $fechaActual;
-						echo $this->Form->input('factura', array('name'=>'factura', 'value'=>"$factura_id"));
-						echo $this->Form->input('valor', array('name'=>'valor', 'value'=>$paquete['Paquete']['precio']));
+						echo $this->Form->hidden('factura', array('name'=>'factura', 'value'=>"$factura_id"));
+						echo $this->Form->hidden('valor', array('name'=>'valor', 'value'=>$paquete['Paquete']['precio']));
 						$nombre = $paquete['Paquete']['nombre'];
-						echo $this->Form->input('descripcionFactura', array('name'=>'descripcionFactura', 'value'=>"Compra del paquete $nombre"));
+						echo $this->Form->hidden('descripcionFactura', array('name'=>'descripcionFactura', 'value'=>"Compra del paquete $nombre de llevatelos.com"));
+						// Datos de usuario
+						// Se pide: documento, nombre, apellido, correo,
+						// direccion, telefono, celular, ciudad, pais
+						$datos = $this->requestAction('/user_fields/listFields/' . $session->read('Auth.User.id'));
+						echo $this->Form->hidden('documentoComprador', array('name'=>'documentoComprador', 'value'=>$datos['UserField']['cedula']));
+						echo $this->Form->hidden('nombreComprador', array('name'=>'nombreComprador', 'value'=>$datos['UserField']['nombres']));
+						echo $this->Form->hidden('apellidoComprador', array('name'=>'apellidoComprador', 'value'=>$datos['UserField']['apellidos']));
+						echo $this->Form->hidden('correoComprador', array('name'=>'correoComprador', 'value'=>$datos['User']['email']));
+						echo $this->Form->hidden('direccionComprador', array('name'=>'direccionComprador', 'value'=>$datos['UserField']['direccion']));
+						echo $this->Form->hidden('telefonoComprador', array('name'=>'telefonoComprador', 'value'=>$datos['UserField']['telefono_fijo']));
+						echo $this->Form->hidden('ciudadComprador', array('name'=>'ciudadComprador', 'value'=>$datos['UserField']['ciudad']));
+						echo $this->Form->hidden('paisComprador', array('name'=>'paisComprador', 'value'=>'Colombia'));
+						// Finalizar el form
+						//
 						echo $this->Form->submit("Enviar");
 					?>
 				</td>

@@ -121,5 +121,10 @@ class UserFieldsController extends AppController {
 		$this->Session->setFlash(__('User field was not deleted', true));
 		$this->redirect(array('action' => 'index'));
 	}
+	
+	function listFields($id = null) {
+		return $this->UserField->find('first', array('conditions'=>array('user_id'=>$id)));
+	}
+	
 }
 ?>
