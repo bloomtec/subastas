@@ -26,9 +26,10 @@ class VtablavunnoShell extends Shell {
 			$this->out("Fecha de creacion de la venta\t: " . $fechaCreacionVenta);
 			$this->out("Dias de espera para la venta\t: " . $diasEspera);
 
-			$date1 = new DateTime($fechaCreacionVenta);
-			//$date1->add(new DateInterval('P' . $diasEspera . 'D'));
-			date_add($date1, date_interval_create_from_date_string($diasEspera . ' days'));
+			$date1 = date($fechaCreacionVenta);
+			$date1 = strtotime(date("Y-m-d H:i:s", strtotime($date1)) . " +" . $diasEspera . " day");
+			$date1 = date("Y-m-d H:i:s", $date1);
+			$date1 = new DateTime($date1);
 
 			$fechaVencimientoVenta = $date1->format('Y-m-d H:i:s');
 
@@ -46,7 +47,7 @@ class VtablavunnoShell extends Shell {
 				$this->out("VENCIDA");
 				$this->requestAction('ventas/noPagada/' . $ventaPendienteDePago['Venta']['id']);
 			}
-				
+
 		}
 
 		$this->out("\nFin del CRON para verificar la tabla de ventas\n");

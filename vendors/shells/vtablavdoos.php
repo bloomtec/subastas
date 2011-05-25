@@ -26,8 +26,10 @@ class VtablavdoosShell extends Shell {
 			$this->out("Fecha de creacion de la venta\t: " . $fechaCreacionVenta);
 			$this->out("Dias de espera para la venta\t: " . $diasEspera);
 
-			$date1 = new DateTime($fechaCreacionVenta);
-			$date1->add(new DateInterval('P' . $diasEspera . 'D'));
+			$date1 = date($fechaCreacionVenta);
+			$date1 = strtotime(date("Y-m-d H:i:s", strtotime($date1)) . " +" . $diasEspera . " day");
+			$date1 = date("Y-m-d H:i:s", $date1);
+			$date1 = new DateTime($date1);
 
 			$fechaVencimientoVenta = $date1->format('Y-m-d H:i:s');
 
