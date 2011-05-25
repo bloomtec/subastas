@@ -23,10 +23,6 @@ APP=`pwd`
 TERM=linux
 export TERM
 
-<<<<<<< HEAD
-#exec php -q ${LIB}cake.php -working "${APP}" "$@"
-=======
->>>>>>> 052e99fa120e23af3a78e6e0057b1ec434225529
 exec /usr/local/php5/bin/php -q ${LIB}cake.php -working "${APP}" "$@"
 
 exit;
