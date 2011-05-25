@@ -27,7 +27,8 @@ class VtablavunnoShell extends Shell {
 			$this->out("Dias de espera para la venta\t: " . $diasEspera);
 
 			$date1 = new DateTime($fechaCreacionVenta);
-			$date1->add(new DateInterval('P' . $diasEspera . 'D'));
+			//$date1->add(new DateInterval('P' . $diasEspera . 'D'));
+			date_add($date1, date_interval_create_from_date_string($diasEspera . ' days'));
 
 			$fechaVencimientoVenta = $date1->format('Y-m-d H:i:s');
 
