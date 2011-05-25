@@ -20,6 +20,8 @@
 ################################################################################
 LIB=${0/%cake/}
 APP=`pwd`
+TERM=linux
+export TERM
 
 exec php -q ${LIB}cake.php -working "${APP}" "$@"
 
