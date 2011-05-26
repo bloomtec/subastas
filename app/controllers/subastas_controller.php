@@ -406,9 +406,10 @@ class SubastasController extends AppController {
 		switch($estados_subasta_id){
 			/**
 			 * Subasta Esperando Activacion
+			 * Nota : Segun los ultimos cambios este caso nunca se daria
 			 */
 			case 1:
-				// Por ahora no se daria este caso
+				// TODO
 				break;
 
 				/**
@@ -428,6 +429,8 @@ class SubastasController extends AppController {
 
 				/**
 				 * Subasta Vencida
+				 * Nota : Acorde los ultimos cambios
+				 * este caso no se daria
 				 */
 			case 4:
 				$this->__subastaVencida($id);
@@ -440,6 +443,7 @@ class SubastasController extends AppController {
 				break;
 				/**
 				 * Se cerro la subasta
+				 * Nota : Nada definido para este caso
 				 */
 			case 6:
 				$this->__cerrar($id);
@@ -449,7 +453,8 @@ class SubastasController extends AppController {
 	}
 
 	function __cerrar($id = null){
-		// TODO
+		// TODO : Nada definido para cuando se cierre una subasta
+		// Acorde el documento --> solo para que no se muestre en las subastas
 	}
 
 	function __subastaEsperandoActivacion($id = null){
