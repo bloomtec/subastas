@@ -2,6 +2,23 @@
 	<table>
 		<thead>
 			<tr>
+				<td>Ingrese su PIN</td>
+				<td></td>
+			</tr>
+		</thead>
+		<?php echo $this->Form->create(null, array('class'=>'formPIN', 'controller'=>'users', 'action'=>'ingresoPIN')); ?>
+		<tr>
+			<td>
+				<?php echo $this->Form->input('pin', array('label'=>'')); ?>
+			</td>
+			<td>
+				<?php echo $this->Form->end('Enviar'); ?>
+			</td>
+		</tr>
+	</table>
+	<table>
+		<thead>
+			<tr>
 				<td>Paquete</td>
 				<td>Valor</td>
 				<td>Creditos</td>
@@ -24,7 +41,7 @@
 						// Crear el form
 						//
 						$form_id = $paquete['Paquete']['id'];
-						echo $this->Form->create(null, array('id'=>"$form_id", 'type'=>'POST', 'url'=>'http://demo.tucompra.com.co/tc/app/inputs/compra.jsp'));
+						echo $this->Form->create(null, array('class'=>'formCompraCreditos', 'type'=>'POST', 'url'=>'http://demo.tucompra.com.co/tc/app/inputs/compra.jsp'));
 						// Datos de comercio
 						//
 						echo $form->hidden('usuario', array('name'=>'usuario', 'value'=>'o61qja192w81o1zb'));

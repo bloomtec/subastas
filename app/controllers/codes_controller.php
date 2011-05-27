@@ -136,6 +136,7 @@ class CodesController extends AppController {
 		$this->Code->set('batch_code_id', $batchCodeID);
 		$this->Code->set('codigo', $string);
 		$this->Code->set('estado', 1);
+		$this->Code->set('creditos', $creditos);
 		$this->Code->set('fecha_experacion', $año . '-' . $mes . '-' . $dia);
 
 		if ($this->Code->save()) {

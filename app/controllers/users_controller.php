@@ -17,6 +17,36 @@ class UsersController extends AppController {
 		//debug($this->User->read(null,$this->Auth->user("id")));
 		$this->set('user', $this->User->read(null,$this->Auth->user("id")));
 	}
+	
+	function ingresoPIN () {
+		$this->autoRender = false;
+		
+		$this->loadModel('Code');
+		
+		// Obtener el codigo de la BD
+		$code = $this->Code->find('first', array('conditions'=>array('estado'=>1, 'codigo'=>$this->data['User']['pin'])));
+		debug($code);
+		
+		if ($code) {
+			// Cambiar el estado del codigo
+			//
+			$this->Code->read(null, $code['Code']['id']);
+			$this->Code->set('estado', 0);
+			$this->Code->save();
+			
+			// Sumarle los creditos al usuario
+			//
+			$user = $this->User->find('first', array('conditions'=>array('User.id'=>$this->Auth->user('id'))));
+			$this->User->read(null, $this->Auth->user('id'));
+			$this->User->set('creditos', $user['User']['creditos'] + $code['Code']['creditos']);
+			$this->User->save();
+			
+			$this->Session->setFlash('Se redimio su codigo');
+		} else {
+			$this->Session->setFlash('Codigo no valido, verifique el codigo e intente de nuevo');
+		}
+		$this->redirect(array('action' => 'comprarCreditos'));
+	}
 
 	function modificarDatos(){
 		$id=$this->Auth->user("id");
