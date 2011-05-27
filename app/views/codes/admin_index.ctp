@@ -1,12 +1,11 @@
-<div class="codes index">
+<div>
 	<h2><?php __('Codes');?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
-			<th><?php echo $this->Paginator->sort('id');?></th>
 			<th><?php echo $this->Paginator->sort('batch_code_id');?></th>
 			<th><?php echo $this->Paginator->sort('codigo');?></th>
 			<th><?php echo $this->Paginator->sort('estado');?></th>
-			<th><?php echo $this->Paginator->sort('fecha_experacion');?></th>
+			<th><?php echo $this->Paginator->sort('fecha_expiracion');?></th>
 			<th><?php echo $this->Paginator->sort('created');?></th>
 			<th><?php echo $this->Paginator->sort('updated');?></th>
 			<th class="actions"><?php __('Actions');?></th>
@@ -20,13 +19,12 @@
 		}
 	?>
 	<tr<?php echo $class;?>>
-		<td><?php echo $code['Code']['id']; ?>&nbsp;</td>
 		<td>
 			<?php echo $this->Html->link($code['BatchCode']['nombre'], array('controller' => 'batch_codes', 'action' => 'view', $code['BatchCode']['id'])); ?>
 		</td>
 		<td><?php echo $code['Code']['codigo']; ?>&nbsp;</td>
 		<td><?php echo $code['Code']['estado']; ?>&nbsp;</td>
-		<td><?php echo $code['Code']['fecha_experacion']; ?>&nbsp;</td>
+		<td><?php echo $code['Code']['fecha_expiracion']; ?>&nbsp;</td>
 		<td><?php echo $code['Code']['created']; ?>&nbsp;</td>
 		<td><?php echo $code['Code']['updated']; ?>&nbsp;</td>
 		<td class="actions">
@@ -50,12 +48,4 @@
  |
 		<?php echo $this->Paginator->next(__('next', true) . ' >>', array(), null, array('class' => 'disabled'));?>
 	</div>
-</div>
-<div class="actions">
-	<h3><?php __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Code', true), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Batch Codes', true), array('controller' => 'batch_codes', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Batch Code', true), array('controller' => 'batch_codes', 'action' => 'add')); ?> </li>
-	</ul>
 </div>
