@@ -318,6 +318,7 @@ class SubastasController extends AppController {
 		}
 		if (!empty($this->data)) {
 			if ($this->Subasta->save($this->data)) {
+				$this->__sincronizarPosiciones();
 				$this->Session->setFlash(__('Se ha modificado la subasta', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
@@ -338,16 +339,13 @@ class SubastasController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->Subasta->delete($id)) {
+			$this->__sincronizarPosiciones();
 			$this->Session->setFlash(__('Subasta deleted', true));
 			$this->redirect(array('action'=>'index'));
 		}
 		$this->Session->setFlash(__('Subasta was not deleted', true));
 		$this->redirect(array('action' => 'index'));
 	}
-
-	/**
-	 * << seccion de metodos no generados por cake >>
-	 */
 
 	function sync() {
 		$this->__sincronizarPosiciones();
