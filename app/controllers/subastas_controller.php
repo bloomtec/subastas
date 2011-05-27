@@ -232,55 +232,6 @@ class SubastasController extends AppController {
 		$this->set('subasta', $this->Subasta->read(null, $id));
 	}
 
-	function add() {
-		if (!empty($this->data)) {
-			$this->Subasta->create();
-			if ($this->Subasta->save($this->data)) {
-				$this->Session->setFlash(__('The subasta has been saved', true));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The subasta could not be saved. Please, try again.', true));
-			}
-		}
-		$tipoSubastas = $this->Subasta->TipoSubasta->find('list');
-		$estadosSubastas = $this->Subasta->EstadosSubasta->find('list');
-		$this->set(compact('tipoSubastas', 'estadosSubastas'));
-	}
-
-	function edit($id = null) {
-		if (!$id && empty($this->data)) {
-			$this->Session->setFlash(__('Invalid subasta', true));
-			$this->redirect(array('action' => 'index'));
-		}
-		if (!empty($this->data)) {
-			if ($this->Subasta->save($this->data)) {
-				$this->Session->setFlash(__('The subasta has been saved', true));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The subasta could not be saved. Please, try again.', true));
-			}
-		}
-		if (empty($this->data)) {
-			$this->data = $this->Subasta->read(null, $id);
-		}
-		$tipoSubastas = $this->Subasta->TipoSubasta->find('list');
-		$estadosSubastas = $this->Subasta->EstadosSubasta->find('list');
-		$this->set(compact('tipoSubastas', 'estadosSubastas'));
-	}
-
-	function delete($id = null) {
-		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for subasta', true));
-			$this->redirect(array('action'=>'index'));
-		}
-		if ($this->Subasta->delete($id)) {
-			$this->Session->setFlash(__('Subasta deleted', true));
-			$this->redirect(array('action'=>'index'));
-		}
-		$this->Session->setFlash(__('Subasta was not deleted', true));
-		$this->redirect(array('action' => 'index'));
-	}
-
 	function admin_index() {
 		$this->Subasta->recursive = 0;
 		$this->set('subastas', $this->paginate());
@@ -389,16 +340,6 @@ class SubastasController extends AppController {
 		$this->Subasta->set('estados_subasta_id', $estados_subasta_id);
 		$this->Subasta->save();
 
-		// Si el nuevo estado es diferente a "Activa" verificar
-		// las posiciones en cola asignadas para garantizar el
-		// orden numerico.
-		//
-		if ($estados_subasta_id != 2) {
-			$this->__sincronizarPosiciones();
-		} else {
-			//
-		}
-
 		// Tomar acciones acorde el nuevo estado de la subasta
 		//
 		switch($estados_subasta_id){
@@ -453,6 +394,7 @@ class SubastasController extends AppController {
 	function __cerrar($id = null){
 		// NOTA:
 		// Acorde el documento --> solo para que no se muestre en las subastas
+		$this->__sincronizarPosiciones();
 		return true;
 	}
 
@@ -477,16 +419,18 @@ class SubastasController extends AppController {
 
 	function __crearVenta($id = null){
 		/**
-		 * Crea un regitros en la tabla ventas, user_id = usuarioGanador()
+		 * Crea un registro en la tabla ventas, user_id = usuarioGanador()
 		 * y subasta_id = (parametro subasta_id) y estado="pendiente_de_pago"
 		 */
 		$this->requestAction('/ventas/crearVenta/'.$id.'/'.$this->requestAction('/ofertas/obtenerUsuarioGanadorSubasta/'.$id));
 		$this->enviarCorreoSubastaGanada($id);
+		$this->__sincronizarPosiciones();
 		return true;
 	}
 
 	function __subastaVencida($id = null){
 		// TODO : SUBASTA VENCIDA (Falta definicion del cliente)
+		$this->__sincronizarPosiciones();
 		return true;
 	}
 
@@ -565,6 +509,7 @@ class SubastasController extends AppController {
 
 			$this->requestAction('/ofertas/eliminarOfertasSubasta/' . $subasta_id);
 
+			$this->__sincronizarPosiciones();
 		}
 
 		return true;
