@@ -483,6 +483,7 @@ class SubastasController extends AppController {
 		 * y subasta_id = (parametro subasta_id) y estado="pendiente_de_pago"
 		 */
 		$this->requestAction('/ventas/crearVenta/'.$id.'/'.$this->requestAction('/ofertas/obtenerUsuarioGanadorSubasta/'.$id));
+		$this->enviarCorreoSubastaGanada($id);
 	}
 
 	function __subastaVencida($id = null){
@@ -533,13 +534,33 @@ class SubastasController extends AppController {
 			//
 			$creditosAReponer = $unaOfertaHecha['Oferta']['creditos_descontados'];
 			$this->requestAction('/users/reponerCreditos/'.$unaOfertaHecha['User']['id'].'/'.$creditosAReponer);
+		}
 
-			// Enviar notificacion
-			//
-			// TODO : Codigo para enviar las notificaciones
+		// Correos ofertantes
+		//
+		$correos = $this->obtenerListaCorreoOfertas($subasta_id);
+		$subasta = $this->Subasta->read(null, $subasta_id);
+
+		foreach ($correos as $key=>$correo) {
+			$this->enviarCorreoSubastaCancelada($correo['User']['email'], $subasta['Subasta']['nombre']);
+		}
+
+		// Correos lista correos
+		//
+		$this->loadModel('ListaCorreo');
+		$correos = $this->ListaCorreo->find('list');
+
+		foreach ($correos as $correo) {
+			$this->enviarCorreoSubastaCancelada($correo, $subasta['Subasta']['nombre']);
 		}
 
 		return true;
+	}
+
+	function obtenerListaCorreoOfertas($subasta_id = null) {
+		$this->loadModel('Oferta');
+		$correos = $this->Oferta->find('all', array('conditios'=>array('Oferta.subasta_id'=>$subasta_id), 'fields'=>array('DISTINCT User.email')));
+		return $correos;
 	}
 
 	function diasEspera($subastaID = null) {
@@ -547,36 +568,111 @@ class SubastasController extends AppController {
 		return $unaSubasta['Subasta']['dias_espera'];
 	}
 
-	function enviarCorreoGanador($subastaID = null) {
-		$this->autoRender = false;
+	function enviarCorreoSubastaCancelada($correo = null, $nombre_subasta) {
+
+		if($correo) {
+			$para = $correo;
+			$asunto = 'Subasta Cancelada';
+			$mensaje = 'La subasta ' .
+			$nombre_subasta .
+					' ha sido cancelada. Los creditos ofertados han sido repuestos';
+
+			$cabeceras = 'From: webmaster@example.com' .
+					"\r\n" . 
+					'Reply-To: webmaster@example.com' . "\r\n" . 
+					'X-Mailer: PHP/' . phpversion();
+
+			if(mail($para, $asunto, $mensaje, $cabeceras)) {
+				//$this->Session->setFlash(__('Datos enviados a su correo', true));
+			} else {
+				//$this->Session->setFlash(__('Datos no enviados a su correo, por favor intenta mas tarde', true));
+			}
+
+			return;
+		} else {
+			$this->Session->setFlash(__('No existe ningun usuario registrado con ese email', true));
+			return;
+		}
+
+	}
+
+	function enviarCorreoSubastaGanada($subastaID = null) {
 
 		if (!empty($subastaID)) {
 			$subasta = $this->Subasta->read(null, $subastaID);
 			$userID = $this->requestAction('/ofertas/obtenerUsuarioGanadorSubasta/' . $subastaID);
 			$usuario = $this->requestAction('/users/getUsuario/' . $userID);
 
-			if($usuario['User']['email']) {
-				$para = $usuario['User']['email'];
-				$asunto = 'Te has llevado un articulo!!!';
-				$mensaje = 'Hola, te has llevado un articulo: ' .
-					'<br>Nombre de la subasta: ' . $subasta['Subasta']['nombre'];
+			// Enviar correo ganador
+			//
+			$para = $usuario['User']['email'];
+			$asunto = 'Has ganado!';
+			$mensaje =	'Eres el ganador de la subasta: ' .
+						$subasta['Subasta']['nombre'];
+				
+			$cabeceras = 'From: webmaster@example.com' .
+				"\r\n" . 
+				'Reply-To: webmaster@example.com' . "\r\n" . 
+				'X-Mailer: PHP/' . phpversion();
+
+			if(mail($para, $asunto, $mensaje, $cabeceras)) {
+				//$this->Session->setFlash(__('Datos enviados a su correo', true));
+			} else {
+				//$this->Session->setFlash(__('Datos no enviados a su correo, por favor intenta mas tarde', true));
+			}
+			
+			// Obtener correos ofertantes
+			// Recorrer la lista ofertantes y enviar correos
+			//
+			$correos = $this->obtenerListaCorreoOfertas($subastaID);
+			
+			foreach ($correos as $key=>$correo) {
+
+				$para = $correo['User']['email'];
+				$asunto = 'Subasta Terminada!';
+				$mensaje =	'La subasta: ' .
+							$subasta['Subasta']['nombre'] .
+							' ha terminado!';
 					
 				$cabeceras = 'From: webmaster@example.com' .
 					"\r\n" . 
 					'Reply-To: webmaster@example.com' . "\r\n" . 
 					'X-Mailer: PHP/' . phpversion();
-					
-				if(mail($para, $asunto, $mensaje, $cabeceras)) {
-					$this->Session->setFlash(__('Datos enviados a su correo', true));
-				} else {
-					$this->Session->setFlash(__('Datos no enviados a su correo, por favor intenta mas tarde', true));
-				}
 
-				return;
-			} else {
-				$this->Session->setFlash(__('No existe ningun usuario registrado con ese email', true));
-				return;
+				if(mail($para, $asunto, $mensaje, $cabeceras)) {
+					//$this->Session->setFlash(__('Datos enviados a su correo', true));
+				} else {
+					//$this->Session->setFlash(__('Datos no enviados a su correo, por favor intenta mas tarde', true));
+				}
+				
 			}
+				
+			// Correos lista correos
+			//
+			$this->loadModel('ListaCorreo');
+			$correos = $this->ListaCorreo->find('list');
+
+			foreach ($correos as $correo) {
+				
+				$para = $correo;
+				$asunto = 'Subasta Terminada!';
+				$mensaje =	'La subasta: ' .
+							$subasta['Subasta']['nombre'] .
+							' ha terminado!';
+					
+				$cabeceras = 'From: webmaster@example.com' .
+					"\r\n" . 
+					'Reply-To: webmaster@example.com' . "\r\n" . 
+					'X-Mailer: PHP/' . phpversion();
+
+				if(mail($para, $asunto, $mensaje, $cabeceras)) {
+					//$this->Session->setFlash(__('Datos enviados a su correo', true));
+				} else {
+					//$this->Session->setFlash(__('Datos no enviados a su correo, por favor intenta mas tarde', true));
+				}
+				
+			}
+				
 		}
 	}
 
