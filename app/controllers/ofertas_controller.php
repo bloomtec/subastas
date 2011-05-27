@@ -200,6 +200,21 @@ class OfertasController extends AppController {
 		$ofertaGanadora = $this->Oferta->find("first", array('conditions' => array('Oferta.subasta_id' => $subastaID)));
 		return $ofertaGanadora['User']['id'];
 	}
+	
+	function eliminarOfertasSubasta($subasta_id = null) {
+		if($subasta_id){
+			$ids = $this->Oferta->find('list', array('fields'=>array('Oferta.id'), 'conditions'=>array('Oferta.subasta_id'=>$subasta_id)));
+			if ($ids){
+				foreach($ids as $id){
+					$this->Oferta->delete($id);
+				}
+			} else {
+				// No se encotro algo
+			}
+		} else {
+			// No se ingreso un id de subasta
+		}
+	}
 
 }
 ?>

@@ -416,7 +416,7 @@ class SubastasController extends AppController {
 				 * Subasta Activa
 				 */
 			case 2:
-				$this->__subastaActiva($id);
+				return $this->__subastaActiva($id);
 				break;
 
 				/**
@@ -424,7 +424,7 @@ class SubastasController extends AppController {
 				 * Se crea una venta para proceder con el pago
 				 */
 			case 3:
-				$this->__crearVenta($id);
+				return $this->__crearVenta($id);
 				break;
 
 				/**
@@ -433,28 +433,29 @@ class SubastasController extends AppController {
 				 * este caso no se daria
 				 */
 			case 4:
-				$this->__subastaVencida($id);
+				return $this->__subastaVencida($id);
 				break;
 				/**
 				 * Subasta cancelada
 				 */
 			case 5:
-				$this->__cancel($id);
+				return $this->__cancel($id);
 				break;
 				/**
 				 * Se cerro la subasta
-				 * Nota : Nada definido para este caso
+				 * Nota : Por ahora solo es cambiar el estado de la subasta
 				 */
 			case 6:
-				$this->__cerrar($id);
+				return $this->__cerrar($id);
 				break;
 		}
 
 	}
 
 	function __cerrar($id = null){
-		// TODO : Nada definido para cuando se cierre una subasta
+		// NOTA:
 		// Acorde el documento --> solo para que no se muestre en las subastas
+		return true;
 	}
 
 	function __subastaEsperandoActivacion($id = null){
@@ -464,17 +465,16 @@ class SubastasController extends AppController {
 	function __subastaActiva($id = null){
 		//Encontrar la cantidad de subastas activas
 		//
-		$subastasActivas = $this->Subasta->find("all", array('conditions' => array('Subasta.estados_subasta_id' => '2')));
+		$cantidadSubastasActivas = $this->Subasta->find('count', array('conditions' => array('Subasta.estados_subasta_id' => '2')));
 
-		$cantidadSubastasActivas = 0;
-
-		foreach($subastasActivas as $subastaActiva){
-			$cantidadSubastasActivas++;
+		$this->Subasta->read(null, $id);
+		$this->Subasta->set('posicion_en_cola', $cantidadSubastasActivas + 1);
+		
+		if ($this->Subasta->save()){
+			return true;
+		} else {
+			return false;
 		}
-
-		$this->Subasta->id = $id;
-		$this->Subasta->saveField('posicion_en_cola', $cantidadSubastasActivas);
-
 	}
 
 	function __crearVenta($id = null){
@@ -484,10 +484,12 @@ class SubastasController extends AppController {
 		 */
 		$this->requestAction('/ventas/crearVenta/'.$id.'/'.$this->requestAction('/ofertas/obtenerUsuarioGanadorSubasta/'.$id));
 		$this->enviarCorreoSubastaGanada($id);
+		return true;
 	}
 
 	function __subastaVencida($id = null){
 		// TODO : SUBASTA VENCIDA (Falta definicion del cliente)
+		return true;
 	}
 
 	function admin_cerrar($id = null) {
@@ -527,31 +529,44 @@ class SubastasController extends AppController {
 		//
 		$ofertasHechas = $this->requestAction('/ofertas/obtenerOfertasSubasta/' . $subasta_id);
 
-		// Recorrer las ofertas y devolver los creditos
-		//
-		foreach($ofertasHechas as $unaOfertaHecha) {
-			// Reponer los creditos de la oferta
+		if ($ofertasHechas) {
+			// Recorrer las ofertas y devolver los creditos
 			//
-			$creditosAReponer = $unaOfertaHecha['Oferta']['creditos_descontados'];
-			$this->requestAction('/users/reponerCreditos/'.$unaOfertaHecha['User']['id'].'/'.$creditosAReponer);
-		}
+			foreach($ofertasHechas as $unaOfertaHecha) {
+				// Reponer los creditos de la oferta
+				//
+				$creditosAReponer = $unaOfertaHecha['Oferta']['creditos_descontados'];
+				$this->requestAction('/users/reponerCreditos/'.$unaOfertaHecha['User']['id'].'/'.$creditosAReponer);
+			}
 
-		// Correos ofertantes
-		//
-		$correos = $this->obtenerListaCorreoOfertas($subasta_id);
-		$subasta = $this->Subasta->read(null, $subasta_id);
+			/**
+			 * Proceder a enviar correos
+			 */
 
-		foreach ($correos as $key=>$correo) {
-			$this->enviarCorreoSubastaCancelada($correo['User']['email'], $subasta['Subasta']['nombre']);
-		}
+			// Correos ofertantes
+			//
+			$correos = $this->obtenerListaCorreoOfertas($subasta_id);
+			$subasta = $this->Subasta->read(null, $subasta_id);
 
-		// Correos lista correos
-		//
-		$this->loadModel('ListaCorreo');
-		$correos = $this->ListaCorreo->find('list');
+			foreach ($correos as $key=>$correo) {
+				$this->enviarCorreoSubastaCancelada($correo['User']['email'], $subasta['Subasta']['nombre']);
+			}
 
-		foreach ($correos as $correo) {
-			$this->enviarCorreoSubastaCancelada($correo, $subasta['Subasta']['nombre']);
+			// Correos lista correos
+			//
+			$this->loadModel('ListaCorreo');
+			$correos = $this->ListaCorreo->find('list');
+
+			foreach ($correos as $correo) {
+				$this->enviarCorreoSubastaCancelada($correo, $subasta['Subasta']['nombre']);
+			}
+
+			/**
+			 * Finalmente eliminar las ofertas relacionadas con la subasta
+			 */
+
+			$this->requestAction('/ofertas/eliminarOfertasSubasta/' . $subasta_id);
+
 		}
 
 		return true;
@@ -608,8 +623,8 @@ class SubastasController extends AppController {
 			$para = $usuario['User']['email'];
 			$asunto = 'Has ganado!';
 			$mensaje =	'Eres el ganador de la subasta: ' .
-						$subasta['Subasta']['nombre'];
-				
+			$subasta['Subasta']['nombre'];
+
 			$cabeceras = 'From: webmaster@example.com' .
 				"\r\n" . 
 				'Reply-To: webmaster@example.com' . "\r\n" . 
@@ -620,18 +635,18 @@ class SubastasController extends AppController {
 			} else {
 				//$this->Session->setFlash(__('Datos no enviados a su correo, por favor intenta mas tarde', true));
 			}
-			
+				
 			// Obtener correos ofertantes
 			// Recorrer la lista ofertantes y enviar correos
 			//
 			$correos = $this->obtenerListaCorreoOfertas($subastaID);
-			
+				
 			foreach ($correos as $key=>$correo) {
 
 				$para = $correo['User']['email'];
 				$asunto = 'Subasta Terminada!';
 				$mensaje =	'La subasta: ' .
-							$subasta['Subasta']['nombre'] .
+				$subasta['Subasta']['nombre'] .
 							' ha terminado!';
 					
 				$cabeceras = 'From: webmaster@example.com' .
@@ -644,20 +659,20 @@ class SubastasController extends AppController {
 				} else {
 					//$this->Session->setFlash(__('Datos no enviados a su correo, por favor intenta mas tarde', true));
 				}
-				
+
 			}
-				
+
 			// Correos lista correos
 			//
 			$this->loadModel('ListaCorreo');
 			$correos = $this->ListaCorreo->find('list');
 
 			foreach ($correos as $correo) {
-				
+
 				$para = $correo;
 				$asunto = 'Subasta Terminada!';
 				$mensaje =	'La subasta: ' .
-							$subasta['Subasta']['nombre'] .
+				$subasta['Subasta']['nombre'] .
 							' ha terminado!';
 					
 				$cabeceras = 'From: webmaster@example.com' .
@@ -670,9 +685,9 @@ class SubastasController extends AppController {
 				} else {
 					//$this->Session->setFlash(__('Datos no enviados a su correo, por favor intenta mas tarde', true));
 				}
-				
+
 			}
-				
+
 		}
 	}
 
