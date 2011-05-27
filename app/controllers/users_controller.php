@@ -24,9 +24,16 @@ class UsersController extends AppController {
 		$this->loadModel('Code');
 		
 		// Obtener el codigo de la BD
-		$code = $this->Code->find('first', array('conditions'=>array('estado'=>1, 'codigo'=>$this->data['User']['pin'])));
-		debug($code);
-		
+		$code = $this->Code->find(
+			'first', array(
+				'conditions'=>array(
+					'estado'=>1,
+					'codigo'=>$this->data['User']['pin'],
+					'fecha_expiracion >='=>date('Y-m-d')
+				)
+			)
+		);
+		//'fecha_expiracion >'=>'CURDATE()'
 		if ($code) {
 			// Cambiar el estado del codigo
 			//
@@ -43,7 +50,7 @@ class UsersController extends AppController {
 			
 			$this->Session->setFlash('Se redimio su codigo');
 		} else {
-			$this->Session->setFlash('Codigo no valido, verifique el codigo e intente de nuevo');
+			$this->Session->setFlash('Codigo no valido. Verifique el codigo, la fecha de expiracion e intente de nuevo');
 		}
 		$this->redirect(array('action' => 'comprarCreditos'));
 	}

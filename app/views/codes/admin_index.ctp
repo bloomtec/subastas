@@ -1,5 +1,5 @@
 <div>
-	<h2><?php __('Codes');?></h2>
+	<h2><?php __('PIN\'s');?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('batch_code_id');?></th>

@@ -137,7 +137,7 @@ class CodesController extends AppController {
 		$this->Code->set('codigo', $string);
 		$this->Code->set('estado', 1);
 		$this->Code->set('creditos', $creditos);
-		$this->Code->set('fecha_experacion', $año . '-' . $mes . '-' . $dia);
+		$this->Code->set('fecha_expiracion', $año . '-' . $mes . '-' . $dia);
 
 		if ($this->Code->save()) {
 			return true;

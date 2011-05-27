@@ -77,13 +77,13 @@
 					</ul>
 				</li>
 				<li>
-					<?php echo $html->link("PIN's", array("controller"=>"batch_codes", "action"=>"index")); ?>
+					<?php echo $html->link("Paquetes De PIN's", array("controller"=>"batch_codes", "action"=>"index")); ?>
 					<ul>
 						<li>
-							<?php echo $html->link("Listar PIN's", array("controller"=>"batch_codes", "action"=>"index")); ?>
+							<?php echo $html->link("Listar Paquetes De PIN's", array("controller"=>"batch_codes", "action"=>"index")); ?>
 						</li>
 						<li>
-							<?php echo $html->link("Añadir PIN", array("controller"=>"batch_codes", "action"=>"add")); ?>
+							<?php echo $html->link("Añadir Paquetes De PIN's", array("controller"=>"batch_codes", "action"=>"add")); ?>
 						</li>
 					</ul>
 				</li>

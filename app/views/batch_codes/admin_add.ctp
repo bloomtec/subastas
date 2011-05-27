@@ -1,7 +1,7 @@
 <div>
 <?php echo $this->Form->create('BatchCode');?>
 	<fieldset>
- 		<legend><?php __('Añadir PIN'); ?></legend>
+ 		<legend><?php __('Crear Paquete De PIN\'s'); ?></legend>
 	<?php
 		echo $this->Form->input('nombre');
 		echo $this->Form->input('descripcion');
@@ -10,5 +10,5 @@
 		echo $form->input('fecha_expiracion', array('type'=>'date', 'minYear'=>date('Y')));
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit', true));?>
+<?php echo $this->Form->end(__('Crear', true));?>
 </div>

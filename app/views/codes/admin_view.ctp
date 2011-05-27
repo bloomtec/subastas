@@ -1,5 +1,5 @@
 <div>
-<h2><?php  __('Code');?></h2>
+<h2><?php  __('PIN');?></h2>
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Paquete PIN\'s'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>

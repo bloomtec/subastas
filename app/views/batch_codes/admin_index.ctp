@@ -1,5 +1,5 @@
 <div>
-	<h2><?php __('PIN\'s');?></h2>
+	<h2><?php __('Paquetes De PIN\'s');?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('nombre');?></th>
