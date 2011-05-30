@@ -113,7 +113,7 @@ var usuario=function(){
 						$(this).fadeIn();
 					});
 					$("li[rel='"+subasta_id+"']").children(".precio").fadeOut("slow",function(){
-						$(this).html(oferta.Oferta.precio);
+						$(this).html(oferta.Subasta.precio);
 						$(this).fadeIn();
 					});
 				

@@ -123,7 +123,7 @@ class Subasta extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'aumento_creditos' => array(
+		'aumento_precio' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',

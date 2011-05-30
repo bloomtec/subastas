@@ -55,6 +55,12 @@ class OfertasController extends AppController {
 		$oferta=$this->Oferta->save();
 		if(!empty($oferta)){
 			$oferta=$this->Oferta->read(null,$this->Oferta->id);
+      $subasta["Subasta"]=$oferta["Subasta"];
+      $subasta["Subasta"]["precio"]+=$subasta["Subasta"]["aumento_precio"];
+        if($this->Oferta->Subasta->save($subasta)){
+          $oferta["Subasta"]=$subasta["Subasta"];
+        }
+      
 			$oferta["success"]=true;
 			return $oferta;
 		}else{

@@ -391,7 +391,7 @@ class UsersController extends AppController {
 									'conditions'=>array('User.email'=>trim($this->data['User']['email']))));
 				
 			$newPassword=$this->generarPassword();
-			debug($newPassword);
+			//debug($newPassword);
 			$datos["User"]["password"]=$this->Auth->password($newPassword);
 			//debug($datos);
 			if($datos['User']['email']){

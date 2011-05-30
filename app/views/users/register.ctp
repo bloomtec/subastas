@@ -32,7 +32,7 @@
 			<input type="email" id="UserEmailConfirm" maxlength="45" name="data[User][email-confirm]" required="required" data-equals="UserEmail" data-message="Verificar correo electrónico"));>
 		</div>
 		<?php
-			echo $form->input("UserField.fecha_de_nacimiento");
+			echo $form->input("UserField.fecha_de_nacimiento",array("minYear"=>date('Y') - 70));
 			echo $form->input("referido_por");
 			echo "</fieldset>";
 			echo "<div class='layer'>";
