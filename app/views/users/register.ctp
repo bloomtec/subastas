@@ -9,7 +9,7 @@
 <div id="right-content">
 	<h1 class="titulo-amarillo">Subastas activas</h1>
 	<div class="form-container">
-		<?php echo $form -> create("User", array("action" => "register","id"=>"registerForm"));
+		<?php echo $form -> create("User", array("action" => "register","id"=>"registerForm","novalidate"=>"novalidate"));
 			echo "<fieldset>";
 			echo $form -> input("username",array("div"=>"input text required","value"=>"web","label"=>"Usuario"));
 			echo $form -> input("password",array("div"=>"input required","required"=>"required","id"=>"password","label"=>"Contraseña"));
@@ -32,11 +32,11 @@
 			<input type="email" id="UserEmailConfirm" maxlength="45" name="data[User][email-confirm]" required="required" data-equals="UserEmail" data-message="Verificar correo electrónico"));>
 		</div>
 		<?php
-			echo $form->input("fecha_nacimiento");
+			echo $form->input("UserField.fecha_de_nacimiento");
 			echo $form->input("referido_por");
 			echo "</fieldset>";
 			echo "<div class='layer'>";
-			echo $form->checkbox("confirmacion");
+			echo $form->checkbox("confirmacion",array("required"=>"required"));
 			echo $form->label("Confirmo que he leido y aceptado los términos y condiciones");
 			echo "</div>";
 			
