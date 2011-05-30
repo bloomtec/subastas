@@ -33,7 +33,7 @@ class UsersController extends AppController {
 				)
 			)
 		);
-		//'fecha_expiracion >'=>'CURDATE()'
+		
 		if ($code) {
 			// Cambiar el estado del codigo
 			//
@@ -311,24 +311,54 @@ class UsersController extends AppController {
 
 	//LOGIN USER
 	function login(){
-		$this->set("login",true);
+				
 		if (!empty($this->data) && !empty($this->Auth->data['User']['username']) && !empty($this->Auth->data['User']['password'])) {
 
-			$user = $this->User->find('first', array('conditions' => array('User.email' => $this->Auth->data['User']['username'], 'User.password' => $this->Auth->data['User']['password']), 'recursive' => -1));
-
+			$user =
+				$this->User->find(
+					'first',
+					array(
+						'conditions' => array(
+											'username' => $this->Auth->data['User']['username'],
+											'password' => $this->Auth->data['User']['password']
+										),
+						'recursive' => -1
+					)
+				);
+		
+			if (!$user) {
+				$user =
+					$this->User->find(
+						'first',
+						array(
+							'conditions' => array(
+												'email' => $this->Auth->data['User']['username'],
+												'password' => $this->Auth->data['User']['password']
+											),
+							'recursive' => -1
+						)
+					);
+			}
+			
+			debug($user);
+			
 			if (!empty($user) && $this->Auth->login($user)) {
 
 				$userId = $this->Auth->user('id');
+				$this->set("login", true);
 
 				if ($this->Auth->autoRedirect) {
 					$this->redirect($this->Auth->redirect());
 				}
 
 			} else {
-				$this->Session->setFlash($this->Auth->loginError, $this->Auth->flashElement, array(), 'auth');
+				$this->Session->setFlash("Error al intentar iniciar sesión. Verifique los datos e intente de nuevo.");
 			}
 
+		} else {
+			$this->Session->setFlash("Ingrese su usuario/correo y contraseña");
 		}
+
 	}
 
 	function admin_login(){

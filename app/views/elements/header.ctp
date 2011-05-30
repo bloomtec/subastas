@@ -39,9 +39,9 @@
 	<div class="login">
 		 
 		<?php if(!$session->read("Auth.User.id")){?>
-		 <?php echo $form->create("User",array("action"=>"login","controller"=>"users"));?>
+		 <?php echo $form->create('User', array("action"=>"login","controller"=>"users"));?>
         <h1>Mi cuenta</h1>
-         <?php echo $form->input("email",array("label"=>"Usuario:"));?>
+         <?php echo $form->input("username",array("label"=>"Usuario/Correo:"));?>
          <div style="clear:both"></div>   
          <?php echo $form->input("password",array("label"=>"Contraseña:"));?>
          <div style="clear:both"></div>

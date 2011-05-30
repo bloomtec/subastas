@@ -9,15 +9,20 @@
 <div id="right-content" class="estilo-borde">
 	<div class="login usurios forms">
 		<h1> <?php __("Ingrese su Nombre y contraseña")?> </h1>
-		<?php echo $session->flash('auth'); ?>
-		<?php echo $this->Form->create('User');?>
-		<fieldset>
-		<?php
-			echo $this->Form->input('username', array('label'=>'Usuario / Correo'));
-			echo $this->Form->input('password',array('type'=>'password'));
-			//echo $this->Form->input('rol',array('type'=>'hidden','value'=>'x'));
+		<?php echo $session->flash('Auth'); ?>
+		<?php echo $this -> Form -> create(array('action' => 'login'));
+			echo $this -> Form -> inputs(
+				array(
+					'legend' => '',
+					'username' => array(
+									'label' => 'Usuario / Correo'
+								),
+					'password' => array(
+									'label' => 'Contraseña'
+								),
+				)
+			);
+			echo $this -> Form -> end('Ingresar');
 		?>
-		</fieldset>
-		<?php echo $this->Form->end(__('Ingresar', true));?>
 	</div>
 </div>

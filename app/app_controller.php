@@ -2,15 +2,27 @@
 
 class AppController extends Controller {
 
-	var $components=array("Acl","Session", "Auth", "Email","Cookie","RequestHandler");
-	var $uses=array("Config");
+	var $components = array(
+							"Auth" => array(
+											'authorize' => 'controller'
+										),
+							"Session",
+							"Acl",
+							"Email",
+							"Cookie",
+							"RequestHandler"
+						);
+	var $uses = array("Config");
+	
+	public function isAuthorized() {
+		return true;
+	}
 
 	function beforeFilter(){
 		$this->Auth->allow("*");
-		$this->Auth->fields = array(
-		'username' => 'email',
-		'password' => 'password'
-		);
+		// Este comando de fields no enviaba la contraseña encriptada!!!!
+		// Por eso lo comente -> Julio
+		//$this->Auth->fields = array('username' => 'email', 'password' => 'password');
 		$this->Auth->loginAction = array('controller'=>'users','action'=>'login');
 		$this->Auth->loginRedirect= array('controller'=>'users','action'=>'index');
 		$this->Auth->logoutRedirect= array('controller'=>'subastas','action'=>'index',"admin"=>false);
@@ -20,7 +32,7 @@ class AppController extends Controller {
 		if(isset($this->params["prefix"]) && $this->params["prefix"]=="admin"){
 			$this->layout="admin";
 		}
-		$this->Cookie->name = 'PriceShoes';
+		$this->Cookie->name = 'Llevatelos';
 		$this->Cookie->time = '10 Days'; // or '1 hour'
 		$this->Cookie->path = '/';
 		   // $this->Cookie->domain = 'priceshoes.com';
