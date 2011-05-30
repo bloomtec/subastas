@@ -13,7 +13,7 @@
 		<?php echo $this->Form->create('User');?>
 		<fieldset>
 		<?php
-			echo $this->Form->input('email', array('label'=>'Usuario'));
+			echo $this->Form->input('username', array('label'=>'Usuario / Correo'));
 			echo $this->Form->input('password',array('type'=>'password'));
 			//echo $this->Form->input('rol',array('type'=>'hidden','value'=>'x'));
 		?>
