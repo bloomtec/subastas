@@ -790,6 +790,7 @@ div.logueado span{
 	width: 234px;
 	text-align: center;
 	margin-bottom: 15px;
+	margin-top: 15px;
 	border-radius: 15px 15px 15px 15px;
 	background-color:white;
     -moz-border-radius: 15px 15px 15px 15px;
@@ -1205,4 +1206,9 @@ div.logueado span{
 	opacity:0.8;
 	background: url("../img/vendida.png") white;
 
+}
+.banner-home{
+  width:100%;
+  margin-bottom:1em;
+  overflow: hidden;
 }

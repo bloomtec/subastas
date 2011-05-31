@@ -2,12 +2,14 @@
 class PagesController extends AppController {
 
 	var $name = 'Pages';
-function beforeFilter(){
+  function beforeFilter(){
 		parent::beforeFilter();
 		$this->Auth->allow('view');
 	}
-	
-
+  function bannerHome(){
+    $banner=$this->Page->findBySlug("banner-home");
+    return $banner["Page"]["content"];
+  }
 	function view($slug = null) {
 		if (!$slug) {
 			$this->Session->setFlash(__('Página inválida', true));

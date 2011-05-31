@@ -39,6 +39,7 @@
 		echo $this->Html->script("jquery.uploadify.v2.1.4.min.js");
 		echo $this->Html->script("upload.js");
 		echo $this->Html->script("superfish.js");
+    echo $this->Html->script("fileBrowser");
 		echo $scripts_for_layout;
 	?>
 <script type="text/javascript">

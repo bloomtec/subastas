@@ -1,0 +1,47 @@
+body{
+	background:gray;
+	height: 100%;
+	width:100%;	
+}
+div#fileBrowser {
+
+}
+#fileBrowser li{
+	list-style: none;
+	float:left;
+	margin:1em;
+	width:180px;
+	height: 200px;
+	background-color: white;
+	text-align: center;
+	position:relative;
+}
+#fileBrowser img.preview{
+	width:130px;
+	height: 130px;
+	margin-top: 10px;
+}
+#fileBrowser .info{
+	font-size:10px;
+}
+#fileBrowser .actions{
+	width:100%;
+	bottom:10px;
+	position:absolute;
+	min-height: 1em;
+}
+.actions div{
+	margin-top: 1em;
+	padding:5px 10px;
+	background:ThreeDLightShadow;
+	cursor: pointer;
+	
+}
+.actions .delete{
+	float:left;
+	margin-left: 20px;
+}
+.actions .seleccionar{
+	float:right;
+	margin-right: 20px;
+}
