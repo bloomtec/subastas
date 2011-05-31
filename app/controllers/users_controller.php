@@ -43,8 +43,11 @@ class UsersController extends AppController {
 			
 			if(md5($cadena) == $_POST['firmaTuCompra']) { 
 				//compra realizada con exito 
+				echo "Compra realizada con exito";
+				debug($_POST);
 			} else { 
 				//la firma es invalida
+				echo "Compra no realizada";
 			} 
 		} 
 	}
