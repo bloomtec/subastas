@@ -6,7 +6,7 @@
 			<?php echo $html->image('reloj.png', array('alt' => 'reloj')); ?>
 			<div class="plugin-hora">
 				<p class="dia">Dia</p>
-				<p class="hora">HH:MM:SS m.m</p>
+				<p class="digitos" name="digitos">HH:MM:SS m.m</p>
 				<p class="fecha">DD Mes año</p>
 			</div>
 		</div>
@@ -50,7 +50,7 @@
 		<?php }else{ ?>
 			<h2 class="logueado"><?php echo $html->link("Mi cuenta",array("controller"=>"users","action"=>"index"));?></h2>
 			<div class="logueado"><span>Usuario: </span><?php echo $session->read("Auth.User.username")?></div>
-			<div class="logueado"><span>Creditos: </span><?php echo $this->requestAction("/users/getCreditos"); ?></div>
+			<div class="logueado"><span>Creditos: </span><span id="creditos"><?php echo $this->requestAction("/users/getCreditos"); ?></span></div>
 			<?php echo $html->link('Salir',array("controller"=>"users","action"=>"logout"), array("id"=>"olvidar"));?>  
 		<?php }?>
 	</div>
