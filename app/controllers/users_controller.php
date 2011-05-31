@@ -20,9 +20,38 @@ class UsersController extends AppController {
 	
 	function validarCompraCreditos() {
 		$this->autoRender = false;
-		debug($_GET);
-		debug($_POST);
-		debug($this->data);
+		
+		//$_POST[transaccionAprobada] => 1
+    	//$_POST[codigoFactura] => 420110531120306
+    	//$_POST[valorFactura] => 50000.0
+    	//$_POST[tipoMoneda] => COP
+    	//$_POST[codigoAutorizacion] => 14448
+    	//$_POST[numeroTransaccion] => 
+    	//$_POST[campoExtra1]
+		
+		if($_POST['codigoAutorizacion'] == "00") {
+			echo "La compra no pudo realizarse";
+		} else {
+			$llaveencripcion = "6b7c2e50e9f54b3fb630197255e034ac";
+			$cadena = $llaveencripcion . 
+			";" .
+			$_POST['codigoFactura'] . 
+			";" . 
+			$_POST['valorFactura'] . 
+			";" . 
+			$_POST['codigoAutorizacion']; 
+			
+			if(md5($cadena) == $_POST['firmaTuCompra']) { 
+				//compra realizada con exito 
+				echo "Compra realizada con exito";
+				debug($_POST);
+				$datos = explode("-", $_POST['codigoFactura']);
+				debug($datos);
+			} else { 
+				//la firma es invalida
+				echo "Compra no realizada";
+			} 
+		} 
 	}
 	
 	function validarCompraProducto() {
