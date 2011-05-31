@@ -41,7 +41,14 @@
 						// Crear el form
 						//
 						$form_id = $paquete['Paquete']['id'];
-						echo $this->Form->create(null, array('class'=>'formCompraCreditos', 'type'=>'POST', 'url'=>'http://demo.tucompra.com.co/tc/app/inputs/compra.jsp'));
+						echo $this->Form->create(
+												null,
+												array(
+													'class'=>'formCompraCreditos',
+													'type'=>'POST',
+													'url'=>'http://demo.tucompra.com.co/tc/app/inputs/compra.jsp'
+												)
+											);
 						// Datos de comercio
 						//
 						echo $form->hidden('usuario', array('name'=>'usuario', 'value'=>'o61qja192w81o1zb'));
@@ -64,6 +71,9 @@
 						echo $this->Form->hidden('telefonoComprador', array('name'=>'telefonoComprador', 'value'=>$datos['UserField']['telefono_fijo']));
 						echo $this->Form->hidden('ciudadComprador', array('name'=>'ciudadComprador', 'value'=>$datos['UserField']['ciudad']));
 						echo $this->Form->hidden('paisComprador', array('name'=>'paisComprador', 'value'=>'Colombia'));
+						// URL de respuesta
+						//
+						echo $this->Form->hidden('url', array('name'=>'url', 'value'=>'http://www.embalao.org/subastas/users/validarCompra'));
 						// Finalizar el form
 						//
 						echo $this->Form->end("Enviar");

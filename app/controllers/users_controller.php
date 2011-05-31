@@ -18,6 +18,17 @@ class UsersController extends AppController {
 		$this->set('user', $this->User->read(null,$this->Auth->user("id")));
 	}
 	
+	function validarCompraCreditos() {
+		$this->autoRender = false;
+		debug($_GET);
+		debug($_POST);
+		debug($this->data);
+	}
+	
+	function validarCompraProducto() {
+		
+	}
+	
 	function ingresoPIN () {
 		$this->autoRender = false;
 		
