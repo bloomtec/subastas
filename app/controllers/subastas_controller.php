@@ -524,7 +524,8 @@ class SubastasController extends AppController {
 		 * 
 		 * OJO :: Lo anterior es valido para cuando se cancela una subasta activa.
 		 * Para cuando se cancele una subasta pendiente de pago se cambia de estado solamente.
-		 * Verificar el otro metodo de cancelacion en caso de estar en esa situacion
+		 * Verificar el otro metodo de cancelacion en caso de estar en esa situacion y se requiera
+		 * hacer algo.
 		 * 
 		 */
 		
