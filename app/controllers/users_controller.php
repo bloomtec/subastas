@@ -23,6 +23,25 @@ class UsersController extends AppController {
 		debug($_GET);
 		debug($_POST);
 		debug($this->data);
+		
+		if($_POST['codigoAutorizacion'] == "00") {
+			echo "La compra no pudo realizarse";
+		} else {
+			$llaveencripcion = "e5bf152d46d321a6afa94823c4788d60";
+			$cadena = $llaveencripcion . 
+			";" .
+			$_POST['codigoFactura'] . 
+			";" . 
+			$_POST['valorFactura'] . 
+			";" . 
+			$_POST['codigoAutorizacion']; 
+			
+			if(md5($cadena) == $_POST['firmaTuCompra']) { 
+				echo "echo compra realizada con exito"; 
+			} else { 
+				echo "la firma es invalida"; 
+			} 
+		} 
 	}
 	
 	function validarCompraProducto() {
