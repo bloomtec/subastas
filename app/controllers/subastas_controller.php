@@ -21,7 +21,7 @@ class SubastasController extends AppController {
 		$gmt = 3600*-5; // GMT -5 para hora colombiana
 		$fechaActual = gmdate('Y-m-d H:i:s', time() + $gmt); // Generar la fecha actual formateada para comparar con la fecha de mysql
 		$query =
-			"SELECT DISTINCT Subasta.id, Subasta.nombre, Subasta.valor, Subasta.precio, Subasta.imagen_path, Subasta.fecha_de_venta, Subasta.aumento_creditos
+			"SELECT DISTINCT Subasta.id, Subasta.nombre, Subasta.valor, Subasta.precio, Subasta.imagen_path, Subasta.fecha_de_venta, Subasta.aumento_precio
 			FROM subastas as Subasta, users as User, ofertas as Oferta
 			WHERE User.id = $userID
 			AND Oferta.user_id = User.id

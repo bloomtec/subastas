@@ -658,10 +658,11 @@ div.logueado span{
   }
   
   .ultimo-ganador{
+  	padding-bottom:1em;
   }
   
   .proxima-oferta{
-  	
+  	padding-bottom:1em;
   }
   
   #left-content h1{
@@ -1154,7 +1155,7 @@ div.logueado span{
 
 
 #right-content  .index  li{
-	margin:0 auto;	
+	margin:0 auto 15px auto;	
 	min-height:280px;
 }
 #right-content  ul#user-subastas {
