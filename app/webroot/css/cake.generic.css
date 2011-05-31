@@ -23,7 +23,7 @@
 
 /** General Style Info **/
 body {
-	background: #003d4c;
+	background: white;
 	color: #fff;
 	font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
 	font-size:90%;
@@ -47,22 +47,22 @@ h1, h2, h3, h4 {
 }
 h1 {
 	background:#fff;
-	color: #003d4c;
+	color: #403F41;
 	font-size: 100%;
 }
 h2 {
 	background:#fff;
-	color: #e32;
+	color: #403F41;
 	font-family:'Gill Sans','lucida grande', helvetica, arial, sans-serif;
 	font-size: 190%;
 }
 h3 {
-	color: #993;
+	color: #403F41;
 	font-family:'Gill Sans','lucida grande', helvetica, arial, sans-serif;
 	font-size: 165%;
 }
 h4 {
-	color: #993;
+	color: #403F41;
 	font-weight: normal;
 }
 ul, li {
@@ -78,12 +78,7 @@ ul, li {
 #header{
 	padding: 10px 20px;
 }
-#header h1 {
-	line-height:20px;
-	background: #003d4c url('../img/logo_cms.png') no-repeat left;
-	color: #fff;
-	padding: 0px 50px;
-}
+
 #header h1 a {
 	color: #fff;
 	background: #003d4c;
@@ -96,7 +91,7 @@ ul, li {
 	text-decoration: underline;
 }
 #header .logo{
-	background: #003d4c url('../img/logo_cms.png') no-repeat left;
+	float:left;
 }
 #header .logout{
 	float: right;
@@ -126,7 +121,7 @@ list-style:none;
 
 }
 .nav li a{
-color:white;
+color:black;
 }
 /** containers **/
 div.form,
@@ -276,7 +271,7 @@ fieldset {
 }
 fieldset legend {
 	background:#fff;
-	color: #e32;
+	color: #403F41;
 	font-size: 160%;
 	font-weight: bold;
 }

@@ -50,9 +50,9 @@
 		<div id="header">
 			<div class="logo">
 				<?php echo $this->Html->link(
-					$this->Html->image('logo_cms.png', array('alt'=> __('CMS: Naru', true), 'border' => '0')),
-					array("controller"=>"users","action"=>"menu"),
-					array('target' => '_blank', 'escape' => false)
+					$this->Html->image('logo.png', array('alt'=> __('CMS: llevatelo.com', true), 'border' => '0',"height"=>100)),
+					array("controller"=>"subastas","action"=>"index"),
+					array( 'escape' => false)
 				);
 			?>
 			</div>
@@ -62,6 +62,7 @@
 					<?php echo $html->link("Subastas",array("controller"=>"subastas", "action"=>"index")); ?>
 					<ul>
 						<li><?php echo $html->link("Listar Subastas", array("controller"=>"subastas", "action"=>"index")); ?></li>
+						<li><?php echo $html->link("Administrar Cola", array("controller"=>"subastas", "action"=>"cola")); ?></li>
 						<li><?php echo $html->link("Añadir Subasta", array("controller"=>"subastas", "action"=>"add")); ?></li>
 					</ul>
 				</li>
@@ -140,14 +141,9 @@
 
 		</div>
 		<div id="footer">
-			<?php echo $this->Html->link(
-					$this->Html->image('cake.power.gif', array('alt'=> __('CakePHP: the rapid development php framework', true), 'border' => '0')),
-					'http://www.cakephp.org/',
-					array('target' => '_blank', 'escape' => false)
-				);
-			?>
+			
 		</div>
-		<?php echo $this->element("developer-utilities");?>
+		<?php //echo $this->element("developer-utilities");?>
 	</div>
 	<?php echo $this->element('sql_dump'); ?>
 </body>

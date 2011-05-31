@@ -6,6 +6,9 @@ class SubastasController extends AppController {
 		parent::beforeFilter();
 		$this->Auth->allow("index","subastasFinalizadas");
 	}
+  function admin_cola(){
+    $this->set("subastas",$this->Subasta->find("all",array("conditions"=>array("Subasta.posicion_en_cola >"=>0),"order"=>"Subasta.posicion_en_cola ASC")));
+  }
 
 	/**
 	 * Devuelve todas las subastas activas
@@ -234,7 +237,8 @@ class SubastasController extends AppController {
 
 	function admin_index() {
 		$this->Subasta->recursive = 0;
-		$this->set('subastas', $this->paginate());
+    $this->paginate=array("order"=>array("Subasta.estados_subasta_id"=>"asc","Subasta.posicion_en_cola"=>"asc"));
+		$this->set('subastas', $this->paginate("Subasta"));
 	}
 
 	function admin_view($id = null) {
@@ -695,6 +699,21 @@ class SubastasController extends AppController {
 
 		}
 	}
-
+  
+  function reOrder(){
+   /* 
+      * Ordena las categorias se une con el widget de sortable
+    * */
+    foreach($this->data["Item"] as $id=>$posicion){
+    $this->Subasta->id=$id;
+     $this->Subasta->saveField("posicion_en_cola",$posicion);
+    
+    }
+    
+    echo "yes";
+    Configure::write('debug', 0);   
+    $this->autoRender = false;   
+    exit(); 
+  }
 }
 ?>
