@@ -54,7 +54,7 @@
 						echo $form->hidden('usuario', array('name'=>'usuario', 'value'=>'o61qja192w81o1zb'));
 						$gmt = 3600*-5; // GMT -5 para hora colombiana
 						$fechaActual = gmdate('YmdHis', time() + $gmt);
-						$factura_id = $user_id . "-" . $fechaActual;
+						$factura_id = $user_id . "-" . $paquete['Paquete']['creditos'] . "-" . $fechaActual;
 						echo $this->Form->hidden('factura', array('name'=>'factura', 'value'=>"$factura_id"));
 						echo $this->Form->hidden('valor', array('name'=>'valor', 'value'=>$paquete['Paquete']['precio']));
 						$nombre = $paquete['Paquete']['nombre'];

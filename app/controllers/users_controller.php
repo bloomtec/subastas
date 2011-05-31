@@ -45,6 +45,8 @@ class UsersController extends AppController {
 				//compra realizada con exito 
 				echo "Compra realizada con exito";
 				debug($_POST);
+				$datos = explode("-", $_POST['codigoFactura']);
+				debug($datos);
 			} else { 
 				//la firma es invalida
 				echo "Compra no realizada";
