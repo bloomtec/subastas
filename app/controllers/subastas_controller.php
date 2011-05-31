@@ -42,7 +42,7 @@ class SubastasController extends AppController {
 	function finalizadas(){
 		$userID = $this->Auth->user("id");
 		$query =
-			"SELECT DISTINCT Subasta.id, Subasta.nombre, Subasta.valor, Subasta.precio, Subasta.imagen_path, Subasta.fecha_de_venta, Subasta.aumento_creditos
+			"SELECT DISTINCT Subasta.id, Subasta.nombre, Subasta.valor, Subasta.precio, Subasta.imagen_path, Subasta.fecha_de_venta, Subasta.aumento_precio
 			FROM subastas as Subasta, users as User, ofertas as Oferta
 			WHERE User.id = $userID
 			AND Oferta.user_id = User.id

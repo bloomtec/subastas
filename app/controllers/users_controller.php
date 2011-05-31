@@ -49,19 +49,47 @@ class UsersController extends AppController {
 				$this->User->read(null, $datos[0]);
 				$this->User->set('creditos', $user['User']['creditos'] + $datos[1]);
 				$this->User->save();
-				$this->Session->setFlash('Compra realizada con exito');
-				$this->redirect(array('controller'=>'users', 'action' => 'index'));
+				//$this->Session->setFlash('Compra realizada con exito');
+				//$this->redirect(array('controller'=>'users', 'action' => 'index'));
 			} else { 
 				//la firma es invalida
 				//
-				$this->Session->setFlash('La compra no se pudo realizar');
-				$this->redirect(array('controller'=>'users', 'action' => 'index'));
+				//$this->Session->setFlash('La compra no se pudo realizar');
+				//$this->redirect(array('controller'=>'users', 'action' => 'index'));
 			} 
-		} 
+		}
 	}
 	
 	function validarCompraProducto() {
-		
+	if($_POST['codigoAutorizacion'] == "00") {
+			echo "La compra no pudo realizarse";
+		} else {
+			$llaveencripcion = "6b7c2e50e9f54b3fb630197255e034ac";
+			$cadena = $llaveencripcion . 
+			";" .
+			$_POST['codigoFactura'] . 
+			";" . 
+			$_POST['valorFactura'] . 
+			";" . 
+			$_POST['codigoAutorizacion']; 
+			
+			if(md5($cadena) == $_POST['firmaTuCompra']) { 
+				// Compra realizada con exito
+				//
+				$datos = explode("-", $_POST['codigoFactura']);
+				$user = $this->User->find('first', array('conditions'=>array('User.id'=>$datos[0])));
+				$this->User->read(null, $datos[0]);
+				$this->User->set('creditos', $user['User']['creditos'] + $datos[1]);
+				$this->User->save();
+				//$this->Session->setFlash('Compra realizada con exito');
+				//$this->redirect(array('controller'=>'users', 'action' => 'index'));
+			} else { 
+				//la firma es invalida
+				//
+				//$this->Session->setFlash('La compra no se pudo realizar');
+				//$this->redirect(array('controller'=>'users', 'action' => 'index'));
+			} 
+		}
 	}
 	
 	function ingresoPIN () {
