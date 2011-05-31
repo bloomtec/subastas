@@ -56,6 +56,7 @@ ul.nav li li li.sfHover ul {
 .nav {
 	float:			right;
 	margin-bottom:	1em;
+	margin-top: 31.5px;
 }
 .nav a {
 	border-left:	1px solid #fff;
@@ -64,20 +65,20 @@ ul.nav li li li.sfHover ul {
 	text-decoration:none;
 }
 .nav a, .nav a:visited  { /* visited pseudo selector so IE6 applies text colour*/
-	color:			#13a;
+	color:			black;
 }
 .nav li {
-	background:		#BDD2FF;
+	background:		#F4D014;
 }
 .nav li li {
-	background:		#AABDE6;
+	background:		#EBE1AF;
 }
 .nav li li li {
-	background:		#9AAEDB;
+	background:		#EBE1AF;
 }
 .nav li:hover, .nav li.sfHover,
 .nav a:focus, .nav a:hover, .nav a:active {
-	background:		#CFDEFF;
+	background:		#F4D014;
 	outline:		0;
 }
 
