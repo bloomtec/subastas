@@ -329,16 +329,21 @@ class SubastasController extends AppController {
 
 	}
 
+	function __cambiarEstadoSubasta($id = null, $estados_subasta_id = null) {
+		$this->Subasta->read(null, $id);
+		$this->Subasta->set('estados_subasta_id', $estados_subasta_id);
+		if ($this->Subasta->save())
+			return true;
+		else
+			return false;
+	}
+	
 	/**
 	 * Metodo para actualizar el estado de una subasta
 	 * @param unknown_type $subastaID		ID de la subasta a actualizar
 	 * @param unknown_type $nuevoEstadoID	ID del nuevo estado para la subasta
 	 */
 	function actualizarEstadoSubasta($id = null, $estados_subasta_id = null){
-
-		$this->Subasta->read(null, $id);
-		$this->Subasta->set('estados_subasta_id', $estados_subasta_id);
-		$this->Subasta->save();
 
 		// Tomar acciones acorde el nuevo estado de la subasta
 		//
@@ -348,13 +353,14 @@ class SubastasController extends AppController {
 			 * Nota : Segun los ultimos cambios este caso nunca se daria
 			 */
 			case 1:
-				// TODO
+				// Este caso actualmente no se da
 				break;
 
 				/**
 				 * Subasta Activa
 				 */
 			case 2:
+				$this->__cambiarEstadoSubasta($id, $estados_subasta_id);
 				return $this->__subastaActiva($id);
 				break;
 
@@ -363,6 +369,7 @@ class SubastasController extends AppController {
 				 * Se crea una venta para proceder con el pago
 				 */
 			case 3:
+				$this->__cambiarEstadoSubasta($id, $estados_subasta_id);
 				return $this->__crearVenta($id);
 				break;
 
@@ -372,20 +379,44 @@ class SubastasController extends AppController {
 				 * este caso no se daria
 				 */
 			case 4:
+				$this->__cambiarEstadoSubasta($id, $estados_subasta_id);
 				return $this->__subastaVencida($id);
 				break;
 				/**
 				 * Subasta cancelada
 				 */
 			case 5:
-				return $this->__cancel($id);
+				// Aqui toca validar el estado actual de la subasta para ver que se hace
+				// Los diferentes casos a considerar son son si esta en espera de pago o no lo esta
+				//
+				$subasta = $this->Subasta->find('first', array('conditions'=>array('Subasta.id'=>$id)));
+				
+				// Tomar la decision de que hacer
+				//
+				if($subasta['Subasta']['estados_subasta_id'] == 3) {
+					// En esta seccion la subasta esta en espera de pago
+					//
+					$this->__cambiarEstadoSubasta($id, $estados_subasta_id);
+					return $this->__cancelEsperaDePago($id);
+				} else {
+					// En esta seccion la subasta NO esta en espera de pago
+					//
+					$this->__cambiarEstadoSubasta($id, $estados_subasta_id);
+					return $this->__cancel($id);
+				}
+				
 				break;
 				/**
 				 * Se cerro la subasta
 				 * Nota : Por ahora solo es cambiar el estado de la subasta
 				 */
 			case 6:
+				$this->__cambiarEstadoSubasta($id, $estados_subasta_id);
 				return $this->__cerrar($id);
+				break;
+			case 7:
+				$this->__cambiarEstadoSubasta($id, $estados_subasta_id);
+				return $this->__vendida($id);
 				break;
 		}
 
@@ -446,6 +477,23 @@ class SubastasController extends AppController {
 		$this->Session->setFlash(__('No se pudo cerrar la subasta', true));
 		$this->redirect(array('action' => 'index'));
 	}
+	
+	function admin_vendida($id = null) {
+		if(!$id){
+			$this->Session->setFlash(__('Subasta no valida', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		if($this->actualizarEstadoSubasta($id, 7)){
+			$this->Session->setFlash(__('Se cambio el estado de la subasta a VENDIDA', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		$this->Session->setFlash(__('No se pudo cerrar la subasta', true));
+		$this->redirect(array('action' => 'index'));
+	}
+	
+	function __vendida($id = null) {
+		return true;
+	}
 
 	function admin_cancel($id = null) {
 		if(!$id){
@@ -460,13 +508,26 @@ class SubastasController extends AppController {
 		$this->redirect(array('action' => 'index'));
 	}
 
+	function __cancelEsperaDePago($subasta_id = null) {
+		// Este metodo queda por si toca hacer algo cuando se cancele la
+		// subasta luego de estar en espera de pago
+		//
+		
+		return true;
+	}
+	
 	function __cancel($subasta_id = null){
 		/**
 		 * Recorrer todas las ofertas de la subasta cancelada y a todos los
 		 * usuarios que ofertaron se les devuelve el credito que habian
 		 * pagado. Enviar correo de notificacion
+		 * 
+		 * OJO :: Lo anterior es valido para cuando se cancela una subasta activa.
+		 * Para cuando se cancele una subasta pendiente de pago se cambia de estado solamente.
+		 * Verificar el otro metodo de cancelacion en caso de estar en esa situacion
+		 * 
 		 */
-
+		
 		// Encontrar las ofertas correspondientes a una subasta
 		//
 		$ofertasHechas = $this->requestAction('/ofertas/obtenerOfertasSubasta/' . $subasta_id);

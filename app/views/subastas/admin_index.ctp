@@ -24,16 +24,15 @@
 		<td><?php echo $html->image($subasta['Subasta']['imagen_path'],array("width"=>"200")); ?>&nbsp;</td>
 		<td><?php echo $subasta['EstadosSubasta']['nombre']; ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('Ver', true), array('action' => 'view', $subasta['Subasta']['id'])); ?>
 			<?php
-				if ($subasta['Subasta']['estados_subasta_id'] != 3) {
-					echo $this->Html->link(__('Modificar', true), array('action' => 'edit', $subasta['Subasta']['id']));
-					if ($subasta['Subasta']['estados_subasta_id'] != 6)
-						echo $this->Html->link(__('Cerrar', true), array('action' => 'cerrar', $subasta['Subasta']['id']), null, sprintf(__('¿Cerrar la subasta %s?', true), $subasta['Subasta']['nombre']));
-					if ($subasta['Subasta']['estados_subasta_id'] != 5)
-						echo $this->Html->link(__('Cancelar', true), array('action' => 'cancel', $subasta['Subasta']['id']), null, sprintf(__('¿Cancelar la subasta %s?', true), $subasta['Subasta']['nombre']));
-					echo $this->Html->link(__('Eliminar', true), array('action' => 'delete', $subasta['Subasta']['id']), null, sprintf(__('¿Eliminar la subasta %s?', true), $subasta['Subasta']['nombre']));
+				echo $this->Html->link(__('Ver', true), array('action' => 'view', $subasta['Subasta']['id']));
+				echo $this->Html->link(__('Modificar', true), array('action' => 'edit', $subasta['Subasta']['id']));
+				echo $this->Html->link(__('Cerrar', true), array('action' => 'cerrar', $subasta['Subasta']['id']), null, sprintf(__('¿Cerrar la subasta %s?', true), $subasta['Subasta']['nombre']));
+				echo $this->Html->link(__('Cancelar', true), array('action' => 'cancel', $subasta['Subasta']['id']), null, sprintf(__('¿Cancelar la subasta %s?', true), $subasta['Subasta']['nombre']));
+				if ($subasta['Subasta']['estados_subasta_id'] == 3) {
+					echo $this->Html->link(__('Vendida', true), array('action' => 'vendida', $subasta['Subasta']['id']), null, sprintf(__('¿Cambiar el estado a VENDIDA para %s?', true), $subasta['Subasta']['nombre']));
 				}
+				echo $this->Html->link(__('Eliminar', true), array('action' => 'delete', $subasta['Subasta']['id']), null, sprintf(__('¿Eliminar la subasta %s?', true), $subasta['Subasta']['nombre']));				
 			?>
 		</td>
 	</tr>

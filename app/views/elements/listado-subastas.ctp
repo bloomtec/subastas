@@ -11,8 +11,8 @@
 			 </div>
 			 <div class="hora_servidor">
 			 	<?php 
-			 		$gmt = 3600*-5; 
-					$fecha = gmdate('Y M d H:i:s', time() + $gmt); 
+			 		$gmt = 3600*-5;
+					$fecha = gmdate('Y M d H:i:s', time() + $gmt);
 			 		echo $fecha;
 			 	?>
 			 </div>
