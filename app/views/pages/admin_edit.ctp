@@ -1,15 +1,15 @@
-<div class="pages form">
+<div class="pages">
 <?php echo $this->Form->create('Page');?>
 	<fieldset>
- 		<legend><?php __('Admin Edit Page'); ?></legend>
+ 		<legend><?php __('Modificar Página'); ?></legend>
 	<?php
 		echo $this->Form->input('id');
-		echo $this->Form->input('title',array("div"=>"float"));
-		echo $this->Form->input('slug',array("div"=>"float"));
-		echo $this->Form->input('description');
+		echo $this->Form->input('title',array("div"=>"float","label"=>"Título"));
+		echo $this->Form->hidden('slug',array("div"=>"float"));
+		echo $this->Form->input('description',array("label"=>"Descripción","div"=>"float"));
 		
 		//echo $this->Form->input('order');
-		echo $this->Form->input('content',array("name"=>"editor"));
+		echo $this->Form->input('content',array("name"=>"editor","label"=>false));
 		
 	?>
 	</fieldset>
@@ -18,8 +18,8 @@
 
 <script type="text/javascript">
 					CKEDITOR.replace( 'editor',{
-        				filebrowserUploadUrl : '/priceshoes/upload.php',
-        				filebrowserBrowseUrl : '/priceshoes/admin/images/wysiwyg',
+        				filebrowserUploadUrl : '/subastas/upload.php',
+        				filebrowserBrowseUrl : '/subastas/admin/images/wysiwyg',
 
 
 					} );

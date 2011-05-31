@@ -9,7 +9,11 @@
 </div>
 <div id="right-content">
 	<h1 class="titulo-amarillo">Subastas activas</h1>
-	<div class="subasta-resaltada">
+	<div class="WYSIWYG banner-home">
+	   <?php 
+	     echo $this->requestAction("/pages/bannerHome");
+	   ?>
+	   <div style="clear:both"></div>
 	</div>
 	<?php echo $this->element("listado-subastas");?>
 	 <div style="clear:both"></div>
