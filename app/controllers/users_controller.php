@@ -27,6 +27,8 @@ class UsersController extends AppController {
     	//$_POST[codigoAutorizacion]
     	//$_POST[numeroTransaccion]
     	//$_POST[campoExtra1]
+    	
+		$this->autoRender=false;
 		
 		if($_POST['codigoAutorizacion'] == "00") {
 			echo "La compra no pudo realizarse";
@@ -48,10 +50,8 @@ class UsersController extends AppController {
 				$this->User->read(null, $datos[0]);
 				$this->User->set('creditos', $user['User']['creditos'] + $datos[1]);
 				$this->User->save();
-				//$this->Session->setFlash('Compra realizada con exito');
-				//$this->redirect(array('controller'=>'users', 'action' => 'index'));
-				$this->set(compact('datos'));
-				$this->set('Compra realizada con exito', 'resultado');
+				echo "Compra realizada con exito";
+				echo $this->Html->link(__('Volver al inicio', true), array('controller'=>'subastas', 'action' => 'index'));
 			} else { 
 				//la firma es invalida
 				//
