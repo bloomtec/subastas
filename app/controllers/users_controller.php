@@ -25,7 +25,7 @@ class UsersController extends AppController {
 		debug($this->data);
 	}
 	
-	fuction validarCompraProducto() {
+	function validarCompraProducto() {
 		
 	}
 	
