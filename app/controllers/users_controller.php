@@ -21,12 +21,12 @@ class UsersController extends AppController {
 	function validarCompraCreditos() {
 		$this->autoRender = false;
 		
-		//$_POST[transaccionAprobada] => 1
-    	//$_POST[codigoFactura] => 420110531120306
-    	//$_POST[valorFactura] => 50000.0
-    	//$_POST[tipoMoneda] => COP
-    	//$_POST[codigoAutorizacion] => 14448
-    	//$_POST[numeroTransaccion] => 
+		//$_POST[transaccionAprobada]
+    	//$_POST[codigoFactura]
+    	//$_POST[valorFactura]
+    	//$_POST[tipoMoneda]
+    	//$_POST[codigoAutorizacion]
+    	//$_POST[numeroTransaccion]
     	//$_POST[campoExtra1]
 		
 		if($_POST['codigoAutorizacion'] == "00") {
@@ -42,14 +42,20 @@ class UsersController extends AppController {
 			$_POST['codigoAutorizacion']; 
 			
 			if(md5($cadena) == $_POST['firmaTuCompra']) { 
-				//compra realizada con exito 
-				echo "Compra realizada con exito";
-				debug($_POST);
+				// Compra realizada con exito
+				//
 				$datos = explode("-", $_POST['codigoFactura']);
-				debug($datos);
+				$user = $this->User->find('first', array('conditions'=>array('User.id'=>$datos[0])));
+				$this->User->read(null, $datos[0]);
+				$this->User->set('creditos', $user['User']['creditos'] + $datos[1]);
+				$this->User->save();
+				$this->Session->setFlash('Compra realizada con exito');
+				$this->redirect(array('controller'=>'users', 'action' => 'index'));
 			} else { 
 				//la firma es invalida
-				echo "Compra no realizada";
+				//
+				$this->Session->setFlash('La compra no se pudo realizar');
+				$this->redirect(array('controller'=>'users', 'action' => 'index'));
 			} 
 		} 
 	}
