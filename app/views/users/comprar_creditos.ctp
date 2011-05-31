@@ -77,7 +77,7 @@
 						// Campo extra
 						// campoExtra1
 						$campo_extra = $session->read('Auth.User.id') . "-" . $paquete['Paquete']['creditos'];
-						echo $this->Form->hidden('campoExtra1', array('name'=>'campoExtra1', 'value'=>$campo_extra));
+						echo $this->Form->hidden('campoExtra', array('name'=>'campoExtra', 'value'=>$campo_extra));
 						// Finalizar el form
 						//
 						echo $this->Form->end("Enviar");
