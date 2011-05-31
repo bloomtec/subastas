@@ -73,9 +73,10 @@
 						echo $this->Form->hidden('paisComprador', array('name'=>'paisComprador', 'value'=>'Colombia'));
 						// URL de respuesta
 						// url, url_retorno, url_de_retorno, urlRetorno, url_respuesta, url_confirmacion
-						echo $this->Form->hidden('url_respuesta', array('name'=>'url_respuesta', 'value'=>'http://www.embalao.org/subastas/users/validarCompraCreditos'));
-						echo $this->Form->hidden('urlRespuesta', array('name'=>'urlRespuesta', 'value'=>'http://www.embalao.org/subastas/users/validarCompraCreditos'));
-						echo $this->Form->hidden('url_retorno', array('name'=>'url_retorno', 'value'=>'http://www.embalao.org/subastas/users/validarCompraCreditos'));
+						// terminar_urlretorno
+						//echo $this->Form->hidden('url_respuesta', array('name'=>'url_respuesta', 'value'=>'http://www.embalao.org/subastas/users/validarCompraCreditos'));
+						//echo $this->Form->hidden('urlRespuesta', array('name'=>'urlRespuesta', 'value'=>'http://www.embalao.org/subastas/users/validarCompraCreditos'));
+						//echo $this->Form->hidden('url_retorno', array('name'=>'url_retorno', 'value'=>'http://www.embalao.org/subastas/users/validarCompraCreditos'));
 						echo $this->Form->hidden('urlRetorno', array('name'=>'urlRetorno', 'value'=>'http://www.embalao.org/subastas/users/validarCompraCreditos'));
 						echo $this->Form->hidden('url_confirmacion', array('name'=>'url_confirmacion', 'value'=>'http://www.embalao.org/subastas/users/validarCompraCreditos'));
 						echo $this->Form->hidden('urlConfirmacion', array('name'=>'urlConfirmacion', 'value'=>'http://www.embalao.org/subastas/users/validarCompraCreditos'));

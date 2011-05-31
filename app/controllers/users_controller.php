@@ -20,14 +20,20 @@ class UsersController extends AppController {
 	
 	function validarCompraCreditos() {
 		$this->autoRender = false;
-		debug($_GET);
-		debug($_POST);
-		debug($this->data);
+		
+		//$_POST[transaccionAprobada] => 1
+    	//$_POST[codigoFactura] => 420110531120306
+    	//$_POST[valorFactura] => 50000.0
+    	//$_POST[tipoMoneda] => COP
+    	//$_POST[codigoAutorizacion] => 14448
+    	//$_POST[numeroTransaccion] => 
+    	//$_POST[firmaTuCompra] => 3b5d3b093041b20a72414df99e779908
+    	//$_POST[campoExtra1]
 		
 		if($_POST['codigoAutorizacion'] == "00") {
 			echo "La compra no pudo realizarse";
 		} else {
-			$llaveencripcion = "e5bf152d46d321a6afa94823c4788d60";
+			$llaveencripcion = "6b7c2e50e9f54b3fb630197255e034ac";
 			$cadena = $llaveencripcion . 
 			";" .
 			$_POST['codigoFactura'] . 
