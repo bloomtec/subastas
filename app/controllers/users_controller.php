@@ -27,7 +27,6 @@ class UsersController extends AppController {
     	//$_POST[tipoMoneda] => COP
     	//$_POST[codigoAutorizacion] => 14448
     	//$_POST[numeroTransaccion] => 
-    	//$_POST[firmaTuCompra] => 3b5d3b093041b20a72414df99e779908
     	//$_POST[campoExtra1]
 		
 		if($_POST['codigoAutorizacion'] == "00") {
@@ -43,9 +42,9 @@ class UsersController extends AppController {
 			$_POST['codigoAutorizacion']; 
 			
 			if(md5($cadena) == $_POST['firmaTuCompra']) { 
-				echo "echo compra realizada con exito"; 
+				//compra realizada con exito 
 			} else { 
-				echo "la firma es invalida"; 
+				//la firma es invalida
 			} 
 		} 
 	}

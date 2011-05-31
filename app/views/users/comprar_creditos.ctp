@@ -74,6 +74,10 @@
 						// URL de respuesta
 						//
 						echo $this->Form->hidden('urlRetorno', array('name'=>'urlRetorno', 'value'=>'http://www.embalao.org/subastas/users/validarCompraCreditos'));
+						// Campo extra
+						// campoExtra1
+						$campo_extra = $session->read('Auth.User.id') . "-" . $paquete['Paquete']['creditos'];
+						echo $this->Form->hidden('campoExtra1', array('name'=>'campoExtra1', 'value'=>$campo_extra));
 						// Finalizar el form
 						//
 						echo $this->Form->end("Enviar");
