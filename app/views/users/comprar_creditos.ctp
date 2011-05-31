@@ -73,7 +73,7 @@
 						echo $this->Form->hidden('paisComprador', array('name'=>'paisComprador', 'value'=>'Colombia'));
 						// URL de respuesta
 						//
-						echo $this->Form->hidden('url_de_respuesta', array('name'=>'url_de_respuesta', 'value'=>'http://www.embalao.org/subastas/users/validarCompra'));
+						echo $this->Form->hidden('url', array('name'=>'url', 'value'=>'http://www.embalao.org/subastas/users/validarCompra'));
 						// Finalizar el form
 						//
 						echo $this->Form->end("Enviar");
