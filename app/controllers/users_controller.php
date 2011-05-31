@@ -19,7 +19,6 @@ class UsersController extends AppController {
 	}
 	
 	function validarCompraCreditos() {
-		$this->autoRender = false;
 		
 		//$_POST[transaccionAprobada]
     	//$_POST[codigoFactura]
@@ -51,6 +50,8 @@ class UsersController extends AppController {
 				$this->User->save();
 				//$this->Session->setFlash('Compra realizada con exito');
 				//$this->redirect(array('controller'=>'users', 'action' => 'index'));
+				$this->set(compact('datos'));
+				$this->set('Compra realizada con exito', 'resultado');
 			} else { 
 				//la firma es invalida
 				//
@@ -61,7 +62,7 @@ class UsersController extends AppController {
 	}
 	
 	function validarCompraProducto() {
-	if($_POST['codigoAutorizacion'] == "00") {
+		if($_POST['codigoAutorizacion'] == "00") {
 			echo "La compra no pudo realizarse";
 		} else {
 			$llaveencripcion = "6b7c2e50e9f54b3fb630197255e034ac";
