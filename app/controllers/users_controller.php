@@ -42,14 +42,20 @@ class UsersController extends AppController {
 			$_POST['codigoAutorizacion']; 
 			
 			if(md5($cadena) == $_POST['firmaTuCompra']) { 
-				//compra realizada con exito 
-				echo "Compra realizada con exito";
-				debug($_POST);
+				//compra realizada con exito
+				//
 				$datos = explode("-", $_POST['codigoFactura']);
-				debug($datos);
+				$user = $this->User->find('first', array('conditions'=>array('User.id'=>$this->Auth->user('id'))));
+				$this->User->read(null, $datos[0]);
+				$this->User->set('creditos', $user['User']['creditos'] + $datos[1]);
+				$this->User->save();
+				$this->Session->setFlash('Compra realizada con exito');
+				$this->redirect(array('action' => 'index'));
 			} else { 
 				//la firma es invalida
-				echo "Compra no realizada";
+				//
+				$this->Session->setFlash('La compra no se pudo realizar');
+				$this->redirect(array('action' => 'index'));
 			} 
 		} 
 	}
