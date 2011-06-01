@@ -25,8 +25,8 @@
 		echo $this->Form->input('aumento_precio',array("label"=>"Valor aumento de precio (Valor que se le aumentará al precio cada vez que se haga una subasta)"));
 		echo $this->Form->input('fecha_de_venta',array("label"=>"Fecha de Venta (Fecha en la que terminará la subasta si alcanza el umbral mínimo de creditos, si no lo alcanza se cancelará la subasta)"));
 		echo $this->Form->input('dias_espera',array("label"=>"Días de espera (Días que se esperará el usuario para que pague la subasta)"));
-    echo $this->Form->input('estados_subasta_id');
-		echo $this->Form->input('posicion_en_cola');
+    	echo $this->Form->input('estados_subasta_id');
+		//echo $this->Form->input('posicion_en_cola');
 		echo $this->Form->input('imagen_path',array("id"=>"single-field","type"=>"hidden"));
 	?>
 	</fieldset>

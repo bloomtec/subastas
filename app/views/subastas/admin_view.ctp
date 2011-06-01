@@ -43,9 +43,9 @@
 			<?php echo $subasta['Subasta']['precio']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Aumento Creditos'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Aumento Precio'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $subasta['Subasta']['aumento_creditos']; ?>
+			<?php echo $subasta['Subasta']['aumento_precio']; ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Días Espera'); ?></dt>
