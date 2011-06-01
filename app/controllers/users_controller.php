@@ -21,6 +21,11 @@ class UsersController extends AppController {
 	function validarCompra() {
 		$this->autoRender=false;
 		
+		$datos = explode("-", $_POST['codigoFactura']);
+		$this->loadModel('User');
+		$user = $this->User->find('first', array('conditions'=>array('User.id'=>$datos[1])));
+		$this->Auth->login($user);
+		
 		if($_POST['codigoAutorizacion'] == "00") {
 			//echo "La compra no pudo realizarse";
 			echo "<center>";
@@ -42,7 +47,6 @@ class UsersController extends AppController {
 			if(md5($cadena) == $_POST['firmaTuCompra']) { 
 				// Compra realizada con exito
 				//
-				$datos = explode("-", $_POST['codigoFactura']);
 				if ($datos[0] == 1) {
 					// Se compro un paquete de creditos
 					// Encontrar al usuario y sumarle los creditos
