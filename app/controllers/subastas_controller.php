@@ -54,6 +54,7 @@ class SubastasController extends AppController {
 	
 	function ganadas(){
 		$userID = $this->Auth->user("id");
+		$this->set('user_id', $userID);
 		$query =
 			"SELECT *
 			FROM subastas as Subasta
@@ -64,7 +65,7 @@ class SubastasController extends AppController {
 				AND user_id = $userID
 			)";
 		$subastas = $this->Subasta->query($query);
-		$this->set(compact("subastas"));
+		$this->set(compact('subastas'));
 	}
 
 	function subastasFinalizadas(){

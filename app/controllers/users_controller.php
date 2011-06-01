@@ -19,7 +19,6 @@ class UsersController extends AppController {
 	}
 	
 	function validarCompraCreditos() {
-    	
 		$this->autoRender=false;
 		
 		if($_POST['codigoAutorizacion'] == "00") {
@@ -67,9 +66,52 @@ class UsersController extends AppController {
 		}
 	}
 	
-	function validarCompraProducto() {
-		$this->autoRender = false;
+	function validarCompraSubasta() {
+		$this->autoRender=false;
 		
+		if($_POST['codigoAutorizacion'] == "00") {
+			//echo "La compra no pudo realizarse";
+			echo "<center>";
+			echo "La compra no pudo realizarse";
+			echo "<form action='../../subastas'>";
+			echo "<br><button type='submit' name='boton'>Volver Al Inicio</button>";
+			echo "</form>";
+			echo "</center>";
+		} else {
+			$llaveencripcion = "6b7c2e50e9f54b3fb630197255e034ac";
+			$cadena = $llaveencripcion . 
+			";" .
+			$_POST['codigoFactura'] . 
+			";" . 
+			$_POST['valorFactura'] . 
+			";" . 
+			$_POST['codigoAutorizacion']; 
+			
+			if(md5($cadena) == $_POST['firmaTuCompra']) { 
+				// Compra realizada con exito
+				//
+				$datos = explode("-", $_POST['codigoFactura']);
+				$user = $this->User->find('first', array('conditions'=>array('User.id'=>$datos[0])));
+				$this->User->read(null, $datos[0]);
+				$this->User->set('creditos', $user['User']['creditos'] + $datos[1]);
+				$this->User->save();
+				echo "<center>";
+				echo "La compra fue exitosa";
+				echo "<form action='../../subastas'>";
+				echo "<br><button type='submit' name='boton'>Volver Al Inicio</button>";
+				echo "</form>";
+				echo "</center>";
+			} else { 
+				//la firma es invalida
+				//
+				echo "<center>";
+				echo "La compra no pudo realizarse - La firma de confirmacion no es valida";
+				echo "<form action='../../subastas'>";
+				echo "<br><button type='submit' name='boton'>Volver Al Inicio</button>";
+				echo "</form>";
+				echo "</center>";
+			} 
+		}		
 	}
 	
 	function ingresoPIN () {

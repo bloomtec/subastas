@@ -62,7 +62,7 @@
 						// Datos de usuario
 						// Se pide: documento, nombre, apellido, correo,
 						// direccion, telefono, celular, ciudad, pais
-						$datos = $this->requestAction('/user_fields/listFields/' . $session->read('Auth.User.id'));
+						$datos = $this->requestAction('/user_fields/listFields/' . $user_id);
 						echo $this->Form->hidden('documentoComprador', array('name'=>'documentoComprador', 'value'=>$datos['UserField']['cedula']));
 						echo $this->Form->hidden('nombreComprador', array('name'=>'nombreComprador', 'value'=>$datos['UserField']['nombres']));
 						echo $this->Form->hidden('apellidoComprador', array('name'=>'apellidoComprador', 'value'=>$datos['UserField']['apellidos']));
