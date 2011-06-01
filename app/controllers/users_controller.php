@@ -29,15 +29,15 @@ class UsersController extends AppController {
 		if($_POST['codigoAutorizacion'] == "00") {
 			//echo "La compra no pudo realizarse";
 			//
-			$this->Session->setFlash('La compra no pudo realizarse');
-			/**
+			//$this->Session->setFlash('La compra no pudo realizarse');
+			
 			echo "<center>";
 			echo "La compra no pudo realizarse";
 			echo "<form action='../../subastas'>";
 			echo "<br><button type='submit' name='boton'>Volver Al Inicio</button>";
 			echo "</form>";
 			echo "</center>";
-			*/
+			
 		} else {
 			$llaveencripcion = "6b7c2e50e9f54b3fb630197255e034ac";
 			$cadena = $llaveencripcion . 
@@ -71,32 +71,28 @@ class UsersController extends AppController {
 					}
 				}
 				
-				$this->Session->setFlash('La compra fue exitosa');
+				//$this->Session->setFlash('La compra fue exitosa');
 				
-				/**
 				echo "<center>";
 				echo "La compra fue exitosa";
 				echo "<form action='../../subastas'>";
 				echo "<br><button type='submit' name='boton'>Volver Al Inicio</button>";
 				echo "</form>";
 				echo "</center>";
-				*/
 			} else { 
 				//la firma es invalida
 				//
-				$this->Session->setFlash('La compra no pudo realizarse - La firma de confirmacion no es valida');
+				//$this->Session->setFlash('La compra no pudo realizarse - La firma de confirmacion no es valida');
 				
-				/**
 				echo "<center>";
 				echo "La compra no pudo realizarse - La firma de confirmacion no es valida";
 				echo "<form action='../../subastas'>";
 				echo "<br><button type='submit' name='boton'>Volver Al Inicio</button>";
 				echo "</form>";
 				echo "</center>";
-				*/
 			} 
 		}
-		$this->redirect(array('action' => 'index'));
+		//$this->redirect(array('action' => 'index'));
 	}
 	
 	function ingresoPIN () {
