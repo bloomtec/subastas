@@ -136,8 +136,6 @@ class VentasController extends AppController {
 		$this->Venta->set('user_id', $usuarioID);
 		$this->Venta->set('estados_venta_id', 1);
 		$this->Venta->save();
-
-		// TODO : Enviar correo al ganador
 	}
 
 	function fechaCreacionVenta($id = null) {
@@ -148,10 +146,24 @@ class VentasController extends AppController {
 	function noPagada($id = null) {
 		$this->Venta->read(null, $id);
 		$this->Venta->set('estados_venta_id', 3);
+		$this->Venta->save();
+	}
+	
+	function pagada($id = null) {
+		$this->Venta->read(null, $id);
+		$this->Venta->set('estados_venta_id', 2);
+		$this->Venta->save();
 	}
 	
 	function ultimoGanador() {
 		return $this->Venta->find('first', array("order"=>array("Venta.id DESC")));
+	}
+	
+	function obtenerIdVenta($subasta_id = null){
+		if ($subasta_id) {
+			$venta = $this->Venta->find('first', array('conditions'=>array('subasta_id'=>$subasta_id), 'fields'=>array('id')));
+			return $venta['Venta']['id'];
+		}
 	}
 
 }

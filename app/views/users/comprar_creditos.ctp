@@ -54,7 +54,7 @@
 						echo $form->hidden('usuario', array('name'=>'usuario', 'value'=>'o61qja192w81o1zb'));
 						$gmt = 3600*-5; // GMT -5 para hora colombiana
 						$fechaActual = gmdate('YmdHis', time() + $gmt);
-						$factura_id = $user_id . "-" . $paquete['Paquete']['creditos'] . "-" . $fechaActual;
+						$factura_id = "1-" . $user_id . "-" . $paquete['Paquete']['creditos'] . "-" . $fechaActual;
 						echo $this->Form->hidden('factura', array('name'=>'factura', 'value'=>"$factura_id"));
 						echo $this->Form->hidden('valor', array('name'=>'valor', 'value'=>$paquete['Paquete']['precio']));
 						$nombre = $paquete['Paquete']['nombre'];
@@ -73,7 +73,7 @@
 						echo $this->Form->hidden('paisComprador', array('name'=>'paisComprador', 'value'=>'Colombia'));
 						// URL de respuesta
 						//
-						echo $this->Form->hidden('urlRetorno', array('name'=>'urlRetorno', 'value'=>'http://www.embalao.org/subastas/users/validarCompraCreditos'));
+						echo $this->Form->hidden('urlRetorno', array('name'=>'urlRetorno', 'value'=>'http://www.embalao.org/subastas/users/validarCompra'));
 						// Finalizar el form
 						//
 						echo $this->Form->end("Enviar");
