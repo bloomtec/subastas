@@ -51,6 +51,21 @@ class SubastasController extends AppController {
 		$subastas = $this->Subasta->query($query);
 		$this->set(compact("subastas"));
 	}
+	
+	function ganadas(){
+		$userID = $this->Auth->user("id");
+		$query =
+			"SELECT *
+			FROM subastas as Subasta
+			WHERE Subasta.id IN (
+				SELECT subasta_id
+				FROM ventas
+				WHERE estados_venta_id = 1
+				AND user_id = $userID
+			)";
+		$subastas = $this->Subasta->query($query);
+		$this->set(compact("subastas"));
+	}
 
 	function subastasFinalizadas(){
 		$subastas=$this->Subasta->find("all",array("conditions"=>array("estados_subasta_id >"=>2)));

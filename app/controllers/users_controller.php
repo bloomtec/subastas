@@ -49,7 +49,7 @@ class UsersController extends AppController {
 				$this->User->set('creditos', $user['User']['creditos'] + $datos[1]);
 				$this->User->save();
 				echo "<center>";
-				echo "Compra exitosa";
+				echo "La compra fue exitosa";
 				echo "<form action='../../subastas'>";
 				echo "<br><button type='submit' name='boton'>Volver Al Inicio</button>";
 				echo "</form>";
@@ -58,7 +58,7 @@ class UsersController extends AppController {
 				//la firma es invalida
 				//
 				echo "<center>";
-				echo "La compra no pudo realizarse - Firma no es valida";
+				echo "La compra no pudo realizarse - La firma de confirmacion no es valida";
 				echo "<form action='../../subastas'>";
 				echo "<br><button type='submit' name='boton'>Volver Al Inicio</button>";
 				echo "</form>";

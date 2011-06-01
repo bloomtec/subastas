@@ -7,7 +7,7 @@
 	 <div style="clear:both"></div>
 </div>
 <div id="right-content">
-	<h1 class="titulo-amarillo">Subastas finalizadas</h1>
+	<h1 class="titulo-amarillo">Subastas Finalizadas</h1>
 <?php if (!empty($subastas)):?>
  <ul class="subastas-activas index" id="subastas-vendidas">
 	 <?php $i=0;?>
