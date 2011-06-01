@@ -434,6 +434,9 @@ class SubastasController extends AppController {
 				$this->__cambiarEstadoSubasta($id, $estados_subasta_id);
 				return $this->__cerrar($id);
 				break;
+				/**
+				 * Vendida
+				 */
 			case 7:
 				$this->__cambiarEstadoSubasta($id, $estados_subasta_id);
 				return $this->__vendida($id);

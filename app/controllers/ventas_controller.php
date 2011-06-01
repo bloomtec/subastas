@@ -150,9 +150,14 @@ class VentasController extends AppController {
 	}
 	
 	function pagada($id = null) {
-		$this->Venta->read(null, $id);
+		// Cambiar el estado de la venta
+		//
+		$venta = $this->Venta->read(null, $id);
 		$this->Venta->set('estados_venta_id', 2);
 		$this->Venta->save();
+		// Cambiar el estado de la subasta a Vendida
+		//
+		$this->requestAction('/subastas/actualizarEstadoSubasta/' . $venta['Venta']['subasta_id'] . '/7');
 	}
 	
 	function ultimoGanador() {
