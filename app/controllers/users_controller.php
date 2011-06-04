@@ -554,16 +554,13 @@ class UsersController extends AppController {
 
 	function recomendar() {
 		if(!empty($this->data)){
-			debug($this->data);
 			// Proceder a enviar correos
 			//
-			$this->__enviarCorreoRecomendado($this->data['User']['id'], $this->data['User']['correo_amigo_1']);
-			$this->__enviarCorreoRecomendado($this->data['User']['id'], $this->data['User']['correo_amigo_2']);
-			$this->__enviarCorreoRecomendado($this->data['User']['id'], $this->data['User']['correo_amigo_3']);
-			$this->__enviarCorreoRecomendado($this->data['User']['id'], $this->data['User']['correo_amigo_4']);
-			$this->__enviarCorreoRecomendado($this->data['User']['id'], $this->data['User']['correo_amigo_5']);
-		} else {
-			$this->Session->setFlash(__('Error al leer los datos ingresados', true));
+			$this->__enviarCorreoRecomendado($this->data['User']['user_id'], $this->data['User']['correo_recomendado_1']);
+			$this->__enviarCorreoRecomendado($this->data['User']['user_id'], $this->data['User']['correo_recomendado_2']);
+			$this->__enviarCorreoRecomendado($this->data['User']['user_id'], $this->data['User']['correo_recomendado_3']);
+			$this->__enviarCorreoRecomendado($this->data['User']['user_id'], $this->data['User']['correo_recomendado_4']);
+			$this->__enviarCorreoRecomendado($this->data['User']['user_id'], $this->data['User']['correo_recomendado_5']);
 		}
 	}
 
@@ -583,7 +580,7 @@ class UsersController extends AppController {
 		$this->set('user_id', $id);
 	}
 
-	function enviarCorreoRecomendado($userID = null, $correoDestino = null){
+	function __enviarCorreoRecomendado($userID = null, $correoDestino = null){
 		// Encriptar el ID de quien envía la recomendacion
 		//
 		if ($userID) {

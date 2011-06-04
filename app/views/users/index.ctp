@@ -24,6 +24,7 @@
 					<?php echo $html->link("subastas finalizadas",array("controller"=>"subastas","action"=>"finalizadas"));?>
 					<?php echo $html->link("subastas ganadas",array("controller"=>"subastas","action"=>"ganadas"));?>
 					<?php echo $html->link("comprar creditos",array("controller"=>"users","action"=>"comprarCreditos"));?>
+					<?php echo $html->link("recomendar",array("controller"=>"users","action"=>"recomendar"));?>
 					<div style="clear:both;"></div>
 				</div>
 			</div>	
