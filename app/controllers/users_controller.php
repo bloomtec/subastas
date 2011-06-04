@@ -556,11 +556,22 @@ class UsersController extends AppController {
 		if(!empty($this->data)){
 			// Proceder a enviar correos
 			//
-			$this->__enviarCorreoRecomendado($this->data['User']['user_id'], $this->data['User']['correo_recomendado_1']);
-			$this->__enviarCorreoRecomendado($this->data['User']['user_id'], $this->data['User']['correo_recomendado_2']);
-			$this->__enviarCorreoRecomendado($this->data['User']['user_id'], $this->data['User']['correo_recomendado_3']);
-			$this->__enviarCorreoRecomendado($this->data['User']['user_id'], $this->data['User']['correo_recomendado_4']);
-			$this->__enviarCorreoRecomendado($this->data['User']['user_id'], $this->data['User']['correo_recomendado_5']);
+			;
+			if(!$this->User->find('first', array('conditions'=>array('User.email'=>$this->data['User']['correo_recomendado_1'])))) {
+				$this->__enviarCorreoRecomendado($this->data['User']['user_id'], $this->data['User']['correo_recomendado_1']);
+			}
+			if(!$this->User->find('first', array('conditions'=>array('User.email'=>$this->data['User']['correo_recomendado_2'])))) {
+				$this->__enviarCorreoRecomendado($this->data['User']['user_id'], $this->data['User']['correo_recomendado_2']);
+			}
+			if(!$this->User->find('first', array('conditions'=>array('User.email'=>$this->data['User']['correo_recomendado_3'])))) {
+				$this->__enviarCorreoRecomendado($this->data['User']['user_id'], $this->data['User']['correo_recomendado_3']);
+			}
+			if(!$this->User->find('first', array('conditions'=>array('User.email'=>$this->data['User']['correo_recomendado_4'])))) {
+				$this->__enviarCorreoRecomendado($this->data['User']['user_id'], $this->data['User']['correo_recomendado_4']);
+			}
+			if(!$this->User->find('first', array('conditions'=>array('User.email'=>$this->data['User']['correo_recomendado_5'])))) {
+				$this->__enviarCorreoRecomendado($this->data['User']['user_id'], $this->data['User']['correo_recomendado_5']);
+			}
 		}
 	}
 
