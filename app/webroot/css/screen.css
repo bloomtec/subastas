@@ -1226,3 +1226,7 @@ div.logueado span{
 #right-content #vendido{
 	background-color: #EE1A24;
 }
+.message{
+	color:#EE1A24;
+	font-weight: bold;
+}

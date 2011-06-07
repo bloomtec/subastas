@@ -427,11 +427,11 @@ class UsersController extends AppController {
 				}
 
 			} else {
-				$this->Session->setFlash("Error al intentar iniciar sesión. Verifique los datos e intente de nuevo.");
+				$this->Session->setFlash("Por favor ingrese la dirección de correo electrónico con la que te registraste");
 			}
 
 		} else {
-			$this->Session->setFlash("Ingrese su usuario/correo y contraseña");
+			//$this->Session->setFlash("Ingrese su usuario/correo y contraseña");
 		}
 
 	}

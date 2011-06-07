@@ -18,12 +18,14 @@
 			 </div>
 		 <?php echo $this->Html->image($subasta['Subasta']['imagen_path'],array("width"=>"200"))?>
 		 <?php echo $this->Html->para("nombre",$subasta["Subasta"]["nombre"]) ?>
-	     <?php echo $this->Html->para("pvp","Precio Cial. $".number_format($subasta["Subasta"]['valor'], 0, ' ', '.')) ?>
+	     <?php echo $this->Html->para("pvp","Precio Cial. $ ".number_format($subasta["Subasta"]['valor'], 0, ' ', '.')) ?>
+	     <div  rel="<?php echo $subasta["Subasta"]["id"]; ?>">
 	     <p class="contador"></p>
 	     <p class="pvp">Tiempo Para termnar la oferta</p>
-	     <p class="precio"><?php echo "$ ".$subasta['Subasta']['precio'];?><p>
+	     <p class="precio"><?php echo "$ ".number_format($subasta["Subasta"]['precio'], 0, ' ', '.');?><p>
 	     <p class="ultimo-usuario"> <p>
 	     <?php echo $this->Html->link("¡Oferte ya!",array("controller"=>"subastas","action"=>"ofertar",$subasta["Subasta"]['id']),array('class'=>'boton ofertar')) ?>
+	 	<div>
 	 </li>
 	 <?php 
 	 $i++;

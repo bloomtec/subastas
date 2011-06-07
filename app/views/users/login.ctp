@@ -9,7 +9,7 @@
 <div id="right-content" class="estilo-borde">
 	<div class="login usurios forms">
 		<h1> <?php __("Ingrese su Nombre y contraseña")?> </h1>
-		<?php echo $session->flash('Auth'); ?>
+		
 		<?php echo $this -> Form -> create(array('action' => 'login'));
 			echo $this -> Form -> inputs(
 				array(
@@ -23,6 +23,11 @@
 				)
 			);
 			echo $this -> Form -> end('Ingresar');
+			
 		?>
+		<div style="clear:both;"></div>	
+		<br />
+		<?php echo $session->flash(); ?>
 	</div>
+	
 </div>
