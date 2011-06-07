@@ -30,7 +30,7 @@
 		 <?php echo $this->Html->para("nombre",$subasta["Subasta"]["nombre"]) ?>
 	     <?php echo $this->Html->para("pvp","PVP $".number_format($subasta["Subasta"]['valor'], 0, ' ', '.')) ?>
 	 
-	     <?php echo $this->Html->link("¡VENDIDO!",("#"),array('class'=>'boton')) ?>
+	     <?php echo $this->Html->link("¡Entregado!",("#"),array('class'=>'boton',"id"=>"vendido")) ?>
 	 </li>
 	 <?php 
 	 $i++;

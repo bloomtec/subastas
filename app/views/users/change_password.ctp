@@ -11,9 +11,9 @@
 			Por favor ingrese su actual contraseña y su contraseña anterior
 			</p>
 		<?php
-			echo $this->Form->input('actualPassword', array('label'=>'Contrasena Actual',"required"=>"required","div"=>"forma-linea required","type"=>"password"));
+			echo $this->Form->input('actualPassword', array('label'=>'Contraseña Actual',"required"=>"required","div"=>"forma-linea required","type"=>"password"));
 			echo $this->Form->input('password', array('label'=>'Contraseña Nueva',"required"=>"required","id"=>"Contraseñas"));  
-	echo $this->Form->input('password2', array('label'=>'Confirmar contraseña',"div"=>"required forma-linea","required"=>"required","data-equals"=>"Contraseñas","type"=>"password","data-message"=>"Por favor verifique este campo"));    
+	echo $this->Form->input('password2', array('label'=>'Confirmar Contraseña',"div"=>"required forma-linea","required"=>"required","data-equals"=>"Contraseñas","type"=>"password","data-message"=>"Por favor verifique este campo"));    
 		?>
 		</fieldset>
 		<?php echo $this->Form->end(__('Enviar', true));?>

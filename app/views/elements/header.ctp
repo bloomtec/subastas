@@ -1,5 +1,5 @@
 <div class="header_wrap">
-	<h1><a href="<?php echo $base_url;?>">Llevatelos.com</a></h1>
+	<h1><a href="<?php echo $base_url;?>">Llévatelos.com</a></h1>
 	<div class="info">
 		<p class="slogan">Lo que más deseas el <strong>15%</strong> del precio comercial</p>
 		<div class="reloj">
@@ -21,19 +21,21 @@
 			<?php echo $html->image('falabella.png', array('alt' => 'falabella')); ?>
 			<p> <strong>Todos</strong> los productos de llévatelos.com tienen la garantía de falabella</p>
 	</div>
-	<div class="banner-registro">
+	
 		<?php if(!$session->read("Auth.User.id")){?>
+		<div class="banner-registro">
 		<div class="leyenda">
 			<strong>¿Aún no eres miembro?</strong>
 			<p>Házlo en menos de 60 segundos</p>
 		</div>
 			<?php echo $html->link("Registrate",array("controller"=>"users","action"=>"register"),array("class"=>"registro"));?>
 		<?php }else{?>
+			<div class="banner-registro" id="banner-compra">
 			<div class="leyenda">
 			<strong>¿Se te acaban tus creditos?</strong>
 			<p>Compra mas creditos y aprovecha nuestra ofertas!</p>
 		</div>
-			<?php echo $html->link("Comprar",array("controller"=>"users","action"=>"comprarCreditos"),array("class"=>"registro"));?>
+			<?php echo $html->link("Comprar",array("controller"=>"users","action"=>"comprarCreditos"),array("class"=>"registro","id"=>"compra-creditos"));?>
 		<?php }?>
 	</div>
 	<div class="login">

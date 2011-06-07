@@ -11,7 +11,7 @@
             </li>
             <li>
             	<?php 
-            	echo $html->link("¿Como Funciona?",
+            	echo $html->link("¿Cómo Funciona?",
             			array(
 							"controller"=>"pages","action"=>"view","como-funciona"),
 						array(
@@ -33,7 +33,7 @@
             </li>
             <li>
             	<?php 
-            	echo $html->link("Registrarse",
+            	echo $html->link("Regístrarse",
             			array(
 							"controller"=>"users","action"=>"register"),
 						array(
