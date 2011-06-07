@@ -33,8 +33,7 @@
 		</div>
 		<?php
 			echo $form->input("UserField.fecha_de_nacimiento",array("minYear"=>date('Y') - 70));
-			echo getVar('codigo_referido');
-			echo $form->input("referido_por");
+			echo $form->input("referido_por", array('value' => $this->getVar('codigo_referido')));
 			echo "</fieldset>";
 			echo "<div class='layer'>";
 			echo $form->checkbox("confirmacion",array("required"=>"required"));
