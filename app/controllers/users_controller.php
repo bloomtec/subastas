@@ -204,13 +204,13 @@ class UsersController extends AppController {
 		$this->autorender=false;
 		exit(0);
 	}
+	
 	function register(){
 		if (!empty($this->data)) {
 			$this->User->recursive = 0;
 			$this->User->create();
 			$this->data["User"]["role_id"]=2;// Is set as a Basic user for default
-			if ($this->User->save($this->data))
-			{
+			if ($this->User->save($this->data)) {
 				$this->data["UserField"]["user_id"]=$this->User->id;
 				$this->User->UserField->save($this->data["UserField"]);
 				if (isset($this->data['Recomendado'])) {
@@ -244,6 +244,8 @@ class UsersController extends AppController {
 			} else {
 				$this->Session->setFlash(__('No se pudo completar el registro. Por favor, intente de nuevo', true));
 			}
+		} else {
+			$this->set($this->params['pass'][0], 'codigo_referido');
 		}
 	}
 	function checkPassword(){
