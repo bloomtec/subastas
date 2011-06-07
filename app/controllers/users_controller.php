@@ -10,7 +10,7 @@ class UsersController extends AppController {
 
 	function beforeFilter(){
 		parent::beforeFilter();
-		$this->Auth->allow("login","abonarCreditosPorRecomendacion","checkEmail","register","checkPassword","rememberPassword","reponerCreditos","creditosUsuario","creditosSuficientes","descontarCreditos");
+		//$this->Auth->deny("login","abonarCreditosPorRecomendacion","checkEmail","register","checkPassword","rememberPassword","reponerCreditos","creditosUsuario","creditosSuficientes","descontarCreditos");
 	}
 
 	function index() {
