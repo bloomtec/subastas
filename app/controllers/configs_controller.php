@@ -115,8 +115,8 @@ class ConfigsController extends AppController {
 	}
 	
 	function creditosPorRecomendacion () {
-		$this->Config->read(null, 1);
-		return $this->Config->creditos_recomendados;
+		$config = $this->Config->read(null, 1);
+		return $config['Config']['creditos_recomendados'];
 	}
 	
 }
