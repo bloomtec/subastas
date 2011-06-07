@@ -162,6 +162,7 @@ class UsersController extends AppController {
 			exit(0);
 		}
 	}
+	
 	function abonarCreditosPorRecomendacion($encryptedID = null){
 		// Encontrar el total de usuarios registrados
 		//
@@ -179,6 +180,25 @@ class UsersController extends AppController {
 				//
 			}
 		}
+	}
+	
+	function obtenerCorreoReferente($encryptedID = null){
+		// Encontrar el total de usuarios registrados
+		//
+		$totalUsuarios = $this->User->find('count', array('conditions' => array('User.id >' => 0)));
+		$usuario = null;
+		for ($id = 1; $id < $totalUsuarios; $id++) {
+			if ($encryptedID == crypt($id, "23()23*$%g4F^aN!^^%")) {
+				// Las ID son iguales, abonar por recomendacion
+				//
+				$usuario = $this->User->read(null, $id);
+				break;
+			} else {
+				// Seguir buscando
+				//
+			}
+		}
+		return $usuario['User']['email'];
 	}
 
 	function checkEmail(){
@@ -245,9 +265,14 @@ class UsersController extends AppController {
 				$this->Session->setFlash(__('No se pudo completar el registro. Por favor, intente de nuevo', true));
 			}
 		} else {
-			$this->set($this->params['pass'][0], 'codigo_referido');
+			if(!empty($this->params['pass'][0])){
+				debug($this->params['pass'][0]);
+				debug($this->obtenerCorreoReferente($this->params['pass'][0]));
+				$this->set('email_referente', $this->obtenerCorreoReferente($this->params['pass'][0]));
+			}
 		}
 	}
+	
 	function checkPassword(){
 		$this->User->recursive=0;
 		$user=$this->User->read(null,$this->Auth->user("id"));
@@ -263,6 +288,7 @@ class UsersController extends AppController {
 		$this->autoRender=false;
 		exit(0);
 	}
+	
 	function changePassword(){
 		if(!empty($this->data)){
 				
@@ -461,6 +487,7 @@ class UsersController extends AppController {
 		}
 		return $cad;
 	}
+	
 	function rememberPassword(){
 		if (!empty($this->data)) {
 			$this->User->recursive=0;
@@ -497,7 +524,6 @@ class UsersController extends AppController {
 			}
 		}
 	}
-
 
 	function reponerCreditos($userID = null, $creditosAReponer){
 		$usuario = $this->User->read(null, $userID);
@@ -595,7 +621,7 @@ class UsersController extends AppController {
 		//
 		if ($userID) {
 			$IDEncriptada = crypt($userID, "23()23*$%g4F^aN!^^%");
-				
+			
 			// TODO : Enviar el correo a $correoDestino con el enlace y la $IDEncriptada
 			//
 
