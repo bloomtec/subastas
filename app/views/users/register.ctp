@@ -14,10 +14,6 @@
 			echo $form -> input("username",array("div"=>"input text required","label"=>"Usuario"));
 			echo $form -> input("password",array("div"=>"input required","required"=>"required","id"=>"password","label"=>"Contraseña"));
 			echo $form -> input("password2",array("div"=>"input required","required"=>"required","id"=>"password2","type"=>"password","label"=>"Confirmar Contraseña","data-equals"=>"password","data-message"=>"Verificar contraseña"));
-			$datos = explode("/", $_GET['url']);
-			if(isset($datos['2']) & !empty($datos['2'])) {
-				echo $form -> hidden("Recomendado.id", array('value' => $datos['2']));
-			}
 			echo $form -> input("UserField.nombres",array("required"=>"required","div"=>"input required text"));
 			echo $form -> input("UserField.apellidos");
 			
@@ -34,7 +30,7 @@
 		<?php
 			echo $form->input("UserField.fecha_de_nacimiento",array("minYear"=>date('Y') - 70));
 			if (isset($email_referente)){
-				echo $form->input("referido_por", array('value' => $email_referente));
+				echo $form->hidden("referido_por", array('value' => $email_referente));
 			} else {
 				echo $form->input("referido_por");
 			}

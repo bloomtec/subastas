@@ -163,26 +163,19 @@ class UsersController extends AppController {
 		}
 	}
 	
-	function abonarCreditosPorRecomendacion($encryptedID = null){
-		// Encontrar el total de usuarios registrados
-		//
-		$totalUsuarios = $this->User->find('count', array('conditions' => array('User.id >' => 0)));
-		for ($id = 1; $id < $totalUsuarios; $id++) {
-			if ($encryptedID == crypt($id, "23()23*$%g4F^aN!^^%")) {
-				// Las ID son iguales, abonar por recomendacion
-				//
-				$this->User->read(null, $id);
-				$this->User->set('creditos', $this->User->creditos + $this->requestAction('/configs/creditosPorRecomendacion'));
+	function __abonarCreditosPorRecomendacion($email = null){
+		if ($email) {
+			$user = $this->User->find('first', array('conditions' => array('User.email' => $email)));
+			debug($user);
+			if($user) {
+				$this->User->read(null, $user['User']['id']);
+				$this->User->set('creditos', $user['User']['creditos'] + $this->requestAction('/configs/creditosPorRecomendacion'));
 				$this->User->save();
-				break;
-			} else {
-				// Seguir buscando
-				//
 			}
 		}
 	}
 	
-	function obtenerCorreoReferente($encryptedID = null){
+	function __obtenerCorreoReferente($encryptedID = null){
 		// Encontrar el total de usuarios registrados
 		//
 		$totalUsuarios = $this->User->find('count', array('conditions' => array('User.id >' => 0)));
@@ -233,18 +226,18 @@ class UsersController extends AppController {
 			if ($this->User->save($this->data)) {
 				$this->data["UserField"]["user_id"]=$this->User->id;
 				$this->User->UserField->save($this->data["UserField"]);
-				if (isset($this->data['Recomendado'])) {
-					$this->abonarCreditosPorRecomendacion($this->data['Recomendado']['id']);
+				if (isset($this->data['User']['referido_por'])) {
+					$this->__abonarCreditosPorRecomendacion($this->data['User']['referido_por']);
 				}
 				$para      = $this->data['User']['email'];
-				$asunto    = 'Bienvenido a Tecnocenter';
-				$mensaje   = 'Bienvenido, sus datos de ingreso al portal Tecnocenter son los siguientes:<br> Nombre de usuario (email) :'.$this->data['User']['email'].
+				$asunto    = 'Bienvenido a www.llevatelos.com';
+				$mensaje   = 'Bienvenido, sus datos de ingreso al portal Llévatelos son los siguientes:<br> Nombre de usuario (email) :'.$this->data['User']['email'].
 							 '<br>Contraseña: '.$this->data['User']['password'];
 					
 				$cabeceras = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
 				// Cabeceras adicionales
-				$cabeceras .= 'From: Tecnocenter <info@llevatelo.com>' . "\r\n";
+				$cabeceras .= 'From: Llévatelos <info@llevatelo.com>' . "\r\n";
 
 				/*if(mail($para, $asunto, $mensaje, $cabeceras))
 				 {
@@ -266,9 +259,7 @@ class UsersController extends AppController {
 			}
 		} else {
 			if(!empty($this->params['pass'][0])){
-				debug($this->params['pass'][0]);
-				debug($this->obtenerCorreoReferente($this->params['pass'][0]));
-				$this->set('email_referente', $this->obtenerCorreoReferente($this->params['pass'][0]));
+				$this->set('email_referente', $this->__obtenerCorreoReferente($this->params['pass'][0]));
 			}
 		}
 	}
