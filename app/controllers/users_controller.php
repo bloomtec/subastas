@@ -492,7 +492,7 @@ class UsersController extends AppController {
 			if($datos['User']['email']){
 				$para      = $datos['User']['email'];
 				$asunto    = 'Recuperacion de contraseña';
-				$mensaje   = 'Sus datos para ingresar al portal tecnocenter.com.co son los siguientes: <br /> Nombre de usuario: '.$datos['User']['email'].
+				$mensaje   = 'Sus datos para ingresar al portal llevatelos.com son los siguientes: <br /> Nombre de usuario: '.$datos['User']['email'].
 							 ' <br /> Contraseña: '.$newPassword;
 					
 				$cabeceras  = 'MIME-Version: 1.0' . "\r\n";
@@ -500,7 +500,7 @@ class UsersController extends AppController {
 
 				// Cabeceras adicionales
 				$cabeceras .= "To:< ".$datos['User']['email'].">" . "\r\n";
-				$cabeceras .= 'From: Tecnocenter <info@tecnocenter.com.co>' . "\r\n";
+				$cabeceras .= 'From: llevatelos.com <info@llevatelos.com>' . "\r\n";
 
 				if(mail($para, $asunto, $mensaje, $cabeceras)){
 					$this->User->save($datos,array("validate"=>false));
