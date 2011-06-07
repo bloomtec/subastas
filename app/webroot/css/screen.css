@@ -363,7 +363,7 @@ div.logueado span{
 
 #header p.slogan strong{
 	font-size: 21px;
-	color:#CB2128;
+	color:#ee1a24;
 }
 
 #header .reloj {
@@ -405,7 +405,7 @@ div.logueado span{
   
   ul.main_nav{
 	font-size: 16px;
-	padding-bottom: 30px;
+	padding-bottom: 10px;
     padding-top: 10px;
 	background: url("../img/trama-amarillo-nav.png") repeat-x;
 	color:black;
@@ -438,14 +438,14 @@ div.logueado span{
   }
   
   .contenido_header{
-  	height: 165px;
+  	height: 210px;
 	position: relative;
 	width: 100%;
   }
   
   .prueba{
     position: absolute;
-    bottom:0;
+    top:65px;
   }
   
   .banner-falabella{
@@ -486,6 +486,9 @@ div.logueado span{
     -moz-box-shadow: 0px 2px 3px #969696; /* for Firefox 3.5+ */
     -webkit-box-shadow: 0px 2px 3px #969696; /* for Safari and Chrome */
     filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=180, Strength=3);
+  }
+  #banner-compra{
+  	padding:17.5px 0;
   }
   a.registro{
   	font-weight: bold;
@@ -681,12 +684,12 @@ div.logueado span{
   
   #left-content .precio{
   	font-size: 20px;
-  	color:#CB2128;
+  	color:#ee1a24;
   }
   
   #left-content .fecha{
   	font-size: 20px;
-  	color:#CB2128;
+  	color:#ee1a24;
   }
   
   #left-content .usuario{
@@ -740,13 +743,12 @@ div.logueado span{
     -moz-border-radius: 15px 15px 15px 15px;
   	padding:5px 0;
     width:120px;
-    margin: 0 auto; 
     text-decoration: none;
     color:black;
     font-weight: bold;
     font-size: 17px;
     display:block;
-    margin-bottom:10px;
+    margin:0.5em auto 0 auto;
   }
   
   /** Subastas activas **/
@@ -762,12 +764,13 @@ div.logueado span{
   
   #right-content .precio{
   	font-size: 20px;
-  	color:#CB2128;
+  	color:#ee1a24;
   }
   
   #right-content .contador{
   	font-size: 18px;
-  	color:#CB2128;
+  	color:#ee1a24;
+  	margin:0.5em 0;
   }
   .pvp, .precio, .contador, .ultimo-usuario{
   	min-height:1em;
@@ -797,6 +800,7 @@ div.logueado span{
 	-moz-box-shadow: 0px 2px 3px #969696; /* for Firefox 3.5+ */
     -webkit-box-shadow: 0px 2px 3px #969696; /* for Safari and Chrome */
     filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=180, Strength=3);
+    padding:1em 0;
   }
 
   #right-content ul li.centro{
@@ -1190,7 +1194,7 @@ div.logueado span{
 	margin-top: 81px;
 }
 .actualizado{
-	color:#CB2128;
+	color:#ee1a24;
 }
 .fecha_vencimiento, .hora_servidor{
 	display:none;
@@ -1203,7 +1207,7 @@ div.logueado span{
 	width:100%;
 	height:100%;
 	
-	opacity:0.8;
+	opacity:0.4;
 	background: url("../img/vendida.png") white;
 
 }
@@ -1211,4 +1215,14 @@ div.logueado span{
   width:100%;
   margin-bottom:1em;
   overflow: hidden;
+}
+.new{
+	background: gray;
+}
+#compra-creditos{
+	margin-left: 1em;
+	margin-top: 1em;
+}
+#right-content #vendido{
+	background-color: #EE1A24;
 }

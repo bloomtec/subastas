@@ -11,7 +11,7 @@
 	<div class="form-container">
 		<?php echo $form -> create("User", array("action" => "register","id"=>"registerForm","novalidate"=>"novalidate"));
 			echo "<fieldset>";
-			echo $form -> input("username",array("div"=>"input text required","value"=>"web","label"=>"Usuario"));
+			echo $form -> input("username",array("div"=>"input text required","label"=>"Usuario"));
 			echo $form -> input("password",array("div"=>"input required","required"=>"required","id"=>"password","label"=>"Contraseña"));
 			echo $form -> input("password2",array("div"=>"input required","required"=>"required","id"=>"password2","type"=>"password","label"=>"Confirmar Contraseña","data-equals"=>"password","data-message"=>"Verificar contraseña"));
 			$datos = explode("/", $_GET['url']);
@@ -23,12 +23,12 @@
 			
 		?>
 		<div class="input text required">
-			<label for="UserEmail">Correo Electónico</label>
+			<label for="UserEmail">Correo Electrónico</label>
 			<input type="email" id="UserEmail" maxlength="45" name="data[User][email]" required="required">
 			
 		</div>
 		<div class="input text required">
-			<label for="UserEmail">Confirmar Correo Electónico</label>
+			<label for="UserEmail">Confirmar Correo Electrónico</label>
 			<input type="email" id="UserEmailConfirm" maxlength="45" name="data[User][email-confirm]" required="required" data-equals="UserEmail" data-message="Verificar correo electrónico"));>
 		</div>
 		<?php
@@ -37,7 +37,7 @@
 			echo "</fieldset>";
 			echo "<div class='layer'>";
 			echo $form->checkbox("confirmacion",array("required"=>"required"));
-			echo $form->label("Confirmo que he leido y aceptado los términos y condiciones");
+			echo "<label>Confirmo que he leido y aceptado los términos y condiciones </label>".$this->Html->link("leer",array("controller"=>"pages","action"=>"view","terminos-condiciones"));
 			echo "</div>";
 			
 		

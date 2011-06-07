@@ -21,11 +21,11 @@
 			echo $this->Form->input('UserField.fecha_de_nacimiento');
 			echo $this->Form->input('UserField.sexo');
 			echo $this->Form->input('email');
-			echo $this->Form->input('UserField.direccion');
+			echo $this->Form->input('UserField.direccion',array("label"=>"Dirección"));
 			echo $this->Form->input('UserField.ciudad');
-			echo $this->Form->input('UserField.telefono_fijo');
-			echo $this->Form->input('UserField.ocupacion');
-			echo $this->Form->input('UserField.lugar_ocupacion');
+			echo $this->Form->input('UserField.telefono_fijo',array("label"=>"Teléfono Fijo"));
+			echo $this->Form->input('UserField.ocupacion',array("label"=>"Ocupación"));
+			echo $this->Form->input('UserField.lugar_ocupacion',array("label"=>"Lugar Ocupación"));
 		?>
 		</fieldset>
 	<?php echo $this->Form->end(__('guardar', true));?>
