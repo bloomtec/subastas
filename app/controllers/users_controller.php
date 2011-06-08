@@ -163,7 +163,7 @@ class UsersController extends AppController {
 		}
 	}
 	
-	function __abonarCreditosPorRecomendacion($email = null){
+	function __abonarCreditosPorRecomendacion($email = null, $email_usuario = null){
 		if ($email) {
 			$user = $this->User->find('first', array('conditions' => array('User.email' => $email)));
 			debug($user);
@@ -171,6 +171,7 @@ class UsersController extends AppController {
 				$this->User->read(null, $user['User']['id']);
 				$this->User->set('creditos', $user['User']['creditos'] + $this->requestAction('/configs/creditosPorRecomendacion'));
 				$this->User->save();
+				$this->__enviarCorreoAbonoPorRecomendar($email, $email_usuario);
 			}
 		}
 	}
@@ -222,12 +223,12 @@ class UsersController extends AppController {
 		if (!empty($this->data)) {
 			$this->User->recursive = 0;
 			$this->User->create();
-			$this->data["User"]["role_id"]=2;// Is set as a Basic user for default
+			$this->data["User"]["role_id"] = 2; // Is set as a Basic user for default
 			if ($this->User->save($this->data)) {
-				$this->data["UserField"]["user_id"]=$this->User->id;
+				$this->data["UserField"]["user_id"] = $this->User->id;
 				$this->User->UserField->save($this->data["UserField"]);
 				if (isset($this->data['User']['referido_por'])) {
-					$this->__abonarCreditosPorRecomendacion($this->data['User']['referido_por']);
+					$this->__abonarCreditosPorRecomendacion($this->data['User']['referido_por'], $this->data['User']['email']);
 				}
 				$para      = $this->data['User']['email'];
 				$asunto    = 'Bienvenido a www.llevatelos.com';
@@ -607,6 +608,32 @@ class UsersController extends AppController {
 		$this->set('user_id', $id);
 	}
 
+	function __enviarCorreoAbonoPorRecomendar($correoDestino = null, $email_usuario = null){
+		// Encriptar el ID de quien envía la recomendacion
+		//
+		if ($correoDestino) {
+			$para = $correoDestino;
+			$asunto = '¡Alguien se inscribió luego de que lo recomendaras!';
+			$mensaje = "Saludos, se te han abonado creditos por haber recomendado nuestra página a $email_usuario." .
+					"\n Registrate usando este link para llevarte un beneficio de creditos.";
+
+			$cabeceras = 'From: webmaster@example.com' .
+					"\r\n" . 
+					'Reply-To: webmaster@example.com' . "\r\n" . 
+					'X-Mailer: PHP/' . phpversion();
+
+			if(mail($para, $asunto, $mensaje, $cabeceras)) {
+				$this->Session->setFlash(__('Datos enviados a su correo', true));
+			} else {
+				$this->Session->setFlash(__('Datos no enviados a su correo, por favor intenta mas tarde', true));
+			}
+				
+			return;
+		} else {
+			// TODO: Algun error con el correo destino
+		}
+	}
+	
 	function __enviarCorreoRecomendado($userID = null, $correoDestino = null){
 		// Encriptar el ID de quien envía la recomendacion
 		//
