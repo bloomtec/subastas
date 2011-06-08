@@ -31,6 +31,7 @@ class AppController extends Controller {
 		$this->Auth->actionPath = 'controllers/';
 		if(isset($this->params["prefix"]) && $this->params["prefix"]=="admin"){
 			$this->layout="admin";
+			$this->Auth->deny($this->action);
 		}
 		$this->Cookie->name = 'Llevatelos';
 		$this->Cookie->time = '10 Days'; // or '1 hour'

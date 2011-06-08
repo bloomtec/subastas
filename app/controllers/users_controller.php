@@ -10,7 +10,7 @@ class UsersController extends AppController {
 
 	function beforeFilter(){
 		parent::beforeFilter();
-		$this->Auth->allow("login","abonarCreditosPorRecomendacion","checkEmail","register","checkPassword","rememberPassword","reponerCreditos","creditosUsuario","creditosSuficientes","descontarCreditos");
+		//$this->Auth->deny("login","abonarCreditosPorRecomendacion","checkEmail","register","checkPassword","rememberPassword","reponerCreditos","creditosUsuario","creditosSuficientes","descontarCreditos");
 	}
 
 	function index() {
@@ -446,11 +446,11 @@ class UsersController extends AppController {
 				}
 
 			} else {
-				$this->Session->setFlash("Error al intentar iniciar sesión. Verifique los datos e intente de nuevo.");
+				$this->Session->setFlash("Por favor ingrese la dirección de correo electrónico con la que te registraste");
 			}
 
 		} else {
-			$this->Session->setFlash("Ingrese su usuario/correo y contraseña");
+			//$this->Session->setFlash("Ingrese su usuario/correo y contraseña");
 		}
 
 	}
@@ -492,7 +492,7 @@ class UsersController extends AppController {
 			if($datos['User']['email']){
 				$para      = $datos['User']['email'];
 				$asunto    = 'Recuperacion de contraseña';
-				$mensaje   = 'Sus datos para ingresar al portal tecnocenter.com.co son los siguientes: <br /> Nombre de usuario: '.$datos['User']['email'].
+				$mensaje   = 'Sus datos para ingresar al portal llevatelos.com son los siguientes: <br /> Nombre de usuario: '.$datos['User']['email'].
 							 ' <br /> Contraseña: '.$newPassword;
 					
 				$cabeceras  = 'MIME-Version: 1.0' . "\r\n";
@@ -500,7 +500,7 @@ class UsersController extends AppController {
 
 				// Cabeceras adicionales
 				$cabeceras .= "To:< ".$datos['User']['email'].">" . "\r\n";
-				$cabeceras .= 'From: Tecnocenter <info@tecnocenter.com.co>' . "\r\n";
+				$cabeceras .= 'From: llevatelos.com <info@llevatelos.com>' . "\r\n";
 
 				if(mail($para, $asunto, $mensaje, $cabeceras)){
 					$this->User->save($datos,array("validate"=>false));

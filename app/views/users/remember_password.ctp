@@ -9,7 +9,7 @@
 <div id="right-content" class="estilo-borde">
 	<div class="remember forms">
 			<p>
-			Por favor ingrese la dirección de correo electrónico con la que te registraste. El sistema te enviará un correo con la contraseña
+			Por favor ingresa la dirección de correo electrónico con la que te registraste. El sistema te enviará un correo con la contraseña
 			</p>
 	<?php echo $this->Form->create('User');?>
 		<fieldset>
