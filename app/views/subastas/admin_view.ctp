@@ -28,7 +28,7 @@
 			<?php echo $subasta['Subasta']['valor']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Umbral Minimo Creditos'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Mínimo De Créditos'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 		<?php echo $subasta['Subasta']['umbral_minimo_creditos']; ?>
 		&nbsp;
@@ -53,11 +53,11 @@
 			<?php echo $subasta['Subasta']['dias_espera']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Contenido Pagina'); ?></dt>
+<!--		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Contenido Pagina'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $subasta['Subasta']['contenido_pagina']; ?>
 			&nbsp;
-		</dd>
+</dd> -->
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Posicion En Cola'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php
@@ -75,7 +75,7 @@
 			<?php echo $subasta['EstadosSubasta']['nombre']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Fecha De Venta'); ?></dt>
+<!--		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Fecha De Venta'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $subasta['Subasta']['fecha_de_venta']; ?>
 			&nbsp;
@@ -90,40 +90,10 @@
 			<?php echo $subasta['Subasta']['updated']; ?>
 			&nbsp;
 		</dd>
-	</dl>
+	</dl> -->
 </div>
-	<div class="related">
-		<h3><?php __('Venta');?></h3>
-		<?php if (!empty($subasta['Venta'])):?>
-	<dl>	<?php $i = 0; $class = ' class="altrow"';?>
-			<!-- <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Id');?></dt> -->
-		<!-- <dd<?php if ($i++ % 2 == 0) echo $class;?>> -->
-	<!-- <?php echo $subasta['Venta']['id'];?> -->
-<!-- &nbsp;</dd> -->
-		<!-- <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Subasta');?></dt> -->
-		<!-- <dd<?php if ($i++ % 2 == 0) echo $class;?>> -->
-	<!-- <?php echo $subasta['Venta']['subasta_id'];?> -->
-<!-- &nbsp;</dd> -->
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Usuario');?></dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-	<?php echo $subasta['Venta']['user_id'];?>
-&nbsp;</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Estado');?></dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-	<?php echo $subasta['Venta']['estados_venta_id'];?>
-&nbsp;</dd>
-		<!-- <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Created');?></dt> -->
-		<!-- <dd<?php if ($i++ % 2 == 0) echo $class;?>> -->
-	<!-- <?php echo $subasta['Venta']['created'];?> -->
-<!-- &nbsp;</dd> -->
-		<!-- <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Updated');?></dt> -->
-		<!-- <dd<?php if ($i++ % 2 == 0) echo $class;?>> -->
-	<!-- <?php echo $subasta['Venta']['updated'];?> -->
-<!-- &nbsp;</dd> -->
-		</dl>
-	<?php endif; ?>
-	</div>
-	<div class="related">
+	
+<div class="related">
 	<h3><?php __('Ofertas');?></h3>
 	<?php if (!empty($subasta['Oferta'])):?>
 	<table cellpadding = "0" cellspacing = "0">
@@ -153,4 +123,36 @@
 	<?php endforeach; ?>
 	</table>
 <?php endif; ?>
+</div>
+
+<div class="related">
+		<h3><?php __('Venta');?></h3>
+		<?php if (!empty($subasta['Venta'])):?>
+	<dl>	<?php $i = 0; $class = ' class="altrow"';?>
+			<!-- <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Id');?></dt> -->
+		<!-- <dd<?php if ($i++ % 2 == 0) echo $class;?>> -->
+	<!-- <?php echo $subasta['Venta']['id'];?> -->
+<!-- &nbsp;</dd> -->
+		<!-- <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Subasta');?></dt> -->
+		<!-- <dd<?php if ($i++ % 2 == 0) echo $class;?>> -->
+	<!-- <?php echo $subasta['Venta']['subasta_id'];?> -->
+<!-- &nbsp;</dd> -->
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Usuario');?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+	<?php echo $subasta['Venta']['user_id'];?>
+&nbsp;</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Estado');?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+	<?php echo $subasta['Venta']['estados_venta_id'];?>
+&nbsp;</dd>
+		<!-- <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Created');?></dt> -->
+		<!-- <dd<?php if ($i++ % 2 == 0) echo $class;?>> -->
+	<!-- <?php echo $subasta['Venta']['created'];?> -->
+<!-- &nbsp;</dd> -->
+		<!-- <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Updated');?></dt> -->
+		<!-- <dd<?php if ($i++ % 2 == 0) echo $class;?>> -->
+	<!-- <?php echo $subasta['Venta']['updated'];?> -->
+<!-- &nbsp;</dd> -->
+		</dl>
+	<?php endif; ?>
 </div>

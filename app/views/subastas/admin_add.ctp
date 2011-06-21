@@ -19,8 +19,9 @@
 		echo $this->Form->input('cantidad_creditos_puja', array("value" => "0","label"=>"Cantidad creditos por puja (se le descontarán al usuario si puja en esta subasta)"));
 		echo $this->Form->input('precio', array("value" => "0","label"=>"Precio (El precio inicial de la subasta)"));
 		echo $this->Form->input('aumento_precio', array("value" => "0","label"=>"Valor aumento de precio (Valor que se le aumentará al precio cada vez que se haga una subasta)"));
-		echo $this->Form->input('fecha_de_venta',array("label"=>"Fecha de Venta (Fecha en la que terminará la subasta si alcanza el umbral mínimo de creditos, si no lo alcanza se cancelará la subasta)"));
 		echo $this->Form->input('dias_espera', array("value" => "8","label"=>"Días de espera (Días que se esperará el usuario para que pague la subasta)"));
+		echo $this->Form->input('duracion_inicial', array("value" => "59", "label" => "La duración inicial de la subasta cuando pase a estar activa (en minutos)"));
+		echo $this->Form->input('aumento_duracion', array("value" => "20", "label" => "El aumento a la duración restante de la subasta que se dará cuando alguien oferte (en segundos)"));
 		echo $this->Form->hidden('estados_subasta_id', array("value" => "2"));
 		echo $this->Form->hidden('imagen_path', array("id"=>"single-field"));
 		echo $this->Form->hidden('posicion_en_cola', array("value" => "-1"));
