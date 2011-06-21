@@ -63,6 +63,9 @@ var usuario=function(){
 						this.fechaFinal = new Date($("[rel='"+subasta_id+"']").children(".fecha_vencimiento").text());
 						this.diferencia=this.fechaFinal-this.now ;
 					},
+					updateDiferencia:function(aumento){
+						this.diferencia=parseInt(this.diferencia)+parseInt(aumento*1000);
+					},
 					iniciarContador: function(){
 						var that=this;
 						var clouser=function(){
@@ -117,6 +120,7 @@ var usuario=function(){
 						$("div[rel='"+subasta_id+"']").children(".ultimo-usuario").fadeOut("slow",function(){
 						//	alert(oferta.User.creditos);
 							$("#creditos").html(oferta.User.creditos);
+							conteos[subasta_id].updateDiferencia(oferta.Subasta.aumento_duracion);
 							$(this).html("Última oferta "+oferta.User.username);
 							$(this).fadeIn();
 						});
@@ -136,9 +140,7 @@ var usuario=function(){
 			}
 			
 		});
-		
-	}();
-	function obtenerUsuarioUltimaOferta($val,ultimaOferta,subasta_id){
+		function obtenerUsuarioUltimaOferta($val,ultimaOferta,subasta_id){
 		setTimeout(function(){
 			jQuery.ajax({
 				 url:server+"ofertas/obtenerUsuarioUltimaOferta",
@@ -151,6 +153,7 @@ var usuario=function(){
 						$("[rel='"+subasta_id+"']").children(".ultimo-usuario").html("Última oferta: "+oferta.User.username);
 						//$(".actualizado").removeClass("actualizado");
 						//$("[rel='"+subasta_id+"']").children(".ofertas").prepend("<div class='actualizado'>"+oferta.Oferta.created+"</div>");
+						conteos[subasta_id].updateDiferencia(oferta.Subasta.aumento_duracion);
 						$("[rel='"+subasta_id+"']").children(".precio").html("$ "+addCommas(oferta.Subasta.precio));
 						$("[rel='"+subasta_id+"']").children(".ultimo-usuario").wrap("<div class='new' />");
 						$("[rel='"+subasta_id+"']").children(".precio").wrap("<div class='new' />");
@@ -167,7 +170,9 @@ var usuario=function(){
 				}
 			 });
 		},1000);		
-	}
+	}	
+	}();
+
 	
 
 
