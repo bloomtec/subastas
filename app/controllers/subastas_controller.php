@@ -88,45 +88,12 @@ class SubastasController extends AppController {
 			$this->autoRender=false;
 			exit(0);
 		
-
-/*if (!$subastaID) {
-			$this->Session->setFlash(__('ID no valida para la subasta', true));
-			$this->redirect(array('action'=>'index'));
-		} else {
-			$subasta=$this->Subasta->read(null, $subastaID);
-			if ($subasta["Subasta"]["estados_subasta_id"] != 2) {
-				$this->Session->setFlash(__('La subasta por la que oferto no esta activa', true));
-				$this->redirect(array('action'=>'index'));
-			} else {
-				if (($laOferta=$this->__ofertar($subastaID))) {
-					$this->Session->setFlash(__('Se oferto por la subasta exitosamente', true));
-					$this->redirect(array('action'=>'index'));
-				} else {
-					$this->Session->setFlash(__('No se pudo ofertar por la subasta, verifique si dispone de créditos suficientes.', true));
-					$this->redirect(array('action' => 'index'));
-				}
-			}
-		}*/
 	}
 
 	function __ofertar($subasta = null) {
-
-		/**
-		 * LOS CAMBIOS PIDEN QUE AQUI SE VALIDE QUE TIPO DE
-		 * SUBASTA ES Y VER SI SE PUEDE O NO OFERTAR PARA
-		 * CUANDO LA SUBASTA SEA POR MINIMO DE CREDITOS
-		 * SE CAMBIO EL METODO CREDITOSSUFICIENTES PARA VERIFICAR
-		 * SI SE TIENE EL MINIMO DE CREDITOS; SE ENVIA COMO TERCER
-		 * PARAMETRO DICHO VALOR
-		 */
-
-		// Obtener la informacion de la subasta
-		//
-		//$subasta = $this->Subasta->read(null, $subastaID);
-
+		$userId=$this->Session->read('Auth.User.id');
 		// Validar que el usuario tenga suficientes creditos para ofertar
 		// SUBASTA VENTA FIJA
-		$userId=$this->Session->read('Auth.User.id');
 		if ($subasta['TipoSubasta']['id'] == 1) {
 			
 			if($this->requestAction('/users/creditosSuficientes/' . $userId. '/' . $subasta['Subasta']['cantidad_creditos_puja'])) {
@@ -134,6 +101,17 @@ class SubastasController extends AppController {
 				//
 				$this->requestAction('/users/descontarCreditos/' . $userId . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
 					
+				// Aumentar la duracion de la subasta
+				//
+				$this->Subasta->read(null, $subasta['Subasta']['id']);
+				$fecha_de_venta = date($subasta['Subasta']['fecha_de_venta']);
+				$fecha_de_venta = strtotime(date("Y-m-d H:i:s", strtotime($fecha_de_venta)) . " +" . $subasta['Subasta']['aumento_duracion'] . " seconds");
+				$fecha_de_venta = date("Y-m-d H:i:s", $fecha_de_venta);
+				$fecha_de_venta = new DateTime($fecha_de_venta);
+				$fecha_de_venta = $fecha_de_venta->format('Y-m-d H:i:s');
+				$this->Subasta->set('fecha_de_venta', $fecha_de_venta);
+				$this->Subasta->save();
+				
 				// Crear la oferta para finalizar el proceso
 				//
 				return $this->requestAction('ofertas/crearOferta/' . $userId . '/' . $subasta['Subasta']['id'] . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
@@ -141,6 +119,7 @@ class SubastasController extends AppController {
 			} else {
 				return array("success"=>false,"mensaje"=>"No tiene suficiente credito, Por favor compra mas creditos para poder ofertar","code"=>"1");
 			}
+			
 		} else {
 			// Validar que el usuario tenga suficientes creditos para ofertar
 			// SUBASTA MINIMO DE CREDITOS
@@ -148,7 +127,18 @@ class SubastasController extends AppController {
 				// Como el usuario tiene suficientes creditos proceder a descontar los creditos
 				//
 				$this->requestAction('/users/descontarCreditos/' . $userId . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
-					
+
+				// Aumentar la duracion de la subasta
+				//
+				$this->Subasta->read(null, $subasta['Subasta']['id']);
+				$fecha_de_venta = date($subasta['Subasta']['fecha_de_venta']);
+				$fecha_de_venta = strtotime(date("Y-m-d H:i:s", strtotime($fecha_de_venta)) . " +" . $subasta['Subasta']['aumento_duracion'] . " seconds");
+				$fecha_de_venta = date("Y-m-d H:i:s", $fecha_de_venta);
+				$fecha_de_venta = new DateTime($fecha_de_venta);
+				$fecha_de_venta = $fecha_de_venta->format('Y-m-d H:i:s');
+				$this->Subasta->set('fecha_de_venta', $fecha_de_venta);
+				$this->Subasta->save();
+				
 				// Crear la oferta para finalizar el proceso
 				//
 				return $this->requestAction('ofertas/crearOferta/' . $userId. '/' . $subasta['Subasta']['id'] . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
@@ -156,6 +146,7 @@ class SubastasController extends AppController {
 			} else {
 				return array("success"=>false,"mensaje"=>"No tiene suficiente credito, Por favor compra mas creditos para poder ofertar","code"=>"1");
 			}
+			
 		}
 	}
 

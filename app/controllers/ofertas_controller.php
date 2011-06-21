@@ -8,16 +8,16 @@ class OfertasController extends AppController {
 		$ofertaID = $_GET['oferta_id'];
 		
 		$result = $this->Oferta->query(
-			"SELECT Oferta.id, Oferta.user_id, Oferta.subasta_id, Subasta.precio,Subasta.aumento_duracion ,User.username, User.creditos
+
+			"SELECT Oferta.id, Oferta.user_id, Oferta.subasta_id, Subasta.precio, Subasta.aumento_duracion, User.username, User.creditos
+
 			FROM ofertas as Oferta, users as User, subastas as Subasta
 			WHERE Oferta.subasta_id = '$subastaID'
 			AND Oferta.id > '$ofertaID'
 			ORDER BY Oferta.created DESC"
 		);
-		
-		if(isset($result[0]))$result=$result[0];
-		if(isset($result['User']['username'])) {
-			//$result["send_time"]=$_GET['send_time'];
+		if(isset($result[0])) {
+			$result = $result[0];
 			echo json_encode($result);
 		} else {
 			echo 0;
@@ -49,22 +49,27 @@ class OfertasController extends AppController {
 		$this->set('oferta', $this->Oferta->read(null, $id));
 	}
 	
-	function crearOferta($userID = null, $subastaID = null, $creditosDescontados = null){
+	function crearOferta($userID = null, $subastaID = null, $creditosDescontados = null) {
+		
 		$this->Oferta->create();
 		$this->Oferta->set('subasta_id', $subastaID);
 		$this->Oferta->set('user_id', $userID);
 		$this->Oferta->set('creditos_descontados', $creditosDescontados);
-		$oferta=$this->Oferta->save();
+		$oferta = $this->Oferta->save();
+		
 		if(!empty($oferta)){
-			$oferta=$this->Oferta->read(null,$this->Oferta->id);
-      $subasta["Subasta"]=$oferta["Subasta"];
-      $subasta["Subasta"]["precio"]+=$subasta["Subasta"]["aumento_precio"];
-        if($this->Oferta->Subasta->save($subasta)){
-          $oferta["Subasta"]=$subasta["Subasta"];
-        }
-      
-			$oferta["success"]=true;
+			
+			$oferta = $this->Oferta->read(null,$this->Oferta->id);
+			$subasta["Subasta"] = $oferta["Subasta"];
+			$subasta["Subasta"]["precio"] += $subasta["Subasta"]["aumento_precio"];
+        
+			if($this->Oferta->Subasta->save($subasta)){
+				$oferta["Subasta"] = $subasta["Subasta"];
+			}
+			
+			$oferta["success"] = true;
 			return $oferta;
+			
 		}else{
 			return false;
 		}
