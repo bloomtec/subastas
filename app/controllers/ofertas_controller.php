@@ -3,25 +3,39 @@ class OfertasController extends AppController {
 
 	var $name = 'Ofertas';
 
-	function obtenerUsuarioUltimaOferta($subastaID = null,$ofertID=null){	
-		if(isset($_GET['subasta_id'])){
-			$subastaID = $_GET['subasta_id'];
-		}
-		if(isset($_GET['oferta_id'])){
-			$ofertID = $_GET['oferta_id'];
-		}
+	function obtenerUsuarioUltimaOferta($subastaID = null,$ofertaID=null){	
+		$subastaID = $_GET['subasta_id'];
+		$ofertaID = $_GET['oferta_id'];
 		
-		if($subastaID){
-			$result = $this->Oferta->find('first', array('conditions'=>array('Oferta.subasta_id' => $subastaID,"Oferta.id >"=>$ofertID), 'order' => array('Oferta.created DESC')));
-			if(isset($result['User']['username'])){
-				//$result["Oferta"]["cantidad"]=$this->Oferta->find('count', array('conditions'=>array('Oferta.subasta_id' => $subastaID)));
-				echo json_encode($result);
-			} else {
-				echo 0;
-			}
+		/**
+		$result = $this->Oferta->find(
+			'first',
+			array(
+				'conditions' => array(
+					'Oferta.subasta_id' => $subastaID,
+					"Oferta.id >"=>$ofertaID
+				),
+				'order' => array(
+					'Oferta.created DESC'
+				)
+			)
+		);
+		*/
+		
+		$result = $this->Oferta->query(
+			"SELECT Oferta.id, Oferta.user_id, Oferta.subasta_id, Subasta.precio, User.username, User.creditos
+			FROM ofertas as Oferta, users as User, subastas as Subasta
+			WHERE Oferta.subasta_id = '$subastaID'
+			AND Oferta.id = '$ofertaID'
+			ORDER BY Oferta.created DESC"
+		);
+		
+		if(isset($result['User']['username'])) {
+			echo json_encode($result);
 		} else {
 			echo 0;
 		}
+			
 		Configure::write("debug",0);
 		$this->autoRender=false;
 		exit(0);
