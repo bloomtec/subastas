@@ -74,7 +74,7 @@ class SubastasController extends AppController {
 	}
 
 	function ofertar($subastaID = null) {
-		if($this->RequestHandler->isAjax()){
+
 			$subastaID=$_GET["subasta_id"];
 			$subasta=$this->Subasta->read(null, $subastaID);
 			if ($subasta["Subasta"]["estados_subasta_id"] != 2) {
@@ -82,14 +82,14 @@ class SubastasController extends AppController {
 				$this->autoRender=false;
 				exit(0);
 			} else {
-				echo json_encode($this->__ofertar($subastaID));
+				echo json_encode($this->__ofertar($subasta));
 			}
 			Configure::write("debug",0);
 			$this->autoRender=false;
 			exit(0);
-		}
+		
 
-		if (!$subastaID) {
+/*if (!$subastaID) {
 			$this->Session->setFlash(__('ID no valida para la subasta', true));
 			$this->redirect(array('action'=>'index'));
 		} else {
@@ -106,10 +106,10 @@ class SubastasController extends AppController {
 					$this->redirect(array('action' => 'index'));
 				}
 			}
-		}
+		}*/
 	}
 
-	function __ofertar($subastaID = null) {
+	function __ofertar($subasta = null) {
 
 		/**
 		 * LOS CAMBIOS PIDEN QUE AQUI SE VALIDE QUE TIPO DE
@@ -122,19 +122,21 @@ class SubastasController extends AppController {
 
 		// Obtener la informacion de la subasta
 		//
-		$subasta = $this->Subasta->read(null, $subastaID);
+		//$subasta = $this->Subasta->read(null, $subastaID);
 
 		// Validar que el usuario tenga suficientes creditos para ofertar
 		// SUBASTA VENTA FIJA
+		$userId=$this->Session->read('Auth.User.id');
 		if ($subasta['TipoSubasta']['id'] == 1) {
-			if($this->requestAction('/users/creditosSuficientes/' . $this->Session->read('Auth.User.id') . '/' . $subasta['Subasta']['cantidad_creditos_puja'])) {
+			
+			if($this->requestAction('/users/creditosSuficientes/' . $userId. '/' . $subasta['Subasta']['cantidad_creditos_puja'])) {
 				// Como el usuario tiene suficientes creditos proceder a descontar los creditos
 				//
-				$this->requestAction('/users/descontarCreditos/' . $this->Session->read('Auth.User.id') . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
+				$this->requestAction('/users/descontarCreditos/' . $userId . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
 					
 				// Crear la oferta para finalizar el proceso
 				//
-				return $this->requestAction('ofertas/crearOferta/' . $this->Session->read('Auth.User.id') . '/' . $subasta['Subasta']['id'] . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
+				return $this->requestAction('ofertas/crearOferta/' . $userId . '/' . $subasta['Subasta']['id'] . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
 
 			} else {
 				return array("success"=>false,"mensaje"=>"No tiene suficiente credito, Por favor compra mas creditos para poder ofertar","code"=>"1");
@@ -142,14 +144,14 @@ class SubastasController extends AppController {
 		} else {
 			// Validar que el usuario tenga suficientes creditos para ofertar
 			// SUBASTA MINIMO DE CREDITOS
-			if($this->requestAction('/users/creditosSuficientes/' . $this->Session->read('Auth.User.id') . '/' . $subasta['Subasta']['cantidad_creditos_puja'] . '/' . $subasta['Subasta']['umbral_minimo_creditos'])) {
+			if($this->requestAction('/users/creditosSuficientes/' . $userId . '/' . $subasta['Subasta']['cantidad_creditos_puja'] . '/' . $subasta['Subasta']['umbral_minimo_creditos'])) {
 				// Como el usuario tiene suficientes creditos proceder a descontar los creditos
 				//
-				$this->requestAction('/users/descontarCreditos/' . $this->Session->read('Auth.User.id') . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
+				$this->requestAction('/users/descontarCreditos/' . $userId . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
 					
 				// Crear la oferta para finalizar el proceso
 				//
-				return $this->requestAction('ofertas/crearOferta/' . $this->Session->read('Auth.User.id') . '/' . $subasta['Subasta']['id'] . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
+				return $this->requestAction('ofertas/crearOferta/' . $userId. '/' . $subasta['Subasta']['id'] . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
 
 			} else {
 				return array("success"=>false,"mensaje"=>"No tiene suficiente credito, Por favor compra mas creditos para poder ofertar","code"=>"1");
