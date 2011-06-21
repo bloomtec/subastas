@@ -15,6 +15,7 @@ class OfertasController extends AppController {
 			ORDER BY Oferta.created DESC"
 		);
 		
+		if(isset($result[0]))$result=$result[0];
 		if(isset($result['User']['username'])) {
 			echo json_encode($result);
 		} else {

@@ -10,7 +10,7 @@ class AppController extends Controller {
 							"Acl",
 							"Email",
 							"Cookie",
-							"RequestHandler"
+						
 						);
 	var $uses = array("Config");
 	var $cacheAction = true;
