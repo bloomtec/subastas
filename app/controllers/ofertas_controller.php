@@ -8,13 +8,14 @@ class OfertasController extends AppController {
 		$ofertaID = $_GET['oferta_id'];
 		
 		$result = $this->Oferta->query(
+
 			"SELECT Oferta.id, Oferta.user_id, Oferta.subasta_id, Subasta.precio, Subasta.aumento_duracion, User.username, User.creditos
+
 			FROM ofertas as Oferta, users as User, subastas as Subasta
 			WHERE Oferta.subasta_id = '$subastaID'
 			AND Oferta.id > '$ofertaID'
 			ORDER BY Oferta.created DESC"
 		);
-		
 		if(isset($result[0])) {
 			$result = $result[0];
 			echo json_encode($result);
