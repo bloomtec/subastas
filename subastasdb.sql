@@ -407,8 +407,6 @@ CREATE  TABLE IF NOT EXISTS `subastas`.`configs` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `tamano_cola` INT NOT NULL ,
   `creditos_recomendados` INT NOT NULL ,
-  `sitio_pausado` TINYINT(1) NOT NULL ,
-  `aumento_tiempo_subasta` INT NOT NULL ,
   `created` DATETIME NULL ,
   `updated` DATETIME NULL ,
   PRIMARY KEY (`id`) )
@@ -513,7 +511,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `subastas`;
-INSERT INTO `subastas`.`configs` (`id`, `tamano_cola`, `creditos_recomendados`, `sitio_pausado`, `aumento_tiempo_subasta`, `created`, `updated`) VALUES (1, 5, 500, 0, 10, NULL, NULL);
+INSERT INTO `subastas`.`configs` (`id`, `tamano_cola`, `creditos_recomendados`, `created`, `updated`) VALUES (1, 5, 500, NULL, NULL);
 
 COMMIT;
 
