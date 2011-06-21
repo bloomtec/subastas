@@ -26,10 +26,11 @@ class OfertasController extends AppController {
 			"SELECT Oferta.id, Oferta.user_id, Oferta.subasta_id, Subasta.precio, User.username, User.creditos
 			FROM ofertas as Oferta, users as User, subastas as Subasta
 			WHERE Oferta.subasta_id = '$subastaID'
-			AND Oferta.id = '$ofertaID'
+			AND Oferta.id > '$ofertaID'
 			ORDER BY Oferta.created DESC"
 		);
 		
+		if(isset($result[0]))$result=$result[0];
 		if(isset($result['User']['username'])) {
 			echo json_encode($result);
 		} else {
