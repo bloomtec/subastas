@@ -7,21 +7,6 @@ class OfertasController extends AppController {
 		$subastaID = $_GET['subasta_id'];
 		$ofertaID = $_GET['oferta_id'];
 		
-		/**
-		$result = $this->Oferta->find(
-			'first',
-			array(
-				'conditions' => array(
-					'Oferta.subasta_id' => $subastaID,
-					"Oferta.id >"=>$ofertaID
-				),
-				'order' => array(
-					'Oferta.created DESC'
-				)
-			)
-		);
-		*/
-		
 		$result = $this->Oferta->query(
 			"SELECT Oferta.id, Oferta.user_id, Oferta.subasta_id, Subasta.precio, User.username, User.creditos
 			FROM ofertas as Oferta, users as User, subastas as Subasta
@@ -85,21 +70,6 @@ class OfertasController extends AppController {
 		
 	}
 
-	/*function add() {
-		if (!empty($this->data)) {
-			$this->Oferta->create();
-			if ($this->Oferta->save($this->data)) {
-				$this->Session->setFlash(__('The oferta has been saved', true));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The oferta could not be saved. Please, try again.', true));
-			}
-		}
-		$subastas = $this->Oferta->Subasta->find('list');
-		$users = $this->Oferta->User->find('list');
-		$this->set(compact('subastas', 'users'));
-	}*/
-
 	function edit($id = null) {
 		if (!$id && empty($this->data)) {
 			$this->Session->setFlash(__('Invalid oferta', true));
@@ -133,6 +103,7 @@ class OfertasController extends AppController {
 		$this->Session->setFlash(__('Oferta was not deleted', true));
 		$this->redirect(array('action' => 'index'));
 	}
+	
 	function admin_index() {
 		$this->Oferta->recursive = 0;
 		$this->set('ofertas', $this->paginate());
