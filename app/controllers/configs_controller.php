@@ -114,6 +114,24 @@ class ConfigsController extends AppController {
 		$this->redirect(array('action' => 'index'));
 	}
 	
+	function congelar($duracion = null) {
+		if ($duracion) {
+			$this->Config->read(null, 1);
+			$this->Config->set('congelado', 1);
+						
+			if ($this->Config->save()) {
+				$this->requestAction('/subastas/congelar/' . $duracion);
+			}
+			
+		}
+	}
+	
+	function descongelar() {
+		$this->Config->read(null, 1);
+		$this->Config->set('congelado', 0);
+		$this->Config->save();
+	}
+	
 	function tamanoCola() {
 		$config = $this->Config->read(null, 1);
 		return $config['Config']['tamano_cola'];

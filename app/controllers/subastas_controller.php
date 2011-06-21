@@ -2,13 +2,46 @@
 class SubastasController extends AppController {
 
 	var $name = 'Subastas';
+	
 	function beforeFilter(){
 		parent::beforeFilter();
 		$this->Auth->allow("index","subastasFinalizadas");
 	}
-  function admin_cola(){
-    $this->set("subastas",$this->Subasta->find("all",array("conditions"=>array("Subasta.posicion_en_cola >"=>0),"order"=>"Subasta.posicion_en_cola ASC")));
-  }
+	
+	function congelar($duracion = null) {
+		
+		if ($duracion) {
+			
+			$subastas = $this->Subasta->find(
+				"all",
+				array(
+					'conditions' => array(
+						'Subasta.estados_subasta_id' => '2',
+						'Subasta.posicion_en_cola <=' => $this->requestAction('/configs/tamanoCola')
+					),
+					'order' => array(
+						'Subasta.posicion_en_cola'
+					)
+				)
+			);
+			
+			foreach ($subastas as $subasta) {
+				$fecha_de_venta = date($subasta['Subasta']['fecha_de_venta']);
+				$fecha_de_venta = strtotime(date("Y-m-d H:i:s", strtotime($fecha_de_venta)) . " +" . $duracion . " minutes");
+				$fecha_de_venta = date("Y-m-d H:i:s", $fecha_de_venta);
+				$fecha_de_venta = new DateTime($fecha_de_venta);
+				$fecha_de_venta = $fecha_de_venta->format('Y-m-d H:i:s');
+				$this->Subasta->set('fecha_de_venta', $fecha_de_venta);
+				$this->Subasta->save();
+			}
+			
+		}
+		
+	}
+	
+	function admin_cola(){
+		$this->set("subastas",$this->Subasta->find("all",array("conditions"=>array("Subasta.posicion_en_cola >"=>0),"order"=>"Subasta.posicion_en_cola ASC")));
+	}
 
 	/**
 	 * Devuelve todas las subastas activas
