@@ -55,6 +55,8 @@ CREATE  TABLE IF NOT EXISTS `subastas`.`subastas` (
   `dias_espera` INT NOT NULL COMMENT 'dias que se espera para la venta' ,
   `fecha_de_venta` DATETIME NOT NULL ,
   `posicion_en_cola` INT NOT NULL ,
+  `duracion_inicial` INT NOT NULL ,
+  `aumento_duracion` INT NOT NULL ,
   `contenido_pagina` LONGTEXT NULL COMMENT 'html pagina producto' ,
   `created` DATETIME NULL ,
   `updated` DATETIME NULL ,
