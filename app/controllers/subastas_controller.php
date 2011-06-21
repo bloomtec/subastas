@@ -358,7 +358,36 @@ class SubastasController extends AppController {
 			$this->Subasta->save();
 			$posicion_en_cola++;
 		}
+		
+		$this->__verificarFechaDeVentaSubastasActivas();
 
+	}
+	
+	function __verificarFechaDeVentaSubastasActivas(){
+		$subastasActivas = $this->Subasta->find(
+			"all",
+			array(
+				'conditions' => array(
+					'Subasta.estados_subasta_id' => '2',
+					'Subasta.posicion_en_cola <=' => $this->requestAction('/configs/tamanoCola')
+				),
+				'order' => array(
+					'Subasta.posicion_en_cola'
+				)
+			)
+		);
+		
+		foreach ($subastasActivas as $subastaActiva) {
+			if (empty($subastaActiva['Subasta']['fecha_de_venta'])) {
+				$this->Subasta->read(null, $subastaActiva['Subasta']['id']);
+				$gmt = 3600*-5; // GMT -5 para hora colombiana
+				$duracionInicial = 60*$subastaActiva['Subasta']['duracion_inicial'];
+				$fechaDeVenta = gmdate('Y-m-d H:i:s', time() + $gmt + $duracionInicial);
+				$this->Subasta->set('fecha_de_venta', $fechaDeVenta);
+				$this->Subasta->save();
+			}
+		}
+		
 	}
 
 	function __cambiarEstadoSubasta($id = null, $estados_subasta_id = null) {

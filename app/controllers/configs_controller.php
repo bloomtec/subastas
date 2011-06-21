@@ -114,6 +114,11 @@ class ConfigsController extends AppController {
 		$this->redirect(array('action' => 'index'));
 	}
 	
+	function tamanoCola() {
+		$config = $this->Config->read(null, 1);
+		return $config['Config']['tamano_cola'];
+	}
+	
 	function creditosPorRecomendacion () {
 		$config = $this->Config->read(null, 1);
 		return $config['Config']['creditos_recomendados'];
