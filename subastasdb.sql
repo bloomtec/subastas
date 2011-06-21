@@ -43,6 +43,7 @@ DROP TABLE IF EXISTS `subastas`.`subastas` ;
 CREATE  TABLE IF NOT EXISTS `subastas`.`subastas` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `tipo_subasta_id` INT NOT NULL ,
+  `estados_subasta_id` INT NOT NULL ,
   `nombre` VARCHAR(45) NOT NULL ,
   `descripcion` TEXT NOT NULL ,
   `imagen_path` VARCHAR(100) NOT NULL ,
@@ -52,10 +53,9 @@ CREATE  TABLE IF NOT EXISTS `subastas`.`subastas` (
   `precio` INT NOT NULL ,
   `aumento_precio` INT NOT NULL ,
   `dias_espera` INT NOT NULL COMMENT 'dias que se espera para la venta' ,
-  `contenido_pagina` LONGTEXT NULL COMMENT 'html pagina producto' ,
-  `posicion_en_cola` INT NOT NULL ,
   `fecha_de_venta` DATETIME NOT NULL ,
-  `estados_subasta_id` INT NOT NULL ,
+  `posicion_en_cola` INT NOT NULL ,
+  `contenido_pagina` LONGTEXT NULL COMMENT 'html pagina producto' ,
   `created` DATETIME NULL ,
   `updated` DATETIME NULL ,
   PRIMARY KEY (`id`) ,
@@ -407,6 +407,8 @@ CREATE  TABLE IF NOT EXISTS `subastas`.`configs` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `tamano_cola` INT NOT NULL ,
   `creditos_recomendados` INT NOT NULL ,
+  `sitio_pausado` TINYINT(1) NOT NULL ,
+  `aumento_tiempo_subasta` INT NOT NULL ,
   `created` DATETIME NULL ,
   `updated` DATETIME NULL ,
   PRIMARY KEY (`id`) )
@@ -487,6 +489,15 @@ INSERT INTO `subastas`.`roles` (`id`, `name`) VALUES (2, 'Usuario');
 COMMIT;
 
 -- -----------------------------------------------------
+-- Data for table `subastas`.`users`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `subastas`;
+INSERT INTO `subastas`.`users` (`id`, `role_id`, `username`, `password`, `email`, `creditos`, `created`, `updated`) VALUES (1, 1, 'admin', '59071c7c06ccba704236d2e76b5588c8e404160a', 'admin@llevatelos.com', 0, NULL, NULL);
+
+COMMIT;
+
+-- -----------------------------------------------------
 -- Data for table `subastas`.`estados_ventas`
 -- -----------------------------------------------------
 START TRANSACTION;
@@ -502,7 +513,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `subastas`;
-INSERT INTO `subastas`.`configs` (`id`, `tamano_cola`, `creditos_recomendados`, `created`, `updated`) VALUES (1, 5, 0, NULL, NULL);
+INSERT INTO `subastas`.`configs` (`id`, `tamano_cola`, `creditos_recomendados`, `sitio_pausado`, `aumento_tiempo_subasta`, `created`, `updated`) VALUES (1, 5, 500, 0, 10, NULL, NULL);
 
 COMMIT;
 

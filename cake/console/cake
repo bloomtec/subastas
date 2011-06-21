@@ -20,9 +20,7 @@
 ################################################################################
 LIB=${0/%cake/}
 APP=`pwd`
-TERM=linux
-export TERM
 
-exec /usr/local/php5/bin/php -q ${LIB}cake.php -working "${APP}" "$@"
+exec php -q ${LIB}cake.php -working "${APP}" "$@"
 
 exit;
