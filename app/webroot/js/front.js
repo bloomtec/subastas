@@ -66,23 +66,23 @@ var usuario=function(){
 					iniciarContador: function(){
 						var that=this;
 						var clouser=function(){
-							that.days = that.diferencia / 1000 / 60 / 60 / 24;
-							that.daysRound = Math.floor(that.days);
-							that.hours = that.diferencia / 1000 / 60 / 60 - (24 * that.daysRound);
-							that.hoursRound = Math.floor(that.hours);
-							that.minutes = that.diferencia / 1000 /60 - (24 * 60 * that.daysRound) - (60 * that.hoursRound);
+							//that.days = that.diferencia / 1000 / 60 / 60 / 24;
+							//that.daysRound = Math.floor(that.days);
+							//that.hours = that.diferencia / 1000 / 60 / 60 - (24 * that.daysRound);
+							//that.hoursRound = Math.floor(that.hours);
+							that.minutes = that.diferencia / 1000 /60 //- (24 * 60 * that.daysRound) - (60 * that.hoursRound);
 							that.minutesRound = Math.floor(that.minutes);
-							that.seconds = that.diferencia / 1000 - (24 * 60 * 60 * that.daysRound) - (60 * 60 * that.hoursRound) - (60 *that. minutesRound);
+							that.seconds = that.diferencia / 1000- (60 *that. minutesRound);
 							that.secondsRound = Math.round(that.seconds);
 							that.sec = (that.secondsRound == 1) ? "seg" : "segs";
 							that.min = (that.minutesRound == 1) ? "min " : "mins ";
-							that.hr = (that.hoursRound == 1) ? "h " : "hs ";
-							that.dy = (that.daysRound == 1) ? "d" : "d "
-								if (that.daysRound==0 && that.hoursRound==0 && that.minutesRound==0 && that.secondsRound==0){
+						//	that.hr = (that.hoursRound == 1) ? "h " : "hs ";
+						//	that.dy = (that.daysRound == 1) ? "d" : "d "
+								if ( that.minutesRound==0 && that.secondsRound==0){
 							 	that.ofertar.parent().html("<div class='boton'>Vencida</div>");
 							 	that.ofertar.text("vencida").removeClass("ofertar").unbind("click").remove();
 								}else {								
-								that.contador.html(that.daysRound + that.dy + that.hoursRound + that.hr + that.minutesRound + that.min + that.secondsRound + that.sec);
+								that.contador.html(that.minutesRound + that.min + that.secondsRound + that.sec);
 								that.diferencia-=1000;
 						         setTimeout(clouser, 1000);
 								}
@@ -172,61 +172,6 @@ var usuario=function(){
 
 
 });
-
-//RELOJ
-
-  
-var RelojID24 = null  
-var RelojEjecutandose24 = false  
-  
-function DetenerReloj24 (){  
-    if(RelojEjecutandose24)  
-        clearTimeout(RelojID24)  
-    RelojEjecutandose24 = false  
-}  
-  
-function MostrarHora24 () {  
-    var ahora = new Date()  
-    var horas = ahora.getHours()  
-    var minutos = ahora.getMinutes()  
-    var segundos = ahora.getSeconds()  
-    var ValorHora  
-  
-    //establece las horas  
-    if (horas < 10)  
-            ValorHora = "0" + horas  
-    else  
-        ValorHora = "" + horas  
-  
-     //establece los minutos  
-    if (minutos < 10)  
-        ValorHora += ":0" + minutos  
-    else  
-        ValorHora += ":" + minutos  
-  
-     //establece los segundos  
-    if (segundos < 10)  
-        ValorHora += ":0" + segundos  
-    else  
-        ValorHora += ":" + segundos  
-          
-   $("#digitos").text(ValorHora);  
-     //si se desea tener el reloj en la barra de estado, reemplazar la anterior por esta  
-     //window.status = ValorHora  
-  
-    RelojID24 = setTimeout("MostrarHora24()",1000)  
-    RelojEjecutandose24 = true  
-}  
-  
-function IniciarReloj24 () {  
-    DetenerReloj24()  
-    MostrarHora24()  
-}  
-  
-window.onload = IniciarReloj24;  
-if (document.captureEvents) {            //N4 requiere invocar la funcion captureEvents  
-    document.captureEvents(Event.LOAD)  
-}  
 function addCommas(nStr)
  {
  nStr += '';
