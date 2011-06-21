@@ -13,6 +13,7 @@ class AppController extends Controller {
 							"RequestHandler"
 						);
 	var $uses = array("Config");
+	var $cacheAction = true;
 	
 	public function isAuthorized() {
 		return true;
