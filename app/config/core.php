@@ -34,6 +34,8 @@
  * In development mode, you need to click the flash message to continue.
  */
 	Configure::write('debug', 1);
+	Configure::write('madmimiEmail', "ricardopandales@gmail.com");
+	Configure::write('madmimiKey', "3557e82a03e42ddd69b333519fe47eaa");
 
 /**
  * CakePHP Log Level:

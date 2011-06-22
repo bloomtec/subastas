@@ -15,7 +15,9 @@ class ConfigsController extends AppController {
 		}
 		$this->set('config', $this->Config->read(null, $id));
 	}
-
+	function config(){
+		return  $this->Config->read(null, 1);
+	}
 	function add() {
 		if (!empty($this->data)) {
 			$this->Config->create();
