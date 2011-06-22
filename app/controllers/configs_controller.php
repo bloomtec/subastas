@@ -132,6 +132,15 @@ class ConfigsController extends AppController {
 		$this->Config->save();
 	}
 	
+	function isCongelado() {
+		$config = $this->Config->read('congelado', 1);
+		if ($config['Config']['congelado'] == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	function tamanoCola() {
 		$config = $this->Config->read(null, 1);
 		return $config['Config']['tamano_cola'];
