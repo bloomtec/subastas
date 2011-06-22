@@ -107,7 +107,7 @@ class SubastasController extends AppController {
 	}
 
 	function ofertar($subastaID = null) {
-
+		if (!$this->requestAction('/configs/isCongelado')) {
 			$subastaID=$_GET["subasta_id"];
 			$subasta=$this->Subasta->read(null, $subastaID);
 			if ($subasta["Subasta"]["estados_subasta_id"] != 2) {
@@ -120,7 +120,9 @@ class SubastasController extends AppController {
 			Configure::write("debug",0);
 			$this->autoRender=false;
 			exit(0);
-		
+		} else {
+			echo null;
+		}
 	}
 
 	function __ofertar($subasta = null) {
