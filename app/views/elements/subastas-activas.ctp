@@ -1,6 +1,7 @@
 <?php $subastas=$this->requestAction("/subastas/subastasActivas");?>
+<?php $config=$this->requestAction("/configs/config");?>
 <?php if (!empty($subastas)):?>
- <ul class="subastas-activas " id="user-subastas">
+ <ul class="subastas-activas <?php if(!$config["Config"]["sitio_pausado"]) echo "activo"?>" id="user-subastas">
 	 <?php $i=0;?>
 	 <?php foreach ($subastas as $subasta):?>
 	<li <?php if($i%3==1) echo "class='centro'"?>  rel="<?php echo $subasta["Subasta"]["id"]; ?>">
@@ -30,10 +31,24 @@
 			 	?>
 			 </div>
 			 <?php echo $this->Html->para("pvp","PVP $ ".number_format($subasta["Subasta"]['valor'], 0, ' ', '.')) ?>
-		     <p class="contador">00</p>
-		     <p class="precio"><?php echo "$ ".number_format($subasta["Subasta"]['precio'], 0, ' ', '.') ?><p>
-		     <p class="ultimo-usuario"><p>
-		     <?php echo $this->Html->link("¡Oferte ya!",array("controller"=>"subastas","action"=>"ofertar",$subasta["Subasta"]['id']),array('class'=>'boton ofertar')) ?>
+		      <?php if(!$config["Config"]["sitio_pausado"]):?>
+			     <p class="contador"></p>
+			     <p class="pvp">Tiempo Para termnar la oferta</p>
+			     <?php endif;?>
+			     <?php if($config["Config"]["sitio_pausado"]):?>
+			     	<br />
+			     	<p class="pvp">La subasta se reanudara a las 8:00 am</p>
+			     	<br />
+			     <?php endif;?>
+			     <p class="precio"><?php echo "$ ".number_format($subasta["Subasta"]['precio'], 0, ' ', '.');?><p>
+			     <p class="ultimo-usuario"> <p>
+			     <?php 
+			     	
+			     	if(!$config["Config"]["sitio_pausado"])
+			     		echo $this->Html->link("¡Oferte ya!",array("controller"=>"subastas","action"=>"ofertar",$subasta["Subasta"]['id']),array('class'=>'boton ofertar'));
+					else
+						echo $this->Html->link("Pausada","#",array('class'=>'boton pausado'));
+			     ?>
 		</div>
 	 </li>
 	 <?php 

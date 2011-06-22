@@ -5,6 +5,9 @@
 		}; 
 $(function(){
 	//Codigo Jquery
+$(".pausado").click(function(e){
+	e.preventDefault();
+});
 var usuario=function(){
 	$.tools.validator.localize("es", {
 		'*'			: 'Virheellinen arvo',
@@ -46,7 +49,7 @@ var usuario=function(){
 	
 	var subasta = function () {
 	
-		var contadores=$(".contador");
+		var contadores=$(".activo .contador");
 		if(contadores.length){//envia solicitud de la subasta al servidor
 			var conteos=Object;//VAriable donde se guardanlos conteos regresivos 
 			$.each(contadores,function(index,val){

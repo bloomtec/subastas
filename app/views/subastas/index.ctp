@@ -1,6 +1,6 @@
 <?php //debug($registrado)?>
 <div id="left-content">
-	 <?php echo $this->element("medio-pago");?>
+	 <?php echo $this->element("email-list");?>
 	 <?php echo $this->element("ultimo-ganador");?>
 	 <?php echo $this->element("proxima-oferta");?>
 	 <?php echo $this->element("seguridad");?>

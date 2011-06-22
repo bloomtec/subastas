@@ -12,6 +12,11 @@ class UsersController extends AppController {
 		parent::beforeFilter();
 		//$this->Auth->deny("login","abonarCreditosPorRecomendacion","checkEmail","register","checkPassword","rememberPassword","reponerCreditos","creditosUsuario","creditosSuficientes","descontarCreditos");
 	}
+	function prueba(){
+		    App::import('Vendor', 'MadMimi', array('file' =>'madmimi'.DS.'MadMimi.class.php'));
+			$MadmimiApi= new MadMimi();
+		
+	}
 
 	function index() {
 		//debug($this->User->read(null,$this->Auth->user("id")));
@@ -254,7 +259,7 @@ class UsersController extends AppController {
 				$this->Auth->login($this->data);
 				$this->Cookie->write("registrado", true);
 				if($this->referer()=="/") $this->redirect(array("controller"=>"subastas",'action' => 'index'));
-				$this->redirect(array("controller"=>"users",'action' => 'index'));
+				$this->redirect(array("controller"=>"users",'action' => 'recomendar'));
 			} else {
 				$this->Session->setFlash(__('No se pudo completar el registro. Por favor, intente de nuevo', true));
 			}
