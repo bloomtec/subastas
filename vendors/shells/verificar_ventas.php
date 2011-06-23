@@ -6,7 +6,7 @@
  *
  * @author Julio César Domínguez Giraldo
  */
-class VtablavseeisShell extends Shell {
+class VerificarVentasShell extends Shell {
 
 	var $uses = array('Venta');
 
@@ -47,7 +47,7 @@ class VtablavseeisShell extends Shell {
 				$this->out("VENCIDA");
 				$this->requestAction('ventas/noPagada/' . $ventaPendienteDePago['Venta']['id']);
 			}
-				
+
 		}
 
 		$this->out("\nFin del CRON para verificar la tabla de ventas\n");
