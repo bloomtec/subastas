@@ -25,7 +25,7 @@ THE SOFTWARE.
 */
 if (!empty($_FILES)) {
 	$tempFile = $_FILES['upload']['tmp_name'];
-	$targetPath = $_SERVER['DOCUMENT_ROOT'] . "/priceshoes/app/webroot//wysiwyg". '/';
+	$targetPath = $_SERVER['DOCUMENT_ROOT'] . '/';
 	$fileParts  = pathinfo($_FILES['upload']['name']);
 	$fechaActual = gmdate('His', time() + $gmt);
 	$time = explode(' ',microtime()); 

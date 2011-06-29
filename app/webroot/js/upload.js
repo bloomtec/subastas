@@ -1,6 +1,6 @@
 $(document).ready(
 		function() {
-			var server = '/subastas/'
+			var server = '/'
 
 			$('#upload').uploadify({
 				'uploader' : server + 'swf/uploadify.swf',
