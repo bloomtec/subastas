@@ -1,6 +1,6 @@
 $(document).ready(
 		function() {
-			var server = '/'
+			var server = '/';
 
 			$('#upload').uploadify({
 				'uploader' : server + 'swf/uploadify.swf',
