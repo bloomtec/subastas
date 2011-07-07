@@ -158,7 +158,13 @@ var usuario=function(){
 						$("[rel='"+subasta_id+"']").children(".ultimo-usuario").html("Última oferta: "+oferta.User.username);
 						//$(".actualizado").removeClass("actualizado");
 						//$("[rel='"+subasta_id+"']").children(".ofertas").prepend("<div class='actualizado'>"+oferta.Oferta.created+"</div>");
-					if(ultimaOferta!=0)	conteos[subasta_id].updateDiferencia(oferta.Subasta.aumento_duracion);
+					if(ultimaOferta!=0)	{
+						alert(oferta.Subasta.estados_subasta_id);
+						conteos[subasta_id].updateDiferencia(oferta.Subasta.aumento_duracion);
+						
+					}
+//AQUI SE DEBE PONER EL CODIGO QUE EVALUA EL ESTADO DE LA SUBASTA						
+						
 						$("[rel='"+subasta_id+"']").children(".precio").html("$ "+addCommas(oferta.Subasta.precio));
 						$("[rel='"+subasta_id+"']").children(".ultimo-usuario").wrap("<div class='new' />");
 						$("[rel='"+subasta_id+"']").children(".precio").wrap("<div class='new' />");
