@@ -62,7 +62,7 @@ var usuario=function(){
 						this.ofertar=divOfertar;
 						this.contador=divContador;
 						this.subasta_id=subasta_id;
-						this.now = new Date($("[rel='"+subasta_id+"']").children(".hora_servidor").text());
+						this.now = new Date();
 						this.fechaFinal = new Date($("[rel='"+subasta_id+"']").children(".fecha_vencimiento").text());
 						this.diferencia=this.fechaFinal-this.now ;
 						this.estado="activa";
