@@ -195,7 +195,9 @@ var usuario=function(){
 							
 						}	
 					}
-					obtenerUsuarioUltimaOferta($val,ultimaOferta,subasta_id)
+					if(oferta.Subasta.estados_subasta_id==2){
+						obtenerUsuarioUltimaOferta($val,ultimaOferta,subasta_id);
+					}
 				}
 			 });
 		},1000);		
