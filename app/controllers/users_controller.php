@@ -506,16 +506,24 @@ class UsersController extends AppController {
 	}
 
 	function creditosSuficientes($userID = null, $cantidadAVerificar = null, $minimoDeCreditos = null){
-		$usuario = $this->User->read(null, $userID);
-		if($usuario['User']['creditos'] >= $cantidadAVerificar){
-			if(!$minimoDeCreditos){
-				return true;
-			} else {
-				if ($usuario['User']['creditos'] >= $minimoDeCreditos) {
-					return true;
+		if(!empty($userID)) {
+			$usuario = $this->User->read(null, $userID);
+			if(!empty($cantidadAVerificar)) {
+				if($usuario['User']['creditos'] >= $cantidadAVerificar){
+					if(empty($minimoDeCreditos)){
+						return true;
+					} else {
+						if ($usuario['User']['creditos'] >= $minimoDeCreditos) {
+							return true;
+						} else {
+							return false;
+						}
+					}
 				} else {
 					return false;
 				}
+			} else {
+				return false;
 			}
 		} else {
 			return false;
