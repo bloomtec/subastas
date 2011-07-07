@@ -22,7 +22,7 @@ class OfertasController extends AppController {
 			echo json_encode($result);
 		} else {
 			$this->Subasta->recursive=-1;
-			$result=$this->Subasta->read(null,$subastaID);
+			$result=$this->Oferta->Subasta->read(null,$subastaID);
 			$result["actualizada"]=false;
 			echo json_encode($result);
 		}
