@@ -18,9 +18,13 @@ class OfertasController extends AppController {
 		);
 		if(isset($result[0])) {
 			$result = $result[0];
+			$result["actualizada"]=true;
 			echo json_encode($result);
 		} else {
-			echo 0;
+			$this->Subasta->recursive=-1;
+			$result=$this->Subasta->read(null,$subastaID);
+			$result["actualizada"]=false;
+			echo json_encode($result);
 		}
 			
 		Configure::write("debug",0);

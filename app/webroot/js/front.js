@@ -170,12 +170,18 @@ var usuario=function(){
 						$("[rel='"+subasta_id+"']").children(".ultimo-usuario").html("Última oferta: "+oferta.User.username);
 						//$(".actualizado").removeClass("actualizado");
 						//$("[rel='"+subasta_id+"']").children(".ofertas").prepend("<div class='actualizado'>"+oferta.Oferta.created+"</div>");
-					if(ultimaOferta!=0)	{
+					if(oferta.actualizada)	{
 						if(oferta.Subasta.estados_subasta_id==2){
 							conteos[subasta_id].updateDiferencia(oferta.Subasta.aumento_duracion);
 						}else{
 							conteos[subasta_id].setVencida();	
 						}
+					}else{
+						if(oferta.Subasta.estados_subasta_id==3){
+							conteos[subasta_id].setVencida();	
+						}else{
+							
+						}	
 					}
 //AQUI SE DEBE PONER EL CODIGO QUE EVALUA EL ESTADO DE LA SUBASTA						
 						
