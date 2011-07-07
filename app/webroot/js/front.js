@@ -166,11 +166,10 @@ var usuario=function(){
 				 dataType:"json",
 				 data:{subasta_id:subasta_id,oferta_id:ultimaOferta},
 				 success:function(oferta){
-					if(oferta){					
+					if(oferta.actualizada){					
 						$("[rel='"+subasta_id+"']").children(".ultimo-usuario").html("Última oferta: "+oferta.User.username);
 						//$(".actualizado").removeClass("actualizado");
 						//$("[rel='"+subasta_id+"']").children(".ofertas").prepend("<div class='actualizado'>"+oferta.Oferta.created+"</div>");
-					if(oferta.actualizada)	{
 						if(oferta.Subasta.estados_subasta_id==2){
 							conteos[subasta_id].updateDiferencia(oferta.Subasta.aumento_duracion);
 						}else{
