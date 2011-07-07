@@ -9,7 +9,7 @@ class OfertasController extends AppController {
 		
 		$result = $this->Oferta->query(
 
-			"SELECT Oferta.id, Oferta.user_id, Oferta.subasta_id, Subasta.precio, Subasta.aumento_duracion, User.username, User.creditos
+			"SELECT Oferta.id, Oferta.user_id, Oferta.subasta_id, Subasta.precio, Subasta.aumento_duracion, Subasta.estados_subasta_id, User.username, User.creditos
 
 			FROM ofertas as Oferta, users as User, subastas as Subasta
 			WHERE Oferta.subasta_id = '$subastaID'

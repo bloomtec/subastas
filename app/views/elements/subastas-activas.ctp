@@ -1,7 +1,7 @@
 <?php $subastas=$this->requestAction("/subastas/subastasActivas");?>
 <?php $config=$this->requestAction("/configs/config");?>
 <?php if (!empty($subastas)):?>
- <ul class="subastas-activas <?php if(!$config["Config"]["sitio_pausado"]) echo "activo"?>" id="user-subastas">
+ <ul class="subastas-activas <?php if(!$config["Config"]["congelado"]) echo "activo"?>" id="user-subastas">
 	 <?php $i=0;?>
 	 <?php foreach ($subastas as $subasta):?>
 	<li <?php if($i%3==1) echo "class='centro'"?>  rel="<?php echo $subasta["Subasta"]["id"]; ?>">
@@ -31,7 +31,7 @@
 			 	?>
 			 </div>
 			 <?php echo $this->Html->para("pvp","PVP $ ".number_format($subasta["Subasta"]['valor'], 0, ' ', '.')) ?>
-		      <?php if(!$config["Config"]["sitio_pausado"]):?>
+		      <?php if(!$config["Config"]["congelado"]):?>
 			     <p class="contador"></p>
 			     <p class="pvp">Tiempo Para termnar la oferta</p>
 			     <?php endif;?>

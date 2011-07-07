@@ -65,6 +65,7 @@ var usuario=function(){
 						this.now = new Date($("[rel='"+subasta_id+"']").children(".hora_servidor").text());
 						this.fechaFinal = new Date($("[rel='"+subasta_id+"']").children(".fecha_vencimiento").text());
 						this.diferencia=this.fechaFinal-this.now ;
+						this.estado="activa";
 					},
 					updateDiferencia:function(aumento){
 						this.diferencia=parseInt(this.diferencia)+parseInt(aumento*1000);
@@ -84,18 +85,30 @@ var usuario=function(){
 							that.min = (that.minutesRound == 1) ? "min " : "mins ";
 						//	that.hr = (that.hoursRound == 1) ? "h " : "hs ";
 						//	that.dy = (that.daysRound == 1) ? "d" : "d "
-								if ( that.minutesRound==0 && that.secondsRound==0){
-							 	that.ofertar.parent().html("<div class='boton'>Vencida</div>");
-							 	that.ofertar.text("vencida").removeClass("ofertar").unbind("click").remove();
+								if ( that.minutesRound<=0 && that.secondsRound<=0){
+//CUANDO EL CONTADOR LLEGA A CERO SE DEBE PONER UN LETRERO DE PROCESANDO Y NO DEJAR SUBASTAR
+							 	that.ofertar.parent().html("<div class='boton'>Procesando</div>");
+							 	that.ofertar.text("Procesando").removeClass("ofertar").unbind("click").remove();
+							 	that.estado="procesando";
 								}else {								
 								that.contador.html(that.minutesRound + that.min + that.secondsRound + that.sec);
 								that.diferencia-=1000;
+								that.estado="activa";
 						         setTimeout(clouser, 1000);
 								}
 						//};
 						};
 						clouser();
 					
+					},
+					setProcesing:function(){
+						var that=this;
+					},
+					setVencida:function(){
+						var that=this;
+						that.ofertar.parent().html("<div class='boton'>Vencida</div>");
+						that.ofertar.text("vencida").removeClass("ofertar").unbind("click").remove();
+						that.estado="vencida";
 					}
 				}
 				divOfertar=$("[rel='"+subasta_id+"'] p").children(".ofertar");
@@ -119,7 +132,6 @@ var usuario=function(){
 				 dataType:"json",
 				 data:{subasta_id:subasta_id},
 				 success:function(oferta){
-				 	$("body").append(oferta);
 					if(oferta.success){
 						$("div[rel='"+subasta_id+"']").children(".ultimo-usuario").fadeOut("slow",function(){
 						//	alert(oferta.User.creditos);
@@ -159,9 +171,11 @@ var usuario=function(){
 						//$(".actualizado").removeClass("actualizado");
 						//$("[rel='"+subasta_id+"']").children(".ofertas").prepend("<div class='actualizado'>"+oferta.Oferta.created+"</div>");
 					if(ultimaOferta!=0)	{
-						alert(oferta.Subasta.estados_subasta_id);
-						conteos[subasta_id].updateDiferencia(oferta.Subasta.aumento_duracion);
-						
+						if(oferta.Subasta.estados_subasta_id==2){
+							conteos[subasta_id].updateDiferencia(oferta.Subasta.aumento_duracion);
+						}else{
+							conteos[subasta_id].setVencida();	
+						}
 					}
 //AQUI SE DEBE PONER EL CODIGO QUE EVALUA EL ESTADO DE LA SUBASTA						
 						
