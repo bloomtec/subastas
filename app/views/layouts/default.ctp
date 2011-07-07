@@ -40,7 +40,7 @@
 		echo $scripts_for_layout;
 	?>
 <script type="text/javascript">
-	var server="<?php echo $base_url;?>";
+	var server="/";
 	var auth=<?php echo json_encode($session->read("Auth"));?>;
 </script>
 </head>
