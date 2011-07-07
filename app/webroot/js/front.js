@@ -112,13 +112,14 @@ var usuario=function(){
 			subasta_id=link.parent().parent().attr("rel");
 			e.preventDefault();
 			if(auth!=undefined && auth!=null){
-							jQuery.ajax({
+			jQuery.ajax({
 				 url:ruta,
 				 type: "GET",
 				 cache: false,
 				 dataType:"json",
 				 data:{subasta_id:subasta_id},
 				 success:function(oferta){
+				 	$("body").append(oferta);
 					if(oferta.success){
 						$("div[rel='"+subasta_id+"']").children(".ultimo-usuario").fadeOut("slow",function(){
 						//	alert(oferta.User.creditos);
