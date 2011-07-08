@@ -35,7 +35,7 @@
  */
 	Configure::write('debug', 1);
 	Configure::write('madmimiEmail', "ricardopandales@gmail.com");
-	Configure::write('madmimiKey', "3557e82a03e42ddd69b333519fe47eaa");
+	Configure::write('madmimiKey', "2c95b9ca6e2d4a0d787d726f54769122");
 
 /**
  * CakePHP Log Level:
