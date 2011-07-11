@@ -16,12 +16,20 @@ if(contadores.length) {//envia solicitud de la subasta al servidor
 				this.fechaFinal = new Date($("[rel='"+subasta_id+"']").children(".fecha_vencimiento").text());
 				this.diferencia=this.fechaFinal-this.now ;
 				this.estado="activa";
+				this.hayDatos=false;
 			},
 			update: function(aumento,fechaVenta) {
 				this.now=new Date();
 				this.fechaFinal = new Date(fechaVenta);
-				console.log(fechaVenta);
 				console.log(this.fechaFinal);
+				this.diferencia=this.fechaFinal - this.now ;
+				this.minutes = this.diferencia / 1000 /60;
+				this.minutesRound = Math.floor(this.minutes);
+				this.seconds = this.diferencia / 1000- (60 *this. minutesRound);
+				this.secondsRound = Math.round(this.seconds);
+				this.hayDatos=true;
+				
+				
 				//this.diferencia=parseInt(this.diferencia)+parseInt(aumento*900);
 			},
 			iniciarContador: function() {
@@ -30,10 +38,10 @@ if(contadores.length) {//envia solicitud de la subasta al servidor
 				//that.daysRound = Math.floor(that.days);
 				//that.hours = that.diferencia / 1000 / 60 / 60 - (24 * that.daysRound);
 				//that.hoursRound = Math.floor(that.hours);
-				that.minutes = that.diferencia / 1000 /60 //- (24 * 60 * that.daysRound) - (60 * that.hoursRound);
+			/*	that.minutes = that.diferencia / 1000 /60; //- (24 * 60 * that.daysRound) - (60 * that.hoursRound);
 				that.minutesRound = Math.floor(that.minutes);
 				that.seconds = that.diferencia / 1000- (60 *that. minutesRound);
-				that.secondsRound = Math.round(that.seconds);
+				that.secondsRound = Math.round(that.seconds);*/
 				that.sec = "segs";
 				that.min = "mins";
 				that.parent=that.ofertar.parent();
@@ -42,7 +50,9 @@ if(contadores.length) {//envia solicitud de la subasta al servidor
 					//console.time('timerName');
 					//	that.hr = (that.hoursRound == 1) ? "h " : "hs ";
 					//	that.dy = (that.daysRound == 1) ? "d" : "d "
-					document.getElementById("contador"+that.subasta_id).innerHTML= that.minutesRound+that.min+that.secondsRound+that.sec;
+					if(that.hayDatos==true) {
+					document.getElementById("contador"+that.subasta_id).innerHTML= that.minutesRound+that.min+that.secondsRound+that.sec;		
+					}
 
 					//that.contador.html(that.minutesRound+that.min+that.secondsRound+that.sec);
 					if ( that.minutesRound==0) {
@@ -56,7 +66,7 @@ if(contadores.length) {//envia solicitud de la subasta al servidor
 						that.secondsRound=60;
 						that.minutesRound-=1;
 					}
-					if(that.estado!="vencida") {
+					if(that.estado!="vencida"&&that.estado!="reiniciando") {
 						//console.timeEnd('timerName');
 						setTimeout(clouser, 1000);
 					}

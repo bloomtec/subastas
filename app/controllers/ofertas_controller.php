@@ -10,9 +10,9 @@ class OfertasController extends AppController {
 		$result = $this->Oferta->query(
 
 			"SELECT Oferta.id, Oferta.user_id, Oferta.subasta_id, Subasta.precio, Subasta.aumento_duracion, Subasta.estados_subasta_id, Subasta.fecha_de_venta,User.username, User.creditos
-
 			FROM ofertas as Oferta, users as User, subastas as Subasta
-			WHERE Oferta.subasta_id = '$subastaID'
+			WHERE Subasta.id = '$subastaID'
+			AND Oferta.subasta_id = Subasta.id
 			AND Oferta.id > '$ofertaID'
 			ORDER BY Oferta.created DESC"
 		);
@@ -20,12 +20,15 @@ class OfertasController extends AppController {
 			$result = $result[0];
 			$result["actualizada"]=true;
 			$fecha= date_create_from_format('Y-m-d H:i:s',	$result["Subasta"]["fecha_de_venta"]);
-			$result["Subasta"]["fecha_de_venta"]=$fecha;
+			$result["Subasta"]["fecha_de_venta"]=$fecha->format('Y M d H:i:s');;
 			echo json_encode($result);
 		} else {
 			$this->Subasta->recursive=-1;
 			$result=$this->Oferta->Subasta->read(null,$subastaID);
 			$result["actualizada"]=false;
+			$fecha= date_create_from_format('Y-m-d H:i:s',	$result["Subasta"]["fecha_de_venta"]);
+			$result["Subasta"]["fecha_de_venta"]=$fecha->format('Y M d H:i:s');;
+			
 			echo json_encode($result);
 		}
 			
