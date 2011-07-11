@@ -9,7 +9,7 @@ class OfertasController extends AppController {
 		
 		$result = $this->Oferta->query(
 
-			"SELECT Oferta.id, Oferta.user_id, Oferta.subasta_id, Subasta.precio, Subasta.aumento_duracion, Subasta.estados_subasta_id, User.username, User.creditos
+			"SELECT Oferta.id, Oferta.user_id, Oferta.subasta_id, Subasta.precio, Subasta.aumento_duracion, Subasta.estados_subasta_id, Subasta.fecha_de_venta,User.username, User.creditos
 
 			FROM ofertas as Oferta, users as User, subastas as Subasta
 			WHERE Oferta.subasta_id = '$subastaID'
@@ -66,9 +66,10 @@ class OfertasController extends AppController {
 			$oferta = $this->Oferta->read(null,$this->Oferta->id);
 			$subasta["Subasta"] = $oferta["Subasta"];
 			$subasta["Subasta"]["precio"] += $subasta["Subasta"]["aumento_precio"];
-        
-			if($this->Oferta->Subasta->save($subasta)){
+        	if($this->Oferta->Subasta->save($subasta)){ 
 				$oferta["Subasta"] = $subasta["Subasta"];
+				$fecha= date_create_from_format('Y-m-d H:i:s',	$oferta["Subasta"]["fecha_de_venta"]);
+				$oferta["Subasta"]["fecha_de_venta"]=$fecha->format('Y M d H:i:s');
 			}
 			
 			$oferta["success"] = true;
