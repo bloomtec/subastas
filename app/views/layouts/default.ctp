@@ -36,6 +36,7 @@
 		echo $this->Html->script("http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js");
 		
 		echo $this->Html->script("front.js");
+		echo $this->Html->script("subastas.js");
 
 		echo $scripts_for_layout;
 	?>
@@ -62,6 +63,6 @@
 		</div>
 	</div>
 	
-	<?php echo $this->element('register-overlay'); ?>
+	<?php //echo $this->element('register-overlay'); ?>
 </body>
 </html>
