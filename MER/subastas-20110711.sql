@@ -129,9 +129,10 @@ DROP TABLE IF EXISTS `subastas`.`ofertas` ;
 
 CREATE  TABLE IF NOT EXISTS `subastas`.`ofertas` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `subasta_id` INT NULL ,
-  `user_id` INT NULL ,
-  `creditos_descontados` INT NULL ,
+  `subasta_id` INT NOT NULL ,
+  `user_id` INT NOT NULL ,
+  `creditos_descontados` INT NOT NULL ,
+  `bonos_descontados` INT NOT NULL ,
   `created` DATETIME NULL ,
   `updated` DATETIME NULL ,
   PRIMARY KEY (`id`) ,

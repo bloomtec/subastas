@@ -58,12 +58,13 @@ class OfertasController extends AppController {
 		$this->set('oferta', $this->Oferta->read(null, $id));
 	}
 	
-	function crearOferta($userID = null, $subastaID = null, $creditosDescontados = null) {
+	function crearOferta($userID = null, $subastaID = null, $creditosDescontados = null, $bonosDescontados = null) {
 		
 		$this->Oferta->create();
 		$this->Oferta->set('subasta_id', $subastaID);
 		$this->Oferta->set('user_id', $userID);
 		$this->Oferta->set('creditos_descontados', $creditosDescontados);
+		$this->Oferta->set('bonos_descontados', $bonosDescontados);
 		$oferta = $this->Oferta->save();
 		
 		if(!empty($oferta)){

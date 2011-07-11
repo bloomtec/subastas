@@ -507,11 +507,11 @@ class UsersController extends AppController {
 
 	function creditosSuficientes($userID = null, $cantidadAVerificar = null, $minimoDeCreditos = null){
 		$usuario = $this->User->read(null, $userID);
-		if($usuario['User']['creditos'] >= $cantidadAVerificar){
+		if(($usuario['User']['creditos'] + $usuario['User']['bonos']) >= $cantidadAVerificar){
 			if(!$minimoDeCreditos){
 				return true;
 			} else {
-				if ($usuario['User']['creditos'] >= $minimoDeCreditos) {
+				if (($usuario['User']['creditos'] + $usuario['User']['bonos']) >= $minimoDeCreditos) {
 					return true;
 				} else {
 					return false;
@@ -522,11 +522,57 @@ class UsersController extends AppController {
 		}
 	}
 
-	function descontarCreditos ( $userID = null, $creditosADescontar = null ) {
+	function descontarCreditos ( $subastaID = null, $userID = null, $creditosADescontar = null ) {
 		$user = $this->User->read(null, $userID);
 		$this->User->read(null, $userID);
-		$this->User->set('creditos', $user['User']['creditos'] - $creditosADescontar);
-		$this->User->save();
+		$bonos = $user['User']['bonos'];
+		$creditosDescontados = 0;
+		$bonosDescontados = 0;
+		
+		if($bonos > 0) {
+			if($bonos > $creditosADescontar) {
+				// Aquí los bonos son mas que los creditos a descontar
+				// 
+				$bonos = $bonos - $creditosADescontar;
+				$this->User->set('bonos', $bonos);
+				$bonosDescontados = $creditosADescontar;
+			} else {
+				// Aquí los bonos son menos o iguales que los creditos a descontar
+				// Luego, descontar bonos y luego creditos
+				//
+				$creditosADescontar = $creditosADescontar - $bonos;
+				$this->User->set('bonos', 0);
+				$this->User->set('creditos', $user['User']['creditos'] - $creditosADescontar);
+				$bonosDescontados = $bonos;
+				$creditosDescontados = $creditosADescontar;
+			}
+		} else {
+			$this->User->set('creditos', $user['User']['creditos'] - $creditosADescontar);
+			$creditosDescontados = $creditosADescontar;
+		}
+		
+		if($this->User->save()) {
+			// Cargar el modelo Subasta
+			//
+			$this->loadModel('Subasta');
+			
+			// Aumentar la duracion de la subasta
+			//
+			$subasta = $this->Subasta->read(null, $subastaID);
+			$fecha_de_venta = date($subasta['Subasta']['fecha_de_venta']);
+			$fecha_de_venta = strtotime(date("Y-m-d H:i:s", strtotime($fecha_de_venta)) . " +" . $subasta['Subasta']['aumento_duracion'] . " seconds");
+			$fecha_de_venta = date("Y-m-d H:i:s", $fecha_de_venta);
+			$fecha_de_venta = new DateTime($fecha_de_venta);
+			$fecha_de_venta = $fecha_de_venta->format('Y-m-d H:i:s');
+			$subasta['Subasta']['fecha_de_venta'] = $fecha_de_venta;
+			$this->Subasta->save($subasta);
+			
+			// Crear la oferta para finalizar el proceso
+			//
+			return $this->requestAction('ofertas/crearOferta/' . $userId. '/' . $subastaID . '/' . $creditosDescontados . '/' . $bonosDescontados);
+		} else {
+			return false;
+		}
 	}
 
 	function redimirCreditos () {
