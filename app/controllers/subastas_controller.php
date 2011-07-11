@@ -606,7 +606,8 @@ class SubastasController extends AppController {
 				// Reponer los creditos de la oferta
 				//
 				$creditosAReponer = $unaOfertaHecha['Oferta']['creditos_descontados'];
-				$this->requestAction('/users/reponerCreditos/'.$unaOfertaHecha['User']['id'].'/'.$creditosAReponer);
+				$bonosAReponer = $unaOfertaHecha['Oferta']['bonos_descontados'];
+				$this->requestAction('/users/reponerCreditos/'.$unaOfertaHecha['User']['id'].'/'.$creditosAReponer.'/'.$bonosAReponer);
 			}
 
 			/**

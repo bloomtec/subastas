@@ -493,10 +493,12 @@ class UsersController extends AppController {
 		}
 	}
 
-	function reponerCreditos($userID = null, $creditosAReponer){
+	function reponerCreditos($userID = null, $creditosAReponer = null, $bonosAReponer = null){
 		$usuario = $this->User->read(null, $userID);
 		$creditos = $usuario['User']['creditos'];
+		$bonos = $usuario['User']['bonos'];
 		$this->User->set('creditos', $creditos + $creditosAReponer);
+		$this->User->set('bonos', $bonos + $bonosAReponer);
 		$this->User->save();
 	}
 
