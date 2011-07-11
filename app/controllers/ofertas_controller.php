@@ -19,6 +19,8 @@ class OfertasController extends AppController {
 		if(isset($result[0])) {
 			$result = $result[0];
 			$result["actualizada"]=true;
+			$fecha= date_create_from_format('Y-m-d H:i:s',	$result["Subasta"]["fecha_de_venta"]);
+			$result["Subasta"]["fecha_de_venta"]=$fecha;
 			echo json_encode($result);
 		} else {
 			$this->Subasta->recursive=-1;
