@@ -9,9 +9,9 @@ USE `subastas` ;
 -- -----------------------------------------------------
 -- Table `subastas`.`tipo_subastas`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`tipo_subastas` ;
+DROP TABLE IF EXISTS `llevatelos_tests`.`tipo_subastas` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`tipo_subastas` (
+CREATE  TABLE IF NOT EXISTS `llevatelos_tests`.`tipo_subastas` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NULL ,
   `created` DATETIME NULL ,
@@ -21,11 +21,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `subastas`.`estados_subastas`
+-- Table `llevatelos_tests`.`estados_subastas`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`estados_subastas` ;
+DROP TABLE IF EXISTS `llevatelos_tests`.`estados_subastas` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`estados_subastas` (
+CREATE  TABLE IF NOT EXISTS `llevatelos_tests`.`estados_subastas` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NOT NULL ,
   `created` DATETIME NULL ,
@@ -33,15 +33,15 @@ CREATE  TABLE IF NOT EXISTS `subastas`.`estados_subastas` (
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
-CREATE UNIQUE INDEX `nombre_UNIQUE` ON `subastas`.`estados_subastas` (`nombre` ASC) ;
+CREATE UNIQUE INDEX `nombre_UNIQUE` ON `llevatelos_tests`.`estados_subastas` (`nombre` ASC) ;
 
 
 -- -----------------------------------------------------
--- Table `subastas`.`subastas`
+-- Table `llevatelos_tests`.`subastas`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`subastas` ;
+DROP TABLE IF EXISTS `llevatelos_tests`.`subastas` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`subastas` (
+CREATE  TABLE IF NOT EXISTS `llevatelos_tests`.`subastas` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `tipo_subasta_id` INT NOT NULL ,
   `estados_subasta_id` INT NOT NULL ,
@@ -64,27 +64,27 @@ CREATE  TABLE IF NOT EXISTS `subastas`.`subastas` (
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_subastas_tipo_subastas1`
     FOREIGN KEY (`tipo_subasta_id` )
-    REFERENCES `subastas`.`tipo_subastas` (`id` )
+    REFERENCES `llevatelos_tests`.`tipo_subastas` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_subastas_estados_subastas1`
     FOREIGN KEY (`estados_subasta_id` )
-    REFERENCES `subastas`.`estados_subastas` (`id` )
+    REFERENCES `llevatelos_tests`.`estados_subastas` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_subastas_tipo_subastas_INDEX` ON `subastas`.`subastas` (`tipo_subasta_id` ASC) ;
+CREATE INDEX `fk_subastas_tipo_subastas_INDEX` ON `llevatelos_tests`.`subastas` (`tipo_subasta_id` ASC) ;
 
-CREATE INDEX `fk_subastas_estados_subastas_INDEX` ON `subastas`.`subastas` (`estados_subasta_id` ASC) ;
+CREATE INDEX `fk_subastas_estados_subastas_INDEX` ON `llevatelos_tests`.`subastas` (`estados_subasta_id` ASC) ;
 
 
 -- -----------------------------------------------------
--- Table `subastas`.`roles`
+-- Table `llevatelos_tests`.`roles`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`roles` ;
+DROP TABLE IF EXISTS `llevatelos_tests`.`roles` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`roles` (
+CREATE  TABLE IF NOT EXISTS `llevatelos_tests`.`roles` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) )
@@ -93,11 +93,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `subastas`.`users`
+-- Table `llevatelos_tests`.`users`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`users` ;
+DROP TABLE IF EXISTS `llevatelos_tests`.`users` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`users` (
+CREATE  TABLE IF NOT EXISTS `llevatelos_tests`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `role_id` INT(11) NOT NULL DEFAULT 2 ,
   `username` VARCHAR(45) NOT NULL ,
@@ -110,14 +110,14 @@ CREATE  TABLE IF NOT EXISTS `subastas`.`users` (
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_users_roles1`
     FOREIGN KEY (`role_id` )
-    REFERENCES `subastas`.`roles` (`id` )
+    REFERENCES `llevatelos_tests`.`roles` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_users_roles_INDEX` ON `subastas`.`users` (`role_id` ASC) ;
+CREATE INDEX `fk_users_roles_INDEX` ON `llevatelos_tests`.`users` (`role_id` ASC) ;
 
-CREATE UNIQUE INDEX `id_UNIQUE` ON `subastas`.`users` (`id` ASC) ;
+CREATE UNIQUE INDEX `id_UNIQUE` ON `llevatelos_tests`.`users` (`id` ASC) ;
 
 CREATE UNIQUE INDEX `email_UNIQUE` ON `subastas`.`users` (`email` ASC) ;
 
