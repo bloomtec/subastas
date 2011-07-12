@@ -526,7 +526,6 @@ class UsersController extends AppController {
 
 	function descontarCreditos ( $subastaID = null, $userID = null, $creditosADescontar = null ) {
 		$user = $this->User->read(null, $userID);
-		$this->User->read(null, $userID);
 		$bonos = $user['User']['bonos'];
 		$creditosDescontados = 0;
 		$bonosDescontados = 0;
@@ -536,24 +535,24 @@ class UsersController extends AppController {
 				// Aquí los bonos son mas que los creditos a descontar
 				// 
 				$bonos = $bonos - $creditosADescontar;
-				$this->User->set('bonos', $bonos);
+				$user['User']['bonos'] = $bonos;
 				$bonosDescontados = $creditosADescontar;
 			} else {
 				// Aquí los bonos son menos o iguales que los creditos a descontar
 				// Luego, descontar bonos y luego creditos
 				//
 				$creditosADescontar = $creditosADescontar - $bonos;
-				$this->User->set('bonos', 0);
-				$this->User->set('creditos', $user['User']['creditos'] - $creditosADescontar);
+				$user['User']['bonos'] = 0;
+				$user['User']['creditos'] = $user['User']['creditos'] - $creditosADescontar;
 				$bonosDescontados = $bonos;
 				$creditosDescontados = $creditosADescontar;
 			}
 		} else {
-			$this->User->set('creditos', $user['User']['creditos'] - $creditosADescontar);
+			$user['User']['creditos'] = $user['User']['creditos'] - $creditosADescontar;
 			$creditosDescontados = $creditosADescontar;
 		}
 		
-		if($this->User->save()) {
+		if($this->User->save($user)) {
 			// Cargar el modelo Subasta
 			//
 			$this->loadModel('Subasta');
