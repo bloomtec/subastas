@@ -38,6 +38,7 @@ if(contadores.length) {//envia solicitud de la subasta al servidor
 				//that.daysRound = Math.floor(that.days);
 				//that.hours = that.diferencia / 1000 / 60 / 60 - (24 * that.daysRound);
 				//that.hoursRound = Math.floor(that.hours);
+				console.log("inicio el contador");
 				that.minutes = that.diferencia / 1000 /60; //- (24 * 60 * that.daysRound) - (60 * that.hoursRound);
 				that.minutesRound = Math.floor(that.minutes);
 				that.seconds = that.diferencia / 1000- (60 *that. minutesRound);
