@@ -138,22 +138,7 @@ class SubastasController extends AppController {
 			if($this->requestAction('/users/creditosSuficientes/' . $userId. '/' . $subasta['Subasta']['cantidad_creditos_puja'])) {
 				// Como el usuario tiene suficientes creditos proceder a descontar los creditos
 				//
-				$this->requestAction('/users/descontarCreditos/' . $userId . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
-					
-				// Aumentar la duracion de la subasta
-				//
-				$this->Subasta->read(null, $subasta['Subasta']['id']);
-				$fecha_de_venta = date($subasta['Subasta']['fecha_de_venta']);
-				$fecha_de_venta = strtotime(date("Y-m-d H:i:s", strtotime($fecha_de_venta)) . " +" . $subasta['Subasta']['aumento_duracion'] . " seconds");
-				$fecha_de_venta = date("Y-m-d H:i:s", $fecha_de_venta);
-				$fecha_de_venta = new DateTime($fecha_de_venta);
-				$fecha_de_venta = $fecha_de_venta->format('Y-m-d H:i:s');
-				$this->Subasta->set('fecha_de_venta', $fecha_de_venta);
-				$this->Subasta->save();
-				
-				// Crear la oferta para finalizar el proceso
-				//
-				return $this->requestAction('ofertas/crearOferta/' . $userId . '/' . $subasta['Subasta']['id'] . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
+				return $this->requestAction('/users/descontarCreditos/' . $subasta['Subasta']['id'] . '/' . $userId . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
 
 			} else {
 				return array("success"=>false,"mensaje"=>"No tiene suficiente credito, Por favor compra mas creditos para poder ofertar","code"=>"1");
@@ -165,22 +150,7 @@ class SubastasController extends AppController {
 			if($this->requestAction('/users/creditosSuficientes/' . $userId . '/' . $subasta['Subasta']['cantidad_creditos_puja'] . '/' . $subasta['Subasta']['umbral_minimo_creditos'])) {
 				// Como el usuario tiene suficientes creditos proceder a descontar los creditos
 				//
-				$this->requestAction('/users/descontarCreditos/' . $userId . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
-
-				// Aumentar la duracion de la subasta
-				//
-				$this->Subasta->read(null, $subasta['Subasta']['id']);
-				$fecha_de_venta = date($subasta['Subasta']['fecha_de_venta']);
-				$fecha_de_venta = strtotime(date("Y-m-d H:i:s", strtotime($fecha_de_venta)) . " +" . $subasta['Subasta']['aumento_duracion'] . " seconds");
-				$fecha_de_venta = date("Y-m-d H:i:s", $fecha_de_venta);
-				$fecha_de_venta = new DateTime($fecha_de_venta);
-				$fecha_de_venta = $fecha_de_venta->format('Y-m-d H:i:s');
-				$this->Subasta->set('fecha_de_venta', $fecha_de_venta);
-				$this->Subasta->save();
-				
-				// Crear la oferta para finalizar el proceso
-				//
-				return $this->requestAction('ofertas/crearOferta/' . $userId. '/' . $subasta['Subasta']['id'] . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
+				return $this->requestAction('/users/descontarCreditos/' . $subasta['Subasta']['id'] . '/' . $userId . '/' . $subasta['Subasta']['cantidad_creditos_puja']);
 
 			} else {
 				return array("success"=>false,"mensaje"=>"No tiene suficiente credito, Por favor compra mas creditos para poder ofertar","code"=>"1");
@@ -636,7 +606,8 @@ class SubastasController extends AppController {
 				// Reponer los creditos de la oferta
 				//
 				$creditosAReponer = $unaOfertaHecha['Oferta']['creditos_descontados'];
-				$this->requestAction('/users/reponerCreditos/'.$unaOfertaHecha['User']['id'].'/'.$creditosAReponer);
+				$bonosAReponer = $unaOfertaHecha['Oferta']['bonos_descontados'];
+				$this->requestAction('/users/reponerCreditos/'.$unaOfertaHecha['User']['id'].'/'.$creditosAReponer.'/'.$bonosAReponer);
 			}
 
 			/**
