@@ -169,7 +169,7 @@ class UsersController extends AppController {
 			debug($user);
 			if($user) {
 				$this->User->read(null, $user['User']['id']);
-				$this->User->set('creditos', $user['User']['creditos'] + $this->requestAction('/configs/creditosPorRecomendacion'));
+				$this->User->set('bonos', $user['User']['bonos'] + $this->requestAction('/configs/creditosPorRecomendacion'));
 				$this->User->save();
 				$this->__enviarCorreoAbonoPorRecomendar($email, $email_usuario);
 			}
