@@ -129,8 +129,8 @@ class SubastasController extends AppController {
 	}
 
 	function __ofertar($subasta = null) {
-		//$userId=$this->Session->read('Auth.User.id');
-		$userId=1;
+		$userId=$this->Session->read('Auth.User.id');
+		//$userId=1;
 		// Validar que el usuario tenga suficientes creditos para ofertar
 		// SUBASTA VENTA FIJA
 		if ($subasta['TipoSubasta']['id'] == 1) {

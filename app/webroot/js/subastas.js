@@ -21,7 +21,7 @@ if(contadores.length) {//envia solicitud de la subasta al servidor
 			update: function(aumento,fechaVenta) {
 				this.now=new Date();
 				this.fechaFinal = new Date(fechaVenta);
-				console.log(this.fechaFinal);
+				//console.log(this.fechaFinal);
 				this.diferencia=this.fechaFinal - this.now ;
 				this.minutes = this.diferencia / 1000 /60;
 				this.minutesRound = Math.floor(this.minutes);
