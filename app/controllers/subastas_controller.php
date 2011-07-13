@@ -7,7 +7,21 @@ class SubastasController extends AppController {
 		parent::beforeFilter();
 		$this->Auth->allow("index","subastasFinalizadas");
 	}
-	
+	function getStatus(){
+		$time=$_GET["ms"];
+		$date=date("Y-m-d H:i:s", substr($time,0,-3));
+		$dateTime=new DateTime($date);
+		$this->Subasta->Behaviors->attach('Containable');
+		$subastas=$this->Subasta->find("all",array("conditions"=>array("Subasta.id"=>$_POST["subastas"]),'contain' => array('Oferta' => array(
+'conditions' => array('Oferta.created >' => $date)
+))));
+		
+		echo json_encode($subastas);
+		Configure::write("debug",0);
+		$this->autoRender=false;
+		exit(0); 
+		
+	}
 	function congelar($duracion = null) {
 		
 		if ($duracion) {
