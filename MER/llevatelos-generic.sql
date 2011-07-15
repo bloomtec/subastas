@@ -3,11 +3,6 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 SET AUTOCOMMIT=0;
 START TRANSACTION;
-SET time_zone = "America/Bogota";
-
--- DROP SCHEMA IF EXISTS `subastas` ;
--- CREATE SCHEMA IF NOT EXISTS `subastas` DEFAULT CHARACTER SET utf8 ;
--- USE `subastas` ;
 
 -- -----------------------------------------------------
 -- Table `tipo_subastas`
@@ -483,7 +478,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- Data for table `tipo_subastas`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `subastas`;
+
 INSERT INTO `tipo_subastas` (`id`, `nombre`, `created`, `updated`) VALUES (1, 'Venta Fija', NULL, NULL);
 INSERT INTO `tipo_subastas` (`id`, `nombre`, `created`, `updated`) VALUES (2, 'Minimo De Creditos', NULL, NULL);
 
@@ -493,7 +488,7 @@ COMMIT;
 -- Data for table `estados_subastas`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `subastas`;
+
 INSERT INTO `estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (1, 'Esperando Activacion', NULL, NULL);
 INSERT INTO `estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (2, 'Activa', NULL, NULL);
 INSERT INTO `estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (3, 'Pendiente De Pago', NULL, NULL);
@@ -508,7 +503,7 @@ COMMIT;
 -- Data for table `roles`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `subastas`;
+
 INSERT INTO `roles` (`id`, `name`) VALUES (1, 'Administrador');
 INSERT INTO `roles` (`id`, `name`) VALUES (2, 'Usuario');
 
@@ -518,7 +513,7 @@ COMMIT;
 -- Data for table `users`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `subastas`;
+
 INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `email`, `creditos`, `bonos`, `created`, `updated`) VALUES (1, 1, 'admin', '59071c7c06ccba704236d2e76b5588c8e404160a', 'admin@llevatelos.com', 20000, 500, NULL, NULL);
 
 COMMIT;
@@ -527,7 +522,7 @@ COMMIT;
 -- Data for table `estados_ventas`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `subastas`;
+
 INSERT INTO `estados_ventas` (`id`, `nombre`, `created`, `updated`) VALUES (1, 'Pendiente De Pago', NULL, NULL);
 INSERT INTO `estados_ventas` (`id`, `nombre`, `created`, `updated`) VALUES (2, 'Realizada', NULL, NULL);
 INSERT INTO `estados_ventas` (`id`, `nombre`, `created`, `updated`) VALUES (3, 'No Realizada', NULL, NULL);
@@ -538,7 +533,7 @@ COMMIT;
 -- Data for table `configs`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `subastas`;
+
 INSERT INTO `configs` (`id`, `tamano_cola`, `creditos_recomendados`, `congelado`, `created`, `updated`) VALUES (1, 5, 500, 0, NULL, NULL);
 
 COMMIT;
@@ -547,7 +542,7 @@ COMMIT;
 -- Data for table `lista_correos`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `subastas`;
+
 INSERT INTO `lista_correos` (`id`, `correo`, `created`, `updated`) VALUES (1, 'ricardopandales@gmail.com', NULL, NULL);
 
 COMMIT;
