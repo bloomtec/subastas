@@ -18,7 +18,7 @@
     });
 	$("a.ofertar").click( function(e) {
 	var link=$(this);
-	var ruta=link.attr("href");
+	var ruta=link.attr("href")+"?ms="+new Date().getTime();
 	var subastaId=link.parent().parent().attr("rel");
 	e.preventDefault();
 	if(auth!=undefined && auth!=null) {
