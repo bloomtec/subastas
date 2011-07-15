@@ -30,7 +30,7 @@ class AppController extends Controller {
 		$this->Cookie->key = 'qSI232qs*&sXOw!';
 	}
 
-	function beforeRender(){
+	function beforeRender() {
 		$PAGE_TITLE="Llévatelos :: ";
 		$this->set(compact("PAGE_TITLE"));
 		$this->set('base_url', 'http://'.$_SERVER['SERVER_NAME'].Router::url('/'));
