@@ -570,7 +570,7 @@ class UsersController extends AppController {
 			
 			// Crear la oferta para finalizar el proceso
 			//
-			return $this->requestAction('ofertas/crearOferta/' . $userId. '/' . $subastaID . '/' . $creditosDescontados . '/' . $bonosDescontados);
+			return $this->requestAction('ofertas/crearOferta/' . $userID. '/' . $subastaID . '/' . $creditosDescontados . '/' . $bonosDescontados);
 		} else {
 			return false;
 		}

@@ -3,7 +3,7 @@
  <ul class="subastas-activas index <?php if(!$config["Config"]["congelado"]) echo "activo"?>">
 	 <?php $i=0;?>
 	 <?php foreach ($subastas as $subasta):?>
-	 <li <?php if($i%3==1) echo "class='centro'"?>  rel="<?php echo $subasta["Subasta"]["id"]; ?>"> 
+	 <li <?php if($i%3==1) echo "class='centro'"?>  id="<?php echo $subasta["Subasta"]["id"]; ?>" title="<?php echo $subasta["Subasta"]["nombre"]; ?>"> 
 		  <div class="fecha_vencimiento">
 			 	<?php 
 			 		$fecha= date_create_from_format('Y-m-d H:i:s',	$subasta["Subasta"]["fecha_de_venta"]); 
@@ -31,7 +31,10 @@
 	     	<br />
 	     <?php endif;?>
 	     <p class="precio"><?php echo "$ ".number_format($subasta["Subasta"]['precio'], 0, ' ', '.');?><p>
-	     <p class="ultimo-usuario"> <p>
+			<?php $ultimaOferta= $this->requestAction("/subastas/ultimaOferta/".$subasta["Subasta"]["id"]);?>
+		<p class="ultimo-usuario" rel="<?php if($ultimaOferta) echo $ultimaOferta["Oferta"]["id"];?>">
+			<?php if($ultimaOferta) echo "Última oferta ".$ultimaOferta["User"]["username"];?>
+		 <p>
 	     <?php 
 	     	
 	     	if(!$config["Config"]["congelado"])
