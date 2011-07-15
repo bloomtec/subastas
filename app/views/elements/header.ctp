@@ -13,15 +13,14 @@
 	</div>	
 	<div style="clear:both"></div>
 </div>
-<div class="contenido_header">
-	
+
+<div class="contenido_header">	
 	<?php echo $this->element("main-nav");?>
 	<div class="prueba">
-	<div class="banner-falabella">
+		<div class="banner-falabella">
 			<?php echo $html->image('falabella.png', array('alt' => 'falabella')); ?>
 			<p> <strong>Todos</strong> los productos de llévatelos.com tienen la garantía de falabella</p>
-	</div>
-	
+		</div>
 		<?php if(!$session->read("Auth.User.id")){?>
 		<div class="banner-registro">
 		<div class="leyenda">
@@ -30,33 +29,43 @@
 		</div>
 			<?php echo $html->link("Registrate",array("controller"=>"users","action"=>"register"),array("class"=>"registro"));?>
 		<?php }else{?>
-			<div class="banner-registro" id="banner-compra">
-			<div class="leyenda">
+		<div class="banner-registro" id="banner-compra">
+		<div class="leyenda">
 			<strong>¿Se te acaban tus creditos?</strong>
 			<p>Compra mas creditos y aprovecha nuestra ofertas!</p>
 		</div>
 			<?php echo $html->link("Comprar",array("controller"=>"users","action"=>"comprarCreditos"),array("class"=>"registro","id"=>"compra-creditos"));?>
 		<?php }?>
-	</div>
-	<div class="login">
-		 
-		<?php if(!$session->read("Auth.User.id")){?>
-		 <?php echo $form->create('User', array("action"=>"login","controller"=>"users"));?>
-        <h1>Mi cuenta</h1>
-         <?php echo $form->input("username",array("label"=>"Usuario/Correo:"));?>
-         <div style="clear:both"></div>   
-         <?php echo $form->input("password",array("label"=>"Contraseña:"));?>
-         <div style="clear:both"></div>
-         <?php echo $form->end(__('Ingresar', true), array('div' => false));?> 
-         <?php echo $html->link('¿Olvidó su contraseña?',array("controller"=>"users","action"=>"rememberPassword"), array("id"=>"olvidar"));?>  
-		<?php }else{ ?>
-			<h2 class="logueado"><?php echo $html->link("Mi cuenta",array("controller"=>"users","action"=>"index"));?></h2>
+		</div>
+		<div class="login">
+			<?php
+				if(!$session->read("Auth.User.id")) {
+					$form->create('User', array("action"=>"login","controller"=>"users"));
+			?>
+	        <h1>Mi cuenta</h1>
+	        <?php echo $form->input("username",array("label"=>"Usuario/Correo:"));?>
+	        <div style="clear:both"></div>
+	        <?php echo $form->input("password",array("label"=>"Contraseña:"));?>
+	        <div style="clear:both"></div>
+	        <?php
+		        	echo $form->end(__('Ingresar', true), array('div' => false));
+		        	echo $html->link('¿Olvidó su contraseña?',array("controller"=>"users","action"=>"rememberPassword"), array("id"=>"olvidar"));
+				} else {
+			?>
+	    	<h2 class="logueado"><?php echo $html->link("Mi cuenta",array("controller"=>"users","action"=>"index"));?></h2>
 			<div class="logueado"><span>Usuario: </span><?php echo $session->read("Auth.User.username")?></div>
 			<div class="logueado"><span>Creditos: </span><span id="creditos"><?php echo $this->requestAction("/users/getCreditos"); ?></span></div>
-			<?php echo $html->link('Salir',array("controller"=>"users","action"=>"logout"), array("id"=>"olvidar"));?>  
-		<?php }?>
+			<?php
+					$bonos = $this->requestAction("/users/getBonos");
+					if($bonos > 0) {
+			?>
+			<div class="logueado"><span>Bonos: </span><span id="bonos"><?php echo $bonos; ?></span></div>
+			<?php
+					}
+					echo $html->link('Salir',array("controller"=>"users","action"=>"logout"), array("id"=>"olvidar"));
+				}
+			?>
+		</div>
+		<div style="clear:both"></div>
 	</div>
-	<div style="clear:both"></div>
-	</div>
-
 </div>

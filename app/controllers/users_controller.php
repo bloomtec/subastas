@@ -162,6 +162,20 @@ class UsersController extends AppController {
 			exit(0);
 		}
 	}
+
+	function getBonos(){
+		$this->User->recursive=-1;
+		$user=$this->User->read(null,$this->Auth->user("id"));
+		if(!empty($this->params['requested'])){
+			return $user["User"]["bonos"];
+		}
+		if($this->RequestHandler->isAjax()){
+			echo $user["User"]["bonos"];
+			Configure::write("debug",0);
+			$this->autoRender=false;
+			exit(0);
+		}
+	}
 	
 	function __abonarCreditosPorRecomendacion($email = null, $email_usuario = null){
 		if ($email) {
