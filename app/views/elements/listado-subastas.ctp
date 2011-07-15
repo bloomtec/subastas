@@ -31,7 +31,10 @@
 	     	<br />
 	     <?php endif;?>
 	     <p class="precio"><?php echo "$ ".number_format($subasta["Subasta"]['precio'], 0, ' ', '.');?><p>
-	     <p class="ultimo-usuario"> <p>
+			<?php $ultimaOferta= $this->requestAction("/subastas/ultimaOferta/".$subasta["Subasta"]["id"]);?>
+		<p class="ultimo-usuario" rel="<?php if($ultimaOferta) echo $ultimaOferta["Oferta"]["id"];?>">
+			<?php if($ultimaOferta) echo "Última oferta ".$ultimaOferta["User"]["username"];?>
+		 <p>
 	     <?php 
 	     	
 	     	if(!$config["Config"]["congelado"])
