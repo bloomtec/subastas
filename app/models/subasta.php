@@ -155,7 +155,7 @@ class Subasta extends AppModel {
 			if(isset($val['Subasta']['id'])) {
 				$endDate = date($val['Subasta']['fecha_de_venta']);
 				$endDateTime = new DateTime($endDate);
-				$endDateTimeStamp = $endDateTime -> getTimestamp();
+				$endDateTimeStamp = $endDateTime -> format('U');
 				$faltanteTimeStamp = $endDateTimeStamp - $serverTimestamp;
 				
 				/*
