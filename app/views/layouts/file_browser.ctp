@@ -29,7 +29,7 @@
 			echo $this->Html->meta('icon');
 			echo $this->Html->css('reset');
 			echo $this->Html->css('file_browser');
-			echo $this->Html->script("jquery.js");
+			echo $this->Html->script("jquery-1.6.2.min.js");
 			echo $this->Html->script("ckeditor/ckeditor");
 			echo $this->Html->script("fileBrowser");
 			echo $scripts_for_layout;

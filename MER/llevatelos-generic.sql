@@ -1,17 +1,15 @@
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
-
-DROP SCHEMA IF EXISTS `subastas` ;
-CREATE SCHEMA IF NOT EXISTS `subastas` DEFAULT CHARACTER SET utf8 ;
-USE `subastas` ;
+SET AUTOCOMMIT=0;
+START TRANSACTION;
 
 -- -----------------------------------------------------
--- Table `subastas`.`tipo_subastas`
+-- Table `tipo_subastas`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`tipo_subastas` ;
+DROP TABLE IF EXISTS `tipo_subastas` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`tipo_subastas` (
+CREATE  TABLE IF NOT EXISTS `tipo_subastas` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NULL ,
   `created` DATETIME NULL ,
@@ -21,26 +19,27 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `subastas`.`estados_subastas`
+-- Table `estados_subastas`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`estados_subastas` ;
+DROP TABLE IF EXISTS `estados_subastas` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`estados_subastas` (
+CREATE  TABLE IF NOT EXISTS `estados_subastas` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NOT NULL ,
   `created` DATETIME NULL ,
   `udpated` DATETIME NULL ,
-  PRIMARY KEY (`id`) ,
-  UNIQUE INDEX `nombre_UNIQUE` (`nombre` ASC) )
+  PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
+CREATE UNIQUE INDEX `nombre_UNIQUE` ON `estados_subastas` (`nombre` ASC) ;
+
 
 -- -----------------------------------------------------
--- Table `subastas`.`subastas`
+-- Table `subastas`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`subastas` ;
+DROP TABLE IF EXISTS `subastas` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`subastas` (
+CREATE  TABLE IF NOT EXISTS `subastas` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `tipo_subasta_id` INT NOT NULL ,
   `estados_subasta_id` INT NOT NULL ,
@@ -61,27 +60,29 @@ CREATE  TABLE IF NOT EXISTS `subastas`.`subastas` (
   `created` DATETIME NULL ,
   `updated` DATETIME NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `fk_subastas_tipo_subastas1` (`tipo_subasta_id` ASC) ,
-  INDEX `fk_subastas_estados_subastas1` (`estados_subasta_id` ASC) ,
   CONSTRAINT `fk_subastas_tipo_subastas1`
     FOREIGN KEY (`tipo_subasta_id` )
-    REFERENCES `subastas`.`tipo_subastas` (`id` )
+    REFERENCES `tipo_subastas` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_subastas_estados_subastas1`
     FOREIGN KEY (`estados_subasta_id` )
-    REFERENCES `subastas`.`estados_subastas` (`id` )
+    REFERENCES `estados_subastas` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+CREATE INDEX `fk_subastas_tipo_subastas_INDEX` ON `subastas` (`tipo_subasta_id` ASC) ;
+
+CREATE INDEX `fk_subastas_estados_subastas_INDEX` ON `subastas` (`estados_subasta_id` ASC) ;
+
 
 -- -----------------------------------------------------
--- Table `subastas`.`roles`
+-- Table `roles`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`roles` ;
+DROP TABLE IF EXISTS `roles` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`roles` (
+CREATE  TABLE IF NOT EXISTS `roles` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) )
@@ -90,80 +91,88 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `subastas`.`users`
+-- Table `users`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`users` ;
+DROP TABLE IF EXISTS `users` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`users` (
+CREATE  TABLE IF NOT EXISTS `users` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `role_id` INT(11) NOT NULL DEFAULT 2 ,
   `username` VARCHAR(45) NOT NULL ,
   `password` VARCHAR(45) NOT NULL ,
   `email` VARCHAR(45) NOT NULL ,
   `creditos` INT NOT NULL DEFAULT 0 ,
+  `bonos` INT NOT NULL DEFAULT 0 ,
   `created` DATETIME NULL ,
   `updated` DATETIME NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `fk_users_roles1` (`role_id` ASC) ,
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC) ,
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) ,
   CONSTRAINT `fk_users_roles1`
     FOREIGN KEY (`role_id` )
-    REFERENCES `subastas`.`roles` (`id` )
+    REFERENCES `roles` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+CREATE INDEX `fk_users_roles_INDEX` ON `users` (`role_id` ASC) ;
+
+CREATE UNIQUE INDEX `id_UNIQUE` ON `users` (`id` ASC) ;
+
+CREATE UNIQUE INDEX `email_UNIQUE` ON `users` (`email` ASC) ;
+
 
 -- -----------------------------------------------------
--- Table `subastas`.`ofertas`
+-- Table `ofertas`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`ofertas` ;
+DROP TABLE IF EXISTS `ofertas` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`ofertas` (
+CREATE  TABLE IF NOT EXISTS `ofertas` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `subasta_id` INT NULL ,
-  `user_id` INT NULL ,
-  `creditos_descontados` INT NULL ,
+  `subasta_id` INT NOT NULL ,
+  `user_id` INT NOT NULL ,
+  `creditos_descontados` INT NOT NULL ,
+  `bonos_descontados` INT NOT NULL ,
   `created` DATETIME NULL ,
   `updated` DATETIME NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `ofertadelasubasta` (`subasta_id` ASC) ,
-  INDEX `ofertadelusuario` (`user_id` ASC) ,
   CONSTRAINT `ofertadelasubasta`
     FOREIGN KEY (`subasta_id` )
-    REFERENCES `subastas`.`subastas` (`id` )
+    REFERENCES `subastas` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `ofertadelusuario`
     FOREIGN KEY (`user_id` )
-    REFERENCES `subastas`.`users` (`id` )
+    REFERENCES `users` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+CREATE INDEX `ofertadelasubasta_INDEX` ON `ofertas` (`subasta_id` ASC) ;
+
+CREATE INDEX `ofertadelusuario_INDEX` ON `ofertas` (`user_id` ASC) ;
+
 
 -- -----------------------------------------------------
--- Table `subastas`.`estados_ventas`
+-- Table `estados_ventas`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`estados_ventas` ;
+DROP TABLE IF EXISTS `estados_ventas` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`estados_ventas` (
+CREATE  TABLE IF NOT EXISTS `estados_ventas` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NOT NULL ,
   `created` DATETIME NULL ,
   `updated` DATETIME NULL ,
-  PRIMARY KEY (`id`) ,
-  UNIQUE INDEX `nombre_UNIQUE` (`nombre` ASC) )
+  PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
+CREATE UNIQUE INDEX `nombre_UNIQUE` ON `estados_ventas` (`nombre` ASC) ;
+
 
 -- -----------------------------------------------------
--- Table `subastas`.`ventas`
+-- Table `ventas`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`ventas` ;
+DROP TABLE IF EXISTS `ventas` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`ventas` (
+CREATE  TABLE IF NOT EXISTS `ventas` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `subasta_id` INT NOT NULL ,
   `user_id` INT NOT NULL ,
@@ -171,33 +180,36 @@ CREATE  TABLE IF NOT EXISTS `subastas`.`ventas` (
   `created` DATETIME NULL ,
   `updated` DATETIME NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `usuarioquecompra` (`user_id` ASC) ,
-  INDEX `fk_ventas_subastas1` (`subasta_id` ASC) ,
-  INDEX `fk_ventas_estados_ventas1` (`estados_venta_id` ASC) ,
   CONSTRAINT `usuarioquecompra`
     FOREIGN KEY (`user_id` )
-    REFERENCES `subastas`.`users` (`id` )
+    REFERENCES `users` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_ventas_subastas1`
     FOREIGN KEY (`subasta_id` )
-    REFERENCES `subastas`.`subastas` (`id` )
+    REFERENCES `subastas` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_ventas_estados_ventas1`
     FOREIGN KEY (`estados_venta_id` )
-    REFERENCES `subastas`.`estados_ventas` (`id` )
+    REFERENCES `estados_ventas` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+CREATE INDEX `usuarioquecompra_INDEX` ON `ventas` (`user_id` ASC) ;
+
+CREATE INDEX `fk_ventas_subastas_INDEX` ON `ventas` (`subasta_id` ASC) ;
+
+CREATE INDEX `fk_ventas_estados_ventas_INDEX` ON `ventas` (`estados_venta_id` ASC) ;
+
 
 -- -----------------------------------------------------
--- Table `subastas`.`contacts`
+-- Table `contacts`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`contacts` ;
+DROP TABLE IF EXISTS `contacts` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`contacts` (
+CREATE  TABLE IF NOT EXISTS `contacts` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `lista_de_correo` TEXT NULL ,
   `contact_id` INT NULL ,
@@ -206,49 +218,51 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `subastas`.`contacts_fields`
+-- Table `contacts_fields`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`contacts_fields` ;
+DROP TABLE IF EXISTS `contacts_fields` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`contacts_fields` (
+CREATE  TABLE IF NOT EXISTS `contacts_fields` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `contact_id` INT NULL ,
   `nombre` VARCHAR(50) NULL ,
   `tipo` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `perteneceacontact` (`contact_id` ASC) ,
   CONSTRAINT `perteneceacontact`
     FOREIGN KEY (`contact_id` )
-    REFERENCES `subastas`.`contacts` (`id` )
+    REFERENCES `contacts` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+CREATE INDEX `contact_fields_contacts_INDEX` ON `contacts_fields` (`contact_id` ASC) ;
+
 
 -- -----------------------------------------------------
--- Table `subastas`.`options`
+-- Table `options`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`options` ;
+DROP TABLE IF EXISTS `options` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`options` (
+CREATE  TABLE IF NOT EXISTS `options` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `contact_field_id` INT NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `contactfieldoption` (`contact_field_id` ASC) ,
   CONSTRAINT `contactfieldoption`
     FOREIGN KEY (`contact_field_id` )
-    REFERENCES `subastas`.`contacts_fields` (`id` )
+    REFERENCES `contacts_fields` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+CREATE INDEX `contactfieldoption_INDEX` ON `options` (`contact_field_id` ASC) ;
+
 
 -- -----------------------------------------------------
--- Table `subastas`.`testimonios`
+-- Table `testimonios`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`testimonios` ;
+DROP TABLE IF EXISTS `testimonios` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`testimonios` (
+CREATE  TABLE IF NOT EXISTS `testimonios` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `imagen_path` VARCHAR(100) NULL ,
   `titulo` VARCHAR(45) NULL ,
@@ -258,11 +272,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `subastas`.`batch_codes`
+-- Table `batch_codes`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`batch_codes` ;
+DROP TABLE IF EXISTS `batch_codes` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`batch_codes` (
+CREATE  TABLE IF NOT EXISTS `batch_codes` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NULL ,
   `descripcion` TEXT NULL ,
@@ -273,11 +287,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `subastas`.`codes`
+-- Table `codes`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`codes` ;
+DROP TABLE IF EXISTS `codes` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`codes` (
+CREATE  TABLE IF NOT EXISTS `codes` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `batch_code_id` INT NOT NULL ,
   `codigo` VARCHAR(40) NOT NULL ,
@@ -287,22 +301,24 @@ CREATE  TABLE IF NOT EXISTS `subastas`.`codes` (
   `created` DATETIME NULL ,
   `updated` DATETIME NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `batch_code` (`batch_code_id` ASC) ,
-  UNIQUE INDEX `codigo_UNIQUE` (`codigo` ASC) ,
   CONSTRAINT `batch_code`
     FOREIGN KEY (`batch_code_id` )
-    REFERENCES `subastas`.`batch_codes` (`id` )
+    REFERENCES `batch_codes` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+CREATE INDEX `batch_code_INDEX` ON `codes` (`batch_code_id` ASC) ;
+
+CREATE UNIQUE INDEX `codigo_UNIQUE` ON `codes` (`codigo` ASC) ;
+
 
 -- -----------------------------------------------------
--- Table `subastas`.`acos`
+-- Table `acos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`acos` ;
+DROP TABLE IF EXISTS `acos` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`acos` (
+CREATE  TABLE IF NOT EXISTS `acos` (
   `id` INT(10) NOT NULL AUTO_INCREMENT ,
   `parent_id` INT(10) NULL DEFAULT NULL ,
   `model` VARCHAR(255) NULL DEFAULT NULL ,
@@ -316,11 +332,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `subastas`.`aros`
+-- Table `aros`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`aros` ;
+DROP TABLE IF EXISTS `aros` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`aros` (
+CREATE  TABLE IF NOT EXISTS `aros` (
   `id` INT(10) NOT NULL AUTO_INCREMENT ,
   `parent_id` INT(10) NULL DEFAULT NULL ,
   `model` VARCHAR(255) NULL DEFAULT NULL ,
@@ -334,11 +350,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `subastas`.`aros_acos`
+-- Table `aros_acos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`aros_acos` ;
+DROP TABLE IF EXISTS `aros_acos` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`aros_acos` (
+CREATE  TABLE IF NOT EXISTS `aros_acos` (
   `id` INT(10) NOT NULL AUTO_INCREMENT ,
   `aro_id` INT(10) NOT NULL ,
   `aco_id` INT(10) NOT NULL ,
@@ -346,18 +362,19 @@ CREATE  TABLE IF NOT EXISTS `subastas`.`aros_acos` (
   `_read` VARCHAR(2) NOT NULL DEFAULT '0' ,
   `_update` VARCHAR(2) NOT NULL DEFAULT '0' ,
   `_delete` VARCHAR(2) NOT NULL DEFAULT '0' ,
-  PRIMARY KEY (`id`) ,
-  UNIQUE INDEX `ARO_ACO_KEY` (`aro_id` ASC, `aco_id` ASC) )
+  PRIMARY KEY (`id`) )
 ENGINE = MyISAM
 DEFAULT CHARACTER SET = latin1;
 
+CREATE UNIQUE INDEX `ARO_ACO_KEY` ON `aros_acos` (`aro_id` ASC, `aco_id` ASC) ;
+
 
 -- -----------------------------------------------------
--- Table `subastas`.`pages`
+-- Table `pages`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`pages` ;
+DROP TABLE IF EXISTS `pages` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`pages` (
+CREATE  TABLE IF NOT EXISTS `pages` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `title` VARCHAR(45) NULL DEFAULT NULL ,
   `description` VARCHAR(45) NULL DEFAULT NULL ,
@@ -371,11 +388,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `subastas`.`user_fields`
+-- Table `user_fields`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`user_fields` ;
+DROP TABLE IF EXISTS `user_fields` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`user_fields` (
+CREATE  TABLE IF NOT EXISTS `user_fields` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `user_id` INT(11) NULL DEFAULT NULL ,
   `nombres` VARCHAR(45) NOT NULL ,
@@ -390,22 +407,23 @@ CREATE  TABLE IF NOT EXISTS `subastas`.`user_fields` (
   `ocupacion` VARCHAR(45) NULL ,
   `lugar_ocupacion` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `userfileds` (`user_id` ASC) ,
   CONSTRAINT `userfileds0`
     FOREIGN KEY (`user_id` )
-    REFERENCES `subastas`.`users` (`id` )
+    REFERENCES `users` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
+CREATE INDEX `userfileds` ON `user_fields` (`user_id` ASC) ;
+
 
 -- -----------------------------------------------------
--- Table `subastas`.`configs`
+-- Table `configs`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`configs` ;
+DROP TABLE IF EXISTS `configs` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`configs` (
+CREATE  TABLE IF NOT EXISTS `configs` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `tamano_cola` INT NOT NULL ,
   `creditos_recomendados` INT NOT NULL ,
@@ -417,26 +435,27 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `subastas`.`lista_correos`
+-- Table `lista_correos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`lista_correos` ;
+DROP TABLE IF EXISTS `lista_correos` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`lista_correos` (
+CREATE  TABLE IF NOT EXISTS `lista_correos` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `correo` VARCHAR(45) NOT NULL ,
   `created` DATETIME NULL ,
   `updated` DATETIME NULL ,
-  PRIMARY KEY (`id`) ,
-  UNIQUE INDEX `correo_UNIQUE` (`correo` ASC) )
+  PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
+CREATE UNIQUE INDEX `correo_UNIQUE` ON `lista_correos` (`correo` ASC) ;
+
 
 -- -----------------------------------------------------
--- Table `subastas`.`paquetes`
+-- Table `paquetes`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `subastas`.`paquetes` ;
+DROP TABLE IF EXISTS `paquetes` ;
 
-CREATE  TABLE IF NOT EXISTS `subastas`.`paquetes` (
+CREATE  TABLE IF NOT EXISTS `paquetes` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(40) NOT NULL ,
   `estado` TINYINT(1) NOT NULL COMMENT 'redimino,sin_redimir,vencido' ,
@@ -444,9 +463,10 @@ CREATE  TABLE IF NOT EXISTS `subastas`.`paquetes` (
   `precio` INT NOT NULL ,
   `created` DATETIME NULL ,
   `updated` DATETIME NULL ,
-  PRIMARY KEY (`id`) ,
-  UNIQUE INDEX `codigo_UNIQUE` (`nombre` ASC) )
+  PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
+
+CREATE UNIQUE INDEX `codigo_UNIQUE` ON `paquetes` (`nombre` ASC) ;
 
 
 
@@ -455,74 +475,74 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
--- Data for table `subastas`.`tipo_subastas`
+-- Data for table `tipo_subastas`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `subastas`;
-INSERT INTO `subastas`.`tipo_subastas` (`id`, `nombre`, `created`, `updated`) VALUES (1, 'Venta Fija', NULL, NULL);
-INSERT INTO `subastas`.`tipo_subastas` (`id`, `nombre`, `created`, `updated`) VALUES (2, 'Minimo De Creditos', NULL, NULL);
+
+INSERT INTO `tipo_subastas` (`id`, `nombre`, `created`, `updated`) VALUES (1, 'Venta Fija', NULL, NULL);
+INSERT INTO `tipo_subastas` (`id`, `nombre`, `created`, `updated`) VALUES (2, 'Minimo De Creditos', NULL, NULL);
 
 COMMIT;
 
 -- -----------------------------------------------------
--- Data for table `subastas`.`estados_subastas`
+-- Data for table `estados_subastas`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `subastas`;
-INSERT INTO `subastas`.`estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (1, 'Esperando Activacion', NULL, NULL);
-INSERT INTO `subastas`.`estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (2, 'Activa', NULL, NULL);
-INSERT INTO `subastas`.`estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (3, 'Pendiente De Pago', NULL, NULL);
-INSERT INTO `subastas`.`estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (4, 'Vencida', NULL, NULL);
-INSERT INTO `subastas`.`estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (5, 'Cancelada', NULL, NULL);
-INSERT INTO `subastas`.`estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (6, 'Cerrada', NULL, NULL);
-INSERT INTO `subastas`.`estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (7, 'Vendida', NULL, NULL);
+
+INSERT INTO `estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (1, 'Esperando Activacion', NULL, NULL);
+INSERT INTO `estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (2, 'Activa', NULL, NULL);
+INSERT INTO `estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (3, 'Pendiente De Pago', NULL, NULL);
+INSERT INTO `estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (4, 'Vencida', NULL, NULL);
+INSERT INTO `estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (5, 'Cancelada', NULL, NULL);
+INSERT INTO `estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (6, 'Cerrada', NULL, NULL);
+INSERT INTO `estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (7, 'Vendida', NULL, NULL);
 
 COMMIT;
 
 -- -----------------------------------------------------
--- Data for table `subastas`.`roles`
+-- Data for table `roles`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `subastas`;
-INSERT INTO `subastas`.`roles` (`id`, `name`) VALUES (1, 'Administrador');
-INSERT INTO `subastas`.`roles` (`id`, `name`) VALUES (2, 'Usuario');
+
+INSERT INTO `roles` (`id`, `name`) VALUES (1, 'Administrador');
+INSERT INTO `roles` (`id`, `name`) VALUES (2, 'Usuario');
 
 COMMIT;
 
 -- -----------------------------------------------------
--- Data for table `subastas`.`users`
+-- Data for table `users`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `subastas`;
-INSERT INTO `subastas`.`users` (`id`, `role_id`, `username`, `password`, `email`, `creditos`, `created`, `updated`) VALUES (1, 1, 'admin', '59071c7c06ccba704236d2e76b5588c8e404160a', 'admin@llevatelos.com', 0, NULL, NULL);
+
+INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `email`, `creditos`, `bonos`, `created`, `updated`) VALUES (1, 1, 'admin', '59071c7c06ccba704236d2e76b5588c8e404160a', 'admin@llevatelos.com', 20000, 500, NULL, NULL);
 
 COMMIT;
 
 -- -----------------------------------------------------
--- Data for table `subastas`.`estados_ventas`
+-- Data for table `estados_ventas`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `subastas`;
-INSERT INTO `subastas`.`estados_ventas` (`id`, `nombre`, `created`, `updated`) VALUES (1, 'Pendiente De Pago', NULL, NULL);
-INSERT INTO `subastas`.`estados_ventas` (`id`, `nombre`, `created`, `updated`) VALUES (2, 'Realizada', NULL, NULL);
-INSERT INTO `subastas`.`estados_ventas` (`id`, `nombre`, `created`, `updated`) VALUES (3, 'No Realizada', NULL, NULL);
+
+INSERT INTO `estados_ventas` (`id`, `nombre`, `created`, `updated`) VALUES (1, 'Pendiente De Pago', NULL, NULL);
+INSERT INTO `estados_ventas` (`id`, `nombre`, `created`, `updated`) VALUES (2, 'Realizada', NULL, NULL);
+INSERT INTO `estados_ventas` (`id`, `nombre`, `created`, `updated`) VALUES (3, 'No Realizada', NULL, NULL);
 
 COMMIT;
 
 -- -----------------------------------------------------
--- Data for table `subastas`.`configs`
+-- Data for table `configs`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `subastas`;
-INSERT INTO `subastas`.`configs` (`id`, `tamano_cola`, `creditos_recomendados`, `congelado`, `created`, `updated`) VALUES (1, 5, 500, 0, NULL, NULL);
+
+INSERT INTO `configs` (`id`, `tamano_cola`, `creditos_recomendados`, `congelado`, `created`, `updated`) VALUES (1, 5, 500, 0, NULL, NULL);
 
 COMMIT;
 
 -- -----------------------------------------------------
--- Data for table `subastas`.`lista_correos`
+-- Data for table `lista_correos`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `subastas`;
-INSERT INTO `subastas`.`lista_correos` (`id`, `correo`, `created`, `updated`) VALUES (1, 'ricardopandales@gmail.com', NULL, NULL);
+
+INSERT INTO `lista_correos` (`id`, `correo`, `created`, `updated`) VALUES (1, 'ricardopandales@gmail.com', NULL, NULL);
 
 COMMIT;

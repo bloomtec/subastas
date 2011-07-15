@@ -31,15 +31,15 @@
 		echo $this->Html->css('cake.generic');
 		echo $this->Html->css('uploadify');
 		echo $this->Html->css('superfish');
-		echo $this->Html->script("https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js");
+		echo $this->Html->script("jquery-1.6.2.min.js");
 		echo $this->Html->script("admin.js");
-		echo $this->Html->script("jquery-ui.js");
+		echo $this->Html->script("jquery-ui-1.8.14.custom.min.js");
 		echo $this->Html->script("swfobject.js");
 		echo $this->Html->script("ckeditor/ckeditor");
 		echo $this->Html->script("jquery.uploadify.v2.1.4.min.js");
 		echo $this->Html->script("upload.js");
 		echo $this->Html->script("superfish.js");
-    echo $this->Html->script("fileBrowser");
+		echo $this->Html->script("fileBrowser");
 		echo $scripts_for_layout;
 	?>
 <script type="text/javascript">
