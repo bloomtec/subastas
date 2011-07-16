@@ -130,46 +130,25 @@ class SubastasController extends AppController {
 	}
 
 	function ofertar($subastaID = null) {
-		Configure::write("debug",0);
-		$this->autoRender=false;
-		
-		// DateTime de la oferta
-		//
-		$time=$_GET["ms"];
-		$date=date("Y-m-d H:i:s", substr($time,0,-3));
-		$date1=new DateTime($date);
-		
-		// DateTime finalizacion subasta
-		//
-		$date2 = date($this->fechaDeVenta($subastaID));
-		$date2 = strtotime(date("Y-m-d H:i:s", strtotime($date2)));
-		$date2 = date("Y-m-d H:i:s", $date1);
-		$date2 = new DateTime($date1);
-		
-		// Comparar la hora de la oferta vs fin de la subasta
-		//
-		if ($date1 > $date2) {
-			// Se hizo la oferta despues de finalizar la subasta
-			//
-		} else {
-			// Se hizo la oferta antes de finalizar la subasta
-			//
-			if (!$this->requestAction('/configs/isCongelado')) {
-				$subastaID=$_GET["subasta_id"];
-				$subasta=$this->Subasta->read(null, $subastaID);
-				if ($subasta["Subasta"]["estados_subasta_id"] != 2) {
-					Configure::write("debug",0);
-					$this->autoRender=false;
-					exit(0);
-				} else {
-					echo json_encode($this->__ofertar($subasta));
-				}
+		if (!$this->requestAction('/configs/isCongelado')) {
+			$subastaID=$_GET["subasta_id"];
+			$subasta=$this->Subasta->read(null, $subastaID);
+			if ($subasta["Subasta"]["estados_subasta_id"] != 2) {
+				Configure::write("debug",0);
+				$this->autoRender=false;
 				exit(0);
 			} else {
-				echo null;
-				exit(0);
+				echo json_encode($this->__ofertar($subasta));
 			}
+			Configure::write("debug",0);
+			$this->autoRender=false;
+			exit(0);
+		} else {
+			echo null;
 		}
+		Configure::write("debug",0);
+		$this->autoRender=false;
+		exit(0);
 	}
 
 	function __ofertar($subasta = null) {
@@ -697,11 +676,6 @@ class SubastasController extends AppController {
 	function diasEspera($subastaID = null) {
 		$unaSubasta = $this->Subasta->read(null, $subastaID);
 		return $unaSubasta['Subasta']['dias_espera'];
-	}
-	
-	function fechaDeVenta($subastaID = null) {
-		$unaSubasta = $this->Subasta->read(null, $subastaID);
-		return $unaSubasta['Subasta']['fecha_de_venta'];
 	}
 
 	function enviarCorreoSubastaCancelada($correo = null, $nombre_subasta) {

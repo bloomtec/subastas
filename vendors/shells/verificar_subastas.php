@@ -25,7 +25,7 @@ class VerificarSubastasShell extends Shell {
 		// Generar la fecha actual formateada para comparar con la fecha de mysql
 		// GMT -5 para hora colombiana
 		//
-		return gmdate('Y-m-d H:i:s', time() + (3600 * -5));
+		return gmdate('Y-m-d H:i:s', time() + (3600 * -5) + 1);
 	}
 	
 	public function main(){
@@ -62,11 +62,12 @@ class VerificarSubastasShell extends Shell {
 			//
 			if ($totalCreditosDescontados < $minimoDeCreditos) {
 				// En este caso cancelar la subasta
-				// Actualiar el estado de la subasta a cancelado
+				// Actualizar el estado de la subasta a cancelado
 				//
 				$this->requestAction('/subastas/actualizarEstadoSubasta/' . $subastaActivaParaVender['Subasta']['id'] . '/5');
 			} else {
 				// En este caso se pone la subasta en espera de pago
+				//
 				$this->requestAction('/subastas/actualizarEstadoSubasta/' . $subastaActivaParaVender['Subasta']['id'] . '/3');
 			}
 				
