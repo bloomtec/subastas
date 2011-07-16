@@ -48,29 +48,39 @@ class VerificarSubastasShell extends Shell {
 			// Mostrar la fecha de venta de la subasta
 			//
 			$this->out("Fecha de venta para la subasta " . $subastaActivaParaVender['Subasta']['fecha_de_venta']);
-
-			// Revisar el total de creditos descontados
+			
+			// Verificar que se hayan hecho ofertas por la subasta
 			//
-			$totalCreditosDescontados = $this->requestAction('/ofertas/obtenerTotalCreditosDescontados/' . $subastaActivaParaVender['Subasta']['id']);
-
-			// Segun el cambio toca verificar que $totalCreditosDescontados >= $minimoDeCreditos
-			// si no se alcanza dicho minimo se cancela la subasta
-			//
-			$minimoDeCreditos = $subastaActivaParaVender['Subasta']['umbral_minimo_creditos'];
-				
-			// Validar la condicion ya mencionada
-			//
-			if ($totalCreditosDescontados < $minimoDeCreditos) {
+			$ofertasRealizadas = $this->requestAction('/ofertas/getOfertas/' . $subastaActivaParaVender['Subasta']['id']);
+			
+			if(empty($ofertasRealizadas)) {
 				// En este caso cancelar la subasta
 				// Actualizar el estado de la subasta a cancelado
 				//
 				$this->requestAction('/subastas/actualizarEstadoSubasta/' . $subastaActivaParaVender['Subasta']['id'] . '/5');
 			} else {
-				// En este caso se pone la subasta en espera de pago
+				// Revisar el total de creditos descontados
 				//
-				$this->requestAction('/subastas/actualizarEstadoSubasta/' . $subastaActivaParaVender['Subasta']['id'] . '/3');
-			}
-				
+				$totalCreditosDescontados = $this->requestAction('/ofertas/obtenerTotalCreditosDescontados/' . $subastaActivaParaVender['Subasta']['id']);
+	
+				// Segun el cambio toca verificar que $totalCreditosDescontados >= $minimoDeCreditos
+				// si no se alcanza dicho minimo se cancela la subasta
+				//
+				$minimoDeCreditos = $subastaActivaParaVender['Subasta']['umbral_minimo_creditos'];
+					
+				// Validar la condicion ya mencionada
+				//
+				if ($totalCreditosDescontados < $minimoDeCreditos) {
+					// En este caso cancelar la subasta
+					// Actualizar el estado de la subasta a cancelado
+					//
+					$this->requestAction('/subastas/actualizarEstadoSubasta/' . $subastaActivaParaVender['Subasta']['id'] . '/5');
+				} else {
+					// En este caso se pone la subasta en espera de pago
+					//
+					$this->requestAction('/subastas/actualizarEstadoSubasta/' . $subastaActivaParaVender['Subasta']['id'] . '/3');
+				}	
+			}				
 
 			$this->out("\n------------------------------------------------------------------------------\n");
 		}
