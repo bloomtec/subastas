@@ -14,8 +14,8 @@
 			echo $form -> input("username",array("div"=>"input text required","label"=>"Usuario"));
 			echo $form -> input("password",array("div"=>"input required","required"=>"required","id"=>"password","label"=>"Contraseña"));
 			echo $form -> input("password2",array("div"=>"input required","required"=>"required","id"=>"password2","type"=>"password","label"=>"Confirmar Contraseña","data-equals"=>"password","data-message"=>"Verificar contraseña"));
-			echo $form -> input("UserField.nombres",array("required"=>"required","div"=>"input required text"));
-			echo $form -> input("UserField.apellidos");
+			//echo $form -> input("UserField.nombres",array("required"=>"required","div"=>"input required text"));
+			//echo $form -> input("UserField.apellidos");
 			
 		?>
 		<div class="input text required">
@@ -28,7 +28,7 @@
 			<input type="email" id="UserEmailConfirm" maxlength="45" name="data[User][email-confirm]" required="required" data-equals="UserEmail" data-message="Verificar correo electrónico"));>
 		</div>
 		<?php
-			echo $form->input("UserField.fecha_de_nacimiento",array("minYear"=>date('Y') - 70));
+			//echo $form->input("UserField.fecha_de_nacimiento",array("minYear"=>date('Y') - 70));
 			if (isset($email_referente)){
 				echo $form->hidden("referido_por", array('value' => $email_referente));
 			} else {

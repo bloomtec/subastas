@@ -63,6 +63,6 @@
 		</div>
 	</div>
 	
-	<?php //echo $this->element('register-overlay'); ?>
+	<?php echo $this->element('register-overlay'); ?>
 </body>
 </html>
