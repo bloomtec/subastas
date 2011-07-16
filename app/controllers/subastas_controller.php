@@ -5,7 +5,13 @@ class SubastasController extends AppController {
 	
 	function beforeFilter(){
 		parent::beforeFilter();
-		$this->Auth->allow("index","subastasFinalizadas","ultimaOferta");
+		$this->Auth->allow("index","subastasFinalizadas","ultimaOferta","pruebas");
+	}
+	function pruebas(){
+	$subasta=$this->Subasta->find("first");
+		debug($subasta["Subasta"]["fecha_de_venta"]);
+		debug(gmdate('Y-m-d H:i:s', time() + (3600 * -5) + 1));
+		debug(gmdate('Y-m-d H:i:s', time() + (3600 * -5)));
 	}
 	function ultimaOferta($subastaID){
 		$oferta=$this->Subasta->Oferta->find("first",array("conditions"=>array("Oferta.subasta_id"=>$subastaID),"order"=>array("Oferta.id DESC")));

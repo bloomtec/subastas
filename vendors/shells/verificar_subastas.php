@@ -25,7 +25,7 @@ class VerificarSubastasShell extends Shell {
 		// Generar la fecha actual formateada para comparar con la fecha de mysql
 		// GMT -5 para hora colombiana
 		//
-		return gmdate('Y-m-d H:i:s', time() + (3600 * -5));
+		return gmdate('Y-m-d H:i:s', time() + (3600 * -5) - 1);
 	}
 	
 	public function main(){
