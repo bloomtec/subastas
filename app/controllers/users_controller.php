@@ -266,8 +266,10 @@ class UsersController extends AppController {
 				//$rol=$this->Session->read("Auth.User.role_id");
 				App::import('Vendor', 'MadMimi', array('file' =>'madmimi'.DS.'MadMimi.class.php'));
 				$mailer= new MadMimi(Configure::read('madmimiEmail'),Configure::read('madmimiKey'));
-				$userMimi = array('email' => $this->data['User']['email'], 'firstName' => $this->data['UserField']['nombres'], 'lastName' => $this->data['UserField']['apellidos'], 'add_list' => 'cuentas-creadas');
+				$userMimi = array('email' => $this->data['User']['email'], 'firstName' => $this->data['User']['username'], 'add_list' => 'cuentas-creadas');
 				$mailer->AddUser($userMimi);
+				$mailer->RemoveUser($this->data['User']['email'],"Mailing");
+				//$mailer->AddUser($this->data['User']['email'],"Facebok");
 				$this->Session->setFlash(__('Su registro ha sido éxitoso', true));
 				$this->Auth->login($this->data);
 				$this->Cookie->write("registrado", true);

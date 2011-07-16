@@ -34,16 +34,6 @@
 			console.log(oferta);
 				if(oferta.success) {
 				$("#creditos").html(oferta.User.creditos);
-					/*arregloSubastas[subastaId]['usuario'].fadeOut("fast", function() {
-						//	alert(oferta.User.creditos);
-						$("#creditos").html(oferta.User.creditos);
-						$(this).html("Última oferta "+oferta.User.username);
-						$(this).fadeIn();
-					});*/
-					/*arregloSubastas[subastaId]['precio'].fadeOut("fast", function() {
-						$(this).html("$ "+addCommas(oferta.Subasta.precio));
-						$(this).fadeIn();
-					});*/
 				} else {
 					alert(oferta.mensaje);
 				}
@@ -51,7 +41,7 @@
 		});
 
 	} else {
-		$("#register-overlay").overlay().load()
+		$("#login-overlay").overlay().load()
 	}
 
 });

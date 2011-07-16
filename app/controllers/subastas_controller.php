@@ -130,10 +130,14 @@ class SubastasController extends AppController {
 	}
 
 	function ofertar($subastaID = null) {
+		$time=$_GET["ms"];
+		$date=date("Y-m-d H:i:s", substr($time,0,-3));
 		if (!$this->requestAction('/configs/isCongelado')) {
 			$subastaID=$_GET["subasta_id"];
 			$subasta=$this->Subasta->read(null, $subastaID);
-			if ($subasta["Subasta"]["estados_subasta_id"] != 2) {
+			
+			if ($subasta["Subasta"]["estados_subasta_id"] != 2 || $date>=$subasta["Subasta"]["fecha_de_venta"]) {
+				echo false;
 				Configure::write("debug",0);
 				$this->autoRender=false;
 				exit(0);

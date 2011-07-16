@@ -25,32 +25,11 @@
 			al alcance de un click
 		</div>
 		<div class="registrate">
-			<h1><?php echo $html->link("Regístrate",array("controller"=>"users","action"=>"register"));?></h1>
-			<span>y comienza a</span>
-			cumplir todos tus sueños
+		<form action='https://madmimi.com/signups/subscribe/35608' method='post'>
+		<div><label for='signup_name'>Name</label><br /><input id='signup_name' name='signup[name]' type='text' /><br />
+		<label for='signup_email'>Email</label><br /><input id='signup_email' name='signup[email]' type='text' /><br /><input name='commit' class='button' type='submit' value='Sign Up' /></div>
+		</form>
 		</div>
 	</div>
-  <!-- </div> <div class="register usuarios   forms">
-        <h2>Registrate YA!!!</h2>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </p>
-        <?php echo $form -> create("User", array("action" => "register","id"=>"registerForm"));
-        $datos = explode("/", $_GET['url']);
-        if(isset($datos['2']) & !empty($datos['2'])) {
-            echo $form -> input("Recomendado.id", array('type' => 'hidden', 'value' => $datos['2']));
-        }
-        echo $form -> input("UserField.nombres",array("required"=>"required"));
-        echo $form -> input("UserField.apellidos",array("required"=>"required"));
-        echo $form -> input("username",array("div"=>"input text required","value"=>"web","label"=>"Nombre de usuario","required"=>"required"));
-        ?>
-        <div class="input text required">
-            <label for="UserEmail">Email</label>
-            <input type="email" id="UserEmail" maxlength="45" name="data[User][email]" required="required">
-        </div>
-        <?php
-        echo $form -> input("password");
-        echo $form -> end("Guardar");
-        ?> -->
     </div>
    </div>
