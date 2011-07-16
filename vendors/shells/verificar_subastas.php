@@ -25,7 +25,7 @@ class VerificarSubastasShell extends Shell {
 		// Generar la fecha actual formateada para comparar con la fecha de mysql
 		// GMT -5 para hora colombiana
 		//
-		return gmdate('Y-m-d H:i:s', time() + (3600 * -5) - 1);
+		return gmdate('Y-m-d H:i:s', time() + (3600 * -5) - 2);
 	}
 	
 	public function main(){
@@ -34,7 +34,7 @@ class VerificarSubastasShell extends Shell {
 		// Encontrar las subastas con estado activo
 		// y que se encuentren en su 'fecha_de_venta'
 		//
-		$this->out("\nHora actual del sistema: " . $this->now() . "\n");
+			
 
 		$subastasActivasParaVender = $this->Subasta->find("all",
 										array('conditions' => array('Subasta.estados_subasta_id' => '2',
