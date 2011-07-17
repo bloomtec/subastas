@@ -17,8 +17,34 @@
 		arregloSubastas[subastaId]['ultimaOferta']=arregloSubastas[subastaId]['usuario'].attr("rel");
     });
 	$("a.ofertar").click( function(e) {
-		ofertar();
-	});
+	var link=$(this);
+	var ruta=link.attr("href")+"?ms="+new Date().getTime();
+	var subastaId=link.parent().parent().attr("rel");
+	e.preventDefault();
+	if(auth!=undefined && auth!=null) {
+		jQuery.ajax({
+			url:ruta,
+			type: "GET",
+			cache: false,
+			dataType:"json",
+			data: {
+				subasta_id:subastaId
+			},
+			success: function(oferta) {
+			console.log(oferta);
+				if(oferta.success) {
+				$("#creditos").html(oferta.User.creditos);
+				} else {
+					alert(oferta.mensaje);
+				}
+			}
+		});
+
+	} else {
+		$("#login-overlay").overlay().load()
+	}
+
+});
 	setInterval(function(){
 		jQuery.ajax({
 			url:server+"subastas/getStatus?ms="+new Date().getTime(),
@@ -58,33 +84,4 @@
 			}
 		});
 	},1000);
-	
-	function ofertar(){
-		var link=$(this);
-		var ruta=link.attr("href")+"?ms="+new Date().getTime();
-		var subastaId=link.parent().parent().attr("rel");
-		e.preventDefault();
-		if(auth!=undefined && auth!=null) {
-			jQuery.ajax({
-				url:ruta,
-				type: "GET",
-				cache: false,
-				dataType:"json",
-				data: {
-					subasta_id:subastaId
-				},
-				success: function(oferta) {
-				console.log(oferta);
-					if(oferta.success) {
-					$("#creditos").html(oferta.User.creditos);
-					} else {
-						alert(oferta.mensaje);
-					}
-				}
-			});
-
-		} else {
-			$("#login-overlay").overlay().load()
-		}
-	}
 });
