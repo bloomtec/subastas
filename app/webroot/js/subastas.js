@@ -75,6 +75,7 @@
 								$(this).html("Última oferta "+subasta.Oferta[0].User.username);
 								$(this).fadeIn();
 							});
+							if(arregloSubastas[subasta.Subasta.id]["boton"].html()=="Procesando"){
 							arregloSubastas[subasta.Subasta.id]["boton"].bind("click", function(e) {
 											var link=$(this);
 											var ruta=link.attr("href")+"?ms="+new Date().getTime();
@@ -104,6 +105,7 @@
 											}
 
 										}).html("¡Oferte ya!");
+										}
 						}
 					}
 					//console.log(subasta.Subasta.id);
