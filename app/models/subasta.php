@@ -172,7 +172,7 @@ class Subasta extends AppModel {
 					$minutos = $this -> getDateDifference($serverDate, $endDate, 'm');
 					$segundos = $this -> getDateDifference($serverDate, $endDate, 's');
 					$cronometro = $this -> getDateDifference($serverDate, $endDate, 'a');
-					$results[$key]['Subasta']['faltante_timestamp'] = $serverDate . " => " . $endDate;
+					$results[$key]['Subasta']['faltante_timestamp'] = $serverDate - $endDate;
 					$results[$key]['Subasta']['contador_string'] = $cronometro["hours"] . ":" . $cronometro["minutes"] . ":" . $cronometro["seconds"];
 					$results[$key]['Subasta']['server_timestamp'] = $serverTimestamp;
 					$results[$key]['Subasta']['end_time_stamp'] = $endDateTimeStamp;
