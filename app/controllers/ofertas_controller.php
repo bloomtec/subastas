@@ -74,13 +74,16 @@ class OfertasController extends AppController {
         	if($this->Oferta->Subasta->save($subasta)) { 
 				$fecha= date_create_from_format('Y-m-d H:i:s',	$oferta['Subasta']['fecha_de_venta']);
 				$oferta['Subasta']['fecha_de_venta'] = $fecha->format('Y M d H:i:s');
-				return true;
+				$oferta['success'] = true;
+				return $oferta;
 			} else {
-				return false;
+				$oferta['success'] = false;
+				return $oferta;
 			}
 			
 		}else{
-			return false;
+			$oferta['success'] = false;
+			return $oferta;
 		}
 		
 	}
