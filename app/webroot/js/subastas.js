@@ -62,7 +62,7 @@
 					if(subasta.Subasta.contador_string==="00:00:00"){
 						arregloSubastas[subasta.Subasta.id]["boton"].unbind("click").bind("click",function(e){e.preventDefault();}).html("Procesando");
 					}
-					if(subasta.Subasta.estados_subasta_id==3){
+					if(subasta.Subasta.estados_subasta_id==3||(arregloSubastas[subasta.Subasta.id]["boton"].html()=="Procesando")&&subasta.Subasta.faltante_timestamp<-3){
 							arregloSubastas[subasta.Subasta.id]["boton"].removeClass("ofertar").unbind("click").html("Terminda");
 					}
 					if(subasta.Subasta.estados_subasta_id==4){
