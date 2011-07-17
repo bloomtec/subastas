@@ -53,6 +53,7 @@
 			dataType:"json",
 			data:{subastas:subastas,id:'sss'},
 			success: function(subastas) {
+			console.log(subastas);
 				$.each(subastas,function(i,subasta){
 				console.log(subasta.Subasta.faltante_timestamp);
 				
@@ -62,7 +63,13 @@
 						arregloSubastas[subasta.Subasta.id]["boton"].unbind("click").bind("click",function(e){e.preventDefault();}).html("Procesando");
 					}
 					if(subasta.Subasta.estados_subasta_id==3){
+							arregloSubastas[subasta.Subasta.id]["boton"].removeClass("ofertar").unbind("click").html("Terminda");
+					}
+					if(subasta.Subasta.estados_subasta_id==4){
 							arregloSubastas[subasta.Subasta.id]["boton"].removeClass("ofertar").unbind("click").html("Vencida");
+					}
+					if(subasta.Subasta.estados_subasta_id==5){
+							arregloSubastas[subasta.Subasta.id]["boton"].removeClass("ofertar").unbind("click").html("Cancelada");
 					}
 					if(subasta.Oferta.length){					
 						if(subasta.Oferta[0].id!=arregloSubastas[subasta.Subasta.id]["ultimaOferta"]){
