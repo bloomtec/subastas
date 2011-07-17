@@ -53,6 +53,7 @@
 			dataType:"json",
 			data:{subastas:subastas,id:'sss'},
 			success: function(subastas) {
+			console.log(subastas);
 				$.each(subastas,function(i,subasta){
 				console.log(subasta.Subasta.faltante_timestamp);
 				
