@@ -291,9 +291,9 @@ class Subasta extends AppModel {
 					$minutes = "0" . $minutes;
 				if(strlen($seconds) == 1)
 					$seconds = "0" . $seconds;
-				if(empty($hours) == 0)
+				if(empty($hours))
 					$hours = "--";
-				if(empty($minutes) == 0)
+				if(empty($minutes))
 					$minutes = "--";
 				if(empty($seconds))
 					$seconds = "--";
