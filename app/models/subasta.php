@@ -291,12 +291,7 @@ class Subasta extends AppModel {
 					$minutes = "0" . $minutes;
 				if(strlen($seconds) == 1)
 					$seconds = "0" . $seconds;
-				if(empty($hours))
-					$hours = "--";
-				if(empty($minutes))
-					$minutes = "--";
-				if(empty($seconds))
-					$seconds = "--";
+					
 				$difference = array("days" => $days, "hours" => $hours, "minutes" => $minutes, "seconds" => $seconds);
 
 				break;
