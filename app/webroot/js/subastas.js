@@ -54,7 +54,7 @@
 			data:{subastas:subastas,id:'sss'},
 			success: function(subastas) {
 				$.each(subastas,function(i,subasta){
-				console.log(subasta.Subasta.estados_subasta_id);
+				console.log(subasta.Subasta);
 					arregloSubastas[subasta.Subasta.id]["contador"].html(subasta.Subasta.contador_string);
 					//arregloSubastas[subasta.Subasta.id]["precio"].html("$ "+addCommas(subasta.Subasta.precio));
 					if(subasta.Subasta.contador_string==="00:00:00"){
