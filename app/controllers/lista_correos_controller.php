@@ -69,23 +69,55 @@ class ListaCorreosController extends AppController {
 	
 	private function enviarCorreos($correos = null) {
 		App::import('Vendor', 'MadMimi', array('file' =>'madmimi'.DS.'MadMimi.class.php'));
-		$mailer = new MadMimi(Configure::read('madmimiEmail'), Configure::read('madmimiKey'));
+		App::import('Vendor', 'MadMimi', array('file' =>'madmimi'.DS.'Spyc.class.php'));
 		
-		/*foreach($correos as $correo) {
+		foreach($correos as $correo) {
+			
+			/**
+			 * username=YourMadMimiEmailAddress
+			 * api_key=YourMadMimiApiKey
+			 * promotion_name=Welcome to Acme Widgets
+			 * recipients=Dave Hoover <dave@example.com>
+			 * subject=Welcome to Acme Widgets
+			 * bcc=admin@example.com
+			 * from=no-reply@example.com
+			 * reply_to=Nicholas Young <nicholas@example.com>
+			 * body=--- \nname: Some YAML data\n
+			
+			$postData = array(
+				'username' => Configure::read('madmimiEmail'),
+				'api_key' => Configure::read('madmimiKey'),
+				'promotion_name' => 'Prueba',
+				'recipients' => $correo,
+				'from' => 'no-reply@llevatelos.com'
+			);
+			
+			$x = curl_init('https://api.madmimi.com/mailer');
+			//curl_setopt($x, CURLOPT_HTTPHEADER, array('Content-Type: text/xml'));
+			//curl_setopt($x, CURLOPT_HEADER, 0);
+			curl_setopt($x, CURLOPT_POST, TRUE);
+			//curl_setopt($x, CURLOPT_SSL_VERIFYPEER, FALSE);
+			//curl_setopt($x, CURLOPT_SSL_VERIFYHOST, FALSE);
+			curl_setopt($x, CURLOPT_POSTFIELDS, $postData);
+			curl_setopt($x, CURLOPT_RETURNTRANSFER, TRUE);
+			debug($x);
+			$data = curl_exec($x);
+			curl_close($x);
+			debug($data);
+			 * 
+			 */
+			
 			$options = array(
-				'recipients' => $correo . ' < ' . $correo . '>',
-				'promotion_name' => 'Untitled Promotion', 'subject' => 'You Gotta Read This',
-				'from' => 'Llevatelos Mad Mimi Mailer <noreply@llevatelos.com>');
-			$body = array('greeting' => 'Hola, prueba de Mad Mimi', 'name' => $correo);
+				'promotion_name' => 'Prueba',
+				'recipients' => $correo,
+				'from' => 'no-reply@llevatelos.com'
+			);
+			
+			$mailer = new MadMimi(Configure::read('madmimiEmail'), Configure::read('madmimiKey'));
+			$body = array('greeting' => 'Hola', 'name' => 'usuario');
 			$mailer->SendMessage($options, $body);
-		}*/
-		
-		$options = array(
-			'recipients' => 'Julio ' . '<juliodominguez@gmail.com>',
-			'promotion_name' => 'Esto es una prueba', 'subject' => 'Esto es una prueba',
-			'from' => 'Llevatelos Mad Mimi Mailer <llevatelos.com@gmail.com>');
-		$body = array('greeting' => 'Hola, prueba de Mad Mimi', 'name' => 'Julio');
-		$mailer->SendMessage($options, $body);
+			
+		}
 		
 	}
 	

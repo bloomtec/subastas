@@ -207,7 +207,7 @@ class OfertasController extends AppController {
 	}
 
 	function obtenerUsuarioGanadorSubasta($subastaID = null){
-		$ofertaGanadora = $this->Oferta->find("first", array('conditions' => array('Oferta.subasta_id' => $subastaID)));
+		$ofertaGanadora = $this->Oferta->find("first", array('order' => 'Oferta.id DESC', 'conditions' => array('Oferta.subasta_id' => $subastaID)));
 		return $ofertaGanadora['User']['id'];
 	}
 	
