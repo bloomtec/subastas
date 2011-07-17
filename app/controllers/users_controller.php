@@ -542,28 +542,36 @@ class UsersController extends AppController {
 
 	function descontarCreditos ( $subastaID = null, $userID = null, $creditosADescontar = null ) {
 		$user = $this->User->read(null, $userID);
-		$bonos = $user['User']['bonos'];
 		$creditosDescontados = 0;
 		$bonosDescontados = 0;
 		
-		if($bonos > 0) {
-			if($bonos > $creditosADescontar) {
-				// Aquí los bonos son mas que los creditos a descontar
+		// Ver si el usuario tiene o no bonos
+		//
+		if($user['User']['bonos'] > 0) {
+			// El usuario tiene bonos; hay que descontar de estos primero
+			//
+			// Verificar si la cantidad de bonos disponible es mayor o igual
+			// que la cantidad de creditos a descontar
+			//
+			if($user['User']['bonos'] >= $creditosADescontar) {
+				// La cantdidad de bonos disponible es mayor o igual que la
+				// cantidad de creditos a descontar
 				// 
-				$bonos = $bonos - $creditosADescontar;
-				$user['User']['bonos'] = $bonos;
+				$user['User']['bonos'] = $user['User']['bonos'] - $creditosADescontar;
 				$bonosDescontados = $creditosADescontar;
 			} else {
-				// Aquí los bonos son menos o iguales que los creditos a descontar
-				// Luego, descontar bonos y luego creditos
+				// Aquí los bonos no son suficientes para pagar la subasta; descontar
+				// primero los bonos y luego descontar los creditos
 				//
-				$creditosADescontar = $creditosADescontar - $bonos;
+				$creditosADescontar = $creditosADescontar - $user['User']['bonos'];
+				$bonosDescontados = $user['User']['bonos'];
 				$user['User']['bonos'] = 0;
 				$user['User']['creditos'] = $user['User']['creditos'] - $creditosADescontar;
-				$bonosDescontados = $bonos;
 				$creditosDescontados = $creditosADescontar;
 			}
 		} else {
+			// El usuario no tiene bonos; descontar créditos
+			//
 			$user['User']['creditos'] = $user['User']['creditos'] - $creditosADescontar;
 			$creditosDescontados = $creditosADescontar;
 		}

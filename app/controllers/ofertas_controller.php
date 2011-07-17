@@ -60,29 +60,30 @@ class OfertasController extends AppController {
 	
 	function crearOferta($userID = null, $subastaID = null, $creditosDescontados = null, $bonosDescontados = null) {
 		
-		$this->Oferta->create();
-		$this->Oferta->set('subasta_id', $subastaID);
-		$this->Oferta->set('user_id', $userID);
-		$this->Oferta->set('creditos_descontados', $creditosDescontados);
-		$this->Oferta->set('bonos_descontados', $bonosDescontados);
-		$oferta = $this->Oferta->save();
+		$oferta = $this->Oferta->create();
+		$oferta['Oferta']['subasta_id'] = $subastaID;
+		$oferta['Oferta']['user_id'] = $userID;
+		$oferta['Oferta']['creditos_descontados'] = $creditosDescontados; 
+		$oferta['Oferta']['bonos_descontados'] = $bonosDescontados;
 		
-		if(!empty($oferta)){
+		if($this->Oferta->save($oferta)) {
 			
-			$oferta = $this->Oferta->read(null,$this->Oferta->id);
-			$subasta["Subasta"] = $oferta["Subasta"];
-			$subasta["Subasta"]["precio"] += $subasta["Subasta"]["aumento_precio"];
-        	if($this->Oferta->Subasta->save($subasta)){ 
-				$oferta["Subasta"] = $subasta["Subasta"];
-				$fecha= date_create_from_format('Y-m-d H:i:s',	$oferta["Subasta"]["fecha_de_venta"]);
-				$oferta["Subasta"]["fecha_de_venta"]=$fecha->format('Y M d H:i:s');
+			$subasta['Subasta'] = $oferta['Subasta'];
+			$subasta['Subasta']['precio'] += $subasta['Subasta']['aumento_precio'];
+			
+        	if($this->Oferta->Subasta->save($subasta)) { 
+				$fecha= date_create_from_format('Y-m-d H:i:s',	$oferta['Subasta']['fecha_de_venta']);
+				$oferta['Subasta']['fecha_de_venta'] = $fecha->format('Y M d H:i:s');
+				$oferta['success'] = true;
+				return $oferta;
+			} else {
+				$oferta['success'] = false;
+				return $oferta;
 			}
 			
-			$oferta["success"] = true;
-			return $oferta;
-			
 		}else{
-			return false;
+			$oferta['success'] = false;
+			return $oferta;
 		}
 		
 	}
