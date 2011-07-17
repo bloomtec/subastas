@@ -75,6 +75,7 @@
 								$(this).html("Última oferta "+subasta.Oferta[0].User.username);
 								$(this).fadeIn();
 							});
+							arregloSubastas[subasta.Subasta.id]["boton"].html("¡Oferte ya!");
 						}
 					}
 					//console.log(subasta.Subasta.id);
