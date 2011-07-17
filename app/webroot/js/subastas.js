@@ -34,6 +34,7 @@
 			console.log(oferta);
 				if(oferta.success) {
 				$("#creditos").html(oferta.User.creditos);
+				$("#bonos").html(oferta.User.bonos);
 				} else {
 					alert(oferta.mensaje);
 				}
