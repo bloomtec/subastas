@@ -58,7 +58,9 @@
 				console.log(subasta.Subasta.faltante_timestamp);
 				
 					if(arregloSubastas[subasta.Subasta.id]["contador"].html()=="::"){
-					}else{arregloSubastas[subasta.Subasta.id]["contador"].html(subasta.Subasta.contador_string);
+						arregloSubastas[subasta.Subasta.id]["contador"].html("--:--:--");
+					}else{
+						arregloSubastas[subasta.Subasta.id]["contador"].html(subasta.Subasta.contador_string);
 					}
 					//arregloSubastas[subasta.Subasta.id]["precio"].html("$ "+addCommas(subasta.Subasta.precio));
 					if(subasta.Subasta.contador_string==="00:00:00"){
