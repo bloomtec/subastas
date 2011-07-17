@@ -67,12 +67,14 @@ class OfertasController extends AppController {
 		$oferta['Oferta']['bonos_descontados'] = $bonosDescontados;
 		
 		if($this->Oferta->save($oferta)) {
-			
+				
+			$oferta = $this->Oferta->read(null, $oferta['Oferta']['id']); // Leer porque no existen relaciones con los demas modelos
 			$subasta['Subasta'] = $oferta['Subasta'];
 			$subasta['Subasta']['precio'] += $subasta['Subasta']['aumento_precio'];
 			
-        	if($this->Oferta->Subasta->save($subasta)) { 
-				$fecha= date_create_from_format('Y-m-d H:i:s',	$oferta['Subasta']['fecha_de_venta']);
+        	if($this->Oferta->Subasta->save($subasta)) {
+        		$oferta['Subasta'] = $subasta['Subasta'];
+				$fecha = date_create_from_format('Y-m-d H:i:s',	$oferta['Subasta']['fecha_de_venta']);
 				$oferta['Subasta']['fecha_de_venta'] = $fecha->format('Y M d H:i:s');
 				$oferta['success'] = true;
 				return $oferta;
