@@ -147,7 +147,7 @@ class Subasta extends AppModel {
 	var $hasMany = array('Oferta' => array('className' => 'Oferta', 'foreignKey' => 'subasta_id', 'dependent' => false, 'conditions' => '', 'fields' => '', 'order' => '', 'limit' => '', 'offset' => '', 'exclusive' => '', 'finderQuery' => '', 'counterQuery' => ''));
 
 	function afterFind($results) {
-		$serverTimestamp = time() + 1;
+		$serverTimestamp = time() + 2;
 		$serverDate = date("Y-m-d H:i:s", $serverTimestamp);
 		
 		foreach($results as $key => $val) {
