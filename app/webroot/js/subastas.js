@@ -57,7 +57,7 @@
 				$.each(subastas,function(i,subasta){
 				console.log(subasta.Subasta.faltante_timestamp);
 				
-					if(arregloSubastas[subasta.Subasta.id]["contador"].html()=="::"){
+					if(subasta.Subasta.contador_string=="::"){
 						arregloSubastas[subasta.Subasta.id]["contador"].html("--:--:--");
 					}else{
 						arregloSubastas[subasta.Subasta.id]["contador"].html(subasta.Subasta.contador_string);
