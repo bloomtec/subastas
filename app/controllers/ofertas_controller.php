@@ -60,15 +60,15 @@ class OfertasController extends AppController {
 	
 	function crearOferta($userID = null, $subastaID = null, $creditosDescontados = null, $bonosDescontados = null) {
 		
-		$oferta = $this->Oferta->create();
-		$oferta['Oferta']['subasta_id'] = $subastaID;
-		$oferta['Oferta']['user_id'] = $userID;
-		$oferta['Oferta']['creditos_descontados'] = $creditosDescontados; 
-		$oferta['Oferta']['bonos_descontados'] = $bonosDescontados;
+		$this->Oferta->create();
+		$this->Oferta->set('subasta_id', $subastaID);
+		$this->Oferta->set('user_id', $userID);
+		$this->Oferta->set('creditos_descontados', $creditosDescontados);
+		$this->Oferta->set('bonos_descontados', $bonosDescontados);
 		
-		if($this->Oferta->save($oferta)) {
+		if($this->Oferta->save()) {
 				
-			$oferta = $this->Oferta->read(null, $oferta['Oferta']['id']); // Leer porque no existen relaciones con los demas modelos
+			$oferta = $this->Oferta->read(null, $this->Oferta->id);
 			$subasta['Subasta'] = $oferta['Subasta'];
 			$subasta['Subasta']['precio'] += $subasta['Subasta']['aumento_precio'];
 			
