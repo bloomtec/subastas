@@ -22,7 +22,9 @@
 	     <?php echo $this->Html->para("pvp","Precio Cial. $ ".number_format($subasta["Subasta"]['valor'], 0, ' ', '.')) ?>
 	     <div  rel="<?php echo $subasta["Subasta"]["id"]; ?>">
 	     <?php if(!$config["Config"]["congelado"]):?>
-	     <p class="contador" id="contador<?php echo $subasta["Subasta"]["id"]?>"></p>
+	     <p class="contador" id="contador<?php echo $subasta["Subasta"]["id"]?>">
+			--:--:--
+		 </p>
 	     <p class="pvp">Tiempo Para termnar la oferta</p>
 	     <?php endif;?>
 	     <?php if($config["Config"]["congelado"]):?>
