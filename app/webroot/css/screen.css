@@ -1031,7 +1031,7 @@ div.logueado span{
 	margin-top: 1em;
 }
 /*OVERLAY*/
-	#register-overlay {
+	#register-overlay, #login-overlay{
 	
 		/* must be initially hidden */
 		display:none;
@@ -1063,7 +1063,7 @@ div.logueado span{
 	#register-overlay form{
 		margin:0;
 	}
- 	#register-overlay .close {
+ 	#register-overlay .close, #login-overlay .close {
 		background-image:url("../img/close.png");
 		position:absolute;
 		right:-15px;

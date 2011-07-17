@@ -82,7 +82,7 @@
 						<?php echo $this -> requestAction("/users/getCreditos");?>
 					</span>
 				</div>
-				<?php $bonos = $this->requestAction("/users/getBonos"); if($bonos > 0) {
+				<?php $bonos = $this->requestAction("/users/getBonos"); 
 				?>
 				<div class="logueado">
 					<span>Bonos: </span>
@@ -90,7 +90,6 @@
 						<?php echo $bonos;?>
 					</span>
 				</div>
-				<?php }?>
 				<?php echo $html -> link('Salir', array("controller" => "users", "action" => "logout"), array("id" => "olvidar"));?>
 				<?php }?>
 			</div>
