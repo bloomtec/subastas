@@ -701,7 +701,7 @@ class UsersController extends AppController {
 			$mailer = new MadMimi(Configure::read('madmimiEmail'), Configure::read('madmimiKey'));
 			$body = array(
 				'correo-recomendado' => $email_usuario,
-				'nombre' => $user_fields['UserFields']['nombres'],
+				'nombres' => $user_fields['UserFields']['nombres'],
 				'apellidos' => $user_fields['UserFields']['apellidos'],
 				'bonos' => $bonos['Configs']['creditos_recomendados']
 			);
@@ -717,29 +717,31 @@ class UsersController extends AppController {
 		//
 		if ($userID) {
 			$IDEncriptada = crypt($userID, "23()23*$%g4F^aN!^^%");
+			$user = $this->User->read(null, $userID);
+			$this->loadModel('UserField');
+			$user_fields = $this->UserField->find('first', array('conditions' => array('UserFields.id' => $user['User']['id'])));
 			
 			// TODO : Enviar el correo a $correoDestino con el enlace y la $IDEncriptada
 			//
-
+			
 			if ($correoDestino) {
-				$para = $correoDestino;
-				$asunto = 'Te han recomendado la pÃ¡gina LLEVATELOS.COM';
-				$mensaje = 'Hola, te han recomendado en nuestra pÃ¡gina.' .
-						'\n Registrate usando este link para llevarte un beneficio de creditos.' . 
-						'\n http://www.llevatelos.com/users/register/' . $IDEncriptada;
-
-				$cabeceras = 'From: webmaster@example.com' .
-						"\r\n" . 
-						'Reply-To: webmaster@example.com' . "\r\n" . 
-						'X-Mailer: PHP/' . phpversion();
-
-				if(mail($para, $asunto, $mensaje, $cabeceras)) {
-					$this->Session->setFlash(__('Datos enviados a su correo', true));
-				} else {
-					$this->Session->setFlash(__('Datos no enviados a su correo, por favor intenta mas tarde', true));
-				}
-					
-				return;
+				App::import('Vendor', 'MadMimi', array('file' =>'madmimi'.DS.'MadMimi.class.php'));
+				App::import('Vendor', 'MadMimi', array('file' =>'madmimi'.DS.'Spyc.class.php'));
+				
+				$options = array(
+					'promotion_name' => 'Invitacion-Referido',
+					'recipients' => $correoDestino,
+					'from' => 'no-reply@llevatelos.com'
+				);
+				
+				$mailer = new MadMimi(Configure::read('madmimiEmail'), Configure::read('madmimiKey'));
+				$body = array(
+					'nombres' => $user_fields['UserFields']['nombres'],
+					'apellidos' => $user_fields['UserFields']['apellidos'],
+					'id-encriptada' => $IDEncriptada
+				);
+				$mailer->SendMessage($options, $body);
+				
 			} else {
 				// TODO : El correo destino no es valido
 			}
