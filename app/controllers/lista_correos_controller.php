@@ -114,7 +114,7 @@ class ListaCorreosController extends AppController {
 			);
 			
 			$mailer = new MadMimi(Configure::read('madmimiEmail'), Configure::read('madmimiKey'));
-			$body = array('greeting' => 'Hola', 'name' => 'usuario');
+			$body = array('nombre' => 'Julio');
 			$mailer->SendMessage($options, $body);
 			
 		}
