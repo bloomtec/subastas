@@ -314,10 +314,10 @@ class UsersController extends AppController {
 		if($user["User"]["password"]==$this->Auth->password($_GET["data"]["User"]["actualPassword"])){
 			$user["User"]["password"]=$this->Auth->password($_GET["data"]["User"]["password"]);
 			$this->User->save($user,array("validate"=>false));
-			$this->Session->setFlash(__('Se ha modificado su contraseÃ±a', true));
+			$this->Session->setFlash(__('Se ha modificado su contraseña', true));
 			echo json_encode(true);
 		}else{
-			echo json_encode(array("data[User][actualPassword]"=>"ContraseÃ±a Actual no valida"));
+			echo json_encode(array("data[User][actualPassword]"=>"Contraseña actual no valida"));
 		}
 		Configure::write("debug",0);
 		$this->autoRender=false;
