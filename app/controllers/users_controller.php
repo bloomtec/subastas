@@ -141,7 +141,7 @@ class UsersController extends AppController {
 
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('El usuario no pudo ser modificado. Por favor, inténtelo de nuevo.', true));
+				$this->Session->setFlash(__('El usuario no pudo ser modificado. Por favor, intÃ©ntelo de nuevo.', true));
 			}
 		}
 		if (empty($this->data)) {
@@ -237,44 +237,67 @@ class UsersController extends AppController {
 		if (!empty($this->data)) {
 			$this->User->recursive = 0;
 			$this->User->create();
-			$this->data["User"]["role_id"] = 2; // Is set as a Basic user for default
+			$this->data['User']['role_id'] = 2; // Is set as a Basic user for default
+			$user_pass = $this->data['User']['password'];
 			if ($this->User->save($this->data)) {
-				$this->data["UserField"]["user_id"] = $this->User->id;
+				$this->data['UserField']['user_id'] = $this->User->id;
 				$this->User->UserField->save($this->data["UserField"]);
 				if (isset($this->data['User']['referido_por'])) {
 					$this->__abonarCreditosPorRecomendacion($this->data['User']['referido_por'], $this->data['User']['email']);
 				}
-				$para      = $this->data['User']['email'];
-				$asunto    = 'Bienvenido a www.llevatelos.com';
-				$mensaje   = 'Bienvenido, sus datos de ingreso al portal Llévatelos son los siguientes:<br> Nombre de usuario (email) :'.$this->data['User']['email'].
-							 '<br>Contraseña: '.$this->data['User']['password'];
-					
-				$cabeceras = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-
-				// Cabeceras adicionales
-				$cabeceras .= 'From: Llévatelos <info@llevatelo.com>' . "\r\n";
-
-				/*if(mail($para, $asunto, $mensaje, $cabeceras))
-				 {
-					$this->Session->setFlash(__('Bienvenido', true));
-					}else
-					{
-					$this->Session->setFlash(__('Bienvenido', true));
-					//$this->Session->setFlash(__('Datos de logueo no enviados a su correo, por favor intenta mas tarde', true));
-					}*/
-					
-				//$rol=$this->Session->read("Auth.User.role_id");
+				
+				// Importar clases de Mad Mimi
+				//
 				App::import('Vendor', 'MadMimi', array('file' =>'madmimi'.DS.'MadMimi.class.php'));
-				$mailer= new MadMimi(Configure::read('madmimiEmail'),Configure::read('madmimiKey'));
-				$userMimi = array('email' => $this->data['User']['email'], 'firstName' => $this->data['User']['username'], 'add_list' => 'cuentas-creadas');
+				App::import('Vendor', 'MadMimi', array('file' =>'madmimi'.DS.'Spyc.class.php'));
+				
+				// Crear el objeto de Mad Mimi
+				//
+				$mailer = new MadMimi(Configure::read('madmimiEmail'), Configure::read('madmimiKey'));
+				
+				// Arreglo para añadir un usuario a Mad Mimi
+				//
+				$userMimi = array(
+					'email' => $this->data['User']['email'],
+					'firstName' => $this->data['User']['username'],
+					'add_list' => 'cuentas-creadas'
+				);
+				
+				// Añadir el usuario a Mad Mimi
+				//
 				$mailer->AddUser($userMimi);
-				$mailer->RemoveUser($this->data['User']['email'],"Mailing");
-				//$mailer->AddUser($this->data['User']['email'],"Facebok");
-				$this->Session->setFlash(__('Su registro ha sido éxitoso', true));
+				
+				$this->Session->setFlash(__('Su registro ha sido exitoso', true));
 				$this->Auth->login($this->data);
 				$this->Cookie->write("registrado", true);
-				if($this->referer()=="/") $this->redirect(array("controller"=>"subastas",'action' => 'index'));
-				$this->redirect(array("controller"=>"users",'action' => 'recomendar'));
+				
+				// Opciones de configuracion para enviar un correo via Mad Mimi
+				//
+				$options = array(
+					'promotion_name' => 'Welcome-Message',
+					'recipients' => $this->data['User']['email'],
+					'from' => 'no-reply@llevatelos.com'
+				);
+				
+				// Opciones del cuerpo de mensaje de Mad Mimi
+				//
+				$body = array(
+					'usuario' => $this->data['User']['username'],
+					'contraseña' => $user_pass,
+					'nombres' => $this->data['UserField']['nombres'],
+					'apellidos' => $this->data['UserField']['apellidos']
+				);
+				
+				// Enviar el mensaje via Mad Mimi
+				//
+				$mailer->SendMessage($options, $body);
+				
+				if($this->referer()=="/") {
+					$this->redirect(array("controller"=>"subastas",'action' => 'index'));
+				} else {
+					$this->redirect(array("controller"=>"users",'action' => 'recomendar'));
+				}
+				
 			} else {
 				$this->Session->setFlash(__('No se pudo completar el registro. Por favor, intente de nuevo', true));
 			}
@@ -291,10 +314,10 @@ class UsersController extends AppController {
 		if($user["User"]["password"]==$this->Auth->password($_GET["data"]["User"]["actualPassword"])){
 			$user["User"]["password"]=$this->Auth->password($_GET["data"]["User"]["password"]);
 			$this->User->save($user,array("validate"=>false));
-			$this->Session->setFlash(__('Se ha modificado su contraseña', true));
+			$this->Session->setFlash(__('Se ha modificado su contraseÃ±a', true));
 			echo json_encode(true);
 		}else{
-			echo json_encode(array("data[User][actualPassword]"=>"Contraseña Actual no valida"));
+			echo json_encode(array("data[User][actualPassword]"=>"ContraseÃ±a Actual no valida"));
 		}
 		Configure::write("debug",0);
 		$this->autoRender=false;
@@ -439,11 +462,11 @@ class UsersController extends AppController {
 				}
 
 			} else {
-				$this->Session->setFlash("Por favor ingrese la dirección de correo electrónico con la que te registraste");
+				$this->Session->setFlash("Por favor ingrese la direcciÃ³n de correo electrÃ³nico con la que te registraste");
 			}
 
 		} else {
-			//$this->Session->setFlash("Ingrese su usuario/correo y contraseña");
+			//$this->Session->setFlash("Ingrese su usuario/correo y contraseÃ±a");
 		}
 
 	}
@@ -484,9 +507,9 @@ class UsersController extends AppController {
 			//debug($datos);
 			if($datos['User']['email']){
 				$para      = $datos['User']['email'];
-				$asunto    = 'Recuperacion de contraseña';
+				$asunto    = 'Recuperacion de contraseÃ±a';
 				$mensaje   = 'Sus datos para ingresar al portal llevatelos.com son los siguientes: <br /> Nombre de usuario: '.$datos['User']['email'].
-							 ' <br /> Contraseña: '.$newPassword;
+							 ' <br /> ContraseÃ±a: '.$newPassword;
 					
 				$cabeceras  = 'MIME-Version: 1.0' . "\r\n";
 				$cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
@@ -560,7 +583,7 @@ class UsersController extends AppController {
 				$user['User']['bonos'] = $user['User']['bonos'] - $creditosADescontar;
 				$bonosDescontados = $creditosADescontar;
 			} else {
-				// Aquí los bonos no son suficientes para pagar la subasta; descontar
+				// AquÃ­ los bonos no son suficientes para pagar la subasta; descontar
 				// primero los bonos y luego descontar los creditos
 				//
 				$creditosADescontar = $creditosADescontar - $user['User']['bonos'];
@@ -570,7 +593,7 @@ class UsersController extends AppController {
 				$creditosDescontados = $creditosADescontar;
 			}
 		} else {
-			// El usuario no tiene bonos; descontar créditos
+			// El usuario no tiene bonos; descontar crÃ©ditos
 			//
 			$user['User']['creditos'] = $user['User']['creditos'] - $creditosADescontar;
 			$creditosDescontados = $creditosADescontar;
@@ -605,11 +628,11 @@ class UsersController extends AppController {
 			if($user = $this->User->read(null, $this->data['User']['user_id'])){
 				$creditos = $this->requestAction('/codes/redimirCodigo/' . $this->data['User']['codigo_a_redimir']);
 				if ($creditos == 0) {
-					$this->Session->setFlash(__('Código no válido.', true));
+					$this->Session->setFlash(__('CÃ³digo no vÃ¡lido.', true));
 				} else {
 					$this->User->set('creditos', $user['User']['creditos'] + $creditos);
 					$this->User->save();
-					$this->Session->setFlash(__('Se redimió el código', true));
+					$this->Session->setFlash(__('Se redimiÃ³ el cÃ³digo', true));
 				}
 			} else {
 				$this->Session->setFlash(__('No hay un usuario con esa ID', true));
@@ -656,12 +679,12 @@ class UsersController extends AppController {
 	}
 
 	function __enviarCorreoAbonoPorRecomendar($correoDestino = null, $email_usuario = null){
-		// Encriptar el ID de quien envía la recomendacion
+		// Encriptar el ID de quien envÃ­a la recomendacion
 		//
 		if ($correoDestino) {
 			$para = $correoDestino;
-			$asunto = '¡Alguien se inscribió luego de que lo recomendaras!';
-			$mensaje = "Saludos, se te han abonado creditos por haber recomendado nuestra página a $email_usuario." .
+			$asunto = 'Â¡Alguien se inscribiÃ³ luego de que lo recomendaras!';
+			$mensaje = "Saludos, se te han abonado creditos por haber recomendado nuestra pÃ¡gina a $email_usuario." .
 					"\n Registrate usando este link para llevarte un beneficio de creditos.";
 
 			$cabeceras = 'From: webmaster@example.com' .
@@ -682,7 +705,7 @@ class UsersController extends AppController {
 	}
 	
 	function __enviarCorreoRecomendado($userID = null, $correoDestino = null){
-		// Encriptar el ID de quien envía la recomendacion
+		// Encriptar el ID de quien envÃ­a la recomendacion
 		//
 		if ($userID) {
 			$IDEncriptada = crypt($userID, "23()23*$%g4F^aN!^^%");
@@ -692,8 +715,8 @@ class UsersController extends AppController {
 
 			if ($correoDestino) {
 				$para = $correoDestino;
-				$asunto = 'Te han recomendado la página LLEVATELOS.COM';
-				$mensaje = 'Hola, te han recomendado en nuestra página.' .
+				$asunto = 'Te han recomendado la pÃ¡gina LLEVATELOS.COM';
+				$mensaje = 'Hola, te han recomendado en nuestra pÃ¡gina.' .
 						'\n Registrate usando este link para llevarte un beneficio de creditos.' . 
 						'\n http://www.llevatelos.com/users/register/' . $IDEncriptada;
 
