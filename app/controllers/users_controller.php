@@ -679,26 +679,34 @@ class UsersController extends AppController {
 	}
 
 	function __enviarCorreoAbonoPorRecomendar($correoDestino = null, $email_usuario = null){
-		// Encriptar el ID de quien envÃ­a la recomendacion
+		// Encriptar el ID de quien envía la recomendacion
 		//
 		if ($correoDestino) {
-			$para = $correoDestino;
-			$asunto = 'Â¡Alguien se inscribiÃ³ luego de que lo recomendaras!';
-			$mensaje = "Saludos, se te han abonado creditos por haber recomendado nuestra pÃ¡gina a $email_usuario." .
-					"\n Registrate usando este link para llevarte un beneficio de creditos.";
-
-			$cabeceras = 'From: webmaster@example.com' .
-					"\r\n" . 
-					'Reply-To: webmaster@example.com' . "\r\n" . 
-					'X-Mailer: PHP/' . phpversion();
-
-			if(mail($para, $asunto, $mensaje, $cabeceras)) {
-				$this->Session->setFlash(__('Datos enviados a su correo', true));
-			} else {
-				$this->Session->setFlash(__('Datos no enviados a su correo, por favor intenta mas tarde', true));
-			}
-				
-			return;
+			
+			$user = $this->User->find('first', array('conditions' => array('User.email' => $correoDestino)));
+			$this->loadModel('UserField');
+			$user_fields = $this->UserField->find('first', array('conditions' => array('UserFields.id' => $user['User']['id'])));
+			$this->loadModel('Config');
+			$bonos = $this->Config->find('first');
+			
+			App::import('Vendor', 'MadMimi', array('file' =>'madmimi'.DS.'MadMimi.class.php'));
+			App::import('Vendor', 'MadMimi', array('file' =>'madmimi'.DS.'Spyc.class.php'));
+			
+			$options = array(
+				'promotion_name' => 'Activacion-Referido',
+				'recipients' => $correoDestino,
+				'from' => 'no-reply@llevatelos.com'
+			);
+			
+			$mailer = new MadMimi(Configure::read('madmimiEmail'), Configure::read('madmimiKey'));
+			$body = array(
+				'correo-recomendado' => $email_usuario,
+				'nombre' => $user_fields['UserFields']['nombres'],
+				'apellidos' => $user_fields['UserFields']['apellidos'],
+				'bonos' => $bonos['Configs']['creditos_recomendados']
+			);
+			$mailer->SendMessage($options, $body);
+			
 		} else {
 			// TODO: Algun error con el correo destino
 		}
