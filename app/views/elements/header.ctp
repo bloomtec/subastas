@@ -28,12 +28,12 @@
 <div class="contenido_header">
 	<?php echo $this -> element("main-nav");?>
 	<div class="prueba">
-		<div class="banner-falabella">
+		<!--<div class="banner-falabella">
 			<?php echo $html -> image('falabella.png', array('alt' => 'falabella'));?>
 			<p>
 				<strong>Todos</strong> los productos de llévatelos.com tienen la garantía de falabella
 			</p>
-		</div>
+		</div>-->
 		<?php if(!$session->read("Auth.User.id")){
 		?>
 		<div class="banner-registro">
