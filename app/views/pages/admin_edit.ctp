@@ -18,8 +18,8 @@
 
 <script type="text/javascript">
 					CKEDITOR.replace( 'editor',{
-        				filebrowserUploadUrl : '/subastas/upload.php',
-        				filebrowserBrowseUrl : '/subastas/admin/images/wysiwyg',
+        				filebrowserUploadUrl : '/upload.php',
+        				filebrowserBrowseUrl : '/admin/images/wysiwyg',
 
 
 					} );

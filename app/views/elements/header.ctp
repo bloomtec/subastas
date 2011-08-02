@@ -4,8 +4,7 @@
 	</h1>
 	<div class="info">
 		<p class="slogan">
-			Lo que más deseas el
-			<strong>15%</strong> del precio comercial
+			<?php echo $html->image("atrapa.png");?>
 		</p>
 		<div class="reloj">
 			<?php echo $html -> image('reloj.png', array('alt' => 'reloj'));?>
@@ -28,22 +27,20 @@
 <div class="contenido_header">
 	<?php echo $this -> element("main-nav");?>
 	<div class="prueba">
-		<!--<div class="banner-falabella">
-			<?php echo $html -> image('falabella.png', array('alt' => 'falabella'));?>
-			<p>
-				<strong>Todos</strong> los productos de llévatelos.com tienen la garantía de falabella
-			</p>
-		</div>-->
+		<div class="banner-falabella">
+			
+		</div>
 		<?php if(!$session->read("Auth.User.id")){
 		?>
 		<div class="banner-registro">
 			<div class="leyenda">
-				<strong>¿Aún no eres miembro?</strong>
 				<p>
-					Házlo en menos de 60 segundos
+					En solo 60 segundos podrás
 				</p>
+				<strong>ganarte 10 créditos</strong>
+				
 			</div>
-			<?php echo $html -> link("Registrate", array("controller" => "users", "action" => "register"), array("class" => "registro"));?>
+			<?php echo $html -> link("Regístrate gratis", array("controller" => "users", "action" => "register"), array("class" => "registro"));?>
 			<?php }else{?>
 			<div class="banner-registro" id="banner-compra">
 				<div class="leyenda">

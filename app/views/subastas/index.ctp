@@ -1,14 +1,15 @@
 <?php //debug($registrado)?>
 <div id="left-content">
-	 <?php echo $this->element("email-list");?>
-	 <?php echo $this->element("ultimo-ganador");?>
-	 <?php echo $this->element("proxima-oferta");?>
+	 <?php echo $this->element("referidos");?>
 	 <?php echo $this->element("seguridad");?>
+	 <?php // echo $this->element("ultimo-ganador");?>
+	 <?php echo $this->element("proxima-oferta");?>
+	 <?php echo $this->element("banner-lateral");?>
 	 <?php echo $this->element("social");?>
 	 <div style="clear:both"></div>
 </div>
 <div id="right-content">
-	<h1 class="titulo-amarillo">Subastas activas</h1>
+	<h1 class="titulo-amarillo">Ofertas Activas</h1>
 	<div class="WYSIWYG banner-home">
 	   <?php 
 	     echo $this->requestAction("/pages/bannerHome");

@@ -57,7 +57,7 @@
 <?php $proximasSubastas = $this->requestAction('/subastas/proximasSubastas'); ?>
 <?php if (!empty($proximasSubastas)):?>
 	<ul class="proximas-subastas">
-		 <h1 class="titulo-amarillo">Próximas subastas<h1>
+		 <h1 class="titulo-amarillo">Próximas Ofertas<h1>
 		 <?php $i=0;?>
 		 <?php foreach ($proximasSubastas as $subasta):?>
 		 <li <?php if($i%3==1) echo "class='centro'"?> rel="<?php echo $subasta["Subasta"]["id"]; ?>"> 

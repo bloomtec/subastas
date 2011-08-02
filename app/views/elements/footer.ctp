@@ -10,13 +10,14 @@
 			<?php echo $html->link("Privacidad",array("controller"=>"pages","action"=>"view","privacidad"));?>
 		</li>
 		<li>
-			<?php echo $html->link("Contacto",array("controller"=>"pages","action"=>"view","contacto"));?>
+			<?php echo $html->link("Contacto",array("controller"=>"pages","action"=>"contacto"));?>
 		</li>
 		<li>
-			<?php echo $html->link("Sobre Nosotros",array("controller"=>"pages","action"=>"view","sobre-nosotros"));?>
+			<?php //echo $html->link("Sobre Nosotros",array("controller"=>"pages","action"=>"view","sobre-nosotros"));?>
+			<?php echo $html->link("Preguntas Frecuentes",array("controller"=>"pages","action"=>"view","faq"));?>
 		</li>
 		<li>
-			<a href="#">Mapa del sitio </a>
+			<?php echo $html->link("Mapa del sitio",array("controller"=>"pages","action"=>"view","mapa")); ?>
 		</li>
 	</ul>
 </div>

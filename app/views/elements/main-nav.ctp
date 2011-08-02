@@ -46,7 +46,7 @@
             	<?php 
             	echo $html->link("Contactos",
             			array(
-							"controller"=>"pages","action"=>"view","contactos"),
+							"controller"=>"pages","action"=>"contacto"),
 						array(
 							"class"=>"final color contactos",
 						)

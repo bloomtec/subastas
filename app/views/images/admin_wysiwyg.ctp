@@ -16,8 +16,8 @@
 	 				<div class="info">
 						<h2> <?php echo $fileName ?></h2>
 						<div class="actions">
-							<div class="delete"  rel="<?php echo "/subastas".$folderPath."/".$fileName?>">borrar</div>
-							<div class="seleccionar"  rel="<?php echo "/subastas".$folderPath."/".$fileName?>">seleccionar</div>
+							<div class="delete"  rel="<?php echo $folderPath."/".$fileName?>">borrar</div>
+							<div class="seleccionar"  rel="<?php echo $folderPath."/".$fileName?>">seleccionar</div>
 						</div>
 					</div>
 				</li>
@@ -27,7 +27,7 @@
 				case "docx":
 				case "doc":
 				?>
-				<li rel=<?php echo "/subastas".$folderPath."/".$fileName?>> 
+				<li rel=<?php echo "/".$folderPath."/".$fileName?>> 
 	 				<?php echo $html->image("word.png",array("class"=>"preview"));?>
 	 				<div class="info">
 						<h2> <?php echo $fileName ?></h2>
@@ -39,7 +39,7 @@
 				case "xls":
 				case "xlsx":
 				?>
-				<li rel=<?php echo "/subastas".$folderPath."/".$fileName?>> 
+				<li rel=<?php echo $folderPath."/".$fileName?>> 
 	 				<?php echo $html->image("excel.png",array("class"=>"preview"));?>
 	 			</li>
 				<?php
@@ -48,7 +48,7 @@
 				case "ppt":
 				case "pptx":
 				?>
-				<li rel=<?php echo "/subastas".$folderPath."/".$fileName?>> 
+				<li rel=<?php echo $folderPath."/".$fileName?>> 
 	 				<?php echo $html->image("power-point.png",array("class"=>"preview"));?>
 	 			</li>
 				<?php
@@ -56,7 +56,7 @@
 				//-------------
 				case "swf":
 				?>
-				<li rel=<?php echo "/subastas".$folderPath."/".$fileName?>> 
+				<li rel=<?php echo $folderPath."/".$fileName?>> 
 	 				<?php echo $html->image("flash.jpg",array("class"=>"preview"));?>
 	 			</li>
 				<?php
