@@ -40,6 +40,7 @@
 </script>
 </head>
 <body id="home">
+<?php echo $this->element("registe-overlay");?>
 	<div id="container">
 		<div id="header">
 		  <?php echo $this->element("header");?>
