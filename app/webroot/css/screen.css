@@ -131,7 +131,7 @@ select {
 
 /** Header **/
 #header{
-height:285px;
+height:275px;
 }
 #header_wrap{
   height:162px;
@@ -323,7 +323,7 @@ div.logueado span{
   
   .prueba{
     position: absolute;
-    top:46px;
+    top:35px;
 	margin-top:1em;
   }
   .banner-falabella, .banner-registro,  #header .login{
@@ -934,7 +934,11 @@ div.logueado span{
 		-webkit-box-shadow: 0 0 90px #000;	
 	
 	}
-
+#register-overlay{
+background:url("../img/pantalla-lightbox.jpg");
+width:650px;
+height:395px;
+}
 	#register-overlay div.register {
 		padding:10px;
 		border:1px solid #3B5998;
@@ -1019,13 +1023,13 @@ div.logueado span{
 		display:block;
 	}
 	#register-overlay .registrate{
-		float:right;
+		position:absolute;
 		width:136px;
 		padding-left:46px;
-		background:url("../img/flecha-overlay.png") ;
 		background-repeat:no-repeat;
 		background-position-x: right;
-		margin-right: 60px;
+		right: 7px;
+		bottom:0;
 	}
 	#register-overlay .registrate h1{
 		padding:0;
