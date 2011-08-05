@@ -42,7 +42,11 @@
 	?>
 <script type="text/javascript">
 	var server="/";
+	<?php if($session->read("Auth")){ ?>
 	var auth=<?php echo json_encode($session->read("Auth"));?>;
+	<?php }else{ ?>
+	var auth=null;
+	<?php } ?>
 </script>
 </head>
 <body>
@@ -63,7 +67,7 @@
 		</div>
 	</div>
 	
-	<?php echo $this->element('register-overlay'); ?>
+	<?php //echo $this->element('register-overlay'); ?>
 	<?php //echo $this->element('login-overlay'); ?>
 </body>
 </html>

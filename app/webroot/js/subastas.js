@@ -42,10 +42,33 @@
 		});
 
 	} else {
-		$("#login-overlay").overlay().load()
+		$(".formulario-login-subasta").hide();
+		$(".formulario-login-subasta").filter("[rel='"+$(this).attr("rel")+"']").show();
 	}
 
-});
+	});
+	$(".ajax-form").submit(function(e){
+		e.preventDefault();
+		var url = $(this).attr('action');  
+		var datos=$(this).serialize();
+				jQuery.ajax({
+			url:url,
+			type: "post",
+			cache: false,
+			dataType:"json",
+			data: datos,
+			success: function(oferta) {
+				if(oferta){
+				location.reload(true);
+				}else{
+				//DATOS NO VALIDOS
+				}
+			}
+		});
+	});
+	$(".cerrar-formulario").click(function(){
+		$(this).parent().hide();
+	});
 	setInterval(function(){
 		jQuery.ajax({
 			url:server+"subastas/getStatus?ms="+new Date().getTime(),

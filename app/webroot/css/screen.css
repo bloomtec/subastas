@@ -361,8 +361,9 @@ div.logueado span{
 	background: url("../img/trama-cuenta.png") repeat-x scroll 0 0 transparent;
     background-color:white;
   }
-  #banner-compra{
-  	padding:17.5px 0;
+  #banner-compra .leyenda{
+	width:150px;
+	margin: 30px 0px 0 14px;
   }
   a.registro{
   	font-weight: bold;
@@ -401,7 +402,7 @@ div.logueado span{
 	padding:10px 0;
 	margin-top:45px;
 	display:block;
-	width:120px;
+	width:116px;
 	height:10px;
 	float:right;
 	text-align:center;
@@ -812,9 +813,10 @@ div.logueado span{
 	padding:1em;
 }
 .form-container fieldset{
-	background:url("../img/trama-cuenta.png") ;
+	background:#FFDA14 ;
 	border-radius: 15px 15px 15px 15px;
 	padding:1em;
+	background: repeating-radial-gradient(circle, #FFDA14, #E2C115 50%);
 }
 .form-container .input,.form-container .submit{
 	margin-top:1em;
@@ -834,31 +836,31 @@ div.logueado span{
 	font-weight:bold;
 }
 .form-container input#UserUsername{
-	width:370px;
+	width:395px;
 }
 .form-container input#password{
-	width:343px;
+	width:374px;
 }
 .form-container input#password2{
-	width:268px;
+	width:319px;
 }
 .form-container input#UserFieldNombres{
-	width:360px;
+	width:385px;
 }
 .form-container input#UserFieldApellidos{
-	width:359px;
+	width:384px;
 }
 .form-container input#UserEmail{
-	width:288px;
+	width:331px;
 }
 .form-container input#UserEmailConfirm{
-	width:214px;
+	width:276px;
 }
 .form-container input#UserFechaNacimiento{
 	
 }
 .form-container input#UserReferidoPor{
-	width:335px;
+	width:368px;
 }
 
 
@@ -934,11 +936,14 @@ div.logueado span{
 		-webkit-box-shadow: 0 0 90px #000;	
 	
 	}
-#register-overlay{
-background:url("../img/pantalla-lightbox.jpg");
-width:650px;
-height:395px;
-}
+	#register-overlay{
+		background:url("../img/pantalla-lightbox.jpg");
+		width:699px;
+		height:464px;
+	}
+	#register-overlay input{
+		width:133px;
+	}
 	#register-overlay div.register {
 		padding:10px;
 		border:1px solid #3B5998;
@@ -1028,8 +1033,8 @@ height:395px;
 		padding-left:46px;
 		background-repeat:no-repeat;
 		background-position-x: right;
-		right: 7px;
-		bottom:0;
+		right: 8px;
+		bottom:8px;
 	}
 	#register-overlay .registrate h1{
 		padding:0;
@@ -1107,7 +1112,7 @@ height:395px;
 }
 #compra-creditos{
 	margin-left: 1em;
-	margin-top: 1em;
+	margin-top: 30px;
 }
 #right-content #vendido{
 	background-color: #EE1A24;
@@ -1167,4 +1172,43 @@ float:right;
 #contacto  input[type=submit]{
 	width:100px;
 	float:right;
+}
+.subastas-activas li{
+	position:relative;
+}
+.formulario-login-subasta{
+	position:absolute;
+	z-index:2;
+	width:100%;
+	padding:20px 0;
+	background:#F8DC38;
+	bottom:80px;
+	display:none;
+	
+}
+.formulario-login-subasta form{
+	width:80%;
+	margin: 0 auto;
+}
+.formulario-login-subasta input, .formulario-login-subasta  label{
+	clear:both;
+	float:none;
+	display:block;
+	text-align:left;
+}
+.cerrar-formulario{
+	right:5px;
+	font-size:10px;
+	color:white;
+	position:absolute;
+}
+a#resaltar-registro{
+	color:red;
+	font-size:15px;
+	cursor:pointer;
+}
+/*PAGES*/
+.pages .WYSIWYG{
+	height:580px;
+	overflow-y:auto;
 }

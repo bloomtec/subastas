@@ -4,6 +4,21 @@
 	 <?php $i=0;?>
 	 <?php foreach ($subastas as $subasta):?>
 	 <li <?php if($i%3==1) echo "class='centro'"?>  id="<?php echo $subasta["Subasta"]["id"]; ?>" title="<?php echo $subasta["Subasta"]["nombre"]; ?>"> 
+		<div class="formulario-login-subasta" rel="<?php echo $subasta["Subasta"]["id"]; ?>">
+				<div class="cerrar-formulario">cerrar</div>
+				<?php echo $form -> create('User', array("action" => "ajaxLogin", "controller" => "users","id"=>"form".$subasta["Subasta"]["id"],"class"=>"ajax-form"));?>
+				<?php echo $form -> input("username", array("label" => "Usuario/Correo:","id"=>"username".$subasta["Subasta"]["id"]));?>
+				<div style="clear:both">
+				</div>
+				<?php echo $form -> input("password", array("label" => "Contraseña:","id"=>"password".$subasta["Subasta"]["id"]));?>
+				<div style="clear:both">
+				</div>
+				<?php echo $form -> end(__('Ingresar', true), array('div' => false));?>
+				<?php echo $html -> link('¿Olvidó su contraseña?', array("controller" => "users", "action" => "rememberPassword"), array("id" => "olvidar"));?>
+				<br />
+				<?php echo $html -> link('Registrate!!! y obtén 10 creditos', array("controller" => "users", "action" => "register"), array("id" => "resaltar-registro"));?>
+				
+		</div>
 		  <div class="fecha_vencimiento">
 			 	<?php 
 			 		$fecha= date_create_from_format('Y-m-d H:i:s',	$subasta["Subasta"]["fecha_de_venta"]); 
@@ -40,7 +55,7 @@
 	     <?php 
 	     	
 	     	if(!$config["Config"]["congelado"])
-	     		echo $this->Html->link("¡Oferte ya!",array("controller"=>"subastas","action"=>"ofertar",$subasta["Subasta"]['id']),array('class'=>'boton ofertar'));
+	     		echo $this->Html->link("¡Oferte ya!",array("controller"=>"subastas","action"=>"ofertar",$subasta["Subasta"]['id']),array('class'=>'boton ofertar','rel'=>$subasta["Subasta"]['id']));
 			else
 				echo $this->Html->link("Pausada","#",array('class'=>'boton pausado'));
 	     ?>

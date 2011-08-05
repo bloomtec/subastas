@@ -284,8 +284,7 @@ class UsersController extends AppController {
 				$body = array(
 					'usuario' => $this->data['User']['username'],
 					'contraseña' => $user_pass,
-					'nombres' => $this->data['UserField']['nombres'],
-					'apellidos' => $this->data['UserField']['apellidos']
+				
 				);
 				
 				// Enviar el mensaje via Mad Mimi
@@ -424,7 +423,7 @@ class UsersController extends AppController {
 	//LOGIN USER
 	function login(){
 				
-		if (!empty($this->data) && !empty($this->Auth->data['User']['username']) && !empty($this->Auth->data['User']['password'])) {
+		if (!empty($this->data) && !empty($this->Auth->data['User']['username'])) {
 
 			$user =
 				$this->User->find(
@@ -469,6 +468,56 @@ class UsersController extends AppController {
 			//$this->Session->setFlash("Ingrese su usuario/correo y contraseÃ±a");
 		}
 
+	}
+	function ajaxLogin(){
+
+				$this->Auth->data['User']['username']=$_POST["data"]["User"]["username"];
+				$this->Auth->data['User']['password']=$this->Auth->password($_POST["data"]["User"]["password"]);
+		if (!empty($this->Auth->data['User']['username']) && !empty($this->Auth->data['User']['password'])) {
+
+			$user =
+				$this->User->find(
+					'first',
+					array(
+						'conditions' => array(
+											'username' => $this->Auth->data['User']['username'],
+											'password' => $this->Auth->data['User']['password']
+										),
+						'recursive' => -1
+					)
+				);
+		
+			if (!$user) {
+				$user =
+					$this->User->find(
+						'first',
+						array(
+							'conditions' => array(
+												'email' => $this->Auth->data['User']['username'],
+												'password' => $this->Auth->data['User']['password']
+											),
+							'recursive' => -1
+						)
+					);
+			}
+			
+			if (!empty($user) && $this->Auth->login($user)) {
+
+				$userId = $this->Auth->user('id');
+				$this->set("login", true);
+					echo true;
+	
+
+			} else {
+				echo false;
+			}
+
+		} else {
+			echo false;
+		}
+		Configure::write("debug",0);
+		$this->autoRender=false;
+		exit(0);
 	}
 
 	function admin_login(){
