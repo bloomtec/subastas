@@ -116,13 +116,14 @@ class ListaCorreosController extends AppController {
 				'from' => 'no-reply@llevatelos.com'
 			);
 			
-			$dato_subasta = 'Imaginario';
+			$nombre_subasta = 'Imaginario';
+			$precio_subasta = '600';
 			
 			$html_body =
 				"<html xmlns=\"http://www.w3.org/1999/xhtml\">
 				<head>
 					<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />
-					<title></title>
+					<title>Documento sin título</title>
 					<style type=\"text/css\">
 						.txt {
 							font-family: Arial, Helvetica, sans-serif;
@@ -147,12 +148,12 @@ class ListaCorreosController extends AppController {
 					[[tracking_beacon]]
 					<table summary=\"\" width=\"700\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
 						<tr>
-							<td width=\"50\" rowspan=\"4\" valign=\"top\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//te_lo_llevaste//rp01.jpg\" width=\"50\" height=\"525\" /></td>
-							<td width=\"310\" height=\"165\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//te_lo_llevaste//rp02.jpg\" width=\"310\" height=\"165\" /></td>
-							<td width=\"340\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//te_lo_llevaste//rp03.jpg\" width=\"340\" height=\"165\" /></td>
+							<td width=\"50\" rowspan=\"4\" valign=\"top\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//subasta_finalizada//rp01.jpg\" width=\"50\" height=\"525\" /></td>
+							<td width=\"310\" height=\"165\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//subasta_finalizada//rp02.jpg\" width=\"310\" height=\"165\" /></td>
+							<td width=\"340\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//subasta_finalizada//rp03.jpg\" width=\"340\" height=\"165\" /></td>
 						</tr>
 						<tr>
-							<td height=\"75\" colspan=\"2\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//te_lo_llevaste//rp05.jpg\" width=\"340\" height=\"75\" /></td>
+							<td height=\"75\" colspan=\"2\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//subasta_finalizada//sf01.jpg\" width=\"380\" height=\"75\" /></td>
 						</tr>
 						<tr>
 							<td height=\"205\" colspan=\"2\">
@@ -163,25 +164,29 @@ class ListaCorreosController extends AppController {
 										<strong>Hola,</strong>
 									</p>
 									<p class=\"txt\">
-										<span class=\"rojo\">¡Felicitaciones!</span><span class=\"txt\"> has logrado atrapar tu sueño de tener $dato_subasta.
-											<br />
-											Para el envío del artículo remite tus datos completos a</span><span class=\"rojo\"> contacto@llevatelos.com</span><span class=\"txt\"> y recibirás unos
-											<br />
-											sencillos pasos que deberás seguir.
-											<br />
-											Ayuda a otros a atrapar sus sueños deja tu testimonio en</span><span class=\"rojo\"> testimoniales@llevatelos.com</span>
+										Te informamos que la subasta correspondiente a $nombre_subasta en la que estabas trabajando ya se ha cerrado.
+										<br />
+										El usuario ganador se la llevó por el increíble valor de <span class=\"rojo\">$$precio_subasta</span>
+										<br />
+										En tu perfil de usuario podrás comparar el último valor que ofertaste y te darás cuenta
+										<br />
+										que no estabas tan lejos de llevártelo. Revisa el listado de subastas actuales de llévatelos.com
+										<br />
+										y escoge el próximo artículo que puede ser tuyo.
+										<br />
+										Gracias por participar y sigue trabajando con nosotros para atrapar tus sueños.
 									</p>
 									<p class=\"txt\">
-										<strong>Hasta pronto.
-										<br />
-										<br />
-										<span class=\"peke\">Equipo llevatelos.com - Atrapa tus sueños.</span></strong>
+										No te desanimes, ingresa, participa y atrapa tus sueños.
+									</p>
+									<p class=\"txt\">
+										<strong><span class=\"peke\">Equipo llevatelos.com - Atrapa tus sueños.</span></strong>
 									</p></td>
 								</tr>
 							</table></td>
 						</tr>
 						<tr>
-							<td height=\"80\" colspan=\"2\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//te_lo_llevaste//rp04.jpg\" width=\"650\" height=\"80\" /></td>
+							<td height=\"80\" colspan=\"2\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//subasta_finalizada//rp04.jpg\" width=\"650\" height=\"80\" /></td>
 						</tr>
 					</table>
 				</body>
