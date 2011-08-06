@@ -189,7 +189,9 @@ class ListaCorreosController extends AppController {
 				</body>
 			</html>";
 			
-			$mailer->SendHTML($options, $html_body);
+			$result = $mailer->SendHTML($options, $html_body);
+			
+			debug($result);
 			
 		}
 		
