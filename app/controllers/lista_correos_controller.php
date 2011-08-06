@@ -116,8 +116,8 @@ class ListaCorreosController extends AppController {
 				'from' => 'no-reply@llevatelos.com'
 			);
 			
-			$nombre_subasta = 'Imaginario';
-			$precio_subasta = '600';
+			$correo_referente = 'dominguez48@hotmail.com';
+			$IDEncriptada = '234524';
 			
 			$html_body =
 				"<html xmlns=\"http://www.w3.org/1999/xhtml\">
@@ -148,45 +148,51 @@ class ListaCorreosController extends AppController {
 					[[tracking_beacon]]
 					<table summary=\"\" width=\"700\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
 						<tr>
-							<td width=\"50\" rowspan=\"4\" valign=\"top\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//subasta_finalizada//rp01.jpg\" width=\"50\" height=\"525\" /></td>
-							<td width=\"310\" height=\"165\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//subasta_finalizada//rp02.jpg\" width=\"310\" height=\"165\" /></td>
-							<td width=\"340\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//subasta_finalizada//rp03.jpg\" width=\"340\" height=\"165\" /></td>
+							<td width=\"75\" rowspan=\"3\" align=\"left\" valign=\"top\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//descubrelo//d01.jpg\" width=\"75\" height=\"525\" /></td>
+							<td align=\"center\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//descubrelo//rp02.jpg\" width=\"285\" height=\"165\" /><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//descubrelo//rp03.jpg\" width=\"315\" height=\"165\" /></td>
+							<td width=\"50\" rowspan=\"3\" valign=\"top\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//descubrelo//rp04.jpg\" width=\"50\" height=\"525\" /></td>
 						</tr>
 						<tr>
-							<td height=\"75\" colspan=\"2\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//subasta_finalizada//sf01.jpg\" width=\"380\" height=\"75\" /></td>
+							<td width=\"600\" valign=\"top\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//descubrelo//d02.jpg\" width=\"380\" height=\"87\" /></td>
 						</tr>
 						<tr>
-							<td height=\"205\" colspan=\"2\">
-							<table summary=\"\" width=\"650\" border=\"0\" cellspacing=\"5\" cellpadding=\"0\">
+							<td valign=\"top\">
+							<table summary=\"\" width=\"600\" border=\"0\" cellspacing=\"5\" cellpadding=\"0\">
 								<tr>
 									<td>
 									<p class=\"txt\">
-										<strong>Hola,</strong>
+										Hola,
 									</p>
 									<p class=\"txt\">
-										Te informamos que la subasta correspondiente a $nombre_subasta en la que estabas trabajando ya se ha cerrado.
+										$correo_referente quiere que sepas que los sueños se pueden atrapar con un solo clic.
 										<br />
-										El usuario ganador se la llevó por el increíble valor de <span class=\"rojo\">$$precio_subasta</span>
+										En llevatelos.com puedes tener contigo tecnología y diversión. Revisa la lista de sueños
 										<br />
-										En tu perfil de usuario podrás comparar el último valor que ofertaste y te darás cuenta
+										o subastas, trabaja con nosotros y podrás ser un ganador de artículos como: <span class=\"rojo\">APPLE, DELL,
 										<br />
-										que no estabas tan lejos de llevártelo. Revisa el listado de subastas actuales de llévatelos.com
-										<br />
-										y escoge el próximo artículo que puede ser tuyo.
-										<br />
-										Gracias por participar y sigue trabajando con nosotros para atrapar tus sueños.
+										BLACKBERRY, MOTOROLA, SAMSUMG, CANON, SONY entre otros.</span>
 									</p>
 									<p class=\"txt\">
-										No te desanimes, ingresa, participa y atrapa tus sueños.
+										Estos artículos serán tuyos por solo el 10% de su valor comercial, no dejes pasar esta
+										<br />
+										oportunidad, infórmate <span class=\"rojo\">¡HAZ CLIC AQUÍ Y LLEVATELOS YA! </span>
 									</p>
 									<p class=\"txt\">
-										<strong><span class=\"peke\">Equipo llevatelos.com - Atrapa tus sueños.</span></strong>
+										&nbsp;
+									</p>
+									<p class=\"txt\">
+										Utiliza el siguiente enlace o registrate en la página mencionando a $correo_referente para
+										bonificarlo por darte a conocer llevatelos.com
+										<br />
+										http://www.llevatelos.com/users/register/$IDEncriptada
+									</p>
+									<p class=\"txt\">
+										<span class=\"nombre\">Hasta pronto.</span>
+										<br />
+										<span class=\"peke\">Equipo llevatelos.com - Atrapa tus sueños. </span>
 									</p></td>
 								</tr>
 							</table></td>
-						</tr>
-						<tr>
-							<td height=\"80\" colspan=\"2\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//subasta_finalizada//rp04.jpg\" width=\"650\" height=\"80\" /></td>
 						</tr>
 					</table>
 				</body>

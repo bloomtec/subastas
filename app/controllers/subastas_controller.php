@@ -875,7 +875,7 @@ class SubastasController extends AppController {
 											<br />
 											En tu perfil de usuario podrás comparar el último valor que ofertaste y te darás cuenta
 											<br />
-											que no estabas tan lejos de llevártelo. Revisa el listado de subastas actuales de llévatelos.com
+											que no estabas tan lejos de llevártelo. Revisa el listado de subastas actuales de llevatelos.com
 											<br />
 											y escoge el próximo artículo que puede ser tuyo.
 											<br />

@@ -848,7 +848,7 @@ class UsersController extends AppController {
 	}
 	
 	function __enviarCorreoRecomendado($userID = null, $correoDestino = null){
-		// Encriptar el ID de quien envÃ­a la recomendacion
+		// Encriptar el ID de quien envía la recomendacion
 		//
 		if ($userID) {
 			$IDEncriptada = crypt($userID, "23()23*$%g4F^aN!^^%");
@@ -864,18 +864,98 @@ class UsersController extends AppController {
 				App::import('Vendor', 'MadMimi', array('file' =>'madmimi'.DS.'Spyc.class.php'));
 				
 				$options = array(
-					'promotion_name' => 'Invitacion-Referido',
+					'promotion_name' => 'descubrelo',
 					'recipients' => $correoDestino,
+					'subject' => 'Descubrelo',
 					'from' => 'no-reply@llevatelos.com'
 				);
 				
 				$mailer = new MadMimi(Configure::read('madmimiEmail'), Configure::read('madmimiKey'));
-				$body = array(
-					'nombres' => $user_fields['UserFields']['nombres'],
-					'apellidos' => $user_fields['UserFields']['apellidos'],
-					'id-encriptada' => $IDEncriptada
-				);
-				$mailer->SendMessage($options, $body);
+				
+				$correo_referente = $user['User']['email'];
+				
+				$mailer = new MadMimi(Configure::read('madmimiEmail'), Configure::read('madmimiKey'));
+				
+				$html_body =
+					"<html xmlns=\"http://www.w3.org/1999/xhtml\">
+					<head>
+						<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />
+						<title>Documento sin título</title>
+						<style type=\"text/css\">
+							.txt {
+								font-family: Arial, Helvetica, sans-serif;
+								font-size: 14px;
+							}
+							.nombre {
+								color: #666;
+							}
+							.rojo {
+								color: #F00;
+							}
+							.verde {
+								color: #9C0;
+							}
+							.peke {
+								font-size: 12px;
+							}
+				
+						</style>
+					</head>
+					<body>
+						[[tracking_beacon]]
+						<table summary=\"\" width=\"700\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
+							<tr>
+								<td width=\"75\" rowspan=\"3\" align=\"left\" valign=\"top\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//descubrelo//d01.jpg\" width=\"75\" height=\"525\" /></td>
+								<td align=\"center\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//descubrelo//rp02.jpg\" width=\"285\" height=\"165\" /><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//descubrelo//rp03.jpg\" width=\"315\" height=\"165\" /></td>
+								<td width=\"50\" rowspan=\"3\" valign=\"top\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//descubrelo//rp04.jpg\" width=\"50\" height=\"525\" /></td>
+							</tr>
+							<tr>
+								<td width=\"600\" valign=\"top\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//descubrelo//d02.jpg\" width=\"380\" height=\"87\" /></td>
+							</tr>
+							<tr>
+								<td valign=\"top\">
+								<table summary=\"\" width=\"600\" border=\"0\" cellspacing=\"5\" cellpadding=\"0\">
+									<tr>
+										<td>
+										<p class=\"txt\">
+											Hola,
+										</p>
+										<p class=\"txt\">
+											$correo_referente quiere que sepas que los sueños se pueden atrapar con un solo clic.
+											<br />
+											En llevatelos.com puedes tener contigo tecnología y diversión. Revisa la lista de sueños
+											<br />
+											o subastas, trabaja con nosotros y podrás ser un ganador de artículos como: <span class=\"rojo\">APPLE, DELL,
+											<br />
+											BLACKBERRY, MOTOROLA, SAMSUMG, CANON, SONY entre otros.</span>
+										</p>
+										<p class=\"txt\">
+											Estos artículos serán tuyos por solo el 10% de su valor comercial, no dejes pasar esta
+											<br />
+											oportunidad, infórmate <span class=\"rojo\">¡HAZ CLIC AQUÍ Y LLEVATELOS YA! </span>
+										</p>
+										<p class=\"txt\">
+											&nbsp;
+										</p>
+										<p class=\"txt\">
+											Utiliza el siguiente enlace o registrate en la página mencionando a $correo_referente para
+											bonificarlo por darte a conocer llevatelos.com
+											<br />
+											http://www.llevatelos.com/users/register/$IDEncriptada
+										</p>
+										<p class=\"txt\">
+											<span class=\"nombre\">Hasta pronto.</span>
+											<br />
+											<span class=\"peke\">Equipo llevatelos.com - Atrapa tus sueños. </span>
+										</p></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table>
+					</body>
+				</html>";
+				
+				$result = $mailer->SendHTML($options, $html_body);
 				
 			} else {
 				// TODO : El correo destino no es valido
