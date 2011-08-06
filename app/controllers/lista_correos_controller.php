@@ -116,14 +116,13 @@ class ListaCorreosController extends AppController {
 				'from' => 'no-reply@llevatelos.com'
 			);
 			
-			$correo_recomendado = 'dominguez48@hotmail.com';
-			$bonos = '500';
+			$dato_subasta = 'Imaginario';
 			
 			$html_body =
 				"<html xmlns=\"http://www.w3.org/1999/xhtml\">
 				<head>
 					<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />
-					<title>Documento sin título</title>
+					<title></title>
 					<style type=\"text/css\">
 						.txt {
 							font-family: Arial, Helvetica, sans-serif;
@@ -148,40 +147,41 @@ class ListaCorreosController extends AppController {
 					[[tracking_beacon]]
 					<table summary=\"\" width=\"700\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
 						<tr>
-							<td width=\"75\" rowspan=\"3\" align=\"left\" valign=\"top\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//suma_creditos//d01.jpg\" width=\"75\" height=\"525\" /></td>
-							<td align=\"center\"><img alt=\"\" src=\"rp02.jpg\" width=\"285\" height=\"165\" /><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//suma_creditos//rp03.jpg\" width=\"315\" height=\"165\" /></td>
-							<td width=\"50\" rowspan=\"3\" valign=\"top\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//suma_creditos//rp04.jpg\" width=\"50\" height=\"525\" /></td>
+							<td width=\"50\" rowspan=\"4\" valign=\"top\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//te_lo_llevaste//rp01.jpg\" width=\"50\" height=\"525\" /></td>
+							<td width=\"310\" height=\"165\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//te_lo_llevaste//rp02.jpg\" width=\"310\" height=\"165\" /></td>
+							<td width=\"340\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//te_lo_llevaste//rp03.jpg\" width=\"340\" height=\"165\" /></td>
 						</tr>
 						<tr>
-							<td width=\"600\" valign=\"top\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//suma_creditos//sc01.jpg\" width=\"420\" height=\"75\" /></td>
+							<td height=\"75\" colspan=\"2\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//te_lo_llevaste//rp05.jpg\" width=\"340\" height=\"75\" /></td>
 						</tr>
 						<tr>
-							<td valign=\"top\">
-							<table summary=\"\" width=\"600\" border=\"0\" cellspacing=\"5\" cellpadding=\"0\">
+							<td height=\"205\" colspan=\"2\">
+							<table summary=\"\" width=\"650\" border=\"0\" cellspacing=\"5\" cellpadding=\"0\">
 								<tr>
 									<td>
 									<p class=\"txt\">
-										Hola,
+										<strong>Hola,</strong>
 									</p>
 									<p class=\"txt\">
-										$correo_recomendado se ha registrado exitosamente en llevatelos.com gracias a tu referencia
-										<br />
-										y ahora tienes $bonos créditos nuevos que podrás usar en cualquier momento.
-										<br />
-										Gracias por referirnos y sigue trabajando con nosotros para atrapar tus sueños.
-										<br />
-										Revisa el listado de subastas actuales de llevatelos.com y escoge el artículo que podrá ser tuyo.
+										<span class=\"rojo\">¡Felicitaciones!</span><span class=\"txt\"> has logrado atrapar tu sueño de tener $dato_subasta.
+											<br />
+											Para el envío del artículo remite tus datos completos a</span><span class=\"rojo\"> contacto@llevatelos.com</span><span class=\"txt\"> y recibirás unos
+											<br />
+											sencillos pasos que deberás seguir.
+											<br />
+											Ayuda a otros a atrapar sus sueños deja tu testimonio en</span><span class=\"rojo\"> testimoniales@llevatelos.com</span>
 									</p>
 									<p class=\"txt\">
-										Ya tenemos muchos soñadores felices y tú puedes ser el próximo, te esperamos.
-									</p>
-									<p class=\"txt\">
-										<span class=\"nombre\">Hasta pronto.</span>
+										<strong>Hasta pronto.
 										<br />
-										<span class=\"peke\">Equipo llevatelos.com - Atrapa tus sueños. </span>
+										<br />
+										<span class=\"peke\">Equipo llevatelos.com - Atrapa tus sueños.</span></strong>
 									</p></td>
 								</tr>
 							</table></td>
+						</tr>
+						<tr>
+							<td height=\"80\" colspan=\"2\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//te_lo_llevaste//rp04.jpg\" width=\"650\" height=\"80\" /></td>
 						</tr>
 					</table>
 				</body>

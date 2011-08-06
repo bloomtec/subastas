@@ -725,21 +725,90 @@ class SubastasController extends AppController {
 
 			// Enviar correo ganador
 			//
-			$para = $usuario['User']['email'];
-			$asunto = 'Has ganado!';
-			$mensaje =	'Eres el ganador de la subasta: ' .
-			$subasta['Subasta']['nombre'];
-
-			$cabeceras = 'From: webmaster@example.com' .
-				"\r\n" . 
-				'Reply-To: webmaster@example.com' . "\r\n" . 
-				'X-Mailer: PHP/' . phpversion();
-
-			if(mail($para, $asunto, $mensaje, $cabeceras)) {
-				//$this->Session->setFlash(__('Datos enviados a su correo', true));
-			} else {
-				//$this->Session->setFlash(__('Datos no enviados a su correo, por favor intenta mas tarde', true));
-			}
+			App::import('Vendor', 'MadMimi', array('file' =>'madmimi'.DS.'MadMimi.class.php'));
+			App::import('Vendor', 'MadMimi', array('file' =>'madmimi'.DS.'Spyc.class.php'));
+			
+			$options = array(
+				'promotion_name' => 'te_lo_llevaste',
+				'recipients' => $usuario['User']['email'],
+				'subject' => '¡Te Lo Llevaste!',
+				'from' => 'no-reply@llevatelos.com'
+			);
+			
+			$mailer = new MadMimi(Configure::read('madmimiEmail'), Configure::read('madmimiKey'));
+			
+			$dato_subasta = $subasta['Subasta']['nombre'];
+			
+			$html_body =
+				"<html xmlns=\"http://www.w3.org/1999/xhtml\">
+				<head>
+					<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />
+					<title></title>
+					<style type=\"text/css\">
+						.txt {
+							font-family: Arial, Helvetica, sans-serif;
+							font-size: 14px;
+						}
+						.nombre {
+							color: #666;
+						}
+						.rojo {
+							color: #F00;
+						}
+						.verde {
+							color: #9C0;
+						}
+						.peke {
+							font-size: 12px;
+						}
+			
+					</style>
+				</head>
+				<body>
+					[[tracking_beacon]]
+					<table summary=\"\" width=\"700\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
+						<tr>
+							<td width=\"50\" rowspan=\"4\" valign=\"top\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//te_lo_llevaste//rp01.jpg\" width=\"50\" height=\"525\" /></td>
+							<td width=\"310\" height=\"165\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//te_lo_llevaste//rp02.jpg\" width=\"310\" height=\"165\" /></td>
+							<td width=\"340\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//te_lo_llevaste//rp03.jpg\" width=\"340\" height=\"165\" /></td>
+						</tr>
+						<tr>
+							<td height=\"75\" colspan=\"2\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//te_lo_llevaste//rp05.jpg\" width=\"340\" height=\"75\" /></td>
+						</tr>
+						<tr>
+							<td height=\"205\" colspan=\"2\">
+							<table summary=\"\" width=\"650\" border=\"0\" cellspacing=\"5\" cellpadding=\"0\">
+								<tr>
+									<td>
+									<p class=\"txt\">
+										<strong>Hola,</strong>
+									</p>
+									<p class=\"txt\">
+										<span class=\"rojo\">¡Felicitaciones!</span><span class=\"txt\"> has logrado atrapar tu sueño de tener $dato_subasta.
+											<br />
+											Para el envío del artículo remite tus datos completos a</span><span class=\"rojo\"> contacto@llevatelos.com</span><span class=\"txt\"> y recibirás unos
+											<br />
+											sencillos pasos que deberás seguir.
+											<br />
+											Ayuda a otros a atrapar sus sueños deja tu testimonio en</span><span class=\"rojo\"> testimoniales@llevatelos.com</span>
+									</p>
+									<p class=\"txt\">
+										<strong>Hasta pronto.
+										<br />
+										<br />
+										<span class=\"peke\">Equipo llevatelos.com - Atrapa tus sueños.</span></strong>
+									</p></td>
+								</tr>
+							</table></td>
+						</tr>
+						<tr>
+							<td height=\"80\" colspan=\"2\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//te_lo_llevaste//rp04.jpg\" width=\"650\" height=\"80\" /></td>
+						</tr>
+					</table>
+				</body>
+			</html>";
+			
+			$result = $mailer->SendHTML($options, $html_body);
 				
 			// Obtener correos ofertantes
 			// Recorrer la lista ofertantes y enviar correos
