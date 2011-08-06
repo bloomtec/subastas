@@ -148,12 +148,12 @@ class ListaCorreosController extends AppController {
 					[[tracking_beacon]]
 					<table summary=\"\" width=\"700\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
 						<tr>
-							<td width=\"50\" rowspan=\"4\" valign=\"top\"><img alt=\"\" src=\"rp01.jpg\" width=\"50\" height=\"525\" /></td>
-							<td width=\"310\" height=\"165\"><img alt=\"\" src=\"rp02.jpg\" width=\"310\" height=\"165\" /></td>
-							<td width=\"340\"><img alt=\"\" src=\"rp03.jpg\" width=\"340\" height=\"165\" /></td>
+							<td width=\"50\" rowspan=\"4\" valign=\"top\"><img alt=\"\" src=\"www.llevatelos.com/app/webroot/plantillas_correos/bienvenida/rp01.jpg\" width=\"50\" height=\"525\" /></td>
+							<td width=\"310\" height=\"165\"><img alt=\"\" src=\"www.llevatelos.com/app/webroot/plantillas_correos/bienvenida/rp02.jpg\" width=\"310\" height=\"165\" /></td>
+							<td width=\"340\"><img alt=\"\" src=\"www.llevatelos.com/app/webroot/plantillas_correos/bienvenida/rp03.jpg\" width=\"340\" height=\"165\" /></td>
 						</tr>
 						<tr>
-							<td height=\"75\" colspan=\"2\"><img alt=\"\" src=\"b01.jpg\" width=\"366\" height=\"75\" /></td>
+							<td height=\"75\" colspan=\"2\"><img alt=\"\" src=\"www.llevatelos.com/app/webroot/plantillas_correos/bienvenida/b01.jpg\" width=\"366\" height=\"75\" /></td>
 						</tr>
 						<tr>
 							<td height=\"205\" colspan=\"2\">
@@ -169,9 +169,9 @@ class ListaCorreosController extends AppController {
 									<p class=\"txt\">
 										<strong>A continuación te brindamos los datos de usuario que te ayudarán a acceder a llevatelos.com
 										<br />
-										<span class=\"verde\">Usuario:</span> " . $username . "
+										<span class=\"verde\">Usuario:</span> $username
 										<br />
-										<span class=\"verde\">Contraseña:</span> " . $password . " </strong>
+										<span class=\"verde\">Contraseña:</span> $password </strong>
 									</p>
 									<p class=\"txt\">
 										<strong>Hasta pronto, y sigue atrapando tus sueños.
@@ -183,7 +183,7 @@ class ListaCorreosController extends AppController {
 							</table></td>
 						</tr>
 						<tr>
-							<td height=\"80\" colspan=\"2\"><img alt=\"\" src=\"rp04.jpg\" width=\"650\" height=\"80\" /></td>
+							<td height=\"80\" colspan=\"2\"><img alt=\"\" src=\"www.llevatelos.com/app/webroot/plantillas_correos/bienvenida/rp04.jpg\" width=\"650\" height=\"80\" /></td>
 						</tr>
 					</table>
 				</body>
