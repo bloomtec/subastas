@@ -274,23 +274,92 @@ class UsersController extends AppController {
 				// Opciones de configuracion para enviar un correo via Mad Mimi
 				//
 				$options = array(
-					'promotion_name' => 'Welcome-Message',
+					'promotion_name' => 'bienvenida',
 					'recipients' => $this->data['User']['email'],
+					'subject' => 'Bienvenida',
 					'from' => 'no-reply@llevatelos.com'
 				);
 				
 				// Opciones del cuerpo de mensaje de Mad Mimi
+				//				
+				$username = $this->data['User']['username'];
+				$password = $user_pass;
+				
+				// Cuerpo HTML
 				//
-				$body = array(
-					'usuario' => $this->data['User']['username'],
-					'contraseña' => $user_pass,
-					'nombres' => $this->data['UserField']['nombres'],
-					'apellidos' => $this->data['UserField']['apellidos']
-				);
+				$html_body =
+					"<html xmlns=\"http://www.w3.org/1999/xhtml\">
+					<head>
+						<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />
+						<title></title>
+						<style type=\"text/css\">
+							.txt {
+								font-family: Arial, Helvetica, sans-serif;
+								font-size: 14px;
+							}
+							.nombre {
+								color: #666;
+							}
+							.rojo {
+								color: #F00;
+							}
+							.verde {
+								color: #9C0;
+							}
+							.peke {
+								font-size: 12px;
+							}
+				
+						</style>
+					</head>
+					<body>
+						[[tracking_beacon]]
+						<table summary=\"\" width=\"700\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
+							<tr>
+								<td width=\"50\" rowspan=\"4\" valign=\"top\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//bienvenida//rp01.jpg\" width=\"50\" height=\"525\" /></td>
+								<td width=\"310\" height=\"165\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//bienvenida//rp02.jpg\" width=\"310\" height=\"165\" /></td>
+								<td width=\"340\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//bienvenida//rp03.jpg\" width=\"340\" height=\"165\" /></td>
+							</tr>
+							<tr>
+								<td height=\"75\" colspan=\"2\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//bienvenida//b01.jpg\" width=\"366\" height=\"75\" /></td>
+							</tr>
+							<tr>
+								<td height=\"205\" colspan=\"2\">
+								<table summary=\"\" width=\"650\" border=\"0\" cellspacing=\"5\" cellpadding=\"0\">
+									<tr>
+										<td>
+										<p class=\"txt\">
+											<strong>Hola,</strong>
+										</p>
+										<p class=\"txt\">
+											<strong>Te damos la bienvenida a Llevatelos.com. </strong>
+										</p>
+										<p class=\"txt\">
+											<strong>A continuación te brindamos los datos de usuario que te ayudarán a acceder a llevatelos.com
+											<br />
+											<span class=\"verde\">Usuario:</span> $username
+											<br />
+											<span class=\"verde\">Contraseña:</span> $password </strong>
+										</p>
+										<p class=\"txt\">
+											<strong>Hasta pronto, y sigue atrapando tus sueños.
+											<br />
+											<br />
+											<span class=\"peke\">Equipo llevatelos.com - Atrapa tus sueños.</span></strong>
+										</p></td>
+									</tr>
+								</table></td>
+							</tr>
+							<tr>
+								<td height=\"80\" colspan=\"2\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//bienvenida//rp04.jpg\" width=\"650\" height=\"80\" /></td>
+							</tr>
+						</table>
+					</body>
+				</html>";
 				
 				// Enviar el mensaje via Mad Mimi
-				//
-				$mailer->SendMessage($options, $body);
+				//				
+				$result = $mailer->SendHTML($options, $html_body);
 				
 				if($this->referer()=="/") {
 					$this->redirect(array("controller"=>"subastas",'action' => 'index'));
@@ -681,7 +750,7 @@ class UsersController extends AppController {
 	function __enviarCorreoAbonoPorRecomendar($correoDestino = null, $email_usuario = null){
 		// Encriptar el ID de quien envía la recomendacion
 		//
-		if ($correoDestino) {
+		if ($correoDestino && $email_usuario) {
 			
 			$user = $this->User->find('first', array('conditions' => array('User.email' => $correoDestino)));
 			$this->loadModel('UserField');
@@ -693,22 +762,24 @@ class UsersController extends AppController {
 			App::import('Vendor', 'MadMimi', array('file' =>'madmimi'.DS.'Spyc.class.php'));
 			
 			$options = array(
-				'promotion_name' => 'Activacion-Referido',
+				'promotion_name' => 'suma_creditos',
 				'recipients' => $correoDestino,
+				'subject' => 'Suma Creditos',
 				'from' => 'no-reply@llevatelos.com'
 			);
 			
 			$mailer = new MadMimi(Configure::read('madmimiEmail'), Configure::read('madmimiKey'));
-			$body = array(
-				'correo-recomendado' => $email_usuario,
-				'nombres' => $user_fields['UserFields']['nombres'],
-				'apellidos' => $user_fields['UserFields']['apellidos'],
-				'bonos' => $bonos['Configs']['creditos_recomendados']
-			);
-			$mailer->SendMessage($options, $body);
+			
+			$correo_recomendado = $email_usuario;
+			$bonos = $bonos['Configs']['creditos_recomendados'];
+			
+			$html_body =
+				"";
+			
+			$result = $mailer->SendHTML($options, $html_body);
 			
 		} else {
-			// TODO: Algun error con el correo destino
+			// TODO: Algun error
 		}
 	}
 	
