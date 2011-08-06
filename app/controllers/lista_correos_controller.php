@@ -116,6 +116,10 @@ class ListaCorreosController extends AppController {
 				'from' => 'no-reply@llevatelos.com'
 			);
 			
+			$username = $correo;
+			$this -> loadModel('User');
+			$password = $this -> User -> find('first', array('conditions' => array('User.email' => $correo)));
+			$password = $password['User']['password'];
 			
 			$html_body =
 				"<html xmlns=\"http://www.w3.org/1999/xhtml\">
@@ -143,7 +147,7 @@ class ListaCorreosController extends AppController {
 					</style>
 				</head>
 				<body>
-					Body content[[tracking_beacon]]
+					[[tracking_beacon]]
 					<table summary=\"\" width=\"700\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
 						<tr>
 							<td width=\"50\" rowspan=\"4\" valign=\"top\"><img alt=\"\" src=\"rp01.jpg\" width=\"50\" height=\"525\" /></td>
@@ -165,17 +169,17 @@ class ListaCorreosController extends AppController {
 										<strong>Te damos la bienvenida a Llevatelos.com. </strong>
 									</p>
 									<p class=\"txt\">
-										<strong>A continuación te brindamos los datos de usuario que te ayudarán a acceder  a llévatelos.com
+										<strong>A continuación te brindamos los datos de usuario que te ayudarán a acceder a llevatelos.com
 										<br />
-										<span class=\"verde\">Usuario:</span> yecoandes@hotmail.com
+										<span class=\"verde\">Usuario:</span> $username
 										<br />
-										<span class=\"verde\">Contraseña:</span> 123456789 </strong>
+										<span class=\"verde\">Contraseña:</span> $password </strong>
 									</p>
 									<p class=\"txt\">
 										<strong>Hasta pronto, y sigue atrapando tus sueños.
 										<br />
 										<br />
-										<span class=\"peke\">Equipo llévatelos.com - Atrapa tus sueños.</span></strong>
+										<span class=\"peke\">Equipo llevatelos.com - Atrapa tus sueños.</span></strong>
 									</p></td>
 								</tr>
 							</table></td>
