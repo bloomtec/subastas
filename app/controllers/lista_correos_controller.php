@@ -117,9 +117,7 @@ class ListaCorreosController extends AppController {
 			);
 			
 			$username = $correo;
-			$this -> loadModel('User');
-			$password = $this -> User -> find('first', array('conditions' => array('User.email' => $correo)));
-			$password = $password['User']['password'];
+			$password = 'lacontraseña';
 			
 			$html_body =
 				"<html xmlns=\"http://www.w3.org/1999/xhtml\">
