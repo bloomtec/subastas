@@ -169,9 +169,9 @@ class ListaCorreosController extends AppController {
 									<p class=\"txt\">
 										<strong>A continuación te brindamos los datos de usuario que te ayudarán a acceder a llevatelos.com
 										<br />
-										<span class=\"verde\">Usuario:</span> $username
+										<span class=\"verde\">Usuario:</span> " . $username . "
 										<br />
-										<span class=\"verde\">Contraseña:</span> $password </strong>
+										<span class=\"verde\">Contraseña:</span> " . $password . " </strong>
 									</p>
 									<p class=\"txt\">
 										<strong>Hasta pronto, y sigue atrapando tus sueños.
