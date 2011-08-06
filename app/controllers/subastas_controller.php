@@ -691,26 +691,87 @@ class SubastasController extends AppController {
 	function enviarCorreoSubastaCancelada($correo = null, $nombre_subasta) {
 
 		if($correo) {
-			$para = $correo;
-			$asunto = 'Subasta Cancelada';
-			$mensaje = 'La subasta ' .
-			$nombre_subasta .
-					' ha sido cancelada. Los creditos ofertados han sido repuestos';
-
-			$cabeceras = 'From: webmaster@example.com' .
-					"\r\n" . 
-					'Reply-To: webmaster@example.com' . "\r\n" . 
-					'X-Mailer: PHP/' . phpversion();
-
-			if(mail($para, $asunto, $mensaje, $cabeceras)) {
-				//$this->Session->setFlash(__('Datos enviados a su correo', true));
-			} else {
-				//$this->Session->setFlash(__('Datos no enviados a su correo, por favor intenta mas tarde', true));
-			}
+			
+			App::import('Vendor', 'MadMimi', array('file' =>'madmimi'.DS.'MadMimi.class.php'));
+			App::import('Vendor', 'MadMimi', array('file' =>'madmimi'.DS.'Spyc.class.php'));
+			
+			$mailer = new MadMimi(Configure::read('madmimiEmail'), Configure::read('madmimiKey'));
+			
+			$options = array(
+				'promotion_name' => 'subasta_cancelada',
+				'recipients' => $correo,
+				'subject' => 'Subasta Cancelada',
+				'from' => 'no-reply@llevatelos.com'
+			);
+			
+			$html_body =
+				"<html xmlns=\"http://www.w3.org/1999/xhtml\">
+				<head>
+					<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />
+					<title></title>
+					<style type=\"text/css\">
+						.txt {
+							font-family: Arial, Helvetica, sans-serif;
+							font-size: 14px;
+						}
+						.nombre {
+							color: #666;
+						}
+						.rojo {
+							color: #F00;
+						}
+						.verde {
+							color: #9C0;
+						}
+						.peke {
+							font-size: 12px;
+						}
+			
+					</style>
+				</head>
+				<body>
+					[[tracking_beacon]]
+					<table summary=\"\" width=\"696\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
+						<tr>
+							<td width=\"50\" rowspan=\"2\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//subasta_cancelada//rp01.jpg\" width=\"50\" height=\"525\" /></td>
+							<td align=\"center\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//subasta_cancelada//sc03.jpg\" width=\"480\" height=\"270\" /></td>
+							<td width=\"50\" rowspan=\"2\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//subasta_cancelada//rp02.jpg\" width=\"50\" height=\"525\" /></td>
+						</tr>
+						<tr>
+							<td width=\"600\" valign=\"top\">
+							<table summary=\"\" width=\"600\" border=\"0\" cellspacing=\"5\" cellpadding=\"0\">
+								<tr>
+									<td>
+									<p class=\"txt\">
+										Hola,
+									</p>
+									<p class=\"txt\">
+										<span class=\"rojo\">Lo Sentimos</span>, la subasta $nombre_subasta en la que estabas
+										<br />
+										trabajando ha sido cancelada. Tus créditos serán reembolsados en máximo 24 horas.
+										<br />
+										Sigue trabajando con nosotros para atrapar tus sueños.
+										<br />
+										Revisa el listado de subastas actuales de llevatelos.com y escoge el próximo artículo
+										<br />
+										que puede ser tuyo.
+									</p>
+									<p class=\"txt\">
+										<span class=\"nombre\">Hasta pronto.</span>
+										<br />
+										Equipo llevatelos.com - Atrapa tus sueños.
+									</p></td>
+								</tr>
+							</table></td>
+						</tr>
+					</table>
+				</body>
+			</html>";
+			
+			$result = $mailer->SendHTML($options, $html_body);
 
 			return;
 		} else {
-			$this->Session->setFlash(__('No existe ningun usuario registrado con ese email', true));
 			return;
 		}
 

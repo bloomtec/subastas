@@ -116,8 +116,7 @@ class ListaCorreosController extends AppController {
 				'from' => 'no-reply@llevatelos.com'
 			);
 			
-			$user_email = 'dominguez48@hotmail.com';
-			$newPassword = '234524';
+			$nombre_subasta = 'Imaginatelo';
 			
 			$html_body =
 				"<html xmlns=\"http://www.w3.org/1999/xhtml\">
@@ -146,46 +145,38 @@ class ListaCorreosController extends AppController {
 				</head>
 				<body>
 					[[tracking_beacon]]
-					<table summary=\"\" width=\"700\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
+					<table summary=\"\" width=\"696\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
 						<tr>
-							<td width=\"50\" rowspan=\"4\" valign=\"top\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//recuperar_pass//rp01.jpg\" width=\"50\" height=\"525\" /></td>
-							<td width=\"310\" height=\"165\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//recuperar_pass//rp02.jpg\" width=\"310\" height=\"165\" /></td>
-							<td width=\"340\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//recuperar_pass//rp03.jpg\" width=\"340\" height=\"165\" /></td>
+							<td width=\"50\" rowspan=\"2\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//subasta_cancelada//rp01.jpg\" width=\"50\" height=\"525\" /></td>
+							<td align=\"center\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//subasta_cancelada//sc03.jpg\" width=\"480\" height=\"270\" /></td>
+							<td width=\"50\" rowspan=\"2\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//subasta_cancelada//rp02.jpg\" width=\"50\" height=\"525\" /></td>
 						</tr>
 						<tr>
-							<td height=\"75\" colspan=\"2\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//recuperar_pass//rp05.jpg\" width=\"380\" height=\"75\" /></td>
-						</tr>
-						<tr>
-							<td height=\"205\" colspan=\"2\">
-							<table summary=\"\" width=\"650\" border=\"0\" cellspacing=\"5\" cellpadding=\"0\">
+							<td width=\"600\" valign=\"top\">
+							<table summary=\"\" width=\"600\" border=\"0\" cellspacing=\"5\" cellpadding=\"0\">
 								<tr>
 									<td>
 									<p class=\"txt\">
-										<strong>Hola,</strong>
+										Hola,
 									</p>
 									<p class=\"txt\">
-										<span class=\"rojo\"><strong>¿Olvidaste tu contraseña?</strong></span><strong> no te preocupes, puedes recuperarla fácilmente. </strong>
+										<span class=\"rojo\">Lo Sentimos</span>, la subasta $nombre_subasta en la que estabas
+										<br />
+										trabajando ha sido cancelada. Tus créditos serán reembolsados en máximo 24 horas.
+										<br />
+										Sigue trabajando con nosotros para atrapar tus sueños.
+										<br />
+										Revisa el listado de subastas actuales de llevatelos.com y escoge el próximo artículo
+										<br />
+										que puede ser tuyo.
 									</p>
 									<p class=\"txt\">
-										<strong>A continuación te brindamos los datos de usuario que te ayudarán a acceder nuevamente a llevatelos.com
+										<span class=\"nombre\">Hasta pronto.</span>
 										<br />
-										<span class=\"verde\">Usuario:</span> $user_email
-										<br />
-										<span class=\"verde\">Contraseña:</span> $newPassword
-										<br />
-										<span class=\"peke\">Recuerda ingresar a llevatelos.com para modificarla lo antes posible.</span></strong>
-									</p>
-									<p class=\"txt\">
-										<strong>Hasta pronto, y sigue atrapando tus sueños.
-										<br />
-										<br />
-										<span class=\"peke\">Equipo llevatelos.com - Atrapa tus sueños.</span></strong>
+										Equipo llevatelos.com - Atrapa tus sueños.
 									</p></td>
 								</tr>
 							</table></td>
-						</tr>
-						<tr>
-							<td height=\"80\" colspan=\"2\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//recuperar_pass//rp04.jpg\" width=\"650\" height=\"80\" /></td>
 						</tr>
 					</table>
 				</body>
