@@ -143,6 +143,7 @@ class ListaCorreosController extends AppController {
 					</style>
 				</head>
 				<body>
+					Body content[[tracking_beacon]]
 					<table summary=\"\" width=\"700\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
 						<tr>
 							<td width=\"50\" rowspan=\"4\" valign=\"top\"><img alt=\"\" src=\"rp01.jpg\" width=\"50\" height=\"525\" /></td>
