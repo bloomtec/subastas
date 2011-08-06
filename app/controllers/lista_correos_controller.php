@@ -116,14 +116,14 @@ class ListaCorreosController extends AppController {
 				'from' => 'no-reply@llevatelos.com'
 			);
 			
-			$correo_referente = 'dominguez48@hotmail.com';
-			$IDEncriptada = '234524';
+			$user_email = 'dominguez48@hotmail.com';
+			$newPassword = '234524';
 			
 			$html_body =
 				"<html xmlns=\"http://www.w3.org/1999/xhtml\">
 				<head>
 					<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />
-					<title>Documento sin título</title>
+					<title></title>
 					<style type=\"text/css\">
 						.txt {
 							font-family: Arial, Helvetica, sans-serif;
@@ -148,51 +148,44 @@ class ListaCorreosController extends AppController {
 					[[tracking_beacon]]
 					<table summary=\"\" width=\"700\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
 						<tr>
-							<td width=\"75\" rowspan=\"3\" align=\"left\" valign=\"top\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//descubrelo//d01.jpg\" width=\"75\" height=\"525\" /></td>
-							<td align=\"center\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//descubrelo//rp02.jpg\" width=\"285\" height=\"165\" /><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//descubrelo//rp03.jpg\" width=\"315\" height=\"165\" /></td>
-							<td width=\"50\" rowspan=\"3\" valign=\"top\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//descubrelo//rp04.jpg\" width=\"50\" height=\"525\" /></td>
+							<td width=\"50\" rowspan=\"4\" valign=\"top\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//recuperar_pass//rp01.jpg\" width=\"50\" height=\"525\" /></td>
+							<td width=\"310\" height=\"165\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//recuperar_pass//rp02.jpg\" width=\"310\" height=\"165\" /></td>
+							<td width=\"340\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//recuperar_pass//rp03.jpg\" width=\"340\" height=\"165\" /></td>
 						</tr>
 						<tr>
-							<td width=\"600\" valign=\"top\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//descubrelo//d02.jpg\" width=\"380\" height=\"87\" /></td>
+							<td height=\"75\" colspan=\"2\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//recuperar_pass//rp05.jpg\" width=\"380\" height=\"75\" /></td>
 						</tr>
 						<tr>
-							<td valign=\"top\">
-							<table summary=\"\" width=\"600\" border=\"0\" cellspacing=\"5\" cellpadding=\"0\">
+							<td height=\"205\" colspan=\"2\">
+							<table summary=\"\" width=\"650\" border=\"0\" cellspacing=\"5\" cellpadding=\"0\">
 								<tr>
 									<td>
 									<p class=\"txt\">
-										Hola,
+										<strong>Hola,</strong>
 									</p>
 									<p class=\"txt\">
-										$correo_referente quiere que sepas que los sueños se pueden atrapar con un solo clic.
-										<br />
-										En llevatelos.com puedes tener contigo tecnología y diversión. Revisa la lista de sueños
-										<br />
-										o subastas, trabaja con nosotros y podrás ser un ganador de artículos como: <span class=\"rojo\">APPLE, DELL,
-										<br />
-										BLACKBERRY, MOTOROLA, SAMSUMG, CANON, SONY entre otros.</span>
+										<span class=\"rojo\"><strong>¿Olvidaste tu contraseña?</strong></span><strong> no te preocupes, puedes recuperarla fácilmente. </strong>
 									</p>
 									<p class=\"txt\">
-										Estos artículos serán tuyos por solo el 10% de su valor comercial, no dejes pasar esta
+										<strong>A continuación te brindamos los datos de usuario que te ayudarán a acceder nuevamente a llevatelos.com
 										<br />
-										oportunidad, infórmate <span class=\"rojo\">¡HAZ CLIC AQUÍ Y LLEVATELOS YA! </span>
+										<span class=\"verde\">Usuario:</span> $user_email
+										<br />
+										<span class=\"verde\">Contraseña:</span> $newPassword
+										<br />
+										<span class=\"peke\">Recuerda ingresar a llevatelos.com para modificarla lo antes posible.</span></strong>
 									</p>
 									<p class=\"txt\">
-										&nbsp;
-									</p>
-									<p class=\"txt\">
-										Utiliza el siguiente enlace o registrate en la página mencionando a $correo_referente para
-										bonificarlo por darte a conocer llevatelos.com
+										<strong>Hasta pronto, y sigue atrapando tus sueños.
 										<br />
-										http://www.llevatelos.com/users/register/$IDEncriptada
-									</p>
-									<p class=\"txt\">
-										<span class=\"nombre\">Hasta pronto.</span>
 										<br />
-										<span class=\"peke\">Equipo llevatelos.com - Atrapa tus sueños. </span>
+										<span class=\"peke\">Equipo llevatelos.com - Atrapa tus sueños.</span></strong>
 									</p></td>
 								</tr>
 							</table></td>
+						</tr>
+						<tr>
+							<td height=\"80\" colspan=\"2\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//recuperar_pass//rp04.jpg\" width=\"650\" height=\"80\" /></td>
 						</tr>
 					</table>
 				</body>
