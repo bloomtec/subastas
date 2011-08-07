@@ -6,6 +6,9 @@ class PagesController extends AppController {
 		parent::beforeFilter();
 		$this->Auth->allow('view');
 	}
+	function inactivity(){
+	
+	}
 	function bannerHome(){
 		$banner=$this->Page->findBySlug("banner-home");
 		return $banner["Page"]["content"];

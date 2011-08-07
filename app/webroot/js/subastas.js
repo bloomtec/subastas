@@ -1,4 +1,26 @@
-﻿$(function(){
+﻿
+$(function () {
+$(window).keydown(function(){
+resetTime();
+});
+$(window).mousemove(function() {
+resetTime();
+});
+$(window).ready(function() {
+resetTime();
+});
+});
+function resetTime() {
+//setTimeout('redirect()', 2700000); //45mins
+//setTimeout('redirect()', 1200000); //20mins
+setTimeout('redirect()', 900000); //15mins
+//setTimeout('redirect()', 60000); //test 1min
+}
+function redirect() {
+//country = $.cookie('CakeCookie[country]');
+window.location = '/pages/inactivity';
+}
+$(function(){
 	var subastas=new Array();
 	var arregloSubastas=new Array();
 	var indice=0;
@@ -51,6 +73,7 @@
 		e.preventDefault();
 		var url = $(this).attr('action');  
 		var datos=$(this).serialize();
+		var form=this;
 				jQuery.ajax({
 			url:url,
 			type: "post",
@@ -61,7 +84,7 @@
 				if(oferta){
 				location.reload(true);
 				}else{
-				//DATOS NO VALIDOS
+					$(form).next(".error").show();
 				}
 			}
 		});

@@ -691,32 +691,97 @@ class SubastasController extends AppController {
 	function enviarCorreoSubastaCancelada($correo = null, $nombre_subasta) {
 
 		if($correo) {
-			$para = $correo;
-			$asunto = 'Subasta Cancelada';
-			$mensaje = 'La subasta ' .
-			$nombre_subasta .
-					' ha sido cancelada. Los creditos ofertados han sido repuestos';
-
-			$cabeceras = 'From: webmaster@example.com' .
-					"\r\n" . 
-					'Reply-To: webmaster@example.com' . "\r\n" . 
-					'X-Mailer: PHP/' . phpversion();
-
-			if(mail($para, $asunto, $mensaje, $cabeceras)) {
-				//$this->Session->setFlash(__('Datos enviados a su correo', true));
-			} else {
-				//$this->Session->setFlash(__('Datos no enviados a su correo, por favor intenta mas tarde', true));
-			}
+			
+			App::import('Vendor', 'MadMimi', array('file' =>'madmimi'.DS.'MadMimi.class.php'));
+			App::import('Vendor', 'MadMimi', array('file' =>'madmimi'.DS.'Spyc.class.php'));
+			
+			$mailer = new MadMimi(Configure::read('madmimiEmail'), Configure::read('madmimiKey'));
+			
+			$options = array(
+				'promotion_name' => 'subasta_cancelada',
+				'recipients' => $correo,
+				'subject' => 'Subasta Cancelada',
+				'from' => 'no-reply@llevatelos.com'
+			);
+			
+			$html_body =
+				"<html xmlns=\"http://www.w3.org/1999/xhtml\">
+				<head>
+					<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />
+					<title></title>
+					<style type=\"text/css\">
+						.txt {
+							font-family: Arial, Helvetica, sans-serif;
+							font-size: 14px;
+						}
+						.nombre {
+							color: #666;
+						}
+						.rojo {
+							color: #F00;
+						}
+						.verde {
+							color: #9C0;
+						}
+						.peke {
+							font-size: 12px;
+						}
+			
+					</style>
+				</head>
+				<body>
+					[[tracking_beacon]]
+					<table summary=\"\" width=\"696\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
+						<tr>
+							<td width=\"50\" rowspan=\"2\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//subasta_cancelada//rp01.jpg\" width=\"50\" height=\"525\" /></td>
+							<td align=\"center\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//subasta_cancelada//sc03.jpg\" width=\"480\" height=\"270\" /></td>
+							<td width=\"50\" rowspan=\"2\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//subasta_cancelada//rp02.jpg\" width=\"50\" height=\"525\" /></td>
+						</tr>
+						<tr>
+							<td width=\"600\" valign=\"top\">
+							<table summary=\"\" width=\"600\" border=\"0\" cellspacing=\"5\" cellpadding=\"0\">
+								<tr>
+									<td>
+									<p class=\"txt\">
+										Hola,
+									</p>
+									<p class=\"txt\">
+										<span class=\"rojo\">Lo Sentimos</span>, la subasta $nombre_subasta en la que estabas
+										<br />
+										trabajando ha sido cancelada. Tus créditos serán reembolsados en máximo 24 horas.
+										<br />
+										Sigue trabajando con nosotros para atrapar tus sueños.
+										<br />
+										Revisa el listado de subastas actuales de llevatelos.com y escoge el próximo artículo
+										<br />
+										que puede ser tuyo.
+									</p>
+									<p class=\"txt\">
+										<span class=\"nombre\">Hasta pronto.</span>
+										<br />
+										Equipo llevatelos.com - Atrapa tus sueños.
+									</p></td>
+								</tr>
+							</table></td>
+						</tr>
+					</table>
+				</body>
+			</html>";
+			
+			$result = $mailer->SendHTML($options, $html_body);
 
 			return;
 		} else {
-			$this->Session->setFlash(__('No existe ningun usuario registrado con ese email', true));
 			return;
 		}
 
 	}
 
 	function enviarCorreoSubastaGanada($subastaID = null) {
+		
+		App::import('Vendor', 'MadMimi', array('file' =>'madmimi'.DS.'MadMimi.class.php'));
+		App::import('Vendor', 'MadMimi', array('file' =>'madmimi'.DS.'Spyc.class.php'));
+		$mailer = new MadMimi(Configure::read('madmimiEmail'), Configure::read('madmimiKey'));
 
 		if (!empty($subastaID)) {
 			$subasta = $this->Subasta->read(null, $subastaID);
@@ -725,21 +790,86 @@ class SubastasController extends AppController {
 
 			// Enviar correo ganador
 			//
-			$para = $usuario['User']['email'];
-			$asunto = 'Has ganado!';
-			$mensaje =	'Eres el ganador de la subasta: ' .
-			$subasta['Subasta']['nombre'];
-
-			$cabeceras = 'From: webmaster@example.com' .
-				"\r\n" . 
-				'Reply-To: webmaster@example.com' . "\r\n" . 
-				'X-Mailer: PHP/' . phpversion();
-
-			if(mail($para, $asunto, $mensaje, $cabeceras)) {
-				//$this->Session->setFlash(__('Datos enviados a su correo', true));
-			} else {
-				//$this->Session->setFlash(__('Datos no enviados a su correo, por favor intenta mas tarde', true));
-			}
+			$options = array(
+				'promotion_name' => 'te_lo_llevaste',
+				'recipients' => $usuario['User']['email'],
+				'subject' => '¡Te Lo Llevaste!',
+				'from' => 'no-reply@llevatelos.com'
+			);
+			
+			$nombre_subasta = $subasta['Subasta']['nombre'];
+			$precio_subasta = $subasta['Subasta']['precio'];
+			
+			$html_body =
+				"<html xmlns=\"http://www.w3.org/1999/xhtml\">
+				<head>
+					<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />
+					<title></title>
+					<style type=\"text/css\">
+						.txt {
+							font-family: Arial, Helvetica, sans-serif;
+							font-size: 14px;
+						}
+						.nombre {
+							color: #666;
+						}
+						.rojo {
+							color: #F00;
+						}
+						.verde {
+							color: #9C0;
+						}
+						.peke {
+							font-size: 12px;
+						}
+			
+					</style>
+				</head>
+				<body>
+					[[tracking_beacon]]
+					<table summary=\"\" width=\"700\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
+						<tr>
+							<td width=\"50\" rowspan=\"4\" valign=\"top\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//te_lo_llevaste//rp01.jpg\" width=\"50\" height=\"525\" /></td>
+							<td width=\"310\" height=\"165\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//te_lo_llevaste//rp02.jpg\" width=\"310\" height=\"165\" /></td>
+							<td width=\"340\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//te_lo_llevaste//rp03.jpg\" width=\"340\" height=\"165\" /></td>
+						</tr>
+						<tr>
+							<td height=\"75\" colspan=\"2\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//te_lo_llevaste//rp05.jpg\" width=\"340\" height=\"75\" /></td>
+						</tr>
+						<tr>
+							<td height=\"205\" colspan=\"2\">
+							<table summary=\"\" width=\"650\" border=\"0\" cellspacing=\"5\" cellpadding=\"0\">
+								<tr>
+									<td>
+									<p class=\"txt\">
+										<strong>Hola,</strong>
+									</p>
+									<p class=\"txt\">
+										<span class=\"rojo\">¡Felicitaciones!</span><span class=\"txt\"> has logrado atrapar tu sueño de tener $nombre_subasta.
+											<br />
+											Para el envío del artículo remite tus datos completos a</span><span class=\"rojo\"> contacto@llevatelos.com</span><span class=\"txt\"> y recibirás unos
+											<br />
+											sencillos pasos que deberás seguir.
+											<br />
+											Ayuda a otros a atrapar sus sueños deja tu testimonio en</span><span class=\"rojo\"> testimoniales@llevatelos.com</span>
+									</p>
+									<p class=\"txt\">
+										<strong>Hasta pronto.
+										<br />
+										<br />
+										<span class=\"peke\">Equipo llevatelos.com - Atrapa tus sueños.</span></strong>
+									</p></td>
+								</tr>
+							</table></td>
+						</tr>
+						<tr>
+							<td height=\"80\" colspan=\"2\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//te_lo_llevaste//rp04.jpg\" width=\"650\" height=\"80\" /></td>
+						</tr>
+					</table>
+				</body>
+			</html>";
+			
+			$result = $mailer->SendHTML($options, $html_body);
 				
 			// Obtener correos ofertantes
 			// Recorrer la lista ofertantes y enviar correos
@@ -747,23 +877,88 @@ class SubastasController extends AppController {
 			$correos = $this->obtenerListaCorreoOfertas($subastaID);
 				
 			foreach ($correos as $key=>$correo) {
-
-				$para = $correo['User']['email'];
-				$asunto = 'Subasta Terminada!';
-				$mensaje =	'La subasta: ' .
-				$subasta['Subasta']['nombre'] .
-							' ha terminado!';
-					
-				$cabeceras = 'From: webmaster@example.com' .
-					"\r\n" . 
-					'Reply-To: webmaster@example.com' . "\r\n" . 
-					'X-Mailer: PHP/' . phpversion();
-
-				if(mail($para, $asunto, $mensaje, $cabeceras)) {
-					//$this->Session->setFlash(__('Datos enviados a su correo', true));
-				} else {
-					//$this->Session->setFlash(__('Datos no enviados a su correo, por favor intenta mas tarde', true));
-				}
+				
+				$options = array(
+					'promotion_name' => 'subasta_finalizada',
+					'recipients' => $correo['User']['email'],
+					'subject' => 'Subasta Finalizada',
+					'from' => 'no-reply@llevatelos.com'
+				);
+				
+				$html_body =
+					"<html xmlns=\"http://www.w3.org/1999/xhtml\">
+					<head>
+						<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />
+						<title>Documento sin título</title>
+						<style type=\"text/css\">
+							.txt {
+								font-family: Arial, Helvetica, sans-serif;
+								font-size: 14px;
+							}
+							.nombre {
+								color: #666;
+							}
+							.rojo {
+								color: #F00;
+							}
+							.verde {
+								color: #9C0;
+							}
+							.peke {
+								font-size: 12px;
+							}
+				
+						</style>
+					</head>
+					<body>
+						[[tracking_beacon]]
+						<table summary=\"\" width=\"700\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
+							<tr>
+								<td width=\"50\" rowspan=\"4\" valign=\"top\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//subasta_finalizada//rp01.jpg\" width=\"50\" height=\"525\" /></td>
+								<td width=\"310\" height=\"165\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//subasta_finalizada//rp02.jpg\" width=\"310\" height=\"165\" /></td>
+								<td width=\"340\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//subasta_finalizada//rp03.jpg\" width=\"340\" height=\"165\" /></td>
+							</tr>
+							<tr>
+								<td height=\"75\" colspan=\"2\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//subasta_finalizada//sf01.jpg\" width=\"380\" height=\"75\" /></td>
+							</tr>
+							<tr>
+								<td height=\"205\" colspan=\"2\">
+								<table summary=\"\" width=\"650\" border=\"0\" cellspacing=\"5\" cellpadding=\"0\">
+									<tr>
+										<td>
+										<p class=\"txt\">
+											<strong>Hola,</strong>
+										</p>
+										<p class=\"txt\">
+											Te informamos que la subasta correspondiente a $nombre_subasta en la que estabas trabajando ya se ha cerrado.
+											<br />
+											El usuario ganador se la llevó por el increíble valor de <span class=\"rojo\">$$precio_subasta</span>
+											<br />
+											En tu perfil de usuario podrás comparar el último valor que ofertaste y te darás cuenta
+											<br />
+											que no estabas tan lejos de llevártelo. Revisa el listado de subastas actuales de llevatelos.com
+											<br />
+											y escoge el próximo artículo que puede ser tuyo.
+											<br />
+											Gracias por participar y sigue trabajando con nosotros para atrapar tus sueños.
+										</p>
+										<p class=\"txt\">
+											No te desanimes, ingresa, participa y atrapa tus sueños.
+										</p>
+										<p class=\"txt\">
+											<strong><span class=\"peke\">Equipo llevatelos.com - Atrapa tus sueños.</span></strong>
+										</p></td>
+									</tr>
+								</table></td>
+							</tr>
+							<tr>
+								<td height=\"80\" colspan=\"2\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//subasta_finalizada//rp04.jpg\" width=\"650\" height=\"80\" /></td>
+							</tr>
+						</table>
+					</body>
+				</html>";
+				
+				$result = $mailer->SendHTML($options, $html_body);
 
 			}
 

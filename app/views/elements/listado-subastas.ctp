@@ -11,9 +11,11 @@
 				<div style="clear:both">
 				</div>
 				<?php echo $form -> input("password", array("label" => "Contraseña:","id"=>"password".$subasta["Subasta"]["id"]));?>
+				
 				<div style="clear:both">
 				</div>
 				<?php echo $form -> end(__('Ingresar', true), array('div' => false));?>
+				<span class="error" style="margin-left:95px; margin-top:-24px; position:absolute; display:none;">datos no validos</span>
 				<?php echo $html -> link('¿Olvidó su contraseña?', array("controller" => "users", "action" => "rememberPassword"), array("id" => "olvidar"));?>
 				<br />
 				<?php echo $html -> link('Registrate!!! y obtén 10 creditos', array("controller" => "users", "action" => "register"), array("id" => "resaltar-registro"));?>

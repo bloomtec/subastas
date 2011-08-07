@@ -35,7 +35,7 @@
 			     <p class="contador"></p>
 			     <p class="pvp">Tiempo Para termnar la oferta</p>
 			     <?php endif;?>
-			     <?php if($config["Config"]["sitio_pausado"]):?>
+			     <?php if($config["Config"]["congelado"]):?>
 			     	<br />
 			     	<p class="pvp">La subasta se reanudara a las 8:00 am</p>
 			     	<br />
@@ -44,7 +44,7 @@
 			     <p class="ultimo-usuario"> <p>
 			     <?php 
 			     	
-			     	if(!$config["Config"]["sitio_pausado"])
+			     	if(!$config["Config"]["congelado"])
 			     		echo $this->Html->link("¡Oferte ya!",array("controller"=>"subastas","action"=>"ofertar",$subasta["Subasta"]['id']),array('class'=>'boton ofertar'));
 					else
 						echo $this->Html->link("Pausada","#",array('class'=>'boton pausado'));
