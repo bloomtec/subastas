@@ -7,16 +7,19 @@ class SubastasController extends AppController {
 		parent::beforeFilter();
 		$this->Auth->allow("index","subastasFinalizadas","ultimaOferta","pruebas");
 	}
+	
 	function pruebas(){
 	$subasta=$this->Subasta->find("first");
 		debug($subasta["Subasta"]["fecha_de_venta"]);
 		debug(gmdate('Y-m-d H:i:s', time() + (3600 * -5) + 1));
 		debug(gmdate('Y-m-d H:i:s', time() + (3600 * -5)));
 	}
+	
 	function ultimaOferta($subastaID){
 		$oferta=$this->Subasta->Oferta->find("first",array("conditions"=>array("Oferta.subasta_id"=>$subastaID),"order"=>array("Oferta.id DESC")));
 		return $oferta;
 	}
+	
 	function getStatus(){
 		$time=$_GET["ms"];
 		$date=date("Y-m-d H:i:s", substr($time,0,-3));
@@ -37,6 +40,7 @@ class SubastasController extends AppController {
 		exit(0); 
 		
 	}
+	
 	function congelar($duracion = null) {
 		
 		if ($duracion) {
@@ -66,6 +70,31 @@ class SubastasController extends AppController {
 			
 		}
 		
+	}
+	
+	function admin_live() {
+		$this->Subasta->recursive = 0;
+		$config=$this->Config->read(null,1);
+		$gmt = 3600*-5;
+		$fechaActual = gmdate('Y-m-d H:i:s', time() + $gmt);
+		if (!empty($this->params['requested'])) {
+			return $this->Subasta->find("all",array(
+			 	"conditions"=>array(
+			 		"Subasta.estados_subasta_id"=>2,//activa
+			 		"Subasta.posicion_en_cola <="=>$config["Config"]["tamano_cola"],
+			 		"Subasta.fecha_de_venta >"=>"$fechaActual"
+			)
+			));
+		} else {
+			$subastas=$this->Subasta->find("all",array(
+			 	"conditions"=>array(
+			 		"Subasta.estados_subasta_id"=>2,//activa
+			 		"Subasta.posicion_en_cola <="=>$config["Config"]["tamano_cola"],
+			 		"Subasta.fecha_de_venta >"=>"$fechaActual"
+			)));
+			$this->set('subastas',$subastas);
+			$this->set("registrado",$this->Cookie->read("registrado"));
+		}
 	}
 	
 	function admin_cola(){

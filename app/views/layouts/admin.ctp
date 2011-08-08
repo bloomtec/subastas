@@ -31,6 +31,7 @@
 		echo $this->Html->css('cake.generic');
 		echo $this->Html->css('uploadify');
 		echo $this->Html->css('superfish');
+		
 		echo $this->Html->script("jquery-1.6.2.min.js");
 		echo $this->Html->script("admin.js");
 		echo $this->Html->script("jquery-ui-1.8.14.custom.min.js");
@@ -63,6 +64,7 @@
 					<?php echo $html->link("Subastas",array("controller"=>"subastas", "action"=>"index")); ?>
 					<ul>
 						<li><?php echo $html->link("Listar Subastas", array("controller"=>"subastas", "action"=>"index")); ?></li>
+						<li><?php echo $html->link("Subastas En Vivo", array("controller"=>"subastas", "action"=>"live")); ?></li>
 						<li><?php echo $html->link("Administrar Cola", array("controller"=>"subastas", "action"=>"cola")); ?></li>
 						<li><?php echo $html->link("Añadir Subasta", array("controller"=>"subastas", "action"=>"add")); ?></li>
 					</ul>
