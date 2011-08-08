@@ -37,8 +37,7 @@ class SubastasController extends AppController {
 		echo json_encode($subastas);
 		Configure::write("debug",0);
 		$this->autoRender=false;
-		exit(0); 
-		
+		exit(0);
 	}
 	
 	function congelar($duracion = null) {

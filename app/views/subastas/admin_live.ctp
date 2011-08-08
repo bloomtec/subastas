@@ -1,6 +1,7 @@
 <div class="listado">
 	<?php
 		echo $this->Html->css('screen');
-		echo $this->element("listado-subastas");
+		echo $this->element("subastas-live");
+		echo $this->Html->script("subastas-live.js");
 	?>
 </div>
