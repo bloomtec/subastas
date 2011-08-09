@@ -194,7 +194,7 @@ class UsersController extends AppController {
 		// Encontrar el total de usuarios registrados
 		//
 		//$totalUsuarios = $this->User->find('first', array('conditions' => array()));
-		$max_id = $this->User->find('first' , array ('fields' => array('MAX(id) as user_id')));
+		$max_id = $this->User->find('first' , array ('fields' => array('MAX(User.id) as user_id')));
 		$usuario = null;
 		for ($id = 1; $id <= $max_id; $id++) {
 			if ($encryptedID == crypt($id, "23()23*$%g4F^aN!^^%")) {
