@@ -29,7 +29,6 @@
 		</div>
 		<?php
 			//echo $form->input("UserField.fecha_de_nacimiento",array("minYear"=>date('Y') - 70));
-			debug($email_referente);
 			if (isset($email_referente)){
 				echo $form->hidden("referido_por", array('value' => $email_referente));
 			} else {
