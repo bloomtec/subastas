@@ -193,9 +193,10 @@ class UsersController extends AppController {
 	function __obtenerCorreoReferente($encryptedID = null){
 		// Encontrar el total de usuarios registrados
 		//
-		$totalUsuarios = $this->User->find('count', array('conditions' => array('User.id >' => 0)));
+		//$totalUsuarios = $this->User->find('first', array('conditions' => array()));
+		$max_id = $this->User->find('first' , array ('fields' => array('MAX(id) as user_id')));
 		$usuario = null;
-		for ($id = 1; $id < $totalUsuarios; $id++) {
+		for ($id = 1; $id <= $max_id; $id++) {
 			if ($encryptedID == crypt($id, "23()23*$%g4F^aN!^^%")) {
 				// Las ID son iguales, abonar por recomendacion
 				//
@@ -371,7 +372,6 @@ class UsersController extends AppController {
 				$this->Session->setFlash(__('No se pudo completar el registro. Por favor, intente de nuevo', true));
 			}
 		} else {
-			debug($this->params);
 			if(!empty($this->params['pass'][0])){
 				$this->set('email_referente', $this->__obtenerCorreoReferente($this->params['pass'][0]));
 			}
