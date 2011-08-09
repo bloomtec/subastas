@@ -858,6 +858,7 @@ class UsersController extends AppController {
 			if(!$this->User->find('first', array('conditions'=>array('User.email'=>$this->data['User']['correo_recomendado_5'])))) {
 				$this->__enviarCorreoRecomendado($this->data['User']['user_id'], $this->data['User']['correo_recomendado_5']);
 			}
+			$this->redirect(array("controller"=>"subastas",'action' => 'index'));
 		}
 	}
 
