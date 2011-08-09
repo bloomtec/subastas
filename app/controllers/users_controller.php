@@ -884,7 +884,7 @@ class UsersController extends AppController {
 			
 			$user = $this->User->find('first', array('conditions' => array('User.email' => $correoDestino)));
 			$this->loadModel('UserField');
-			$user_fields = $this->UserField->find('first', array('conditions' => array('UserFields.id' => $user['User']['id'])));
+			$user_fields = $this->UserField->find('first', array('conditions' => array('UserField.user_id' => $user['User']['id'])));
 			$this->loadModel('Config');
 			$bonos = $this->Config->find('first');
 			
