@@ -235,7 +235,7 @@ class UsersController extends AppController {
 	
 	function register(){
 		if (!empty($this->data)) {
-			$user_pass = $this->data['User']['password'];
+			$user_pass = clone($this->data['User']['password']);
 			$this->User->recursive = 0;
 			$this->User->create();
 			$this->data['User']['role_id'] = 2; // Is set as a Basic user for default
