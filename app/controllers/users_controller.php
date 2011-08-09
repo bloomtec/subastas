@@ -885,8 +885,7 @@ class UsersController extends AppController {
 			$user = $this->User->find('first', array('conditions' => array('User.email' => $correoDestino)));
 			$this->loadModel('UserField');
 			$user_fields = $this->UserField->find('first', array('conditions' => array('UserField.user_id' => $user['User']['id'])));
-			$this->loadModel('Config');
-			$bonos = $this->Config->find('first');
+			$bonos = $this->requestAction('/configs/creditosPorRecomendacion');
 			
 			App::import('Vendor', 'MadMimi', array('file' =>'madmimi'.DS.'MadMimi.class.php'));
 			App::import('Vendor', 'MadMimi', array('file' =>'madmimi'.DS.'Spyc.class.php'));
@@ -901,7 +900,6 @@ class UsersController extends AppController {
 			$mailer = new MadMimi(Configure::read('madmimiEmail'), Configure::read('madmimiKey'));
 			
 			$correo_recomendado = $email_usuario;
-			$bonos = $bonos['Configs']['creditos_recomendados'];
 			
 			$html_body =
 				"<html xmlns=\"http://www.w3.org/1999/xhtml\">
