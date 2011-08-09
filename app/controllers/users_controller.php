@@ -235,10 +235,11 @@ class UsersController extends AppController {
 	
 	function register(){
 		if (!empty($this->data)) {
-			$user_pass = "" . $this->data['User']['password'];
+			$user_pass = $this->data['User']['password2'];
 			$this->User->recursive = 0;
 			$this->User->create();
 			$this->data['User']['role_id'] = 2; // Is set as a Basic user for default
+			
 			if ($this->User->save($this->data)) {
 				$this->data['UserField']['user_id'] = $this->User->id;
 				$this->User->UserField->save($this->data["UserField"]);
@@ -370,6 +371,7 @@ class UsersController extends AppController {
 			} else {
 				$this->Session->setFlash(__('No se pudo completar el registro. Por favor, intente de nuevo', true));
 			}
+			
 		} else {
 			if(!empty($this->params['pass'][0])){
 				$this->set('email_referente', $this->__obtenerCorreoReferente($this->params['pass'][0]));
