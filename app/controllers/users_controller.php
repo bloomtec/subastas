@@ -180,7 +180,6 @@ class UsersController extends AppController {
 	function __abonarCreditosPorRecomendacion($email = null, $email_usuario = null){
 		if ($email) {
 			$user = $this->User->find('first', array('conditions' => array('User.email' => $email)));
-			debug($user);
 			if($user) {
 				$this->User->read(null, $user['User']['id']);
 				$this->User->set('bonos', $user['User']['bonos'] + $this->requestAction('/configs/creditosPorRecomendacion'));
@@ -934,7 +933,7 @@ class UsersController extends AppController {
 					<table summary=\"\" width=\"700\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
 						<tr>
 							<td width=\"75\" rowspan=\"3\" align=\"left\" valign=\"top\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//suma_creditos//d01.jpg\" width=\"75\" height=\"525\" /></td>
-							<td align=\"center\"><img alt=\"\" src=\"rp02.jpg\" width=\"285\" height=\"165\" /><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//suma_creditos//rp03.jpg\" width=\"315\" height=\"165\" /></td>
+							<td align=\"center\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//suma_creditos//rp02.jpg\" width=\"285\" height=\"165\" /><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//suma_creditos//rp03.jpg\" width=\"315\" height=\"165\" /></td>
 							<td width=\"50\" rowspan=\"3\" valign=\"top\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//suma_creditos//rp04.jpg\" width=\"50\" height=\"525\" /></td>
 						</tr>
 						<tr>
