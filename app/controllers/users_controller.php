@@ -985,7 +985,7 @@ class UsersController extends AppController {
 			$IDEncriptada = crypt($userID, "23()23*$%g4F^aN!^^%");
 			$user = $this->User->read(null, $userID);
 			$this->loadModel('UserField');
-			$user_fields = $this->UserField->find('first', array('conditions' => array('UserFields.id' => $user['User']['id'])));
+			$user_fields = $this->UserField->find('first', array('conditions' => array('user_id' => $user['User']['id'])));
 			
 			// TODO : Enviar el correo a $correoDestino con el enlace y la $IDEncriptada
 			//
@@ -1074,7 +1074,7 @@ class UsersController extends AppController {
 											&nbsp;									
 										</p>
 										<p class=\"txt\">
-											http://www.llevatelos.com/users/register/$IDEncriptada
+											<a href=\"http://www.llevatelos.com/users/register/$IDEncriptada\">¡Registrate aquí!</a>
 											&nbsp;
 										</p>
 										<p class=\"txt\">
