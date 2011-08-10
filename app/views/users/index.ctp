@@ -31,7 +31,7 @@
 			<div class="clear"></div>
 		</div>
 
-		<div class="subastas-activas">
+		<div class="subastas-activas delusuario">
 			<h2>Subastas Activas</h2>
 			<div class="contenedor-subastas">
 				<?php echo $this->element("subastas-activas"); ?>

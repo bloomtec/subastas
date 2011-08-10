@@ -64,7 +64,7 @@
 					<?php echo $html->link("Subastas",array("controller"=>"subastas", "action"=>"index")); ?>
 					<ul>
 						<li><?php echo $html->link("Listar Subastas", array("controller"=>"subastas", "action"=>"index")); ?></li>
-						<li><?php echo $html->link("Subastas En Vivo", array("controller"=>"subastas", "action"=>"live")); ?></li>
+						<li><?php echo $html->link("Subastas En Vivo", array("controller"=>"subastas", "action"=>"monitorear")); ?></li>
 						<li><?php echo $html->link("Administrar Cola", array("controller"=>"subastas", "action"=>"cola")); ?></li>
 						<li><?php echo $html->link("Añadir Subasta", array("controller"=>"subastas", "action"=>"add")); ?></li>
 					</ul>

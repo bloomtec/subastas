@@ -19,6 +19,48 @@ class SubastasController extends AppController {
 		$oferta=$this->Subasta->Oferta->find("first",array("conditions"=>array("Oferta.subasta_id"=>$subastaID),"order"=>array("Oferta.id DESC")));
 		return $oferta;
 	}
+	function admin_monitorear(){
+	$this->Subasta->recursive = 0;
+		$config=$this->Config->read(null,1);
+		$gmt = 3600*-5;
+		$fechaActual = gmdate('Y-m-d H:i:s', time() + $gmt);
+		if (!empty($this->params['requested'])) {
+			return $this->Subasta->find("all",array(
+			 	"conditions"=>array(
+			 		"Subasta.estados_subasta_id"=>2,//activa
+			 		"Subasta.posicion_en_cola <="=>$config["Config"]["tamano_cola"],
+			 		"Subasta.fecha_de_venta >"=>"$fechaActual"
+			)
+			));
+		} else {
+			$subastas=$this->Subasta->find("all",array(
+			 	"conditions"=>array(
+			 		"Subasta.estados_subasta_id"=>2,//activa
+			 		"Subasta.posicion_en_cola <="=>$config["Config"]["tamano_cola"],
+			 		"Subasta.fecha_de_venta >"=>"$fechaActual"
+			)));
+			$this->set('subastas',$subastas);
+
+		}
+	}
+	function admin_getStatus(){
+		$time=$_GET["ms"];
+		$date=date("Y-m-d H:i:s", substr($time,0,-3));
+		$dateTime=new DateTime($date);
+		$this->Subasta->Behaviors->attach('Containable');
+		$this->Subasta->recursive=2;
+		$subastas=$this->Subasta->find("all",array("conditions"=>array("Subasta.id"=>$_POST["subastas"]),'contain' => array(
+		'Oferta' => array(
+			'order' => array('Oferta.id DESC'),
+			'User'
+			
+		))));
+		
+		echo json_encode($subastas);
+		Configure::write("debug",0);
+		$this->autoRender=false;
+		exit(0);
+	}
 	
 	function getStatus(){
 		$time=$_GET["ms"];

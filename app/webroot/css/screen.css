@@ -1062,6 +1062,9 @@ div.logueado span{
 	margin:0 auto;	
 	min-height:280px;
 }
+#right-content .delusuario  #user-subastas   li{
+	margin: 1em auto;
+}
 .subastas-activas .imagen, .subastas-activas .ofertas, .acciones-ofertas{
 	float:left;
 	margin: 2%; 

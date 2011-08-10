@@ -4,7 +4,7 @@
  <ul class="subastas-activas <?php if(!$config["Config"]["congelado"]) echo "activo"?>" id="user-subastas">
 	 <?php $i=0;?>
 	 <?php foreach ($subastas as $subasta):?>
-	<li <?php if($i%3==1) echo "class='centro'"?>  rel="<?php echo $subasta["Subasta"]["id"]; ?>">
+	<li <?php if($i%3==1) echo "class='centro'"?>  id="<?php echo $subasta["Subasta"]["id"]; ?>" title="<?php echo $subasta["Subasta"]["nombre"]; ?>"> 
 		<div class="imagen">
 			<?php echo $this->Html->image($subasta['Subasta']['imagen_path'],array("width"=>"200")); ?>
 			<?php echo $this->Html->para("nombre",$subasta["Subasta"]["nombre"]); ?>
@@ -32,7 +32,7 @@
 			 </div>
 			 <?php echo $this->Html->para("pvp","PVP $ ".number_format($subasta["Subasta"]['valor'], 0, ' ', '.')) ?>
 		      <?php if(!$config["Config"]["congelado"]):?>
-			     <p class="contador"></p>
+			     <p class="contador"  id="contador<?php echo $subasta["Subasta"]["id"]?>"></p>
 			     <p class="pvp">Tiempo Para termnar la oferta</p>
 			     <?php endif;?>
 			     <?php if($config["Config"]["congelado"]):?>

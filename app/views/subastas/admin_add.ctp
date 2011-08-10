@@ -15,7 +15,7 @@
 	<?php
 		echo $this->Form->input('tipo_subasta_id', array("value" => "1"));
 		echo $this->Form->input('valor', array("value" => "0","label"=>"Valor (Valor comercial de la subasta)"));
-		echo $this->Form->input('umbral_minimo_creditos', array("value" => "0","label"=>"Cantidad mínima de creditos para subastar"));
+		echo $this->Form->input('umbral_minimo_creditos', array("value" => "0","label"=>"Cantidad mínima de creditos para subastar (Punto de equilibrio)"));
 		echo $this->Form->input('cantidad_creditos_puja', array("value" => "0","label"=>"Cantidad creditos por puja (se le descontarán al usuario si puja en esta subasta)"));
 		echo $this->Form->input('precio', array("value" => "0","label"=>"Precio (El precio inicial de la subasta)"));
 		echo $this->Form->input('aumento_precio', array("value" => "0","label"=>"Valor aumento de precio (Valor que se le aumentará al precio cada vez que se haga una subasta)"));

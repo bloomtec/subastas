@@ -1,21 +1,5 @@
 <div>
-	<table>
-		<thead>
-			<tr>
-				<td>Ingrese su PIN</td>
-				<td></td>
-			</tr>
-		</thead>
-		<?php echo $this->Form->create(null, array('class'=>'formPIN', 'controller'=>'users', 'action'=>'ingresoPIN')); ?>
-		<tr>
-			<td>
-				<?php echo $this->Form->input('pin', array('label'=>'')); ?>
-			</td>
-			<td>
-				<?php echo $this->Form->end('Enviar'); ?>
-			</td>
-		</tr>
-	</table>
+
 	<table>
 		<thead>
 			<tr>
@@ -76,10 +60,27 @@
 						echo $this->Form->hidden('urlRetorno', array('name'=>'urlRetorno', 'value'=>'http://www.llevatelos.com/users/validarCompra'));
 						// Finalizar el form
 						//
-						echo $this->Form->end("Enviar");
+						echo $this->Form->end("Confirmar");
 					?>
 				</td>
 			</tr>
 		<?php endforeach; ?>
+	</table>
+		<table>
+		<thead>
+			<tr>
+				<td>Ingrese su PIN</td>
+				<td></td>
+			</tr>
+		</thead>
+		<?php echo $this->Form->create(null, array('class'=>'formPIN', 'controller'=>'users', 'action'=>'ingresoPIN')); ?>
+		<tr>
+			<td>
+				<?php echo $this->Form->input('pin', array('label'=>'')); ?>
+			</td>
+			<td>
+				<?php echo $this->Form->end('Redimir'); ?>
+			</td>
+		</tr>
 	</table>
 </div>
