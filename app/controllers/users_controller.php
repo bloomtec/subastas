@@ -180,7 +180,6 @@ class UsersController extends AppController {
 	function __abonarCreditosPorRecomendacion($email = null, $email_usuario = null){
 		if ($email) {
 			$user = $this->User->find('first', array('conditions' => array('User.email' => $email)));
-			debug($user);
 			if($user) {
 				$this->User->read(null, $user['User']['id']);
 				$this->User->set('bonos', $user['User']['bonos'] + $this->requestAction('/configs/creditosPorRecomendacion'));
@@ -193,9 +192,10 @@ class UsersController extends AppController {
 	function __obtenerCorreoReferente($encryptedID = null){
 		// Encontrar el total de usuarios registrados
 		//
-		$totalUsuarios = $this->User->find('count', array('conditions' => array('User.id >' => 0)));
+		//$totalUsuarios = $this->User->find('first', array('conditions' => array()));
+		$max_id = $this->User->find('first' , array ('fields' => array('MAX(User.id) as user_id')));
 		$usuario = null;
-		for ($id = 1; $id < $totalUsuarios; $id++) {
+		for ($id = 1; $id <= $max_id; $id++) {
 			if ($encryptedID == crypt($id, "23()23*$%g4F^aN!^^%")) {
 				// Las ID son iguales, abonar por recomendacion
 				//
@@ -235,10 +235,11 @@ class UsersController extends AppController {
 	
 	function register(){
 		if (!empty($this->data)) {
+			$user_pass = $this->data['User']['password2'];
 			$this->User->recursive = 0;
 			$this->User->create();
 			$this->data['User']['role_id'] = 2; // Is set as a Basic user for default
-			$user_pass = $this->data['User']['password'];
+			
 			if ($this->User->save($this->data)) {
 				$this->data['UserField']['user_id'] = $this->User->id;
 				$this->User->UserField->save($this->data["UserField"]);
@@ -283,7 +284,6 @@ class UsersController extends AppController {
 				// Opciones del cuerpo de mensaje de Mad Mimi
 				//				
 				$username = $this->data['User']['username'];
-				$password = $user_pass;
 				
 				// Cuerpo HTML
 				//
@@ -340,7 +340,7 @@ class UsersController extends AppController {
 											<br />
 											<span class=\"verde\">Usuario:</span> $username
 											<br />
-											<span class=\"verde\">Contraseña:</span> $password </strong>
+											<span class=\"verde\">Contraseña:</span> $user_pass </strong>
 										</p>
 										<p class=\"txt\">
 											<strong>Hasta pronto, y sigue atrapando tus sueños.
@@ -371,6 +371,7 @@ class UsersController extends AppController {
 			} else {
 				$this->Session->setFlash(__('No se pudo completar el registro. Por favor, intente de nuevo', true));
 			}
+			
 		} else {
 			if(!empty($this->params['pass'][0])){
 				$this->set('email_referente', $this->__obtenerCorreoReferente($this->params['pass'][0]));
@@ -859,6 +860,7 @@ class UsersController extends AppController {
 			if(!$this->User->find('first', array('conditions'=>array('User.email'=>$this->data['User']['correo_recomendado_5'])))) {
 				$this->__enviarCorreoRecomendado($this->data['User']['user_id'], $this->data['User']['correo_recomendado_5']);
 			}
+			$this->redirect(array("controller"=>"subastas",'action' => 'index'));
 		}
 	}
 
@@ -885,9 +887,8 @@ class UsersController extends AppController {
 			
 			$user = $this->User->find('first', array('conditions' => array('User.email' => $correoDestino)));
 			$this->loadModel('UserField');
-			$user_fields = $this->UserField->find('first', array('conditions' => array('UserFields.id' => $user['User']['id'])));
-			$this->loadModel('Config');
-			$bonos = $this->Config->find('first');
+			$user_fields = $this->UserField->find('first', array('conditions' => array('UserField.user_id' => $user['User']['id'])));
+			$bonos = $this->requestAction('/configs/creditosPorRecomendacion');
 			
 			App::import('Vendor', 'MadMimi', array('file' =>'madmimi'.DS.'MadMimi.class.php'));
 			App::import('Vendor', 'MadMimi', array('file' =>'madmimi'.DS.'Spyc.class.php'));
@@ -902,7 +903,6 @@ class UsersController extends AppController {
 			$mailer = new MadMimi(Configure::read('madmimiEmail'), Configure::read('madmimiKey'));
 			
 			$correo_recomendado = $email_usuario;
-			$bonos = $bonos['Configs']['creditos_recomendados'];
 			
 			$html_body =
 				"<html xmlns=\"http://www.w3.org/1999/xhtml\">
@@ -934,7 +934,7 @@ class UsersController extends AppController {
 					<table summary=\"\" width=\"700\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
 						<tr>
 							<td width=\"75\" rowspan=\"3\" align=\"left\" valign=\"top\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//suma_creditos//d01.jpg\" width=\"75\" height=\"525\" /></td>
-							<td align=\"center\"><img alt=\"\" src=\"rp02.jpg\" width=\"285\" height=\"165\" /><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//suma_creditos//rp03.jpg\" width=\"315\" height=\"165\" /></td>
+							<td align=\"center\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//suma_creditos//rp02.jpg\" width=\"285\" height=\"165\" /><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//suma_creditos//rp03.jpg\" width=\"315\" height=\"165\" /></td>
 							<td width=\"50\" rowspan=\"3\" valign=\"top\"><img alt=\"\" src=\"http://www.llevatelos.com//app//webroot//plantillas_correos//suma_creditos//rp04.jpg\" width=\"50\" height=\"525\" /></td>
 						</tr>
 						<tr>
@@ -985,7 +985,7 @@ class UsersController extends AppController {
 			$IDEncriptada = crypt($userID, "23()23*$%g4F^aN!^^%");
 			$user = $this->User->read(null, $userID);
 			$this->loadModel('UserField');
-			$user_fields = $this->UserField->find('first', array('conditions' => array('UserFields.id' => $user['User']['id'])));
+			$user_fields = $this->UserField->find('first', array('conditions' => array('user_id' => $user['User']['id'])));
 			
 			// TODO : Enviar el correo a $correoDestino con el enlace y la $IDEncriptada
 			//
@@ -1074,7 +1074,7 @@ class UsersController extends AppController {
 											&nbsp;									
 										</p>
 										<p class=\"txt\">
-											http://www.llevatelos.com/users/register/$IDEncriptada
+											<a href=\"http://www.llevatelos.com/users/register/$IDEncriptada\">¡Registrate aquí!</a>
 											&nbsp;
 										</p>
 										<p class=\"txt\">

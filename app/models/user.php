@@ -78,7 +78,7 @@ class User extends AppModel {
 		'UserField' => array(
 			'className' => 'UserField',
 			'foreignKey' => 'user_id',
-			'dependent' => false,
+			'dependent' => true,
 			'conditions' => '',
 			'fields' => '',
 			'order' => '',
