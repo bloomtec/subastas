@@ -57,7 +57,14 @@
 				case "swf":
 				?>
 				<li rel=<?php echo $folderPath."/".$fileName?>> 
-	 				<?php echo $html->image("flash.jpg",array("class"=>"preview"));?>
+	 				<?php echo $html->image($folderPath."/".$fileName,array("class"=>"preview"));?>
+	 				<div class="info">
+						<h2> <?php echo $fileName ?></h2>
+						<div class="actions">
+							<div class="delete"  rel="<?php echo $folderPath."/".$fileName?>">borrar</div>
+							<div class="seleccionar"  rel="<?php echo $folderPath."/".$fileName?>">seleccionar</div>
+						</div>
+					</div>
 	 			</li>
 				<?php
 				break;
