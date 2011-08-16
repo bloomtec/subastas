@@ -11,7 +11,7 @@
 	<div class="form-container">
 		<?php echo $form -> create("User", array("action" => "register","id"=>"registerForm","novalidate"=>"novalidate"));
 			echo "<fieldset>";
-			echo $form -> input("username",array("div"=>"input text required","label"=>"Usuario"));
+			echo $form -> input("username",array("div"=>"input text required","label"=>"Usuario","autofocus"=>"autofocus"));
 			echo $form -> input("password",array("div"=>"input required","required"=>"required","id"=>"password","label"=>"Contraseña"));
 			echo $form -> input("password2",array("div"=>"input required","required"=>"required","id"=>"password2","type"=>"password","label"=>"Confirmar Contraseña","data-equals"=>"password","data-message"=>"Verificar contraseña"));
 			//echo $form -> input("UserField.nombres",array("required"=>"required","div"=>"input required text"));
@@ -32,7 +32,7 @@
 			if (isset($email_referente)){
 				echo $form->hidden("referido_por", array('value' => $email_referente));
 			} else {
-				echo $form->input("referido_por");
+				echo $form->input("referido_por",array("placeholder"=>"Ingresa el email de quién te refirió"));
 			}
 			echo "</fieldset>";
 			echo "<div class='layer'>";

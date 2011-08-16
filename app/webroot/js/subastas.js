@@ -42,7 +42,7 @@ $(function(){
 	var link=$(this);
 	var ruta=link.attr("href")+"?ms="+new Date().getTime();
 	var subastaId=link.attr("rel");
-	console.log(subastaId);
+	//console.log(subastaId);
 	e.preventDefault();
 	if(auth!=undefined && auth!=null) {
 		jQuery.ajax({
@@ -54,7 +54,7 @@ $(function(){
 				subasta_id:subastaId
 			},
 			success: function(oferta) {
-			console.log(oferta);
+			//console.log(oferta);
 				if(oferta.success) {
 				$("#creditos").html(oferta.User.creditos);
 				$("#bonos").html(oferta.User.bonos);
@@ -103,7 +103,7 @@ $(function(){
 			dataType:"json",
 			data:{subastas:subastas,id:'sss'},
 			success: function(subastas) {
-			console.log(subastas);
+			//console.log(subastas);
 				$.each(subastas,function(i,subasta){
 				//console.log(subasta.Subasta.faltante_timestamp);
 				
@@ -153,7 +153,7 @@ $(function(){
 														subasta_id:subastaId
 													},
 													success: function(oferta) {
-													console.log(oferta);
+													//console.log(oferta);
 														if(oferta.success) {
 														$("#creditos").html(oferta.User.creditos);
 														} else {
