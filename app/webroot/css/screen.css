@@ -962,6 +962,7 @@ div.logueado span{
 		cursor:pointer;
 		height:35px;
 		width:35px;
+		z-index:10000;
 	}
 	#register-overlay h1 , #register-overlay h2{
 		color:#4E4E50;

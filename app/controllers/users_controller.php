@@ -541,6 +541,27 @@ class UsersController extends AppController {
 		}
 
 	}
+	function registerMadMimi(){
+	// Importar clases de Mad Mimi
+				//
+				App::import('Vendor', 'MadMimi', array('file' =>'madmimi'.DS.'MadMimi.class.php'));
+				App::import('Vendor', 'MadMimi', array('file' =>'madmimi'.DS.'Spyc.class.php'));
+				
+				// Crear el objeto de Mad Mimi
+				//
+				$mailer = new MadMimi(Configure::read('madmimiEmail'), Configure::read('madmimiKey'));
+				$userMimi = array(
+					'email' => $_POST["email"],
+					'firstName' =>$_POST["name"],
+					'add_list' => 'cuentas-creadas'
+				);
+				$mailer->AddUser($userMimi);
+				echo true;
+				Configure::write("debug",0);
+				$this->autoRender=false;
+				exit(0);
+
+	}
 	function ajaxLogin(){
 
 				$this->Auth->data['User']['username']=$_POST["data"]["User"]["username"];

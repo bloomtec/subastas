@@ -163,7 +163,7 @@ $(function(){
 												});
 
 											} else {
-												$("#login-overlay").overlay().load()
+												$("#login-overlay").overlay().load();
 											}
 
 										}).html("¡Oferte ya!");
