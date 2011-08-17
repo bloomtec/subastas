@@ -1,8 +1,7 @@
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
-SET AUTOCOMMIT=0;
-START TRANSACTION;
+
 
 -- -----------------------------------------------------
 -- Table `tipo_subastas`
@@ -86,8 +85,7 @@ CREATE  TABLE IF NOT EXISTS `roles` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) )
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -103,6 +101,7 @@ CREATE  TABLE IF NOT EXISTS `users` (
   `email` VARCHAR(45) NOT NULL ,
   `creditos` INT NOT NULL DEFAULT 0 ,
   `bonos` INT NOT NULL DEFAULT 0 ,
+  `datos_ingresados` TINYINT(1) NOT NULL DEFAULT 0 ,
   `created` DATETIME NULL ,
   `updated` DATETIME NULL ,
   PRIMARY KEY (`id`) ,
@@ -327,8 +326,7 @@ CREATE  TABLE IF NOT EXISTS `acos` (
   `lft` INT(10) NULL DEFAULT NULL ,
   `rght` INT(10) NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) )
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = latin1;
+ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
@@ -345,8 +343,7 @@ CREATE  TABLE IF NOT EXISTS `aros` (
   `lft` INT(10) NULL DEFAULT NULL ,
   `rght` INT(10) NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) )
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = latin1;
+ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
@@ -363,8 +360,7 @@ CREATE  TABLE IF NOT EXISTS `aros_acos` (
   `_update` VARCHAR(2) NOT NULL DEFAULT '0' ,
   `_delete` VARCHAR(2) NOT NULL DEFAULT '0' ,
   PRIMARY KEY (`id`) )
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = latin1;
+ENGINE = MyISAM;
 
 CREATE UNIQUE INDEX `ARO_ACO_KEY` ON `aros_acos` (`aro_id` ASC, `aco_id` ASC) ;
 
@@ -383,8 +379,7 @@ CREATE  TABLE IF NOT EXISTS `pages` (
   `created` DATETIME NULL ,
   `updated` DATETIME NULL ,
   PRIMARY KEY (`id`) )
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -412,8 +407,7 @@ CREATE  TABLE IF NOT EXISTS `user_fields` (
     REFERENCES `users` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+ENGINE = InnoDB;
 
 CREATE INDEX `userfileds` ON `user_fields` (`user_id` ASC) ;
 
@@ -426,6 +420,7 @@ DROP TABLE IF EXISTS `configs` ;
 CREATE  TABLE IF NOT EXISTS `configs` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `tamano_cola` INT NOT NULL ,
+  `creditos_iniciales` INT NOT NULL ,
   `creditos_recomendados` INT NOT NULL ,
   `congelado` TINYINT(1) NOT NULL ,
   `created` DATETIME NULL ,
@@ -477,72 +472,65 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 -- Data for table `tipo_subastas`
 -- -----------------------------------------------------
-START TRANSACTION;
-
-INSERT INTO `tipo_subastas` (`id`, `nombre`, `created`, `updated`) VALUES (1, 'Venta Fija', NULL, NULL);
-INSERT INTO `tipo_subastas` (`id`, `nombre`, `created`, `updated`) VALUES (2, 'Minimo De Creditos', NULL, NULL);
+SET AUTOCOMMIT=0;
+INSERT INTO tipo_subastas (`id`, `nombre`, `created`, `updated`) VALUES (1, 'Venta Fija', NULL, NULL);
+INSERT INTO tipo_subastas (`id`, `nombre`, `created`, `updated`) VALUES (2, 'Minimo De Creditos', NULL, NULL);
 
 COMMIT;
 
 -- -----------------------------------------------------
 -- Data for table `estados_subastas`
 -- -----------------------------------------------------
-START TRANSACTION;
-
-INSERT INTO `estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (1, 'Esperando Activacion', NULL, NULL);
-INSERT INTO `estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (2, 'Activa', NULL, NULL);
-INSERT INTO `estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (3, 'Pendiente De Pago', NULL, NULL);
-INSERT INTO `estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (4, 'Vencida', NULL, NULL);
-INSERT INTO `estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (5, 'Cancelada', NULL, NULL);
-INSERT INTO `estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (6, 'Cerrada', NULL, NULL);
-INSERT INTO `estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (7, 'Vendida', NULL, NULL);
+SET AUTOCOMMIT=0;
+INSERT INTO estados_subastas (`id`, `nombre`, `created`, `udpated`) VALUES (1, 'Esperando Activacion', NULL, NULL);
+INSERT INTO estados_subastas (`id`, `nombre`, `created`, `udpated`) VALUES (2, 'Activa', NULL, NULL);
+INSERT INTO estados_subastas (`id`, `nombre`, `created`, `udpated`) VALUES (3, 'Pendiente De Pago', NULL, NULL);
+INSERT INTO estados_subastas (`id`, `nombre`, `created`, `udpated`) VALUES (4, 'Vencida', NULL, NULL);
+INSERT INTO estados_subastas (`id`, `nombre`, `created`, `udpated`) VALUES (5, 'Cancelada', NULL, NULL);
+INSERT INTO estados_subastas (`id`, `nombre`, `created`, `udpated`) VALUES (6, 'Cerrada', NULL, NULL);
+INSERT INTO estados_subastas (`id`, `nombre`, `created`, `udpated`) VALUES (7, 'Vendida', NULL, NULL);
 
 COMMIT;
 
 -- -----------------------------------------------------
 -- Data for table `roles`
 -- -----------------------------------------------------
-START TRANSACTION;
-
-INSERT INTO `roles` (`id`, `name`) VALUES (1, 'Administrador');
-INSERT INTO `roles` (`id`, `name`) VALUES (2, 'Usuario');
+SET AUTOCOMMIT=0;
+INSERT INTO roles (`id`, `name`) VALUES (1, 'Administrador');
+INSERT INTO roles (`id`, `name`) VALUES (2, 'Usuario');
 
 COMMIT;
 
 -- -----------------------------------------------------
 -- Data for table `users`
 -- -----------------------------------------------------
-START TRANSACTION;
-
-INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `email`, `creditos`, `bonos`, `created`, `updated`) VALUES (1, 1, 'admin', '59071c7c06ccba704236d2e76b5588c8e404160a', 'admin@llevatelos.com', 20000, 500, NULL, NULL);
+SET AUTOCOMMIT=0;
+INSERT INTO users (`id`, `role_id`, `username`, `password`, `email`, `creditos`, `bonos`, `datos_ingresados`, `created`, `updated`) VALUES (1, 1, 'admin', '59071c7c06ccba704236d2e76b5588c8e404160a', 'admin@llevatelos.com', 20000, 500, NULL, NULL, NULL);
 
 COMMIT;
 
 -- -----------------------------------------------------
 -- Data for table `estados_ventas`
 -- -----------------------------------------------------
-START TRANSACTION;
-
-INSERT INTO `estados_ventas` (`id`, `nombre`, `created`, `updated`) VALUES (1, 'Pendiente De Pago', NULL, NULL);
-INSERT INTO `estados_ventas` (`id`, `nombre`, `created`, `updated`) VALUES (2, 'Realizada', NULL, NULL);
-INSERT INTO `estados_ventas` (`id`, `nombre`, `created`, `updated`) VALUES (3, 'No Realizada', NULL, NULL);
+SET AUTOCOMMIT=0;
+INSERT INTO estados_ventas (`id`, `nombre`, `created`, `updated`) VALUES (1, 'Pendiente De Pago', NULL, NULL);
+INSERT INTO estados_ventas (`id`, `nombre`, `created`, `updated`) VALUES (2, 'Realizada', NULL, NULL);
+INSERT INTO estados_ventas (`id`, `nombre`, `created`, `updated`) VALUES (3, 'No Realizada', NULL, NULL);
 
 COMMIT;
 
 -- -----------------------------------------------------
 -- Data for table `configs`
 -- -----------------------------------------------------
-START TRANSACTION;
-
-INSERT INTO `configs` (`id`, `tamano_cola`, `creditos_recomendados`, `congelado`, `created`, `updated`) VALUES (1, 5, 500, 0, NULL, NULL);
+SET AUTOCOMMIT=0;
+INSERT INTO configs (`id`, `tamano_cola`, `creditos_iniciales`, `creditos_recomendados`, `congelado`, `created`, `updated`) VALUES (1, 5, 10, 500, 0, NULL, NULL);
 
 COMMIT;
 
 -- -----------------------------------------------------
 -- Data for table `lista_correos`
 -- -----------------------------------------------------
-START TRANSACTION;
-
-INSERT INTO `lista_correos` (`id`, `correo`, `created`, `updated`) VALUES (1, 'ricardopandales@gmail.com', NULL, NULL);
+SET AUTOCOMMIT=0;
+INSERT INTO lista_correos (`id`, `correo`, `created`, `updated`) VALUES (1, 'ricardopandales@gmail.com', NULL, NULL);
 
 COMMIT;
