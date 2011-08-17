@@ -540,7 +540,7 @@ class UsersController extends AppController {
 				}
 
 			} else {
-				$this->Session->setFlash("Por favor ingresa la dirección de correo electrónico con la que te registraste");
+				$this->Session->setFlash("Por favor revisa los datos ingresados e intenta de nuevo.");
 			}
 
 		} else {
