@@ -140,5 +140,37 @@ class BatchCodesController extends AppController {
 			$this->redirect(array('action' => 'index'));
 		}
 	}
+	
+	function admin_modifyDate($id = null) {
+		if (!$id && empty($this->data)) {
+			$this->Session->setFlash(__('Invalid batch code', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		if (!empty($this->data)) {
+			debug($this->data);
+			$success = true;
+			$this->loadModel('Code');
+			$codes = $this->Code->find('all', array('conditions'=>array('batch_code_id'=>$id)));
+			foreach ($codes as $code) {
+				// Modificar la fecha de cada codigo
+				//
+				$code['Code']['fecha_expiracion'] = $this->data['BatchCode']['nueva_fecha_de_vencimiento'];
+				if(!$this->Code->save($code))
+					$success = false;
+			}
+			
+			if ($success) {
+				$this->Session->setFlash(__('Se modifico la fecha de los códigos.', true));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('Ocurrió un error al modificar las fechas, intente de nuevo.', true));
+			}
+			
+		}
+		if (empty($this->data)) {
+			$this->data = $this->BatchCode->read(null, $id);
+		}
+	}
+	
 }
 ?>

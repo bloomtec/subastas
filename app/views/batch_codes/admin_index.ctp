@@ -21,6 +21,7 @@
 			<?php echo $this->Html->link(__('Ver', true), array('action' => 'view', $batchCode['BatchCode']['id'])); ?>
 <!-- 			<?php echo $this->Html->link(__('Modificar', true), array('action' => 'edit', $batchCode['BatchCode']['id'])); ?> -->
 			<?php echo $this->Html->link(__('Borrar', true), array('action' => 'delete', $batchCode['BatchCode']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $batchCode['BatchCode']['id'])); ?>
+			<?php echo $this->Html->link(__('Modificar Fecha Vencimiento', true), array('action' => 'modifyDate', $batchCode['BatchCode']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

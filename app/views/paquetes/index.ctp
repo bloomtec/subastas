@@ -20,7 +20,7 @@
 		<td><?php echo $paquete['Paquete']['nombre']; ?>&nbsp;</td>
 		<td><?php echo $paquete['Paquete']['estado']; ?>&nbsp;</td>
 		<td><?php echo $paquete['Paquete']['creditos']; ?>&nbsp;</td>
-		<td><?php echo $paquete['Paquete']['precio']; ?>&nbsp;</td>
+		<td><?php echo("$" . number_format($paquete['Paquete']['precio'], 0, ' ', '.')); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('Ver', true), array('action' => 'view', $paquete['Paquete']['id'])); ?>
 			<?php echo $this->Html->link(__('Adquirir', true), array('action' => 'adquirir', $paquete['Paquete']['id'])); ?>

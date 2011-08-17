@@ -15,7 +15,7 @@
 					<?php echo $paquete['Paquete']['nombre']; ?>
 				</td>
 				<td>
-					<?php echo $paquete['Paquete']['precio']; ?>
+					<?php echo("$" . number_format($paquete['Paquete']['precio'], 0, ' ', '.')); ?>
 				</td>
 				<td>
 					<?php echo $paquete['Paquete']['creditos']; ?>
