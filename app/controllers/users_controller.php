@@ -137,20 +137,23 @@ class UsersController extends AppController {
 	}
 
 	function modificarDatos(){
-		$id=$this->Auth->user("id");
+		$user_id = $this->Auth->user("id");
+		$user = $this->User->read(null, $user_id);
 		if (!empty($this->data)){
-			$this->data["User"]["id"]=$id;
-			if ($this->User->saveAll($this->data,array("validate"=>false))) {
-				$this->Session->setFlash(__('Usuario modificado', true));
-
+			$this->data["User"]["id"] = $user_id;
+			if ($this->User->saveAll($this->data)) {
+				$user['User']['datos_ingresados'] = 1;
+				$this->User->save($user);
+				$this->Session->setFlash(__('Datos de usuario modificados.', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('El usuario no pudo ser modificado. Por favor, intÃ©ntelo de nuevo.', true));
+				$this->Session->setFlash(__('Todos los campos son requeridos. Inténtelo de nuevo.', true));
 			}
 		}
 		if (empty($this->data)) {
-			$this->data = $this->User->read(null, $id);
+			$this->data = $this->User->read(null, $user_id);
 		}
+		$this->set('user', $user);
 	}
 
 	function getCreditos(){

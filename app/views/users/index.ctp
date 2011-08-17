@@ -30,7 +30,14 @@
 			</div>	
 			<div class="clear"></div>
 		</div>
-
+		<?php if($user['User']['datos_ingresados'] == 0): ?>
+		<div class="elemento ingreso-datos">
+			<?php echo $this->element("ingrese-datos"); ?>
+		</div>
+		<?php endif; ?>
+		<div class="elemento subastas-ganadas">
+			<?php echo $this->element("subastas-ganadas"); ?>
+		</div>
 		<div class="subastas-activas delusuario">
 			<h2>Subastas Activas</h2>
 			<div class="contenedor-subastas">

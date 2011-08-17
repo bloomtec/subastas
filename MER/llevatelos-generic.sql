@@ -505,7 +505,7 @@ COMMIT;
 -- Data for table `users`
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
-INSERT INTO users (`id`, `role_id`, `username`, `password`, `email`, `creditos`, `bonos`, `datos_ingresados`, `created`, `updated`) VALUES (1, 1, 'admin', '59071c7c06ccba704236d2e76b5588c8e404160a', 'admin@llevatelos.com', 20000, 500, NULL, NULL, NULL);
+INSERT INTO users (`id`, `role_id`, `username`, `password`, `email`, `creditos`, `bonos`, `datos_ingresados`, `created`, `updated`) VALUES (1, 1, 'admin', '59071c7c06ccba704236d2e76b5588c8e404160a', 'admin@llevatelos.com', 20000, 500, 0, NULL, NULL);
 
 COMMIT;
 
