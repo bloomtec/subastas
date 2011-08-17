@@ -15,7 +15,11 @@ class UsersController extends AppController {
 
 	function index() {
 		//debug($this->User->read(null,$this->Auth->user("id")));
-		$this->set('user', $this->User->read(null,$this->Auth->user("id")));
+		$user = $this->User->read(null,$this->Auth->user("id"));
+		$this->set('user', $user);
+		if (empty($user)) {
+			$this->redirect(array("action" => "login"));
+		}
 	}
 	
 	function validarCompra() {
@@ -533,7 +537,7 @@ class UsersController extends AppController {
 				}
 
 			} else {
-				$this->Session->setFlash("Por favor ingrese la direcciÃ³n de correo electrÃ³nico con la que te registraste");
+				$this->Session->setFlash("Por favor ingresa la dirección de correo electrónico con la que te registraste");
 			}
 
 		} else {
