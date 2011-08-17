@@ -201,12 +201,13 @@ class OfertasController extends AppController {
 		return $this->Oferta->find('all', array('conditions' => array('Oferta.subasta_id' => $subastaID)));
 	}
 	
-	function obtenerTotalCreditosDescontados($subastaID = null){
-		$this->loadModel('Subasta');
-		$subasta = $this->Subasta->read(null, $subastaID);
-		$cantidadCreditos = $subasta['Subasta']['cantidad_creditos_puja'];
-		$cantidadPujas = $this->Oferta->find("count", array('conditions' => array('Oferta.subasta_id' => $subastaID)));
-		return $cantidadCreditos * $cantidadPujas;
+	function obtenerTotalCreditosDescontados($subasta_id = null){
+		$creditos_ofertados = 0;
+		$ofertas_subasta = $this->Oferta->find('all', array('conditions' => array('Oferta.subasta_id' => $subasta_id)));
+		foreach($ofertas_subasta as $oferta_subasta) {
+			$creditos_ofertados += $oferta_subasta['Oferta']['creditos_descontados'];
+		}
+		return $creditos_ofertados;
 	}
 
 	function obtenerUsuarioGanadorSubasta($subastaID = null){
