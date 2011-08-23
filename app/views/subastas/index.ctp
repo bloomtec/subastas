@@ -1,15 +1,13 @@
 <?php //debug($registrado)?>
 <div id="left-content">
-	 <?php echo $this->element("referidos");?>
-	 <?php echo $this->element("seguridad");?>
-	 <?php // echo $this->element("ultimo-ganador");?>
+	<?php echo $this->element("seguridad");?>
+	 <?php echo $this->element("ultimo-ganador");?>
 	 <?php echo $this->element("proxima-oferta");?>
 	 <?php echo $this->element("banner-lateral");?>
 	 <?php echo $this->element("social");?>
-	 <div style="clear:both"></div>
+	
 </div>
 <div id="right-content">
-	
 	<div class="WYSIWYG banner-home">
 	   <?php 
 	     echo $this->requestAction("/pages/bannerHome");

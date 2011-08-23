@@ -120,30 +120,84 @@ select {
 
 /** Content **/
 #content{
-	margin-top:1em;
+	margin-top:0;
+	clear:both;
 }
 .content_wrap{
   background:url("../img/board_cont.png") no-repeat;
   
 }
+.corner{
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	background-color: white;
+	-moz-box-shadow: 0 2px 3px #969696;
+    -webkit-box-shadow: 0 2px 3px #969696;
+    box-shadow: 0 2px 3px #969696;
 
 
-
+}
+.corner15{
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+}
 /** Header **/
+
 #header{
-height:275px;
+	width:711px;
+	height: 234px;
+	padding-left:240px;
+	background-image:url("../img/logo.jpg");
+	background-repeat:no-repeat;
+	background-position:left top;	
+	margin: 4px 0 2px 0;
 }
-#header_wrap{
-  height:162px;
-  -moz-border-radius: 1em;
-  -webkit-border-radius: 1em;
-  border-radius: 1em;
-  background:#fbfbfb;
-  width: 960px;
- 
+#header .banner-referido{
+	float:left;
+	width:214px;
+	height:102px;
+	background-image:url("../img/slogan.jpg");
+	background-repeat:no-repeat;
+	background-position:center top;	
+	padding-top:136px;
 }
-
-
+#header .wrapper{
+	width:497px;
+	float:left;
+}
+#main-menu{
+	background:#fad814;
+	text-align:center;
+	height:20px;
+	padding-left:16px;
+}
+#main-menu li{
+	display:block;
+	float:left;
+	margin-right:8px;
+	margin-top:3px;
+}
+#main-menu li.last{
+	margin-right:0;
+}
+#main-menu li a{
+	text-decoration:none;
+	height:20px;
+	line-height:20px;
+	color:#2d2d2e;
+	height:13px;
+	font-size:12px;
+	
+}
+#header .banner-principal {
+	clear:both;	
+	width: 496px;
+	height:209px;
+	margin-top:3px;
+}
+/*END HEADER*/
 
 #pages .login{
        display:none;
@@ -153,18 +207,7 @@ height:275px;
 	margin-top: 0.5em;
 
 }
-#header h2.logueado a{
-	font-size:15px;	
-	float:none;
-}
-div.logueado{
-	text-align: left;
-	padding:3px 5px;
-	
-}
-div.logueado span{
-	font-weight: bold;
-}
+
 
 
 /** Header Form Login **/
@@ -206,275 +249,7 @@ div.logueado span{
     font-size:18px;
   }
   
- #header .info, .header_wrap h1 {
- margin-top: 0;
- }
-.header_wrap h1 {
-	float: left;
-	margin-left: 22px;
-	
-    position: absolute;
-}
 
-#header h1 a {
-	display: block;
-	width: 261px;
-	height: 130px;
-	background: url("../img/logo.png") no-repeat;
-	text-decoration:none;
-	color:#424143;
-	text-indent: -999px;
-	}
-
-#header .info {
-	margin-left: 70px;
-	float: right;
-	width:600px;
-}
-
-#header p.slogan {
-	font-size: 17px;
-	color:#424143;
-	float:left;
-	margin-right: 50px;
-}
-
-#header p.slogan strong{
-	font-size: 21px;
-	color:#ee1a24;
-}
-
-#header .reloj {
-	float:right;
-	width: 180px;
-}
-
-#header .reloj img{
-	
-}
-
-#header .plugin-hora{
-	float:left;
-	width: 105px;
-	margin-left:5px;
-	margin-top:9px;
-}
-
-#header .reloj p{
-	margin:0px;
-	display: block;
-}
-
-#header .reloj .dia {
-	font-size:10px;
-}
-
-#header .reloj .hora {
-	font-size:15px;
-}
-
-#header .reloj .fecha {
-	font-size: 10px;
-}
-  
-  .nav{
-  
-  }
-  
-  ul.main_nav{
-	font-size: 16px;
-	padding-bottom: 5px;
-    padding-top: 5px;
-	background: url("../img/trama-amarillo-nav.png") repeat-x;
-	color:#424143;
-	right: 14px;
-    position: absolute;
-    border-radius: 15px 15px 15px 15px;
-    -moz-border-radius: 15px 15px 15px 15px;
-  }
-  
-  .main_nav  li {
-    float: left;
-    margin: 0 2px;
-  }
-
-  .main_nav li {
-	display:inline;
-	padding: 5px 15px;
-	background: url("../img/linea-separadora-footer.png") left repeat-y;
-	}
-	
-	
-  .main_nav li:first-child {
-	background:none;
-	}
-	
-	
-  .main_nav li a{
-    color:#424143;
-    text-decoration: none;
-  }
-  
-  .contenido_header{
-  	height: 180px;
-	position: relative;
-	width: 100%;
-  }
-  
-  .prueba{
-    position: absolute;
-    top:35px;
-	margin-top:1em;
-  }
-  .banner-falabella, .banner-registro,  #header .login{
-	width: 310px;
-	height:112px;
-	margin-right:1em;
-	float: left;
-     border-radius: 15px 15px 15px 15px;
-    -moz-border-radius: 15px 15px 15px 15px;
-	-webkit-border-radius: 15px 15px 15px 15px;
-    -moz-box-shadow: 0px 2px 3px #969696; /* for Firefox 3.5+ */
-    -webkit-box-shadow: 0px 2px 3px #969696; /* for Safari and Chrome */
-	box-shadow: 0px 2px 3px #969696;
-    filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=180, Strength=3);
-  }
-  .banner-falabella{
-    background: url("../img/trama-verde-banner.png") repeat-x;
-  }
-  
-  .banner-falabella img{
-  	float:right;
-  	padding-top:5px;
-  }
-  .banner-falabella p{
-  	text-align: center;
-  	float:left;
-  	margin:0;
-  	color: white;
-  	width: 290px;
-  	margin: 8px 0 0 45px;
- 
-  }
-  
-   .banner-registro{
-	background: url("../img/trama-cuenta.png") repeat-x scroll 0 0 transparent;
-    background-color:white;
-  }
-  #banner-compra .leyenda{
-	width:150px;
-	margin: 30px 0px 0 14px;
-  }
-  a.registro{
-  	font-weight: bold;
-  }
-  .banner-registro img{
-  	float:right;
-  	padding-top:5px;
-  }
-  
-  
-   .banner-registro .leyenda {
-  	float:left;
-  	margin: 40px 5px;
-  }
-  
-  .banner-registro .leyenda strong{
-  	font-size: 15px;
-  }
-  
-  .banner-registro .leyenda p{
-  	margin:0;
-  	color: #424143;
-  	font-size: 12px;
-  	max-width: 195px;
-  	margin-top:2px;
-  }
-  
-  .banner-registro .registro{
-  	background:white;
-    color:#424143;
-	  border-radius: 15px 15px 15px 15px;
-    -moz-border-radius: 15px 15px 15px 15px;
-	-webkit-border-radius: 15px 15px 15px 15px;
-    -moz-box-shadow: 0px 2px 3px #969696; /* for Firefox 3.5+ */
-	text-decoration:none;
-	padding:10px 0;
-	margin-top:45px;
-	display:block;
-	width:116px;
-	height:10px;
-	float:right;
-	text-align:center;
-	margin-right:10px;
-  }
-  
-  #header .login{
-  	background: url("../img/trama-cuenta.png") repeat-x;
-    text-align: center; 
-    text-decoration: none;
-    color:#424143;
-	margin-right:0;
-  }
-  #header .login form{
-	width:80%;
-	margin:0 auto;
-  }
-  
-  #header .login h1{
-  	margin:0;
-  	text-align: center;
-  	float: none;
-  	padding-top:5px; 
-  	padding-bottom: 5px;
-  }
-  
-  #header .login label{
-  	float: left;
-    line-height: 22px;
-    margin-right: 10px;
-    text-align: left;
-    width: 85px;
-  }
-   #header .login input[type=text], #header .login input[type=password]{
-     	float:left;
-		width: 130px;
-		border: 0;
-		padding:0 5px;
-		-moz-border-radius: 10px;
-		-webkit-border-radius:10px;
-		border-radius:10px;
-		margin-bottom:3px;
-   }
-  #header .login input[type=text]{
-
-  }
-  #header .login input[type=password]{
-  	
-  }
-  
-  #header .login input[type=submit]{
-  	border:0;
-  	background: url("../img/trama-verde.png") repeat-x;
-  	border-radius: 15px;
-    -moz-border-radius: 15px;
-    color: white;
-    height: 21px;
-    text-align: center;
-    float:right;
-    margin-right:15px;
-    width: 80px;
-  	margin-top:3px;
-  }
-  
-  #header .login a{
-  	color:#424143;
-  	text-decoration: none;
-  	font-size: 10px;
-  	float:right;
-  	margin-right: 10px;
-  }
-  
   .animacion {
 	background: #efbf00;
 	width: 100%;
@@ -608,12 +383,12 @@ div.logueado span{
   }
   
   #right-content .titulo-amarillo{
-  	background: url("../img/trama-amarillo.png") repeat-x;
-  	height: 32px;
-  	line-height:32px;
-  	border-radius: 15px 15px 15px 15px;
-    -moz-border-radius: 15px 15px 15px 15px;
-	 -webkit-border-radius: 15px 15px 15px 15px;
+  	background: url("../img/trama.png") repeat-x;
+  	height: 19px;
+  	line-height:19px;
+  	border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+	 -webkit-border-radius: 5px 5px 5px 5px;
   	color:#424143;
   	font-weight: normal;
   	text-align: center;
@@ -796,76 +571,79 @@ div.logueado span{
     text-align: center;
     width: 80px;
 }
-.form-container{
-	width:469px;
-	margin: 0 auto;
-
+.registro{
 	
-		
+}
+.form-container{
+	width:100%;
+	margin: 0 auto;	
+	background-image: url(../img/foto_registro.jpg);
+	background-position: bottom right;
+	background-repeat: no-repeat;
+	padding-bottom:55px;
 }
 .form-container form{
 	
 }
-.form-container .layer{
-	border:1px solid #96918E;
-	border-radius:10px 10px 10px 10px;
-	margin-top:1em;
-	padding:1em;
-}
 .form-container fieldset{
-	background:#FFDA14 ;
-	border-radius: 15px 15px 15px 15px;
 	padding:1em;
-	background: repeating-radial-gradient(circle, #FFDA14, #E2C115 50%);
+	width:287px;
+	padding-left:38px;
+	
 }
 .form-container .input,.form-container .submit{
-	margin-top:1em;
+	margin-top:10px;
 	clear: both;
-	float:right;
+}
+
+#registerForm .layer{
+	margin-top:10px;
+}
+.volver{
+	margin:0 auto;
+	width: 115px;
+	display:block;
+	height:29px;
+	margin-top:50px;
+}
+.form-container img{
+	padding-left:38px;
+	padding-top:15px;
 }
 .form-container input{
 
 }
 .form-container label{
 	padding-right: 5px;
+	display:block;
+	margin-bottom:3px;
 }
 .form-container .submit input{
-	background: url("../img/trama-amarillo.png") repeat-x scroll 0 0 transparent;
-	padding:5px 30px;
-	border-radius:10px 10px 10px 10px;
-	font-weight:bold;
+	background: url(../img/enviar.png);
+	width: 116px;
+	height:40px;
+	border:0;
+	padding:0;
+	float:right;
 }
-.form-container input#UserUsername{
-	width:395px;
+.form-container .input input{
+	width:100%;
+	background-color: #fff7c9;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
 }
-.form-container input#password{
-	width:374px;
+.layer input{
+	float:left;
+	height:10px;
 }
-.form-container input#password2{
-	width:319px;
+.layer label{
+	font-size:10px;
+	display:block;
+	height: 17px;
+    line-height: 17px;
+	vertical-align: middle;
 }
-.form-container input#UserFieldNombres{
-	width:385px;
-}
-.form-container input#UserFieldApellidos{
-	width:384px;
-}
-.form-container input#UserEmail{
-	width:331px;
-}
-.form-container input#UserEmailConfirm{
-	width:276px;
-}
-.form-container input#UserFechaNacimiento{
-	
-}
-.form-container input#UserReferidoPor{
-	width:368px;
-}
-
-
-
-
 /*INTERFAZ DE USUARIO REGISTRADO*/
 .clear{
 	clear:both;
@@ -1108,7 +886,6 @@ div.logueado span{
 }
 .banner-home{
   width:100%;
-  margin-bottom:1em;
   overflow: hidden;
 }
 .new{

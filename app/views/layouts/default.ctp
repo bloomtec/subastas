@@ -19,55 +19,136 @@
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<?php echo $this->Html->charset(); ?>
-	<title>
-		<?php __($PAGE_TITLE); ?>
-		<?php echo $title_for_layout; ?>
-	</title>
-	<?php
-		echo $this->Html->meta('icon');
-		echo $this->Html->css("ie");
-		echo $this->Html->css('reset');
-		echo $this->Html->css('usuarios');
-		echo $this->Html->css('screen'); //EStilos del layout
-		
-		echo $this->Html->script("jquery-1.6.2.min.js");
-		echo $this->Html->script("http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js");
-		
-		echo $this->Html->script("front.js");
-		echo $this->Html->script("subastas.js");
+	<head>
+		<?php echo $this -> Html -> charset();?>
+		<title>
+			<?php __($PAGE_TITLE);?>
+			<?php echo $title_for_layout;?>
+		</title>
+		<?php
+		echo $this -> Html -> meta('icon');
+		//	echo $this -> Html -> css("ie");
+		echo $this -> Html -> css('reset');
+		echo $this -> Html -> css('usuarios');
+		echo $this -> Html -> css('screen');
+		//EStilos del layout
 
+		echo $this -> Html -> script("jquery-1.6.2.min.js");
+		echo $this -> Html -> script("http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js");
+
+		echo $this -> Html -> script("front.js");
+		echo $this -> Html -> script("subastas.js");
+		echo $this -> Html -> script("cufon-yui.js");
+		echo $this -> Html -> script("Helvetica_Neue_LT_Std_400.font.js");
 		echo $scripts_for_layout;
-	?>
-<script type="text/javascript">
-	var server="/";
-	<?php if($session->read("Auth")){ ?>
-	var auth=<?php echo json_encode($session->read("Auth"));?>;
-	<?php }else{ ?>
-	var auth=null;
-	<?php } ?>
-</script>
-</head>
-<body>
-	<div id="container">
-		<div id="header">
-			<?php echo $this->element("header");?>
+		?>
+		<script type="text/javascript">var server="/";<?php if($session->read("Auth")){ ?>
+			var auth=<?php echo json_encode($session -> read("Auth"));?>;<?php }else{?>var auth=null;<?php }?>
+			Cufon.replace("#main-menu");
+			Cufon.replace("#content");
+		</script>
+	</head>
+	<body class="<?php if($session->read("Auth")) echo 'logueado'?>">
+		<div id="container">
+			<div id="header">
+				<div class="banner-referido">
+					<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0" width="212" height="101" id="referidos" align="middle">
+						<param name="allowScriptAccess" value="sameDomain" />
+						<param name="allowFullScreen" value="false" />
+						<param name="movie" value="/swf/referidos.swf" />
+						<param name="quality" value="high" />
+						<param name="bgcolor" value="#ffffff" />
+						<embed src="/swf/referidos.swf" quality="high" bgcolor="#ffffff" width="212" height="101" name="referidos" align="middle" allowScriptAccess="sameDomain" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+					</object>
+				</div>
+				<div class="wrapper">
+					<ul id="main-menu" class="corner15">
+						<li>
+							<?php
+							echo $html -> link("Inicio", "/", array("class" => "color home other", ));
+							?>
+						</li>
+						<li>
+							<?php
+							echo $html -> link("¿Cómo Funciona?", array("controller" => "pages", "action" => "view", "como-funciona"), array("class" => "other color como-funciona", ));
+							?>
+						</li>
+						<li>
+							<?php
+							echo $html -> link("Productos Entregados", array("controller" => "subastas", "action" => "subastasFinalizadas"), array("class" => "other color subastas-finalizadas", ));
+							?>
+						</li>
+						<li>
+							<?php
+							echo $html -> link("Quienes Somos", array("controller" => "pages", "action" => "view", "quienes-somos"), array("class" => "other color como-funciona", ));
+							?>
+						</li>
+						<li>
+							<?php
+							echo $html -> link("Regístrarse", array("controller" => "users", "action" => "register"), array("class" => "final color registrarse", ));
+							?>
+						</li>
+						<li>
+							<?php
+							echo $html -> link("Contactos", array("controller" => "pages", "action" => "contacto"), array("class" => "final color contactos", ));
+							?>
+						</li>
+						<li class="last">
+							<?php
+							echo $html -> link("Mi cuenta", array("controller" => "users", "action" => "login"), array("class" => "final color contactos", ));
+							?>
+						</li>
+						<div style="clear:both;"></div>
+					</ul>
+					<div class="banner-principal corner">
+						<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="496" height="209" id="como-funciona3" align="middle">
+							<param name="movie" value="/swf/como-funciona3.swf" />
+							<param name="quality" value="high" />
+							<param name="bgcolor" value="#ffffff" />
+							<param name="play" value="true" />
+							<param name="loop" value="true" />
+							<param name="wmode" value="window" />
+							<param name="scale" value="showall" />
+							<param name="menu" value="true" />
+							<param name="devicefont" value="false" />
+							<param name="salign" value="" />
+							<param name="allowScriptAccess" value="sameDomain" />
+							<!--[if !IE]>-->
+							<object type="application/x-shockwave-flash" data="/swf/como-funciona3.swf" width="496" height="209">
+								<param name="movie" value="como-funciona3.swf" />
+								<param name="quality" value="high" />
+								<param name="bgcolor" value="#ffffff" />
+								<param name="play" value="true" />
+								<param name="loop" value="true" />
+								<param name="wmode" value="opaque" />
+								<param name="scale" value="showall" />
+								<param name="menu" value="true" />
+								<param name="devicefont" value="false" />
+								<param name="salign" value="" />
+								<param name="allowScriptAccess" value="sameDomain" />
+								<!--<![endif]-->
+								<a href="http://www.adobe.com/go/getflash">
+								<img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Obtener Adobe Flash Player" />
+								</a>
+								<!--[if !IE]>-->
+							</object>
+							<!--<![endif]-->
+						</object>
+					</div>
+				</div>
+			</div>
+			<div id="content">
+				<?php echo $this -> Session -> flash();?>
+				<?php //echo $this->element("animacion")?>
+				<?php echo $content_for_layout;?>
+				<div style="clear:both">
+				</div>
+			</div>
+			<div id="footer">
+				<?php echo $this -> element("footer");?>
+			</div>
 		</div>
-		
-		<div id="content">
-			<?php echo $this->Session->flash(); ?>
-			<?php //echo $this->element("animacion") ?> 
-			<?php echo $content_for_layout; ?> 
-        <div style="clear:both"></div>
-		</div>
-		
-		<div id="footer">
-			<?php echo $this->element("footer");?>
-		</div>
-	</div>
-	
-	<?php echo $this->element('register-overlay'); ?>
-	<?php //echo $this->element('login-overlay'); ?>
-</body>
+		<?php echo $this -> element('register-overlay');?>
+		<?php //echo $this->element('login-overlay');?>
+	</body>
 </html>
