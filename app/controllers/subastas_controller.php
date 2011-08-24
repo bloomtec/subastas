@@ -186,6 +186,7 @@ class SubastasController extends AppController {
 	
 	function ganadas(){
 		$userID = $this->Auth->user("id");
+		debug($this->Auth->user("id"));
 		$this->set('user_id', $userID);
 		$query =
 			"SELECT *
@@ -199,7 +200,20 @@ class SubastasController extends AppController {
 		$subastas = $this->Subasta->query($query);
 		$this->set(compact('subastas'));
 	}
-
+	function ganados(){
+		$userID = $this->Auth->user("id");
+		$query =
+			"SELECT *
+			FROM subastas as Subasta
+			WHERE Subasta.id IN (
+				SELECT subasta_id
+				FROM ventas
+				WHERE estados_venta_id = 1
+				AND user_id = $userID
+			)";
+		$subastas = $this->Subasta->query($query);
+		return $subastas;
+	}
 	function subastasFinalizadas(){
 		$subastas=$this->Subasta->find("all",array("conditions"=>array("estados_subasta_id >"=>2)));
 		$this->set(compact("subastas"));

@@ -10,6 +10,10 @@
 				case "jpg":
 				case "png":
 				case "ico":
+				case "GIF":
+				case "JPG":
+				case "PMG":
+				case "ICO":
 				?>
 				<li> 
 	 				<?php echo $html->image($folderPath."/".$fileName,array("class"=>"preview"));?>

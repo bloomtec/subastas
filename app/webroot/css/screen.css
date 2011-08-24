@@ -128,9 +128,9 @@ select {
   
 }
 .corner{
-	-moz-border-radius:10px;
-	-webkit-border-radius:10px;
-	border-radius:10px;
+	-moz-border-radius:15px;
+	-webkit-border-radius:15px;
+	border-radius:15px;
 	background-color: white;
 	-moz-box-shadow: 0 2px 3px #969696;
     -webkit-box-shadow: 0 2px 3px #969696;
@@ -161,7 +161,7 @@ select {
 	background-image:url("../img/slogan.jpg");
 	background-repeat:no-repeat;
 	background-position:center top;	
-	padding-top:136px;
+	padding-top:133px;
 }
 #header .wrapper{
 	width:497px;
@@ -357,10 +357,10 @@ select {
   
   #left-content .titulo-verde{
   	background: url("../img/trama-verde.png") repeat-x;
-  	height: 33px;
-  	line-height:33px;
-  	border-radius: 15px 15px 15px 15px;
-    -moz-border-radius: 15px 15px 15px 15px;
+  	padding: 2.5px 0;
+  	border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
   	color:white;
   	font-weight: normal;
   	margin-bottom:10px;
@@ -368,10 +368,10 @@ select {
   
   #left-content .titulo-amarillo{
   	background: url("../img/trama-amarillo.png") repeat-x;
-  	height: 33px;
-  	line-height:33px;
-  	border-radius: 15px 15px 15px 15px;
-    -moz-border-radius: 15px 15px 15px 15px;
+	padding: 2.5px 0;
+  	border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
   	color:#424143;
   	font-weight: normal;
   	margin-bottom:10px;
@@ -384,8 +384,7 @@ select {
   
   #right-content .titulo-amarillo{
   	background: url("../img/trama.png") repeat-x;
-  	height: 19px;
-  	line-height:19px;
+	padding:4px 0;
   	border-radius: 5px 5px 5px 5px;
     -moz-border-radius: 5px 5px 5px 5px;
 	 -webkit-border-radius: 5px 5px 5px 5px;
@@ -393,7 +392,10 @@ select {
   	font-weight: normal;
   	text-align: center;
   }
-  
+  #right-content  .mi-cuenta h2.titulo-amarillo{
+	width:80%;
+	margin:0 auto;
+}
   #right-content .boton{
   	background-color: #f8dc38;
   	line-height:20px;
@@ -471,7 +473,7 @@ select {
 
   #right-content ul img {
   	margin-bottom: 15px;
-  	height: 200px;
+  	height: 150px;
   	width: 200px;
   }
   
@@ -651,6 +653,9 @@ select {
 .datos-usuarios{
 	
 }
+.datos p{
+	margin-bottom:7px;
+}
 .panel{
 	padding:1em 1em;
 }
@@ -664,33 +669,34 @@ select {
 	float:left;
 	margin-left: 1em;
 }
+.datos .info{
+	width:80%;
+	margin:0 auto;
+}
 .datos-usuarios .datos span{
 	font-weight: bold;
+	font-size:16px;
+	color:#414042;
+	width: 150px;
+	display:block;
+	float:left;
+	clear:left;
 }
 .subastas-activas{
 	clear:both;
 	margin-top: 2em;
 }
-.subastas-activas h2{
-	background:url("../img/trama-amarillo.png") repeat-x scroll 0 0 transparent;
-	width:90%;
-	margin: 0 auto;
-	text-align: center;
-	border-radius: 15px 15px 15px 15px;
-	margin-bottom: 1em;
-	height:2em;
-	line-height: 2em;
-}
+
 .datos-usuarios .menu a{
-	padding:5px;
+	/*padding:5px;
 	background:url("../img/trama-amarillo.png") repeat-x scroll 0 0 transparent;
 	border-radius: 10px 10px 10px 10px;
 	text-decoration: none;
 	color:#424143;
-	display:block;
+	display:block;*/
 	float:left;
-	margin-left:0.5em;
-	margin-top: 1em;
+	/*margin-left:0.5em;
+	margin-top: 1em;*/
 }
 /*OVERLAY*/
 	#register-overlay, #login-overlay{
@@ -857,8 +863,9 @@ select {
 	overflow: auto;
 	font-size: 13px;
 }
-.ofertas div:nth-child(2n){
-	background:gray;
+.ofertas div.actualizado:nth-child(2n){
+	background:white;
+	color:#5bb14a;
 }
 .subastas-activas .acciones-ofertas{
 	
@@ -867,7 +874,9 @@ select {
 	margin-top: 81px;
 }
 .actualizado{
-	color:#ee1a24;
+	background:#5bb14a;
+	color:white;
+	padding:2px 0;
 }
 .fecha_vencimiento, .hora_servidor{
 	display:none;
@@ -961,35 +970,251 @@ float:right;
 	position:absolute;
 	z-index:2;
 	width:100%;
-	padding:20px 0;
+	padding:10px 0;
 	background:#F8DC38;
-	bottom:80px;
+	bottom:70px;
 	display:none;
 	
 }
+#right-content .formulario-login-subasta h1{
+	font-size:25px;
+	margin-top:5px;
+}
 .formulario-login-subasta form{
-	width:80%;
+	width:90%;
 	margin: 0 auto;
 }
+.formulario-login-subasta  label{
+	font-size:15px;
+	margin-top:4px;
+}
+.formulario-login-subasta .input{
+	
+}
 .formulario-login-subasta input, .formulario-login-subasta  label{
-	clear:both;
-	float:none;
+	clear:left;
+	float:left;
 	display:block;
 	text-align:left;
+	width:92px;
+	margin-bottom:8px;
 }
+.formulario-login-subasta .submit{
+width:94px;
+margin:0 auto;
+height:33px;
+}
+.formulario-login-subasta input{
+	clear:none;
+	width:113px;
+	border-radius:5px;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	margin:0 auto;
+}
+a#olvidar{
+	clear:both;
+	display: block;
+	color:#424143;
+	font-size:15px;
+	text-decoration:none;
+	margin-top:5px;
+}
+
+.formulario-login-subasta .submit input{
+	background:url(../img/ingresar.png);
+	width:94px;
+	height:33px;
+	border:0;
+	margin:0;
+	padding:0;
+	margin-top:5px;
+}
+
 .cerrar-formulario{
 	right:5px;
 	font-size:10px;
-	color:white;
+	color:red;
 	position:absolute;
+	z-index:1000;
+	top:3px;
+	cursor:pointer;
+}
+a#boton-registro{
+	background:url(../img/registrarse.png);
+	width:94px;
+	height:33px;
+	border:0;
+	margin:0;
+	padding:0;
+	display: block;
+	margin: 0 auto;
+	margin-top:5px;
 }
 a#resaltar-registro{
 	color:red;
 	font-size:15px;
 	cursor:pointer;
+	text-decoration:none;
 }
 /*PAGES*/
 .pages .WYSIWYG{
 	height:580px;
 	overflow-y:auto;
 }
+.subastas-ganadas.elemento{
+	
+}
+#right-content ul.subastas-ganadas ,#right-content ul.subastas-ganadas li{
+	width:90%;
+	margin:0 auto;
+	float:none;
+	border-radius:0;
+	-moz-border-radius:0;
+	-webkit-border-radius:0;
+	box-shadow:0 0 0 transparent;
+	-moz-box-shadow:0 0 0 transparent;
+	-webkit-box-shadow:0 0 0 transparent;
+	height:180px;
+}
+#right-content ul.subastas-ganadas .imagen,
+#right-content ul.subastas-ganadas .info,
+#right-content ul.subastas-ganadas .info-pago{
+	float:left;
+	
+}
+#right-content ul.subastas-ganadas .imagen{
+	width:30%;
+	min-height:180px;
+}
+#right-content ul.subastas-ganadas .info{
+	width:40%;
+}
+#right-content ul.subastas-ganadas .info-pago{
+	width:25%;
+	border-radius:10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	box-shadow:0 2px 3px #969696;
+	-moz-box-shadow:0 2px 3px #969696;
+	-webkit-box-shadow:0 2px 3px #969696;
+	padding:2.5%;
+}
+#right-content ul.subastas-ganadas .acciones-ofertas{
+	
+}
+#right-content ul.subastas-ganadas .submit input{
+	background:url(../img/pagar.png);
+	width: 103px;
+	height:38px;
+	border:0;
+	padding:0;
+}
+.WYSIWYG.inactivity{
+	background:url(../img/fondo_inactividad.jpg);
+	width:474px;
+	height: 200px;
+	margin: 0 auto;
+	padding:0;
+	padding-top:154px ;
+	background-repeat: no-repeat;
+	background-position: center center;
+	overflow:hidden;
+}
+.WYSIWYG.inactivity p{
+	font-size:36px;
+	width:474px;
+	text-align:center;
+	margin:0;
+	padding:0;
+	margin-left:10px;
+}
+.WYSIWYG.inactivity .continuar{
+	background:url(../img/continuar.png);
+	width:192px;
+	height: 67px;
+	margin: 0 auto;
+	padding:0;
+	margin-top:50px;
+}
+.paquetes{
+	background:url(../img/fondo_compra.jpg);
+	background-position:bottom right;
+	background-repeat:no-repeat;
+	width:313px;
+	padding-right:386px;
+	height: 475px;
+	padding-top:33px;
+	padding-left:33px;
+	
+}
+table.creditos{
+	margin-top:33px;
+	font-size:16px;
+	overflow:auto;
+	margin-bottom: 0;
+	height:196px;
+}
+
+ table.creditos thead{
+	font-size:20px;
+
+}
+table.creditos thead td{
+	text-align:left;
+	padding:2px;
+}
+table.creditos td{
+	text-align:right;
+}
+ table.creditos .submit input{
+ 	background:url(../img/boton.png);
+	width: 20px;
+	height:20px;
+	border:0;
+	padding:0;
+ }
+.pins h2{
+	font-size:17px;
+	color:#66ba4c;
+	margin-top:33px;
+}
+.pins .input{
+	margin-top:10px;
+}
+.pins label{
+	font-size:16px;
+	margin-right:3px;
+}
+.pins .input input{
+	width:225px;
+}
+.pins .submit input{
+	background:url(../img/redimir.png);
+	width: 96px;
+	height:34px;
+	border:0;
+	padding:0;
+	float:right;
+	margin-top:10px;
+}
+/*FUNCIONALIDAD LOGIN MI CUENTA*/
+.logueado #main-menu   .acceder{
+	display:none;
+}
+#main-menu .mi-cuenta{
+	display:none;
+}
+.logueado #main-menu   .mi-cuenta{
+	display:block;
+}
+.info-creditos{
+	display:none;
+	position:fixed;
+	right:0;
+	top:50%;
+}
+.logueado .info-creditos{
+	display:block;
+}
+/**/

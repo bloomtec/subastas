@@ -56,10 +56,9 @@ $(function(){
 			success: function(oferta) {
 			//console.log(oferta);
 				if(oferta.success) {
-				$("#creditos").html(oferta.User.creditos);
-				$("#bonos").html(oferta.User.bonos);
+				$("#creditos").html(parseInt(oferta.User.creditos)+parseInt(oferta.User.bonos));
 				$("li#"+subastaId+" .ofertas").append('<div class="actualizado">'+oferta.Oferta.created+'</div>');
-				$("li#"+subastaId+" .ofertas").scrollTop(300);
+				$("li#"+subastaId+" .ofertas").scrollTop(10000);
 				} else {
 					alert(oferta.mensaje);
 				}

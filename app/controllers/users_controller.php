@@ -14,8 +14,8 @@ class UsersController extends AppController {
 	}
 
 	function index() {
-		//debug($this->User->read(null,$this->Auth->user("id")));
 		$user = $this->User->read(null,$this->Auth->user("id"));
+		//debug($user);
 		$this->set('user', $user);
 		if (empty($user)) {
 			$this->redirect(array("action" => "login"));
@@ -161,6 +161,19 @@ class UsersController extends AppController {
 		$user=$this->User->read(null,$this->Auth->user("id"));
 		if(!empty($this->params['requested'])){
 			return $user["User"]["creditos"];
+		}
+		if($this->RequestHandler->isAjax()){
+			echo $user["User"]["creditos"];
+			Configure::write("debug",0);
+			$this->autoRender=false;
+			exit(0);
+		}
+	}
+	function getCreditos2(){// SE UTILIZA EN EL HOME PARA MOSTRAR LOS CREDITOS DEL USUARIO
+		$this->User->recursive=-1;
+		$user=$this->User->read(null,$this->Auth->user("id"));
+		if(!empty($this->params['requested'])){
+			return $user["User"]["creditos"]+$user["User"]["bonos"];
 		}
 		if($this->RequestHandler->isAjax()){
 			echo $user["User"]["creditos"];

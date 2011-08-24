@@ -22,6 +22,12 @@
 				</label>
 				<input type="email" id="UserEmail" maxlength="45" name="data[User][email]" required="required">
 			</div>
+			<div class="input text required">
+				<label for="UserEmail">
+					Confirmar email:
+				</label>
+				<input type="email" id="UserEmailConfirm" maxlength="45" name="data[User][email-confirm]" required="required" data-equals="UserEmail" data-message="Verificar correo electrónico"));>
+			</div>
 			<?php
 			echo $form -> input("password", array("div" => "input required", "required" => "required", "id" => "password", "label" => "Contraseña:"));
 			echo $form -> input("password2", array("div" => "input required", "required" => "required", "id" => "password2", "type" => "password", "label" => "Confirmar Contraseña:", "data-equals" => "password", "data-message" => "Verificar contraseña"));
@@ -29,12 +35,7 @@
 			//echo $form -> input("UserField.apellidos");
 			?>
 
-			<div class="input text required">
-				<label for="UserEmail">
-					Confirmar email:
-				</label>
-				<input type="email" id="UserEmailConfirm" maxlength="45" name="data[User][email-confirm]" required="required" data-equals="UserEmail" data-message="Verificar correo electrónico"));>
-			</div>
+			
 			<?php
 			//echo $form->input("UserField.fecha_de_nacimiento",array("minYear"=>date('Y') - 70));
 			if(isset($email_referente)) {

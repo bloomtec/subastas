@@ -1,5 +1,6 @@
 $( function() {
 	//Codigo Jquery
+	
 	$(".pausado").click( function(e) {
 		e.preventDefault();
 	});

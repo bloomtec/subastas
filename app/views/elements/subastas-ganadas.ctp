@@ -1,27 +1,29 @@
-<div id="right-content">
-	<h1 class="titulo-amarillo">Subastas Ganadas</h1>
-	<?php if (!empty($subastas)): ?>
+	<?php 
+		$subastasG=$this->requestAction("/subastas/ganados");
+		$user_id=$user["User"]["email"];
+	?>
+	<h2 class="titulo-amarillo">Productos Ganados</h2>
+	<?php if (!empty($subastasG)): ?>
 	<ul class="subastas-ganadas index" id="subastas-ganadas">
 		<?php $i=0;?>
-		<?php foreach ($subastas as $subasta): ?>
-		<li <?php if($i%3==1) echo "class='centro'"?>  rel="<?php echo $subasta["Subasta"]["id"]; ?>">
-			<div class="mascara"></div>
-			<div class="fecha_vencimiento">
-				<?php
-					$fecha= date_create_from_format('Y-m-d H:i:s',	$subasta["Subasta"]["fecha_de_venta"]);
-					echo $fecha->format('Y M d H:i:s');
-				?>
+		<?php foreach ($subastasG as $subasta): ?>
+		<li >
+
+			<div class="imagen">
+				<?php echo $this->Html->image($subasta['Subasta']['imagen_path'],array("width"=>"200"))?>
 			</div>
-			<div class="hora_servidor">
-				<?php
-					$fecha= date("Y M d H:i:s",strtotime("now"));
-					echo $fecha;
-				?>
+			<div class="info">
+				<h1><?php echo $this->Html->para("nombre",$subasta["Subasta"]["nombre"]) ?></h1>
+				<p>
+					<?php echo $this->Html->para("nombre",$subasta["Subasta"]["descripcion"]) ?>
+				</p>
 			</div>
-			<?php echo $this->Html->image($subasta['Subasta']['imagen_path'],array("width"=>"200"))?>
-			<?php echo $this->Html->para("nombre",$subasta["Subasta"]["nombre"]) ?>
-			<?php echo $this->Html->para("pvp","PVP $".number_format($subasta["Subasta"]['valor'], 0, ' ', '.')) ?>
-			<?php
+			<div class="info-pago">
+				<h3>Total a pagar</h3>
+				<h3 style="color:#ec212a;" ><?php echo "$ ".number_format($subasta["Subasta"]['precio'], 0, ' ', '.'); ?></h3>
+				<h3>Fecha límite de pago</h3>
+				<h3 style="color:#ec212a;" >Falta fecha limite de pago</h3>
+				<?php
 				// Crear el form
 				//
 				$form_id = $subasta['Subasta']['id'];
@@ -58,11 +60,14 @@
 				echo $this->Form->hidden('paisComprador', array('name'=>'paisComprador', 'value'=>'Colombia'));
 				// URL de respuesta
 				//
-				echo $this->Form->hidden('urlRetorno', array('name'=>'urlRetorno', 'value'=>'http://www.embalao.org/subastas/users/validarCompra'));
+				echo $this->Form->hidden('urlRetorno', array('name'=>'urlRetorno', 'value'=>'http://llevatelos.com/subastas/users/validarCompra'));
 				// Finalizar el form
 				//
-				echo $this->Form->end("Pagar Via TuCompra");
+				echo $this->Form->end(" ");
 			?>
+			</div>
+			<div style="clear:both;
+			"></div>
 		</li>
 		<?php
 			$i++;
@@ -71,4 +76,3 @@
 	</ul>
 	<div style="clear:both"></div>
 	<?php endif; ?>
-</div>

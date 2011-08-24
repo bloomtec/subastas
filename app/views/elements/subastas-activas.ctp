@@ -12,7 +12,7 @@
 		<div class="ofertas">
 				<?php $ofertas=$this->requestAction("/ofertas/getOfertas/".$subasta["Subasta"]["id"]); ?>
 				<?php foreach($ofertas as $oferta):?>
-					<div <?php if($i==0) echo "class='actualizado'" ?> ><?php echo $oferta["Oferta"]["created"]?></div>
+					<div <?php if($i==0) echo "class='actualizado nocufon'" ?> ><?php echo $oferta["Oferta"]["created"]?></div>
 				<?php endforeach;?>
 		</div>
 		<div class="acciones-ofertas" rel="<?php echo $subasta["Subasta"]["id"]; ?>">
@@ -45,7 +45,7 @@
 			     <?php 
 			     	
 			     	if(!$config["Config"]["congelado"])
-			     		echo $this->Html->link("¡Oferte ya!",array("controller"=>"subastas","action"=>"ofertar",$subasta["Subasta"]['id']),array('class'=>'boton ofertar'));
+			     		echo $this->Html->link("¡Oferte ya!",array("controller"=>"subastas","action"=>"ofertar",$subasta["Subasta"]['id']),array('class'=>'boton ofertar','rel'=>$subasta["Subasta"]['id']));
 					else
 						echo $this->Html->link("Pausada","#",array('class'=>'boton pausado'));
 			     ?>

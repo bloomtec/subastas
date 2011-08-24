@@ -45,10 +45,23 @@
 		<script type="text/javascript">var server="/";<?php if($session->read("Auth")){ ?>
 			var auth=<?php echo json_encode($session -> read("Auth"));?>;<?php }else{?>var auth=null;<?php }?>
 			Cufon.replace("#main-menu");
-			Cufon.replace("#content");
+			Cufon.replace("#content",{
+				onAfterReplace:function(){
+				
+				},
+				trim:"simple",
+				ignoreClass:"cerrar-formulario"
+			});
 		</script>
 	</head>
 	<body class="<?php if($session->read("Auth")) echo 'logueado'?>">
+		<div class="info-creditos">
+			<span>Creditos: </span>
+			<span id="creditos">
+			<?php echo $this -> requestAction("/users/getCreditos2");?>
+			</span>
+			<?php echo $html->link("Salir",array("controller"=>"users","action"=>"logout"));?>
+		</div>
 		<div id="container">
 			<div id="header">
 				<div class="banner-referido">
@@ -93,9 +106,14 @@
 							echo $html -> link("Contactos", array("controller" => "pages", "action" => "contacto"), array("class" => "final color contactos", ));
 							?>
 						</li>
-						<li class="last">
+						<li class="last acceder">
 							<?php
-							echo $html -> link("Mi cuenta", array("controller" => "users", "action" => "login"), array("class" => "final color contactos", ));
+							echo $html -> link("Acceder", array("controller" => "users", "action" => "login"), array("class" => "final color contactos", ));
+							?>
+						</li>
+						<li class="last mi-cuenta">
+							<?php
+							echo $html -> link("Mi cuenta", array("controller" => "users", "action" => "index"), array("class" => "final color contactos", ));
 							?>
 						</li>
 						<div style="clear:both;"></div>
