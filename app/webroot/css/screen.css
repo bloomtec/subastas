@@ -721,12 +721,13 @@ select {
 	
 	}
 	#register-overlay{
-		background:url("../img/pantalla-lightbox.jpg");
+		background:url("../img/overlay_inicio_fondo.jpg");
 		width:699px;
 		height:464px;
 	}
 	#register-overlay input{
 		width:133px;
+		border-radius:5px;
 	}
 	#register-overlay div.register {
 		padding:10px;
@@ -737,6 +738,7 @@ select {
 	}
 	#register-overlay form{
 		margin:0;
+		
 	}
  	#register-overlay .close, #login-overlay .close {
 		background-image:url("../img/close.png");
@@ -814,7 +816,7 @@ select {
 	}
 	#register-overlay .registrate{
 		position:absolute;
-		width:136px;
+		width:245px;
 		padding-left:46px;
 		background-repeat:no-repeat;
 		background-position-x: right;
@@ -824,6 +826,12 @@ select {
 	#register-overlay .registrate h1{
 		padding:0;
 		
+	}
+	#register-overlay label{
+		clear:both;
+		width:67px;
+		display:block;
+		float:left;
 	}
 	.registrate h1 a {
 		color:#EC3237;

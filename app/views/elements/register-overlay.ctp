@@ -3,8 +3,15 @@
 
 		<div class="registrate">
 		<form action='https://madmimi.com/signups/subscribe/35608' method='post' id="madmimi">
-		<div><label for='signup_name'>Nombre</label><br /><input id='signup_name' name='name' type='text' /><br />
-		<label for='signup_email'>Email</label><br /><input id='signup_email' name='email' type='text' /><br /><input name='commit' class='button' type='submit' value='Enviar' /></div>
+		<div>
+		<label for='signup_name'>Nombre</label>
+		<input id='signup_name' name='name' type='text' />
+		<br />
+		<br />
+		<label for='signup_email'>Email</label>
+		<input id='signup_email' name='email' type='text' />
+		<br />
+		<input name='commit' class='button' type='submit' value='Enviar' /></div>
 		</form>
 		</div>
 	</div>
