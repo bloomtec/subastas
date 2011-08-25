@@ -1213,6 +1213,25 @@ table.creditos td{
 	position:fixed;
 	right:0;
 	top:50%;
+	background:url(../img/fondo_creditos.png);
+	width:133px;
+	height:69px;
+	padding-top:28px;
+	margin-top:-48.5px;
+	text-align:right;
+	padding-right:10px;
+	font-size:18px;
+}
+#creditos{
+	color:#ee1a24;
+	font-size:19px;
+}
+.info-creditos a{
+	font-size:15px;
+	text-decoration:none;
+	color:#424143;
+	line-height: 25px;
+	vertical-align: bottom;
 }
 .logueado .info-creditos{
 	display:block;

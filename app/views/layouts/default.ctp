@@ -60,7 +60,7 @@
 			<span id="creditos">
 			<?php echo $this -> requestAction("/users/getCreditos2");?>
 			</span>
-			<?php echo $html->link("Salir",array("controller"=>"users","action"=>"logout"));?>
+			<?php echo $html->link("Cerrar Session",array("controller"=>"users","action"=>"logout"));?>
 		</div>
 		<div id="container">
 			<div id="header">
