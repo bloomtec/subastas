@@ -11,7 +11,7 @@
 		<label for='signup_email'>Email</label>
 		<input id='signup_email' name='email' type='text' />
 		<br />
-		<input name='commit' class='button' type='submit' value='Enviar' /></div>
+		<input name='commit' class='button' type='submit' value=' ' /></div>
 		</form>
 		</div>
 	</div>

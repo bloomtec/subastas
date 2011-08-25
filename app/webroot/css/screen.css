@@ -833,6 +833,14 @@ select {
 		display:block;
 		float:left;
 	}
+	#register-overlay .button{
+		background-image:url("../img/overlay_inicio_enviar.png");
+		width: 62px;
+		height:27px;
+		margin:0;
+		padding:0;
+		border:0;
+	}
 	.registrate h1 a {
 		color:#EC3237;
 		text-decoration: none;
