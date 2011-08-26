@@ -1,16 +1,15 @@
 <div id="left-content">
-	 <?php echo $this->element("medio-pago");?>
-	 <?php echo $this->element("ultimo-ganador");?>
-	 <?php echo $this->element("proxima-oferta");?>
-	 <?php echo $this->element("seguridad");?>
-	 <?php //echo $this->element("social");?>
-	 <div style="clear:both"></div>
+	<?php echo $this->element("left");?>
+	
 </div>
 <div id="right-content" class="estilo-borde">
 	<div class="forms">
 	<?php echo $this->Form->create('User');?>
+	<?php if($user['User']['datos_ingresados'] == 0): ?>
+		Gana 5 créditos por llenar dus datos.
+	<?php endif?>
 		<fieldset>
-			<legend><?php __('Mis Datos'); ?></legend>
+			<legend><?php __('Mis Datos'); ?> </legend>
 		<?php
 			echo $this->Form->input('username', array("disabled" => "disabled", "value" => $user['User']['username']));
 			echo $this->Form->input('UserField.id');

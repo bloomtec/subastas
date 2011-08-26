@@ -231,7 +231,7 @@ class UsersController extends AppController {
 
 	function checkEmail(){
 		$checkMail=$this->User->findByEmail($_GET["data"]["User"]["email"]);
-		$checUserName=$this->User->findByEmail($_GET["data"]["User"]["username"]);
+		$checUserName=$this->User->findByUsername($_GET["data"]["User"]["username"]);
 		$devolver;
 		if($checkMail||$checUserName){
 			if($checkMail)$devolver["data[User][email]"]="el email se encuentra registrado";

@@ -1,4 +1,9 @@
-<div>
+<div id="left-content">
+	<?php echo $this->element("left");?>
+	
+</div>
+<div id="right-content">
+	<div class="forms">
 	<?php echo $this -> Form -> create('User'); ?>
 	<fieldset>
  		<legend>
@@ -15,4 +20,5 @@
 	?>
 	</fieldset>
 	<?php echo $this -> Form -> end(__('Enviar', true)); ?>
+</div>
 </div>

@@ -108,3 +108,8 @@ ESTILOS CSS DE LOS FORMULARIOS DE USUARIO
 	-moz-box-shadow:0 0 6px #ddd;
 	-webkit-box-shadow:0 0 6px #ddd;
 }
+.error2{
+	z-index: 10000;
+	color:red;
+	font-size:11px;
+}

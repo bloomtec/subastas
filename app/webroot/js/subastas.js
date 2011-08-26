@@ -71,6 +71,9 @@ $(function(){
 	}
 
 	});
+	$(".ajax-form").find("input").focus(function(){
+		$(this).parent().parent().find(".error2").css("visibility","hidden");
+	});
 	$(".ajax-form").submit(function(e){
 		e.preventDefault();
 		var url = $(this).attr('action');  
@@ -86,7 +89,7 @@ $(function(){
 				if(oferta){
 				location.reload(true);
 				}else{
-					$(form).next(".error").show();
+					$(form).find(".error2").css("visibility","visible");
 				}
 			}
 		});

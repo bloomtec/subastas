@@ -65,14 +65,7 @@
 		<div id="container">
 			<div id="header">
 				<div class="banner-referido">
-					<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0" width="212" height="101" id="referidos" align="middle">
-						<param name="allowScriptAccess" value="sameDomain" />
-						<param name="allowFullScreen" value="false" />
-						<param name="movie" value="/swf/referidos.swf" />
-						<param name="quality" value="high" />
-						<param name="bgcolor" value="#ffffff" />
-						<embed src="/swf/referidos.swf" quality="high" bgcolor="#ffffff" width="212" height="101" name="referidos" align="middle" allowScriptAccess="sameDomain" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
-					</object>
+					<?php echo $html->image("llevatelos-es-sguro.png");?>
 				</div>
 				<div class="wrapper">
 					<ul id="main-menu" class="corner15">
@@ -88,27 +81,23 @@
 						</li>
 						<li>
 							<?php
-							echo $html -> link("Productos Entregados", array("controller" => "subastas", "action" => "subastasFinalizadas"), array("class" => "other color subastas-finalizadas", ));
+							echo $html -> link("Entregados", array("controller" => "subastas", "action" => "subastasFinalizadas"), array("class" => "other color subastas-finalizadas", ));
+							?>
+						</li>
+	
+						<li>
+							<?php
+							echo $html -> link("Regístrate", array("controller" => "users", "action" => "register"), array("class" => "final color registrarse", ));
 							?>
 						</li>
 						<li>
 							<?php
-							echo $html -> link("Quienes Somos", array("controller" => "pages", "action" => "view", "quienes-somos"), array("class" => "other color como-funciona", ));
-							?>
-						</li>
-						<li>
-							<?php
-							echo $html -> link("Regístrarse", array("controller" => "users", "action" => "register"), array("class" => "final color registrarse", ));
-							?>
-						</li>
-						<li>
-							<?php
-							echo $html -> link("Contactos", array("controller" => "pages", "action" => "contacto"), array("class" => "final color contactos", ));
+							echo $html -> link("Contáctanos", array("controller" => "pages", "action" => "contacto"), array("class" => "final color contactos", ));
 							?>
 						</li>
 						<li class="last acceder">
 							<?php
-							echo $html -> link("Acceder", array("controller" => "users", "action" => "login"), array("class" => "final color contactos", ));
+							echo $html -> link("Inicia Sesión", array("controller" => "users", "action" => "login"), array("class" => "final color contactos", ));
 							?>
 						</li>
 						<li class="last mi-cuenta">

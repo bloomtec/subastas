@@ -1,10 +1,6 @@
 <?php //debug($registrado)?>
 <div id="left-content">
-	<?php echo $this->element("seguridad");?>
-	 <?php echo $this->element("ultimo-ganador");?>
-	 <?php echo $this->element("proxima-oferta");?>
-	 <?php echo $this->element("banner-lateral");?>
-	 <?php echo $this->element("social");?>
+	<?php echo $this->element("left");?>
 	
 </div>
 <div id="right-content">

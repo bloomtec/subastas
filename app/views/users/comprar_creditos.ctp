@@ -1,11 +1,6 @@
 <div id="left-content">
-	<?php echo $this -> element("medio-pago");?>
-	<?php echo $this -> element("ultimo-ganador");?>
-	<?php echo $this -> element("proxima-oferta");?>
-	<?php echo $this -> element("seguridad");?>
-	<?php echo $this -> element("social");?>
-	<div style="clear:both">
-	</div>
+	<?php echo $this->element("left");?>
+	
 </div>
 <div id="right-content" class="estilo-borde">
 	<h1 class="titulo-amarillo">Mi cuenta</h1>
