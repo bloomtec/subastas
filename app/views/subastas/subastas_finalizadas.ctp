@@ -1,13 +1,8 @@
 <div id="left-content">
-	 <?php echo $this->element("medio-pago");?>
-	 <?php echo $this->element("ultimo-ganador");?>
-	 <?php echo $this->element("proxima-oferta");?>
-	 <?php echo $this->element("seguridad");?>
-	 <?php echo $this->element("social");?>
-	 <div style="clear:both"></div>
+	<?php echo $this -> element("left");?>
 </div>
 <div id="right-content">
-	<h1 class="titulo-amarillo">Subastas finalizadas</h1>
+	<h1 class="titulo-amarillo">Productos Entregados</h1>
 <?php if (!empty($subastas)):?>
  <ul class="subastas-activas index" id="subastas-vendidas">
 	 <?php $i=0;?>

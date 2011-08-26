@@ -171,13 +171,11 @@ select {
 	background:#fad814;
 	text-align:center;
 	height:20px;
-	padding-left:23px;
 }
 #main-menu li{
 	display:block;
 	float:left;
-	margin-right:8px;
-	margin-top:3px;
+	margin:3px 9px 0;
 }
 #main-menu li.last{
 	margin-right:0;
@@ -499,14 +497,14 @@ select {
 }
 
 #footer_links ul {
-    padding: 5px 0;
 	font-size: 16px;
 	text-align: center;
 	}
 
 #footer_links li {
-	display:inline;
-	padding: 5px 10px;
+	display:block;
+	float:left;
+	    padding: 0 14.6px;
 	background: url("../img/linea-separadora-footer.png") left repeat-y;
 	}
 
@@ -517,11 +515,14 @@ select {
 
 #footer_links ul a {
 	line-height: 15px;
+	 font-size: 15px;
+    height: 13px;
+    line-height: 20px;
 	}	
 
 #footer_links ul a:link, #footer_links ul a:active, #footer_links ul a:visited {
 	text-decoration: none;
-	font-size: 15px;
+	
 	color:white;
 	}
 #footer_links ul a:hover{
@@ -542,8 +543,18 @@ select {
 .forms{
 	padding:20px;
 }
+h1.titleForms{
+	font-size:27px;
+	padding-left:38px;
+	padding-top:23px;
+}
+ h1.titleForms span{
+	color:#ee1a24;
+	font-size:60px;
+	margin-left:67px;
+}
 .forms form{
-	width:90%;
+	width:498.233px /*72% es equivalente a este porcentaje*/;
 	margin:0 auto;
 	padding: 20px 0;
 }
@@ -564,7 +575,7 @@ select {
 .forms select{
 	background:#FFF7C9;
 }
-.forms .input input, .forms .forma-linea input{
+.forms .input input,.forms .input textarea, .forms .forma-linea input{
 	width:65%;
 	background-color: #fff7c9;
 	-moz-border-radius:5px;
@@ -618,7 +629,10 @@ select {
 	width: 115px;
 	display:block;
 	height:29px;
-	margin-top:50px;
+	margin-top: 50px;
+}
+.volver img{
+
 }
 .form-container img{
 	padding-left:38px;

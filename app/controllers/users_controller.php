@@ -142,11 +142,16 @@ class UsersController extends AppController {
 		if (!empty($this->data)){
 			$this->data["User"]["id"] = $user_id;
 			if ($this->User->saveAll($this->data)) {
+				if($user['User']['datos_ingresados']==0){
 				$user['User']['datos_ingresados'] = 1;
+				$user['User']['bonos']+=Configure::read("creditos_por_modificar");	
+				}
+				
 				$this->User->save($user);
 				$this->Session->setFlash(__('Datos de usuario modificados.', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
+				debug($this->User->invalidFields());
 				$this->Session->setFlash(__('Todos los campos son requeridos. Inténtelo de nuevo.', true));
 			}
 		}
@@ -901,7 +906,7 @@ class UsersController extends AppController {
 			if(!$this->User->find('first', array('conditions'=>array('User.email'=>$this->data['User']['correo_recomendado_5'])))) {
 				$this->__enviarCorreoRecomendado($this->data['User']['user_id'], $this->data['User']['correo_recomendado_5']);
 			}
-			$this->redirect(array("controller"=>"subastas",'action' => 'index'));
+			$this->redirect(array("controller"=>"users",'action' => 'modificarDatos'));
 		}
 	}
 

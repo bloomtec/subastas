@@ -2,8 +2,9 @@
 		$subastasG=$this->requestAction("/subastas/ganados");
 		$user_id=$user["User"]["email"];
 	?>
-	<h2 class="titulo-amarillo">Productos Ganados</h2>
 	<?php if (!empty($subastasG)): ?>
+		<div class="elemento subastas-ganadas">
+	<h2 class="titulo-amarillo">Productos Ganados</h2>
 	<ul class="subastas-ganadas index" id="subastas-ganadas">
 		<?php $i=0;?>
 		<?php foreach ($subastasG as $subasta): ?>
@@ -75,4 +76,5 @@
 		?>
 	</ul>
 	<div style="clear:both"></div>
+	</div>
 	<?php endif; ?>
