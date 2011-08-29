@@ -9,9 +9,10 @@
 </div>
 <div id="right-content">
 	<div class="registro corner">
-		<h1 class="titulo-amarillo">Subastas activas</h1>
+		<h1 class="titulo-amarillo">Registro</h1>
+		<h1 class="titleForms">Registrate gratis y obtén <br /> <span>5 créditos </span></h1>
 		<div class="form-container">
-			<?php echo $html->image("5_creditos.png");?>
+			
 			<?php echo $form -> create("User", array("action" => "register", "id" => "registerForm", "novalidate" => "novalidate"));
 			echo "<fieldset>";
 			echo $form -> input("username", array("div" => "input text required", "label" => "Nombre de usuario:", "autofocus" => "autofocus"));

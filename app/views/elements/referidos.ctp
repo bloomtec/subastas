@@ -1,4 +1,4 @@
-<div class="medio-de-pago estilo-borde referidos">
+	<div class="medio-de-pago estilo-borde referidos">
 						<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="200" height="258" id="FlashID" title="main animation Asistencia Gerencial">
 						<param name="movie" value="<?php echo $html->url("/swf/banner-referidos.swf")?>" />
 						<param name="quality" value="high" />

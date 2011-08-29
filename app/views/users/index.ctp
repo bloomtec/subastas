@@ -1,10 +1,6 @@
 <div id="left-content">
-	 <?php echo $this->element("medio-pago");?>
-	 <?php echo $this->element("ultimo-ganador");?>
-	 <?php echo $this->element("proxima-oferta");?>
-	 <?php echo $this->element("seguridad");?>
-	 <?php echo $this->element("social");?>
-	 <div style="clear:both"></div>
+	<?php echo $this->element("left");?>
+	
 </div>
 <div id="right-content" class="estilo-borde">
 	<h1 class="titulo-amarillo">Mi cuenta</h1>
@@ -14,8 +10,6 @@
 		</div>-->
 			<div class="datos">
 				<div class="info">
-					<p><span>Nombres: </span><?php if(!empty($user["UserField"]["nombres"])) echo $user["UserField"]["nombres"]; else echo "Completa tus datos" ?></p>
-					<p><span>Apellidos: </span><?php if(!empty($user["UserField"]["apellidos"])) echo $user["UserField"]["apellidos"]; else echo "Completa tus datos" ?></p>
 					<p><span>Email: </span><?php echo $user["User"]["email"];?></p>
 					<p><span>Nombre de Usuario: </span><?php echo $user["User"]["username"];?></p>
 				<div style="clear:both;"></div>
@@ -23,7 +17,6 @@
 				<div class="menu">
 					<?php echo $html->link($html->image("cambiar_contrasena.png"),array("controller"=>"users","action"=>"changePassword"),array("escape"=>false));?>
 					<?php echo $html->link($html->image("mis_datos.png"),array("controller"=>"users","action"=>"modificarDatos"),array("escape"=>false));?>
-					<?php echo $html->link($html->image("producto_entregado.png"),array("controller"=>"subastas","action"=>"finalizadas"),array("escape"=>false));?>
 					<?php echo $html->link($html->image("productos_ganados.png"),array("controller"=>"subastas","action"=>"ganadas"),array("escape"=>false));?>
 					<?php echo $html->link($html->image("comprar_creditos.png"),array("controller"=>"users","action"=>"comprarCreditos"),array("escape"=>false));?>
 					<?php echo $html->link($html->image("recomendar.png"),array("controller"=>"users","action"=>"recomendar"),array("escape"=>false));?>
@@ -37,15 +30,14 @@
 			<?php //echo $this->element("ingrese-datos"); ?>
 		</div>
 		<?php endif; ?>
-		<div class="elemento subastas-ganadas">
-			<?php echo $this->element("subastas-ganadas"); ?>
-		</div>
+		<?php echo $this->element("subastas-ganadas"); ?>
 		<div class="subastas-activas delusuario">
-			<h2 class="titulo-amarillo">Subastas Activas</h2>
+			<h2 class="titulo-amarillo">Mis Ofertas</h2>
 			<div class="contenedor-subastas">
 				<?php echo $this->element("subastas-activas"); ?>
 			</div>
 		</div>
 	</div>
-	<?php echo $html->link($html->image("volver_al_inicio.png"),"/",array("escape"=>false,"class"=>"volver"));?>
+	
 </div>
+<?php echo $html->link($html->image("volver_al_inicio.png"),"/",array("escape"=>false,"class"=>"volver"));?>

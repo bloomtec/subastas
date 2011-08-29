@@ -171,13 +171,11 @@ select {
 	background:#fad814;
 	text-align:center;
 	height:20px;
-	padding-left:16px;
 }
 #main-menu li{
 	display:block;
 	float:left;
-	margin-right:8px;
-	margin-top:3px;
+	margin:3px 9px 0;
 }
 #main-menu li.last{
 	margin-right:0;
@@ -188,7 +186,7 @@ select {
 	line-height:20px;
 	color:#2d2d2e;
 	height:13px;
-	font-size:12px;
+	font-size:15px;
 	
 }
 #header .banner-principal {
@@ -269,8 +267,8 @@ select {
   
   #main-content ul h2{
 	background:#4d4d4d;
-	border-radius: 5px 5px 5px 5px;
-    -moz-border-radius: 5px 5px 5px 5px;
+	border-radius: 10px;
+    -moz-border-radius:  10px;
   }
   
   #left-content{
@@ -358,9 +356,9 @@ select {
   #left-content .titulo-verde{
   	background: url("../img/trama-verde.png") repeat-x;
   	padding: 2.5px 0;
-  	border-radius: 5px 5px 5px 5px;
-    -moz-border-radius: 5px 5px 5px 5px;
-    -webkit-border-radius: 5px 5px 5px 5px;
+  	border-radius:  10px;
+    -moz-border-radius:  10px;
+    -webkit-border-radius:  10px;
   	color:white;
   	font-weight: normal;
   	margin-bottom:10px;
@@ -369,9 +367,9 @@ select {
   #left-content .titulo-amarillo{
   	background: url("../img/trama-amarillo.png") repeat-x;
 	padding: 2.5px 0;
-  	border-radius: 5px 5px 5px 5px;
-    -moz-border-radius: 5px 5px 5px 5px;
-    -webkit-border-radius: 5px 5px 5px 5px;
+  	border-radius:  10px;
+    -moz-border-radius:  10px;
+    -webkit-border-radius:  10px;
   	color:#424143;
   	font-weight: normal;
   	margin-bottom:10px;
@@ -383,11 +381,11 @@ select {
   }
   
   #right-content .titulo-amarillo{
-  	background: url("../img/trama.png") repeat-x;
+  	background: url("../img/trama-amarillo.png") repeat-x;
 	padding:4px 0;
-  	border-radius: 5px 5px 5px 5px;
-    -moz-border-radius: 5px 5px 5px 5px;
-	 -webkit-border-radius: 5px 5px 5px 5px;
+  	border-radius: 10px;
+    -moz-border-radius: 10px;
+	 -webkit-border-radius:  10px;
   	color:#424143;
   	font-weight: normal;
   	text-align: center;
@@ -450,7 +448,7 @@ select {
   #right-content ul li{
 	display: block;
 	float:left;
-	width: 234px;
+	width: 200px;
 	text-align: center;
 	margin-bottom: 15px;
 	margin-top: 15px;
@@ -483,8 +481,8 @@ select {
 #footer{
 	font-family: Arial, Helvetica, sans-serif;
 	color:white;
-	margin-top:10px;
-	margin-bottom:10px;
+	margin-top:5px;
+	margin-bottom:5px;
     background: url("../img/trama-verde-footer.png") repeat-x;
 	-webkit-border-radius: 15px;
 	-moz-border-radius: 15px;
@@ -499,14 +497,14 @@ select {
 }
 
 #footer_links ul {
-    padding: 5px 0;
 	font-size: 16px;
 	text-align: center;
 	}
 
 #footer_links li {
-	display:inline;
-	padding: 5px 15px;
+	display:block;
+	float:left;
+	    padding: 0 14.6px;
 	background: url("../img/linea-separadora-footer.png") left repeat-y;
 	}
 
@@ -516,12 +514,15 @@ select {
 
 
 #footer_links ul a {
-	line-height: 24px;
+	line-height: 15px;
+	 font-size: 15px;
+    height: 13px;
+    line-height: 20px;
 	}	
 
 #footer_links ul a:link, #footer_links ul a:active, #footer_links ul a:visited {
 	text-decoration: none;
-	font-size: 15px;
+	
 	color:white;
 	}
 #footer_links ul a:hover{
@@ -542,8 +543,18 @@ select {
 .forms{
 	padding:20px;
 }
+h1.titleForms{
+	font-size:27px;
+	padding-left:38px;
+	padding-top:23px;
+}
+ h1.titleForms span{
+	color:#ee1a24;
+	font-size:60px;
+	margin-left:67px;
+}
 .forms form{
-	width:65%;
+	width:498.233px /*72% es equivalente a este porcentaje*/;
 	margin:0 auto;
 	padding: 20px 0;
 }
@@ -554,12 +565,24 @@ select {
 }
 .forms label{
 	width:32%;
-}
-.forms input{
-	width:65%;
+	float:left;
 	display:block;
-	float:right;
+	font-size:17px;
 }
+.forms legend{
+	font-size:32px;
+}
+.forms select{
+	background:#FFF7C9;
+}
+.forms .input input,.forms .input textarea, .forms .forma-linea input{
+	width:65%;
+	background-color: #fff7c9;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+}
+
 .forms input[type="submit"] {
 	clear:both;
     background: url("../img/trama-verde.png") repeat-x scroll 0 0 transparent;
@@ -606,7 +629,10 @@ select {
 	width: 115px;
 	display:block;
 	height:29px;
-	margin-top:50px;
+	margin-top: 50px;
+}
+.volver img{
+
 }
 .form-container img{
 	padding-left:38px;
@@ -628,6 +654,7 @@ select {
 	padding:0;
 	float:right;
 }
+
 .form-container .input input{
 	width:100%;
 	background-color: #fff7c9;
@@ -832,14 +859,18 @@ select {
 		width:67px;
 		display:block;
 		float:left;
+		font-size:17px;
 	}
 	#register-overlay .button{
 		background-image:url("../img/overlay_inicio_enviar.png");
-		width: 62px;
-		height:27px;
-		margin:0 auto;
+		width: 60px;
+		height:22px;
+		margin:0;
 		padding:0;
 		border:0;
+		border-radius:0;
+		display:block;
+		margin-left:144px;
 	}
 	.registrate h1 a {
 		color:#EC3237;
@@ -985,11 +1016,13 @@ float:right;
 .formulario-login-subasta{
 	position:absolute;
 	z-index:2;
-	width:100%;
+	width:91%;
 	padding:10px 0;
 	background:#F8DC38;
-	bottom:70px;
+	bottom:48px;
 	display:none;
+	left:4.5%;
+	border:solid 0.5px black;
 	
 }
 #right-content .formulario-login-subasta h1{
@@ -997,13 +1030,10 @@ float:right;
 	margin-top:5px;
 }
 .formulario-login-subasta form{
-	width:90%;
+	width:95%;
 	margin: 0 auto;
 }
-.formulario-login-subasta  label{
-	font-size:15px;
-	margin-top:4px;
-}
+
 .formulario-login-subasta .input{
 	
 }
@@ -1015,6 +1045,11 @@ float:right;
 	width:92px;
 	margin-bottom:8px;
 }
+.formulario-login-subasta  label{
+	font-size:11.5px;
+	margin-top:4px;
+	width:67px;
+}
 .formulario-login-subasta .submit{
 width:94px;
 margin:0 auto;
@@ -1022,7 +1057,7 @@ height:33px;
 }
 .formulario-login-subasta input{
 	clear:none;
-	width:113px;
+	width:100px;
 	border-radius:5px;
 	-webkit-border-radius:5px;
 	-moz-border-radius:5px;
@@ -1248,6 +1283,7 @@ table.creditos td{
 	color:#424143;
 	line-height: 25px;
 	vertical-align: bottom;
+	display:block;
 }
 .logueado .info-creditos{
 	display:block;

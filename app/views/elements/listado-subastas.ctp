@@ -8,16 +8,18 @@
 				<div class="cerrar-formulario">cerrar</div>
 				<h1>Aún no has iniciado sesión</h1>
 				<?php echo $form -> create('User', array("action" => "ajaxLogin", "controller" => "users","id"=>"form".$subasta["Subasta"]["id"],"class"=>"ajax-form"));?>
-				<?php echo $form -> input("username", array("label" => "Usuario/Correo:","id"=>"username".$subasta["Subasta"]["id"]));?>
+				<?php echo $form -> input("username", array("label" => "Usuario/Email:","id"=>"username".$subasta["Subasta"]["id"]));?>
 				<div style="clear:both">
 				</div>
 				<?php echo $form -> input("password", array("label" => "Contraseña:","id"=>"password".$subasta["Subasta"]["id"]));?>
 				<div style="clear:both">
 				</div>
-				<?php echo $html -> link('¿Olvidaste tu contraseña?', array("controller" => "users", "action" => "rememberPassword"), array("id" => "olvidar"));?>
+				<span class="error2" style="visibility:hidden;">datos no validos</span>
 				<?php echo $form -> end(__(' ', true), array('div' => false));?>
-				<?php echo $html -> link('¿Olvidaste tu contraseña?', array("controller" => "users", "action" => "register"), array("id" => "olvidar"));?>
-				<span class="error" style="margin-left:95px; margin-top:-24px; position:absolute; display:none;">datos no validos</span>
+				
+				
+				<?php echo $html -> link('¿Olvidaste tu contraseña?', array("controller" => "users", "action" => "rememberPassword"), array("id" => "olvidar"));?>
+				
 				<?php echo $html -> link('Registrate!!! y obtén 10 creditos', array("controller" => "users", "action" => "register"), array("id" => "resaltar-registro"));?>
 				<?php echo $html -> link(' ', array("controller" => "users", "action" => "register"), array("id" => "boton-registro"));?>
 		</div>
