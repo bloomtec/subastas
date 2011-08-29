@@ -837,7 +837,7 @@ select {
 		background-image:url("../img/overlay_inicio_enviar.png");
 		width: 62px;
 		height:27px;
-		margin:0;
+		margin:0 auto;
 		padding:0;
 		border:0;
 	}

@@ -8,12 +8,6 @@
 	
 </div>
 <div id="right-content">
-	<div class="WYSIWYG banner-home">
-	   <?php 
-	     echo $this->requestAction("/pages/bannerHome");
-	   ?>
-	   <div style="clear:both"></div>
-	</div>
 	<h1 class="titulo-amarillo">Ofertas Activas</h1>
 	<?php echo $this->element("listado-subastas");?>
 	 <div style="clear:both"></div>
