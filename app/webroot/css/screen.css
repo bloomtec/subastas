@@ -170,12 +170,15 @@ select {
 #main-menu{
 	background:#fad814;
 	text-align:center;
-	height:20px;
+	height:17.5px;
+	margin:0 auto;
+	padding-top:2.5px;
 }
 #main-menu li{
-	display:block;
-	float:left;
-	margin:3px 9px 0;
+	display:inline;
+	margin:3px 3px 0;
+	height:20px;
+	line-height:20px;
 }
 #main-menu li.last{
 	margin-right:0;
@@ -185,9 +188,8 @@ select {
 	height:20px;
 	line-height:20px;
 	color:#2d2d2e;
-	height:13px;
 	font-size:15px;
-	
+	vertical-align:center;
 }
 #header .banner-principal {
 	clear:both;	
@@ -1257,7 +1259,7 @@ table.creditos td{
 	display:none;
 }
 .logueado #main-menu   .mi-cuenta{
-	display:block;
+	display:inline;
 }
 .info-creditos{
 	display:none;
