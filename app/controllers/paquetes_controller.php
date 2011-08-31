@@ -7,7 +7,9 @@ class PaquetesController extends AppController {
 		$this->Paquete->recursive = 0;
 		$this->set('paquetes', $this->paginate());
 	}
-
+	function get(){
+		return $this->Paquete->find("all");
+	}
 	function view($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid paquete', true));

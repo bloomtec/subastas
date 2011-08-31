@@ -183,6 +183,18 @@ class SubastasController extends AppController {
 		$subastas = $this->Subasta->query($query);
 		$this->set(compact("subastas"));
 	}
+	function entregados(){
+		$userID = $this->Auth->user("id");
+		$query =
+			"SELECT DISTINCT Subasta.id, Subasta.nombre, Subasta.valor, Subasta.precio, Subasta.imagen_path, Subasta.fecha_de_venta, Subasta.aumento_precio
+			FROM subastas as Subasta, users as User, ofertas as Oferta
+			WHERE User.id = $userID
+			AND Oferta.user_id = User.id
+			AND Subasta.id = Oferta.subasta_id
+			AND Subasta.estados_subasta_id > '2'";
+		$subastas = $this->Subasta->query($query);
+		return $subastas;
+	}
 	
 	function ganadas(){
 		$userID = $this->Auth->user("id");

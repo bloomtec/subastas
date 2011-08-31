@@ -14,7 +14,9 @@ class TestimoniosController extends AppController {
 			}
 		}
 	}
-	
+	function random(){
+		return $this->Testimonio->find("first",array("order"=>array("id desc")));
+	}
 	function index() {
 		$this->Testimonio->recursive = 0;
 		$this->set('testimonios', $this->paginate());

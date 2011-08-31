@@ -2,6 +2,7 @@
 	<?php echo $this -> element("left");?>
 </div>
 <div id="right-content">
+
 	<div class="corner">
 		<h1 class="titulo-amarillo">Mi cuenta</h1>
 		<div class="paquetes">

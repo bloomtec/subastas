@@ -7,6 +7,9 @@
 	<h1 class="titulo-amarillo">Ofertas Activas</h1>
 	<?php echo $this->element("listado-subastas");?>
 	 <div style="clear:both"></div>
+	<?php echo $this->element("proximas-subastas");?>
+	 <div style="clear:both"></div>
+	 <?php echo $this->element("productos-entregados");?>
 </div>
 <?php if(!$session->read("Auth.User.id")):?>
 <script type="text/javascript">

@@ -9,6 +9,9 @@ class PagesController extends AppController {
 	function inactivity(){
 	
 	}
+	function creditos(){
+		
+	}
 	function bannerHome(){
 		$banner=$this->Page->findBySlug("banner-home");
 		return $banner["Page"]["content"];

@@ -120,7 +120,7 @@ select {
 
 /** Content **/
 #content{
-	margin-top:0;
+	margin-top:10px;
 	clear:both;
 }
 .content_wrap{
@@ -139,15 +139,15 @@ select {
 
 }
 .corner15{
-	-moz-border-radius:10px;
-	-webkit-border-radius:10px;
-	border-radius:10px;
+	 -moz-border-radius:  5px;
+    -webkit-border-radius:   5px;
+    border-radius:  5px;
 }
 /** Header **/
 
 #header{
 	width:711px;
-	height: 234px;
+	height: 237px;
 	padding-left:240px;
 	background-image:url("../img/Logo.jpg");
 	background-repeat:no-repeat;
@@ -157,45 +157,65 @@ select {
 #header .banner-referido{
 	float:left;
 	width:214px;
-	height:102px;
+	height:50px;
 	background-image:url("../img/slogan.jpg");
 	background-repeat:no-repeat;
 	background-position:center top;	
-	padding-top:133px;
+	padding-top:190px;
 }
+#header .banner-referido h1{
+	float:left;
+	margin-top: 18px;
+	margin-left:-22px;
+ }
 #header .wrapper{
 	width:497px;
 	float:left;
+	
+}
+div.slider{
+	width:200px;
+	height:133.33px; 
+	overflow:hidden;
+}
+a.banner-productos{
+	display:block;
+	width:200px;
+	height:745px; 
+	overflow:hidden;
+	margin-bottom:10px;
 }
 #main-menu{
 	background:#fad814;
 	text-align:center;
-	height:17.5px;
+	height:18px;
 	margin:0 auto;
-	padding-top:2.5px;
+	box-shadow: 0 2px 3px #969696;
 }
 #main-menu li{
 	display:inline;
-	margin:3px 3px 0;
-	height:20px;
-	line-height:20px;
+	margin:0 3px 0;
+	height:18px;
+	line-height:18px;
+	vertical-align: middle;
 }
 #main-menu li.last{
 	margin-right:0;
 }
 #main-menu li a{
 	text-decoration:none;
-	height:20px;
-	line-height:20px;
-	color:#2d2d2e;
-	font-size:15px;
-	vertical-align:center;
+	height:18px;
+	line-height:18px;
+	color:#424143;
+	font-size:120%;
+	vertical-align:middle;
+	 font-weight: normal;
 }
 #header .banner-principal {
 	clear:both;	
 	width: 496px;
 	height:209px;
-	margin-top:3px;
+	margin-top:10px;
 }
 /*END HEADER*/
 
@@ -269,7 +289,7 @@ select {
   
   #main-content ul h2{
 	background:#4d4d4d;
-	border-radius: 10px;
+	border-radius: 5px;
     -moz-border-radius:  10px;
   }
   
@@ -358,9 +378,10 @@ select {
   #left-content .titulo-verde{
   	background: url("../img/trama-verde.png") repeat-x;
   	padding: 2.5px 0;
-  	border-radius:  10px;
-    -moz-border-radius:  10px;
-    -webkit-border-radius:  10px;
+  	
+    -moz-border-radius:  5px;
+    -webkit-border-radius:   5px;
+    border-radius:  5px;
   	color:white;
   	font-weight: normal;
   	margin-bottom:10px;
@@ -369,9 +390,9 @@ select {
   #left-content .titulo-amarillo{
   	background: url("../img/trama-amarillo.png") repeat-x;
 	padding: 2.5px 0;
-  	border-radius:  10px;
-    -moz-border-radius:  10px;
-    -webkit-border-radius:  10px;
+   -moz-border-radius:  5px;
+    -webkit-border-radius:   5px;
+    border-radius:  5px;
   	color:#424143;
   	font-weight: normal;
   	margin-bottom:10px;
@@ -384,10 +405,11 @@ select {
   
   #right-content .titulo-amarillo{
   	background: url("../img/trama-amarillo.png") repeat-x;
-	padding:4px 0;
-  	border-radius: 10px;
-    -moz-border-radius: 10px;
-	 -webkit-border-radius:  10px;
+	padding:2.5px 0;
+  	
+    -moz-border-radius: 5px;
+	 -webkit-border-radius:  5px;
+	 border-radius: 5px;
   	color:#424143;
   	font-weight: normal;
   	text-align: center;
@@ -406,9 +428,11 @@ select {
     text-decoration: none;
     color:#424143;
     font-weight: bold;
-    font-size: 17px;
+    font-size: 18px;
     display:block;
     margin:0.5em auto 0 auto;
+    vertical-align: middle;
+    padding-top:7px;
   }
   
   /** Subastas activas **/
@@ -438,7 +462,7 @@ select {
   
   #right-content ul{
   	float:left;
-	margin-top: 5px;
+	margin-top: 0;
 	text-decoration: none;
 	color:#424143;
   }
@@ -450,9 +474,9 @@ select {
   #right-content ul li{
 	display: block;
 	float:left;
-	width: 200px;
+	width: 175px;
 	text-align: center;
-	margin-bottom: 15px;
+	margin-bottom: 0;
 	margin-top: 15px;
 	border-radius: 15px 15px 15px 15px;
 	background-color:white;
@@ -473,8 +497,8 @@ select {
 
   #right-content ul img {
   	margin-bottom: 15px;
-  	height: 150px;
-  	width: 200px;
+  	width: 145px;
+  	height: 145px;
   }
   
 
@@ -486,9 +510,9 @@ select {
 	margin-top:5px;
 	margin-bottom:5px;
     background: url("../img/trama-verde-footer.png") repeat-x;
-	-webkit-border-radius: 15px;
-	-moz-border-radius: 15px;
-	border-radius: 15px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 	behavior:url("../files/border-radius.htc");
 }
 
@@ -543,12 +567,12 @@ select {
 
 /** Formularios **/
 .forms{
-	padding:20px;
+	padding:0 20px 20px;
 }
 h1.titleForms{
 	font-size:27px;
 	padding-left:38px;
-	padding-top:23px;
+	padding-top:5px;
 }
  h1.titleForms span{
 	color:#ee1a24;
@@ -558,7 +582,7 @@ h1.titleForms{
 .forms form{
 	width:498.233px /*72% es equivalente a este porcentaje*/;
 	margin:0 auto;
-	padding: 20px 0;
+	padding: 0 0 0 20px;
 }
 .forms .input, .forms .submit{
 	display:block;
@@ -569,7 +593,7 @@ h1.titleForms{
 	width:32%;
 	float:left;
 	display:block;
-	font-size:17px;
+	font-size:100%;
 }
 .forms legend{
 	font-size:32px;
@@ -598,22 +622,32 @@ h1.titleForms{
     text-align: center;
     width: 80px;
 }
-.registro{
-	
+.submit input{
+	cursor:pointer;
 }
-.form-container{
+.registro{
 	width:100%;
 	margin: 0 auto;	
-	background-image: url(../img/foto_registro.jpg);
-	background-position: bottom right;
+	background-image: url(../img/foto_registro.jpg);	
+		background-position: bottom right;
 	background-repeat: no-repeat;
-	padding-bottom:55px;
+}
+.recomendar{
+	width:100%;
+	margin: 0 auto;	
+	background-image: url(../img/recomendar-background.png);	
+		background-position: bottom right;
+	background-repeat: no-repeat;
+	padding-bottom:50px;
+}
+.form-container{
+
 }
 .form-container form{
 	
 }
 .form-container fieldset{
-	padding:1em;
+	padding:0 1em 1em;
 	width:287px;
 	padding-left:38px;
 	
@@ -647,6 +681,9 @@ h1.titleForms{
 	padding-right: 5px;
 	display:block;
 	margin-bottom:3px;
+	float:left;
+	width:115px;
+	 margin-top: 6px;
 }
 .form-container .submit input{
 	background: url(../img/enviar.png);
@@ -658,7 +695,7 @@ h1.titleForms{
 }
 
 .form-container .input input{
-	width:100%;
+	width: 160px;
 	background-color: #fff7c9;
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
@@ -669,11 +706,13 @@ h1.titleForms{
 	height:10px;
 }
 .layer label{
-	font-size:10px;
-	display:block;
-	height: 17px;
+    display: inline;
+    float: none;
+    font-size: 10px;
+    height: 17px;
     line-height: 17px;
-	vertical-align: middle;
+    vertical-align: middle;
+    width: 260px;
 }
 /*INTERFAZ DE USUARIO REGISTRADO*/
 .clear{
@@ -885,7 +924,7 @@ h1.titleForms{
 
 
 #right-content  .index  li{
-	margin:0 auto 15px auto;	
+	margin:0 auto 10px auto;	
 	min-height:280px;
 }
 #right-content  ul#user-subastas {
@@ -1012,8 +1051,17 @@ float:right;
 	width:100px;
 	float:right;
 }
-.subastas-activas li{
+#right-content .index li{
 	position:relative;
+	margin-left:5px;
+	margin-right:5px;
+	
+}
+#right-content .index li.last{
+	margin-right:0;
+}
+#right-content .index li.first{
+	margin-left:0;
 }
 .formulario-login-subasta{
 	position:absolute;
@@ -1028,11 +1076,11 @@ float:right;
 	
 }
 #right-content .formulario-login-subasta h1{
-	font-size:25px;
+	font-size:20px;
 	margin-top:5px;
 }
 .formulario-login-subasta form{
-	width:95%;
+	width:65%;
 	margin: 0 auto;
 }
 
@@ -1045,7 +1093,7 @@ float:right;
 	display:block;
 	text-align:left;
 	width:92px;
-	margin-bottom:8px;
+	margin-bottom:0;
 }
 .formulario-login-subasta  label{
 	font-size:11.5px;
@@ -1268,26 +1316,58 @@ table.creditos td{
 	top:50%;
 	background:url(../img/fondo_creditos.png);
 	width:133px;
-	height:69px;
-	padding-top:28px;
+	height:84px;
+	padding-top:10px;
 	margin-top:-48.5px;
-	text-align:right;
-	padding-right:10px;
+	text-align:center;
 	font-size:18px;
+}
+.info-creditos div{
+	margin-bottom:7px;
+	margin-top:3px;
 }
 #creditos{
 	color:#ee1a24;
 	font-size:19px;
 }
 .info-creditos a{
-	font-size:15px;
-	text-decoration:none;
+	font-size:75%;
 	color:#424143;
 	line-height: 25px;
 	vertical-align: bottom;
 	display:block;
+	margin-top:12px;
 }
 .logueado .info-creditos{
 	display:block;
 }
 /**/
+
+.testimonio a{
+	color:#424143;
+	text-decoration:none;
+	font-size:120%;
+	padding:10px 0;
+	display:block;
+}
+.testimonio img{
+	margin: 0 auto;
+	display: block;
+}
+#right-content .pins ul li{
+	   background-color: white;
+	   list-style: decimal;
+    border-radius: 0;
+    box-shadow: none;
+    display: block;
+    float: none;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding: 0 0;
+    text-align: left;
+    width: auto;
+}
+#right-content ul p.nombre{
+	font-size: 20px;
+	margin-top:4px;
+}

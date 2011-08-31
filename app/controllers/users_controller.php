@@ -12,7 +12,7 @@ class UsersController extends AppController {
 		parent::beforeFilter();
 		//$this->Auth->deny("login","abonarCreditosPorRecomendacion","checkEmail","register","checkPassword","rememberPassword","reponerCreditos","creditosUsuario","creditosSuficientes","descontarCreditos");
 	}
-
+	
 	function index() {
 		$user = $this->User->read(null,$this->Auth->user("id"));
 		//debug($user);

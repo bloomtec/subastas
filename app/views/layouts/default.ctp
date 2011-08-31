@@ -44,28 +44,28 @@
 		?>
 		<script type="text/javascript">var server="/";<?php if($session->read("Auth")){ ?>
 			var auth=<?php echo json_encode($session -> read("Auth"));?>;<?php }else{?>var auth=null;<?php }?>
-			Cufon.replace("#main-menu");
-			Cufon.replace("#content",{
-				onAfterReplace:function(){
-				
-				},
+			Cufon.replace("body",{
 				trim:"simple",
 				ignoreClass:"cerrar-formulario"
 			});
+			
 		</script>
 	</head>
-	<body class="<?php if($session->read("Auth")) echo 'logueado'?>">
+	<body class="<?php if($session->read("Auth.User")) echo 'logueado'?>">
 		<div class="info-creditos">
+			<div class="username"> <?php echo $session->read("Auth.User.username")?></div>
 			<span>Creditos: </span>
 			<span id="creditos">
 			<?php echo $this -> requestAction("/users/getCreditos2");?>
 			</span>
-			<?php echo $html->link("Cerrar Session",array("controller"=>"users","action"=>"logout"));?>
+			<?php echo $html->link("Cerrar sesión",array("controller"=>"users","action"=>"logout"));?>
+			<div style="clear:both;"></div>
 		</div>
 		<div id="container">
 			<div id="header">
 				<div class="banner-referido">
-					<?php echo $html->image("llevatelos-es-sguro.png");?>
+					<h1>Lévatelos  <span style="color:#EE1A24; margin-left: 3px;">ES SEGURO</span></h1>
+					<?php echo $html->image("pse.jpg",array("width"=>55));?>
 				</div>
 				<div class="wrapper">
 					<ul id="main-menu" class="corner15">
@@ -81,7 +81,8 @@
 						</li>
 						<li>
 							<?php
-							echo $html -> link("Entregados", array("controller" => "subastas", "action" => "subastasFinalizadas"), array("class" => "other color subastas-finalizadas", ));
+							//echo $html -> link("Entregados", array("controller" => "subastas", "action" => "subastasFinalizadas"), array("class" => "other color subastas-finalizadas", ));
+							echo $html -> link("Creditos", array("controller" => "pages", "action" => "creditos"), array("class" => "other color compra-creditos", ));
 							?>
 						</li>
 	
@@ -108,8 +109,8 @@
 						<div style="clear:both;"></div>
 					</ul>
 					<div class="banner-principal corner">
-						<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="496" height="209" id="como-funciona3" align="middle">
-							<param name="movie" value="/swf/como-funciona3.swf" />
+						<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="496" height="209" id="banner_inicio" align="middle">
+							<param name="movie" value="/swf/banner_inicio3.swf" />
 							<param name="quality" value="high" />
 							<param name="bgcolor" value="#ffffff" />
 							<param name="play" value="true" />
@@ -121,8 +122,8 @@
 							<param name="salign" value="" />
 							<param name="allowScriptAccess" value="sameDomain" />
 							<!--[if !IE]>-->
-							<object type="application/x-shockwave-flash" data="/swf/como-funciona3.swf" width="496" height="209">
-								<param name="movie" value="como-funciona3.swf" />
+							<object type="application/x-shockwave-flash" data="/swf/banner_inicio.swf" width="496" height="209">
+								<param name="movie" value="banner_inicio" />
 								<param name="quality" value="high" />
 								<param name="bgcolor" value="#ffffff" />
 								<param name="play" value="true" />

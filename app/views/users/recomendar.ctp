@@ -2,20 +2,18 @@
 	<?php echo $this -> element("left");?>
 </div>
 <div id="right-content">
-	<div class="corner">
+	<div class="recomendar corner">
 		<h1 class="titulo-amarillo">Recomendar</h1>
 		<h1 class="titleForms">
 		Recomienda y obtén
 		<br />
 		<span>10 créditos </span>
 		</h1>
-		<div class="forms">
+		<div class="form-container">
 
 			<?php echo $this -> Form -> create('User');?>
 			<fieldset>
-				<legend>
-					<?php __('Recomendar');?>
-				</legend>
+
 				<?php
 				$user = $this -> Session -> read('Auth');
 				echo $this -> Form -> input('user_id', array('type' => 'hidden', 'value' => $user['User']['id']));
@@ -25,8 +23,12 @@
 				echo $this -> Form -> input('correo_recomendado_4');
 				echo $this -> Form -> input('correo_recomendado_5');
 				?>
+				<?php echo $this -> Form -> end(__(' ', true));?>
+			<div style="clear:both;"></div>
+			</div>
 			</fieldset>
-			<?php echo $this -> Form -> end(__('Enviar', true));?>
+			<div>
+			
 		</div>
 	</div>
 

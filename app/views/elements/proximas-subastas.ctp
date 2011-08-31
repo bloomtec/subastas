@@ -1,6 +1,9 @@
+<?php $proximasSubastas = $this->requestAction('/subastas/proximasSubastas'); ?>
+<?php $proximasSubastas = $subastas; //QUITAR ESTO******************************?>
 <?php $config=$this->requestAction("/configs/config");?>
-<?php if (!empty($subastas)):?>
- <ul class="subastas-activas index <?php if(!$config["Config"]["congelado"]) echo "activo"?>">
+ <h1 class="titulo-amarillo">Próximas Ofertas </h1>
+<?php if (!empty($proximasSubastas)):?>
+	<ul class="proximas-subastas index">
 	 <?php $i=0;
 	 		$last=1;
 			$first=0;
@@ -46,22 +49,20 @@
 	     <div  rel="<?php echo $subasta["Subasta"]["id"]; ?>">
 	     <?php if(!$config["Config"]["congelado"]):?>
 	     <p class="contador" id="contador<?php echo $subasta["Subasta"]["id"]?>">
-			--:--:--
+			Próximamente
 		 </p>
-	     <p class="pvp">Tiempo Para termnar la oferta</p>
+	
 	     <?php endif;?>
-	     <?php if($config["Config"]["congelado"]):?>
-	     	<p class="pvp">La subasta se reanudara a las 8:00 am</p>
-	     <?php endif;?>
+
 	     <p class="precio" title="pesos colombianos"><?php echo "$ ".number_format($subasta["Subasta"]['precio'], 0, ' ', '.');?><p>
 			<?php $ultimaOferta= $this->requestAction("/subastas/ultimaOferta/".$subasta["Subasta"]["id"]);?>
 		<p class="ultimo-usuario" rel="<?php if($ultimaOferta) echo $ultimaOferta["Oferta"]["id"];?>">
-			<?php if($ultimaOferta) echo "Última oferta ".$ultimaOferta["User"]["username"];?>
+			Ofertante
 		 </p>
 	     <?php 
 	     	
 	     	if(!$config["Config"]["congelado"])
-	     		echo $this->Html->link("¡Oferta YA!",array("controller"=>"subastas","action"=>"ofertar",$subasta["Subasta"]['id']),array('class'=>'boton ofertar','rel'=>$subasta["Subasta"]['id']));
+	     		echo $this->Html->link("En espera",array("controller"=>"subastas","action"=>"ofertar",$subasta["Subasta"]['id']),array('class'=>'boton ofertar','rel'=>$subasta["Subasta"]['id']));
 			else
 				echo $this->Html->link("Pausada","#",array('class'=>'boton pausado'));
 	     ?>
@@ -70,6 +71,6 @@
 	 <?php 
 	 $i++;
 	 endforeach; ?>
- </ul>
+ 	</ul>
  <div style="clear:both"></div>
 <?php endif; ?>

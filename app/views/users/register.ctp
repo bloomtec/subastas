@@ -1,11 +1,5 @@
 <div id="left-content">
-	<?php echo $this -> element("medio-pago");?>
-	<?php echo $this -> element("ultimo-ganador");?>
-	<?php echo $this -> element("proxima-oferta");?>
-	<?php echo $this -> element("seguridad");?>
-	<?php echo $this -> element("social");?>
-	<div style="clear:both">
-	</div>
+	<?php echo $this -> element("left");?>
 </div>
 <div id="right-content">
 	<div class="registro corner">
@@ -46,7 +40,7 @@
 			}
 			echo "<div class='layer'>";
 			echo $form -> checkbox("confirmacion", array("required" => "required"));
-			echo "<label>Acepto los " . $this -> Html -> link("términos y condiciones", array("controller" => "pages", "action" => "view", "terminos-condiciones"))." de llévatelos.com  </label>";
+			echo "<label>Acepto los " . $this -> Html -> link("términos y condiciones", array("controller" => "pages", "action" => "view", "terminos-condiciones"),array("style"=>"margin:0 3px;"))." de llévatelos.com  </label>";
 			echo "</div>";
 			echo $form -> end(" ");
 			echo "</fieldset>";

@@ -30,7 +30,7 @@
 			success: function(registrado) {
 			console.log(registrado);
 				if(registrado){
-					setCookie("mailing",true,90);
+					setCookie("mailing",true,60);
 					$("#register-overlay").overlay().close();
 				}
 			}

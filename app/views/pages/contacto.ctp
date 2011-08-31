@@ -6,15 +6,15 @@
 		<h1 class="titulo-amarillo">Contáctenos</h1>
 		<div class="forms">
 			<div class="texto">
-				<p style="font-size:20px;">
+				<p>
 					En llévatelos.com intentamos solucionar tus
 					interrogantes o inconvenientes de la manera
 					más rápida, eficiente y clara.
-					Si tienes dudas revisa nuestra sección de
-					<span>Preguntas frecuentes.</span>
-					Nuestra razón de ser es ofrecer una novedosa
-					forma de comprar de una manera divertida para
-					los usuarios.
+				</p>
+				<br>
+				<p>	
+					Si tienes dudas revisa nuestra sección de &nbsp;&nbsp;
+					 <?php echo $html->link("Preguntas Frecuentes",array("controller"=>"pages","action"=>"view","faq"),array("style"=>"margin-left:3px;"))?>.
 				</p>
 			</div>
 			<div class="formulario">
