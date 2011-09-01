@@ -4,7 +4,8 @@
 <div id="right-content" class="cambiar-contrasena">
 	<div class="corner">
 		<h1 class="titulo-amarillo">Cambiar Contraseña</h1>
-		<h1 class="titleForms">Por favor ingrese su actual contraseña y su contraseña anterior</h1>
+		<br>
+		<h1 style="margin-left:38px;">Por favor ingrese su  contraseña actual y su nueva contraseña</h1>
 		<div id="crear-usuario" class="forms">
 			<?php echo $this -> Form -> create('User');?>
 			<fieldset>
@@ -15,7 +16,7 @@
 				echo $this -> Form -> input('password2', array('label' => 'Confirmar Contraseña', "div" => "required forma-linea", "required" => "required", "data-equals" => "Contraseñas", "type" => "password", "data-message" => "Por favor verifique este campo"));
 				?>
 			</fieldset>
-			<?php echo $this -> Form -> end(__('Enviar', true));?>
+			<?php echo $this -> Form -> end(__(' ', true));?>
 			<div style="clear:both;">
 			</div>
 			<div class="mensaje">

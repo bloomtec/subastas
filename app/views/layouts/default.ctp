@@ -64,8 +64,9 @@
 		<div id="container">
 			<div id="header">
 				<div class="banner-referido">
-					<h1>Lévatelos  <span style="color:#EE1A24; margin-left: 3px;">ES SEGURO</span></h1>
-					<?php echo $html->image("pse.jpg",array("width"=>55));?>
+					<h1>Pagos seguros en línea</h1>
+					<?php echo $html->link($html->image("pse.jpg"),"www.pse.com.co",array("escape"=>false));?>
+					<?php echo $html->link($html->image("logo-tucompra.png"),"www.tucompra.com.co",array("escape"=>false));?>
 				</div>
 				<div class="wrapper">
 					<ul id="main-menu" class="corner15">
@@ -76,7 +77,7 @@
 						</li>
 						<li>
 							<?php
-							echo $html -> link("¿Cómo Funciona?", array("controller" => "pages", "action" => "view", "como-funciona"), array("class" => "other color como-funciona", ));
+							echo $html -> link("¿Cómo Funciona?", array("controller" => "pages", "action" => "como_funciona"), array("class" => "other color como-funciona", ));
 							?>
 						</li>
 						<li>
@@ -155,6 +156,17 @@
 			<div id="footer">
 				<?php echo $this -> element("footer");?>
 			</div>
+			<div class="social">
+				<?php echo $html->link($html->image("social/icono-twitter.png",array("width"=>40)),"#",array("escape"=>false,"class"=>"social"));?>
+				<?php echo $html->link($html->image("social/facebook.png",array("width"=>40)),"#",array("escape"=>false,"class"=>"social"));?>
+				<?php echo $html->link($html->image("social/youtubelogo.png",array("width"=>40)),"#",array("escape"=>false,"class"=>"social"));?>
+				<div class="derechos">
+					&copy; 2011 llevatelos.com. Todos los derechos reservados - desarrollo web por 
+					<?php echo $html->link($html->image("bloom-black.jpg",array("width"=>40)),"www.bloomtec.com",array("escape"=>false));?>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+			
 		</div>
 		<?php echo $this -> element('register-overlay');?>
 		<?php //echo $this->element('login-overlay');?>

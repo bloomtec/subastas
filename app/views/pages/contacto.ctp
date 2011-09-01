@@ -2,8 +2,8 @@
 	<?php echo $this -> element("left");?>
 </div>
 <div id="right-content">
-	<div class="corner">
-		<h1 class="titulo-amarillo">Contáctenos</h1>
+	<div class="corner contact">
+		<h1 class="titulo-amarillo">Contáctanos</h1>
 		<div class="forms">
 			<div class="texto">
 				<p>
@@ -27,7 +27,7 @@
 				<?php echo $form -> input("comentario", array('type' => 'textarea', "label" => "Comentario (s)"));?>
 				<div style="clear:both;">
 				</div>
-				<?php echo $form -> end(__('Envíar', true), array('div' => false));?>
+				<?php echo $form -> end(__(' ', true), array('div' => false));?>
 			</div>
 			<div style="clear:both;">
 			</div>

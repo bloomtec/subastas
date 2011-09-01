@@ -10,18 +10,22 @@
 	<br />
 </div>
 <script type="text/javascript">
-	/*
+$(function(){
 	var numFotos=4;
 	var fotos=[];
 	var j=0;
-	$( function() {
+
 		$.each($(".slider img"), function(i,val) {
 			fotos[i]=val;
+			$(val).hide();
 		});
 		setInterval( function() {
-			$(".slider img").hide();
-			$(fotos[j]).show();
+			$(".slider img").fadeOut();
+			$(fotos[j]).fadeIn();
 			j++;
-		},1000);
-	})*/
+			if(j==fotos.length) j=0;
+		},2500);
+		
+
+	});
 </script>

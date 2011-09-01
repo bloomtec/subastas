@@ -147,7 +147,7 @@ select {
 
 #header{
 	width:711px;
-	height: 237px;
+	height: 240px;
 	padding-left:240px;
 	background-image:url("../img/Logo.jpg");
 	background-repeat:no-repeat;
@@ -156,17 +156,19 @@ select {
 }
 #header .banner-referido{
 	float:left;
-	width:214px;
+	width:200px;
 	height:50px;
 	background-image:url("../img/slogan.jpg");
 	background-repeat:no-repeat;
 	background-position:center top;	
 	padding-top:190px;
+	padding-left:14px;
 }
 #header .banner-referido h1{
-	float:left;
-	margin-top: 18px;
-	margin-left:-22px;
+	padding-left:15px;
+ }
+ #header .banner-referido a{
+ 	
  }
 #header .wrapper{
 	width:497px;
@@ -188,15 +190,15 @@ a.banner-productos{
 #main-menu{
 	background:#fad814;
 	text-align:center;
-	height:18px;
+	height:22px;
 	margin:0 auto;
 	box-shadow: 0 2px 3px #969696;
 }
 #main-menu li{
 	display:inline;
 	margin:0 3px 0;
-	height:18px;
-	line-height:18px;
+	height:22px;
+	line-height:22px;
 	vertical-align: middle;
 }
 #main-menu li.last{
@@ -204,8 +206,8 @@ a.banner-productos{
 }
 #main-menu li a{
 	text-decoration:none;
-	height:18px;
-	line-height:18px;
+	height:22px;
+	line-height:22px;
 	color:#424143;
 	font-size:120%;
 	vertical-align:middle;
@@ -325,14 +327,6 @@ a.banner-productos{
 	margin-bottom:10px;
   }
   
-  .social{
-  
-  }
-   
-  .social img{
-  	margin-bottom:15px;
-  }
-  
   .seguridad {
     
   }
@@ -405,18 +399,24 @@ a.banner-productos{
   
   #right-content .titulo-amarillo{
   	background: url("../img/trama-amarillo.png") repeat-x;
-	padding:2.5px 0;
-  	
+	padding:5px 0;
+	-webkit-box-shadow:0 2px 3px #969696;
+	-moz-box-shadow:0 2px 3px #969696;
+  	box-shadow:0 2px 3px #969696;
     -moz-border-radius: 5px;
-	 -webkit-border-radius:  5px;
-	 border-radius: 5px;
+	-webkit-border-radius:  5px;
+	border-radius: 5px;
   	color:#424143;
   	font-weight: normal;
   	text-align: center;
   }
   #right-content  .mi-cuenta h2.titulo-amarillo{
-	width:80%;
+	width:90%;
 	margin:0 auto;
+	font-size:120%;
+}	
+textarea{
+	border: 2px inset
 }
   #right-content .boton{
   	background-color: #f8dc38;
@@ -509,42 +509,56 @@ a.banner-productos{
 	color:white;
 	margin-top:5px;
 	margin-bottom:5px;
-    background: url("../img/trama-verde-footer.png") repeat-x;
+  /*  background: url("../img/trama-verde-footer.png") repeat-x;*/
+ 	background:url("../img/trama-verde.png") repeat-x scroll 0 0 transparent;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	behavior:url("../files/border-radius.htc");
+	-moz-box-shadow:0 2px 3px #969696;
+	-webkit-box-shadow:0 2px 3px #969696;
+	box-shadow:0 2px 3px #969696;
 }
 
 #footer_links {
-	float: left;
+	height: 22px;
     padding: 1px;
     width: 100%;
+    text-align: center;
 }
 
 #footer_links ul {
 	font-size: 16px;
 	text-align: center;
-	}
+	height: 22px;
+}
 
 #footer_links li {
-	display:block;
-	float:left;
-	    padding: 0 14.6px;
+	display: inline;
+	padding: 0 6px;
 	background: url("../img/linea-separadora-footer.png") left repeat-y;
-	}
-
+	height: 22px;
+	line-height: 22px;
+	vertical-align:middle;
+}
+#footer_links li.last{
+	padding-right:0;
+}
+#footer_links li.first{
+	padding-left:0;
+}
 #footer_links li:first-child {
 	background:none;
 	}
 
 
 #footer_links ul a {
-	line-height: 15px;
-	 font-size: 15px;
-    height: 13px;
-    line-height: 20px;
-	}	
+	font-size: 15px;
+	height: 13px;
+	height: 22px;
+	line-height: 22px;
+	vertical-align:middle;
+}	
 
 #footer_links ul a:link, #footer_links ul a:active, #footer_links ul a:visited {
 	text-decoration: none;
@@ -580,20 +594,21 @@ h1.titleForms{
 	margin-left:67px;
 }
 .forms form{
-	width:498.233px /*72% es equivalente a este porcentaje*/;
-	margin:0 auto;
-	padding: 0 0 0 20px;
+	width:395px /*72% es equivalente a este porcentaje*/;
+	padding: 10px 0 0 20px;
+	
 }
 .forms .input, .forms .submit{
 	display:block;
 	clear:both;
-	margin: 20px 0;
+	margin: 12px 0;
 }
 .forms label{
 	width:32%;
 	float:left;
 	display:block;
 	font-size:100%;
+	margin-top:5px;
 }
 .forms legend{
 	font-size:32px;
@@ -611,16 +626,15 @@ h1.titleForms{
 
 .forms input[type="submit"] {
 	clear:both;
-    background: url("../img/trama-verde.png") repeat-x scroll 0 0 transparent;
+    background: url("../img/enviar.png") repeat-x scroll 0 0 transparent;
     border: 0 none;
-    border-radius: 15px 15px 15px 15px;
     color: white;
     float: right;
-    height: 21px;
+    height: 40px;
     margin-right: 15px;
     margin-top: 3px;
     text-align: center;
-    width: 80px;
+    width: 116px;
 }
 .submit input{
 	cursor:pointer;
@@ -638,7 +652,7 @@ h1.titleForms{
 	background-image: url(../img/recomendar-background.png);	
 		background-position: bottom right;
 	background-repeat: no-repeat;
-	padding-bottom:50px;
+	padding-bottom:20px;
 }
 .form-container{
 
@@ -665,7 +679,7 @@ h1.titleForms{
 	width: 115px;
 	display:block;
 	height:29px;
-	margin-top: 50px;
+	margin-top: 25px;
 }
 .volver img{
 
@@ -723,6 +737,8 @@ h1.titleForms{
 }
 .datos p{
 	margin-bottom:7px;
+	font-size:120%;
+	margin-left:37px;
 }
 .panel{
 	padding:1em 1em;
@@ -734,12 +750,11 @@ h1.titleForms{
 	border:2px #424143 solid;
 }
 .datos-usuarios .datos{
-	float:left;
-	margin-left: 1em;
+ margin-bottom:15px;
+	
 }
 .datos .info{
 	width:80%;
-	margin:0 auto;
 }
 .datos-usuarios .datos span{
 	font-weight: bold;
@@ -755,16 +770,25 @@ h1.titleForms{
 	margin-top: 2em;
 }
 
+.datos-usuarios .menu{
+	margin:25px auto 0;
+	background:url("../img/trama-verde.png") repeat-x scroll 0 0 transparent;
+	padding:5px 0;
+	width:90%;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	-moz-box-shadow:0 2px 3px #969696;
+	-webkit-box-shadow:0 2px 3px #969696;
+	box-shadow:0 2px 3px #969696;
+	text-align:center;
+}
+
 .datos-usuarios .menu a{
-	/*padding:5px;
-	background:url("../img/trama-amarillo.png") repeat-x scroll 0 0 transparent;
-	border-radius: 10px 10px 10px 10px;
-	text-decoration: none;
-	color:#424143;
-	display:block;*/
-	float:left;
-	/*margin-left:0.5em;
-	margin-top: 1em;*/
+	color:white;
+	text-decoration:none;
+	margin:0 10px;
+	font-size:120%;
 }
 /*OVERLAY*/
 	#register-overlay, #login-overlay{
@@ -925,10 +949,11 @@ h1.titleForms{
 
 #right-content  .index  li{
 	margin:0 auto 10px auto;	
-	min-height:280px;
 }
 #right-content  ul#user-subastas {
-	width:100%;
+	width:90%;
+	margin: 0 auto;
+	float:none;
 }
 #right-content  #user-subastas  li{
 	width:100%;
@@ -936,7 +961,7 @@ h1.titleForms{
 	min-height:280px;
 }
 #right-content .delusuario  #user-subastas   li{
-	margin: 1em auto;
+	margin: 1em   auto;
 }
 .subastas-activas .imagen, .subastas-activas .ofertas, .acciones-ofertas{
 	float:left;
@@ -1244,7 +1269,7 @@ a#resaltar-registro{
 	background-repeat:no-repeat;
 	width:313px;
 	padding-right:386px;
-	height: 475px;
+	height: 430px;
 	padding-top:33px;
 	padding-left:33px;
 	
@@ -1278,7 +1303,7 @@ table.creditos td{
 .pins h2{
 	font-size:17px;
 	color:#66ba4c;
-	margin-top:33px;
+	margin-top:24px;
 }
 .pins .input{
 	margin-top:10px;
@@ -1371,3 +1396,46 @@ table.creditos td{
 	font-size: 20px;
 	margin-top:4px;
 }
+#right-content .productos-entregados .contador, #right-content .productos-entregados .precio{
+	color:#424143;
+}
+#right-content .productos-entregados .boton{
+	background:#D0D3CF;
+	color:#EE1A24;
+}
+.social{
+
+
+}
+.social a.social{
+	float:left;
+	display:block;
+	margin:0 2.5px;
+	width:40px;
+	height:40px;
+}
+.derechos{
+	float:right;
+	margin-top:10px;
+}
+.como-funciona {
+	text-align:center;
+}
+.como-funciona img, .como-funciona object{
+	margin:0 auto;
+}
+.contact .texto{
+	float:left;
+	width:275px;
+	margin-top:20px;
+	font-size:120%;
+}
+.contact .formulario{
+	float:left;
+	
+
+}
+#PageContactoForm{
+	width:385px;
+}
+

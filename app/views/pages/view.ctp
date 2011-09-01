@@ -1,6 +1,6 @@
 <div id="left-content">
-		 <?php echo $this->element("referidos");?>
-	 <?php echo $this->element("seguridad");?>
+		 <?php echo $this->element("left");?>
+
 </div>
 <div id="right-content" class="pages">
 <h1 class="titulo-amarillo"><?php echo $page["Page"]["title"];?></h1>

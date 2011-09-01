@@ -33,7 +33,8 @@
 				echo $this -> Form -> input('UserField.ocupacion', array("label" => "Ocupación"));
 		?>
 			</fieldset>
-			<?php echo $this -> Form -> end(__('guardar', true));?>
+			<?php echo $this -> Form -> end(__(' ', true));?>
+			<div style="clear:both;"></div>
 		</div>
 		
 	</div>

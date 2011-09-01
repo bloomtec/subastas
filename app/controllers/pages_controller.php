@@ -4,10 +4,13 @@ class PagesController extends AppController {
 	var $name = 'Pages';
   function beforeFilter(){
 		parent::beforeFilter();
-		$this->Auth->allow('view');
+		$this->Auth->allow('view','como_funciona');
 	}
 	function inactivity(){
 	
+	}
+	function como_funciona(){
+		
 	}
 	function creditos(){
 		

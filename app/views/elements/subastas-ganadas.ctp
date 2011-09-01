@@ -8,7 +8,7 @@
 	<ul class="subastas-ganadas index" id="subastas-ganadas">
 		<?php $i=0;?>
 		<?php foreach ($subastasG as $subasta): ?>
-		<li >
+		<li style="background:none;">
 
 			<div class="imagen">
 				<?php echo $this->Html->image($subasta['Subasta']['imagen_path'],array("width"=>"200"))?>
