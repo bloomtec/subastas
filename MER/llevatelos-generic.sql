@@ -102,6 +102,7 @@ CREATE  TABLE IF NOT EXISTS `users` (
   `creditos` INT NOT NULL DEFAULT 0 ,
   `bonos` INT NOT NULL DEFAULT 0 ,
   `datos_ingresados` TINYINT(1) NOT NULL DEFAULT 0 ,
+  `email_validado` TINYINT(1) NOT NULL DEFAULT 0 ,
   `created` DATETIME NULL ,
   `updated` DATETIME NULL ,
   PRIMARY KEY (`id`) ,
@@ -395,12 +396,10 @@ CREATE  TABLE IF NOT EXISTS `user_fields` (
   `cedula` INT NULL ,
   `fecha_de_nacimiento` DATE NULL ,
   `sexo` VARCHAR(45) NULL ,
-  `email` VARCHAR(45) NULL ,
   `direccion` VARCHAR(45) NULL ,
   `ciudad` VARCHAR(45) NULL ,
   `telefono_fijo` INT NULL ,
   `ocupacion` VARCHAR(45) NULL ,
-  `lugar_ocupacion` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) ,
   CONSTRAINT `userfileds0`
     FOREIGN KEY (`user_id` )
@@ -472,65 +471,66 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 -- Data for table `tipo_subastas`
 -- -----------------------------------------------------
-SET AUTOCOMMIT=0;
-INSERT INTO tipo_subastas (`id`, `nombre`, `created`, `updated`) VALUES (1, 'Venta Fija', NULL, NULL);
-INSERT INTO tipo_subastas (`id`, `nombre`, `created`, `updated`) VALUES (2, 'Minimo De Creditos', NULL, NULL);
+START TRANSACTION;
+INSERT INTO `tipo_subastas` (`id`, `nombre`, `created`, `updated`) VALUES (1, 'Venta Fija', NULL, NULL);
+INSERT INTO `tipo_subastas` (`id`, `nombre`, `created`, `updated`) VALUES (2, 'Minimo De Creditos', NULL, NULL);
 
 COMMIT;
 
 -- -----------------------------------------------------
 -- Data for table `estados_subastas`
 -- -----------------------------------------------------
-SET AUTOCOMMIT=0;
-INSERT INTO estados_subastas (`id`, `nombre`, `created`, `udpated`) VALUES (1, 'Esperando Activacion', NULL, NULL);
-INSERT INTO estados_subastas (`id`, `nombre`, `created`, `udpated`) VALUES (2, 'Activa', NULL, NULL);
-INSERT INTO estados_subastas (`id`, `nombre`, `created`, `udpated`) VALUES (3, 'Pendiente De Pago', NULL, NULL);
-INSERT INTO estados_subastas (`id`, `nombre`, `created`, `udpated`) VALUES (4, 'Vencida', NULL, NULL);
-INSERT INTO estados_subastas (`id`, `nombre`, `created`, `udpated`) VALUES (5, 'Cancelada', NULL, NULL);
-INSERT INTO estados_subastas (`id`, `nombre`, `created`, `udpated`) VALUES (6, 'Cerrada', NULL, NULL);
-INSERT INTO estados_subastas (`id`, `nombre`, `created`, `udpated`) VALUES (7, 'Vendida', NULL, NULL);
+START TRANSACTION;
+INSERT INTO `estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (1, 'Esperando Activacion', NULL, NULL);
+INSERT INTO `estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (2, 'Activa', NULL, NULL);
+INSERT INTO `estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (3, 'Pendiente De Pago', NULL, NULL);
+INSERT INTO `estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (4, 'Vencida', NULL, NULL);
+INSERT INTO `estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (5, 'Cancelada', NULL, NULL);
+INSERT INTO `estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (6, 'Cerrada', NULL, NULL);
+INSERT INTO `estados_subastas` (`id`, `nombre`, `created`, `udpated`) VALUES (7, 'Vendida', NULL, NULL);
 
 COMMIT;
 
 -- -----------------------------------------------------
 -- Data for table `roles`
 -- -----------------------------------------------------
-SET AUTOCOMMIT=0;
-INSERT INTO roles (`id`, `name`) VALUES (1, 'Administrador');
-INSERT INTO roles (`id`, `name`) VALUES (2, 'Usuario');
+START TRANSACTION;
+INSERT INTO `roles` (`id`, `name`) VALUES (1, 'Administrador');
+INSERT INTO `roles` (`id`, `name`) VALUES (2, 'Usuario');
 
 COMMIT;
 
 -- -----------------------------------------------------
 -- Data for table `users`
 -- -----------------------------------------------------
-SET AUTOCOMMIT=0;
-INSERT INTO users (`id`, `role_id`, `username`, `password`, `email`, `creditos`, `bonos`, `datos_ingresados`, `created`, `updated`) VALUES (1, 1, 'admin', '59071c7c06ccba704236d2e76b5588c8e404160a', 'admin@llevatelos.com', 20000, 500, 0, NULL, NULL);
+START TRANSACTION;
+INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `email`, `creditos`, `bonos`, `datos_ingresados`, `email_validado`, `created`, `updated`) VALUES (1, 1, 'admin', '59071c7c06ccba704236d2e76b5588c8e404160a', 'admin@llevatelos.com', 20000, 500, 0, 1, NULL, NULL);
 
 COMMIT;
 
 -- -----------------------------------------------------
 -- Data for table `estados_ventas`
 -- -----------------------------------------------------
-SET AUTOCOMMIT=0;
-INSERT INTO estados_ventas (`id`, `nombre`, `created`, `updated`) VALUES (1, 'Pendiente De Pago', NULL, NULL);
-INSERT INTO estados_ventas (`id`, `nombre`, `created`, `updated`) VALUES (2, 'Realizada', NULL, NULL);
-INSERT INTO estados_ventas (`id`, `nombre`, `created`, `updated`) VALUES (3, 'No Realizada', NULL, NULL);
+START TRANSACTION;
+INSERT INTO `estados_ventas` (`id`, `nombre`, `created`, `updated`) VALUES (1, 'Pendiente De Pago', NULL, NULL);
+INSERT INTO `estados_ventas` (`id`, `nombre`, `created`, `updated`) VALUES (2, 'Realizada', NULL, NULL);
+INSERT INTO `estados_ventas` (`id`, `nombre`, `created`, `updated`) VALUES (3, 'No Realizada', NULL, NULL);
 
 COMMIT;
 
 -- -----------------------------------------------------
 -- Data for table `configs`
 -- -----------------------------------------------------
-SET AUTOCOMMIT=0;
-INSERT INTO configs (`id`, `tamano_cola`, `creditos_iniciales`, `creditos_recomendados`, `congelado`, `created`, `updated`) VALUES (1, 5, 10, 500, 0, NULL, NULL);
+START TRANSACTION;
+INSERT INTO `configs` (`id`, `tamano_cola`, `creditos_iniciales`, `creditos_recomendados`, `congelado`, `created`, `updated`) VALUES (1, 5, 10, 500, 0, NULL, NULL);
 
 COMMIT;
 
 -- -----------------------------------------------------
 -- Data for table `lista_correos`
 -- -----------------------------------------------------
-SET AUTOCOMMIT=0;
-INSERT INTO lista_correos (`id`, `correo`, `created`, `updated`) VALUES (1, 'ricardopandales@gmail.com', NULL, NULL);
+START TRANSACTION;
+INSERT INTO `lista_correos` (`id`, `correo`, `created`, `updated`) VALUES (1, 'ricardopandales@gmail.com', NULL, NULL);
 
 COMMIT;
+
