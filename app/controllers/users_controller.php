@@ -369,7 +369,7 @@ class UsersController extends AppController {
 											<br />
 											<span class=\"verde\">Contraseña:</span> $user_pass </strong>
 											<br />
-											<span class=\"verde\">Solo falta que valides tu cuenta dando click <a href=\"http://www.llevatelos.com/users/validateEmail/$encrypted_user_id\">¡Registrate aquí!</a> </strong>
+											<span class=\"verde\">Solo falta que valides tu cuenta dando click <a href=\"http://www.llevatelos.com/users/validateEmail/$encrypted_user_id\">aquí.</a> </strong>
 										</p>
 										<p class=\"txt\">
 											<strong>Hasta pronto, y sigue atrapando tus sueños.
@@ -416,7 +416,7 @@ class UsersController extends AppController {
 			$max_id = $this->User->find('first' , array ('fields' => array('MAX(User.id) as user_id')));
 			$usuario = null;
 			for ($base = 1; $max_id >= $base; $max_id--) {
-				if ($encryptedID == crypt($id, "23()23*$%g4F^aN!^^%")) {
+				if ($encryptedID == crypt($max_id, "23()23*$%g4F^aN!^^%")) {
 					// Las ID son iguales, abonar por recomendacion
 					//
 					$usuario = $this->User->read(null, $id);
