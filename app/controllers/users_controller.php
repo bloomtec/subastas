@@ -409,6 +409,7 @@ class UsersController extends AppController {
 	}
 
 	function validateEmail($encryptedID = null) {
+		$this->autoRender = false;
 		if($encryptedID) {
 			// Encontrar el total de usuarios registrados
 			//
@@ -428,11 +429,12 @@ class UsersController extends AppController {
 			}
 			$usuario['User']['email_validado'] = true;
 			if($this->User->save($usuario)) {
-				$this->redirect(array("controller"=>"subastas",'action' => 'index'));
+				$this->Session->setFlash(__('Gracias por validar su cuenta', true));
 			} else {
 				// Hacer algo si error?
 			}
 		}
+		$this->redirect(array("controller"=>"subastas",'action' => 'index'));
 	}
 	
 	function checkPassword(){
