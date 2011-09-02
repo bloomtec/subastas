@@ -266,7 +266,9 @@ class UsersController extends AppController {
 			$this->data['User']['role_id'] = 2; // Is set as a Basic user for default
 			
 			if ($this->User->save($this->data)) {
-				$this->data['UserField']['user_id'] = $this->User->id;
+				$user_id = $this->User->id;
+				$encrypted_user_id = crypt($user_id, "23()23*$%g4F^aN!^^%");
+				$this->data['UserField']['user_id'] = $user_id; 
 				$this->User->UserField->save($this->data["UserField"]);
 				if (isset($this->data['User']['referido_por'])) {
 					$this->__abonarCreditosPorRecomendacion($this->data['User']['referido_por'], $this->data['User']['email']);
@@ -366,6 +368,8 @@ class UsersController extends AppController {
 											<span class=\"verde\">Usuario:</span> $username
 											<br />
 											<span class=\"verde\">Contraseña:</span> $user_pass </strong>
+											<br />
+											<span class=\"verde\">Solo falta que valides tu cuenta dando click <a href=\"http://www.llevatelos.com/users/validateEmail/$encrypted_user_id\">¡Registrate aquí!</a> </strong>
 										</p>
 										<p class=\"txt\">
 											<strong>Hasta pronto, y sigue atrapando tus sueños.
@@ -400,6 +404,33 @@ class UsersController extends AppController {
 		} else {
 			if(!empty($this->params['pass'][0])){
 				$this->set('email_referente', $this->__obtenerCorreoReferente($this->params['pass'][0]));
+			}
+		}
+	}
+
+	function validateEmail($encryptedID = null) {
+		if($encryptedID) {
+			// Encontrar el total de usuarios registrados
+			//
+			//$totalUsuarios = $this->User->find('first', array('conditions' => array()));
+			$max_id = $this->User->find('first' , array ('fields' => array('MAX(User.id) as user_id')));
+			$usuario = null;
+			for ($base = 1; $max_id >= $base; $max_id--) {
+				if ($encryptedID == crypt($id, "23()23*$%g4F^aN!^^%")) {
+					// Las ID son iguales, abonar por recomendacion
+					//
+					$usuario = $this->User->read(null, $id);
+					break;
+				} else {
+					// Seguir buscando
+					//
+				}
+			}
+			$usuario['User']['email_validado'] = true;
+			if($this->User->save($usuario)) {
+				$this->redirect(array("controller"=>"subastas",'action' => 'index'));
+			} else {
+				// Hacer algo si error?
 			}
 		}
 	}

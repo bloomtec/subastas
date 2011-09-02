@@ -12,7 +12,7 @@ class AppController extends Controller {
 	var $uses = array("Config");
 	var $cacheAction = true;
 
-	function beforeFilter(){
+	function beforeFilter() {
 		$this->Auth->allow("*");
 		$this->Auth->loginRedirect = array('controller'=>'users', 'action'=>'index');
 		$this->Auth->logoutRedirect = array('controller'=>'subastas', 'action' => 'index', "admin" => false);
