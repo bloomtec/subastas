@@ -416,10 +416,10 @@ class UsersController extends AppController {
 			$max_id = $this->User->find('first' , array ('fields' => array('MAX(User.id) as user_id')));
 			$usuario = null;
 			for ($base = 1; $max_id >= $base; $max_id--) {
-				if ($encryptedID == crypt($max_id, "23()23*$%g4F^aN!^^%")) {
+				if ($max_id == crypt($encryptedID, "23()23*$%g4F^aN!^^%")) {
 					// Las ID son iguales, abonar por recomendacion
 					//
-					$usuario = $this->User->read(null, $id);
+					$usuario = $this->User->read(null, $max_id);
 					break;
 				} else {
 					// Seguir buscando
