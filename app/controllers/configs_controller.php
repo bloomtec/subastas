@@ -153,5 +153,10 @@ class ConfigsController extends AppController {
 		return $config['Config']['creditos_recomendados'];
 	}
 	
+	function creditosIniciales() {
+		$config = $this->Config->read(null, 1);
+		return $config['Config']['creditos_iniciales'];
+	}
+	
 }
 ?>
