@@ -13,7 +13,6 @@
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Imagen'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<!-- <?php echo $subasta['Subasta']['imagen_path']; ?> -->
 			<?php echo $html->image($subasta['Subasta']['imagen_path'],array("width"=>"200")); ?>
 			&nbsp;
 		</dd>
@@ -70,7 +69,6 @@
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Estado'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<!-- <?php echo $this->Html->link($subasta['EstadosSubasta']['nombre'], array('controller' => 'estados_subastas', 'action' => 'view', $subasta['EstadosSubasta']['id'])); ?> -->
 			<?php echo $subasta['EstadosSubasta']['nombre']; ?>
 			&nbsp;
 		</dd>
