@@ -106,11 +106,14 @@
 	<dl>	<?php $i = 0; $class = ' class="altrow"';?>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Usuario');?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-	<?php echo $subasta['Venta']['user_id'];?>
+	<?php
+		//echo $subasta['Venta']['user_id'];
+		$usuario = $this->requestAction('/users/getUsuario/' . $subasta['Venta']['user_id']);
+		echo $usuario['User']['username'] . ' (' . $usuario['User']['email'] . ')';
+	?>
 &nbsp;</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Estado');?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-	<!-- <?php echo $subasta['Venta']['estados_venta_id'];?> -->
 	<?php echo $subasta['EstadosSubasta']['nombre'];?>
 &nbsp;</dd>
 		</dl>
