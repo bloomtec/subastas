@@ -108,17 +108,15 @@
 	<?php
 		$i = 0;
 		foreach ($subasta['Oferta'] as $oferta):
+			debug($oferta);
 			$class = null;
 			if ($i++ % 2 == 0) {
 				$class = ' class="altrow"';
 			}
-		?>
+	?>
 		<tr<?php echo $class;?>>
-			<!-- <td><?php echo $oferta['id'];?></td> -->
 			<td><?php echo $oferta['user_id'];?></td>
-			<!-- <td><?php echo $oferta['creditos_descontados'];?></td> -->
 			<td><?php echo $oferta['created'];?></td>
-			<!-- <td><?php echo $oferta['updated'];?></td> -->
 		</tr>
 	<?php endforeach; ?>
 	</table>
@@ -127,7 +125,10 @@
 
 <div class="related">
 		<h3><?php __('Venta');?></h3>
-		<?php if (!empty($subasta['Venta'])):?>
+		<?php
+			if (!empty($subasta['Venta'])):
+				debug($subasta);
+		?>
 	<dl>	<?php $i = 0; $class = ' class="altrow"';?>
 			<!-- <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Id');?></dt> -->
 		<!-- <dd<?php if ($i++ % 2 == 0) echo $class;?>> -->
@@ -154,5 +155,5 @@
 	<!-- <?php echo $subasta['Venta']['updated'];?> -->
 <!-- &nbsp;</dd> -->
 		</dl>
-	<?php debug($subasta['Venta']); endif; ?>
+	<?php endif; ?>
 </div>
