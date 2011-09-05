@@ -154,5 +154,5 @@
 	<!-- <?php echo $subasta['Venta']['updated'];?> -->
 <!-- &nbsp;</dd> -->
 		</dl>
-	<?php endif; ?>
+	<?php debug($subasta['Venta']); endif; ?>
 </div>
