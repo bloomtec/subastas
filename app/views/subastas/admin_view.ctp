@@ -76,21 +76,29 @@
 	<?php if (!empty($subasta['Oferta'])):?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
-		<th><?php __('User Id'); ?></th>
-		<th><?php __('Created'); ?></th>
+		<th><?php __('Usuario'); ?></th>
+		<th><?php __('Fecha De La Oferta'); ?></th>
 	</tr>
 	<?php
 		$i = 0;
 		foreach ($subasta['Oferta'] as $oferta):
-			debug($oferta);
+			$usuario = $this->requestAction('/users/getUsuario/' . $oferta['user_id']);
 			$class = null;
 			if ($i++ % 2 == 0) {
 				$class = ' class="altrow"';
 			}
 	?>
 		<tr<?php echo $class;?>>
-			<td><?php echo $oferta['user_id'];?></td>
-			<td><?php echo $oferta['created'];?></td>
+			<td>
+			<?php
+				echo $usuario['User']['username'] . ' (' . $usuario['User']['email'] . ')';
+			?>
+			</td>
+			<td>
+			<?php
+				echo $oferta['created'];
+			?>
+			</td>
 		</tr>
 	<?php endforeach; ?>
 	</table>
@@ -101,13 +109,11 @@
 		<h3><?php __('Venta');?></h3>
 		<?php
 			if (!empty($subasta['Venta'])):
-				debug($subasta);
 		?>
 	<dl>	<?php $i = 0; $class = ' class="altrow"';?>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Usuario');?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 	<?php
-		//echo $subasta['Venta']['user_id'];
 		$usuario = $this->requestAction('/users/getUsuario/' . $subasta['Venta']['user_id']);
 		echo $usuario['User']['username'] . ' (' . $usuario['User']['email'] . ')';
 	?>
