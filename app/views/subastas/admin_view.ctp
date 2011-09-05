@@ -111,7 +111,7 @@
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Estado');?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 	<!-- <?php echo $subasta['Venta']['estados_venta_id'];?> -->
-	<?php echo $subasta['Subasta']['EstadosSubasta']['nombre'];?>
+	<?php echo $subasta['EstadosSubasta']['nombre'];?>
 &nbsp;</dd>
 		</dl>
 	<?php endif; ?>
