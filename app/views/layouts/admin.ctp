@@ -51,8 +51,9 @@
 	<div id="container">
 		<div id="header">
 			<div class="logo">
-				<?php echo $this->Html->link(
-					$this->Html->image('logo.png', array('alt'=> __('CMS: llevatelo.com', true), 'border' => '0',"height"=>100)),
+			<?php 
+				echo $this->Html->link(
+					$this->Html->image('Logo.jpg', array('alt'=> __('CMS: llevatelo.com', true), 'border' => '0',"height"=>100)),
 					array("controller"=>"subastas","action"=>"index"),
 					array( 'escape' => false)
 				);

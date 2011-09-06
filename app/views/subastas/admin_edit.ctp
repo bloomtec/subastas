@@ -21,6 +21,7 @@
 		echo $this->Form->input('valor',array("label"=>"Valor (Valor comercial de la subasta)"));
 		echo $this->Form->input('umbral_minimo_creditos',array("label"=>"Cantidad mínima de creditos para subastar"));
 		echo $this->Form->input('cantidad_creditos_puja',array("label"=>"Cantidad creditos por puja (se le descontarán al usuario si puja en esta subasta)"));
+		echo $this->Form->input('iva', array("label"=>"% De I.V.A. (Por ejemplo: 16)"));
 		echo $this->Form->input('precio',array("label"=>"Precio (El precio inicial de la subasta)"));
 		echo $this->Form->input('aumento_precio',array("label"=>"Valor aumento de precio (Valor que se le aumentará al precio cada vez que se haga una subasta)"));
 		echo $this->Form->input('dias_espera',array("label"=>"Días de espera (Días que se esperará el usuario para que pague la subasta)"));
