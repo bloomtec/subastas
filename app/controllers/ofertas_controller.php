@@ -45,6 +45,43 @@ class OfertasController extends AppController {
 		return $this->Oferta->find("count", array("conditions"=>array("subasta_id"=>$subastaID)));
 	}
 	
+	function getOfertasUsuarioSubasta($user_id, $subasta_id) {
+		$this->autoRender = false;
+		if($user_id && $subasta_id) {
+			return $this->Oferta->find('all', array('conditions' => array('user_id' => $user_id, 'subasta_id' => $subasta_id)));			
+		} else {
+			return array();
+		}
+	}
+	
+	function getTotalBonosUsuarioSubasta($user_id, $subasta_id) {
+		$this->autoRender = false;
+		if($user_id && $subasta_id) {
+			$ofertasUsuarioSubasta = $this->Oferta->find('all', array('conditions' => array('user_id' => $user_id, 'subasta_id' => $subasta_id)));
+			$totalBonos = 0;
+			foreach ($ofertasUsuarioSubasta as $key => $value) {
+				$totalBonos += $value['Oferta']['bonos_descontados'];
+			}
+			return $totalBonos;	
+		} else {
+			return 0;
+		}
+	}
+	
+	function getTotalCreditosUsuarioSubasta($user_id, $subasta_id) {
+		$this->autoRender = false;
+		if($user_id && $subasta_id) {
+			$ofertasUsuarioSubasta = $this->Oferta->find('all', array('conditions' => array('user_id' => $user_id, 'subasta_id' => $subasta_id)));
+			$totalCreditos = 0;
+			foreach ($ofertasUsuarioSubasta as $key => $value) {
+				$totalCreditos += $value['Oferta']['creditos_descontados'];
+			}
+			return $totalCreditos;	
+		} else {
+			return 0;
+		}
+	}
+	
 	function index() {
 		$this->Oferta->recursive = 0;
 		$this->set('ofertas', $this->paginate());

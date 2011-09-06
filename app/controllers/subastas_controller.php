@@ -19,6 +19,7 @@ class SubastasController extends AppController {
 		$oferta=$this->Subasta->Oferta->find("first",array("conditions"=>array("Oferta.subasta_id"=>$subastaID),"order"=>array("Oferta.id DESC")));
 		return $oferta;
 	}
+	
 	function admin_monitorear(){
 	$this->Subasta->recursive = 0;
 		$config=$this->Config->read(null,1);
