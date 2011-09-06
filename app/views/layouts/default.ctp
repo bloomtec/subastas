@@ -65,8 +65,8 @@
 			<div id="header">
 				<div class="banner-referido">
 					<h1>Pagos seguros en línea</h1>
-					<?php echo $html->link($html->image("pse.jpg"),"www.pse.com.co",array("escape"=>false));?>
-					<?php echo $html->link($html->image("logo-tucompra.png"),"www.tucompra.com.co",array("escape"=>false));?>
+					<?php echo $html->link($html->image("pse.jpg"),"http://www.pse.com.co",array("escape"=>false));?>
+					<?php echo $html->link($html->image("logo-tucompra.png"),"http://www.tucompra.com.co",array("escape"=>false));?>
 				</div>
 				<div class="wrapper">
 					<ul id="main-menu" class="corner15">
@@ -162,7 +162,7 @@
 				<?php echo $html->link($html->image("social/youtubelogo.png",array("width"=>40)),"#",array("escape"=>false,"class"=>"social"));?>
 				<div class="derechos">
 					&copy; 2011 llevatelos.com. Todos los derechos reservados - desarrollo web por 
-					<?php echo $html->link($html->image("bloom-black.jpg",array("width"=>40)),"www.bloomtec.com",array("escape"=>false));?>
+					<?php echo $html->link($html->image("bloom-black.jpg",array("width"=>40)),"http://www.bloomweb.co",array("escape"=>false));?>
 				</div>
 				<div style="clear:both;"></div>
 			</div>
