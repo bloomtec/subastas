@@ -734,3 +734,45 @@ li.sfHover > a > .sf-sub-indicator {
 .pages .float div{
   /*clear:none;*/
 }
+div.form2{/*Form whith image*/
+	float:left;
+	width:60%;
+}
+div.images{
+	float:right;
+	width:35%;
+	min-width:335px;
+	min-height:335px;
+}
+.form2 .select{
+	float:left;
+}
+.form2 .text{
+	float:left;
+	clear:none;
+}
+.form2 label{
+	font-size:100%;
+}
+.form2 textarea{
+	height:3em;
+}
+.form2 .input{
+	margin-bottom:0.3em;
+}
+div.images .preview{
+	min-width:335px;
+	min-height:335px;
+}
+div.images .preview .wrapper img{
+	max-width:100%;
+}
+.smalls .input{
+	float:left;
+	width:180px;
+	clear:none;
+	
+}
+.smalls .input label{
+	font-size:70%;
+}
