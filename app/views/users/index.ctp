@@ -1,3 +1,4 @@
+<?php echo $this -> Html -> script("subastas.js"); ?>
 <div id="left-content">
 	<?php echo $this->element("left");?>
 	

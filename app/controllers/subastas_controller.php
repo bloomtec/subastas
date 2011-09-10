@@ -199,7 +199,6 @@ class SubastasController extends AppController {
 	
 	function ganadas(){
 		$userID = $this->Auth->user("id");
-		debug($this->Auth->user("id"));
 		$this->set('user_id', $userID);
 		$query =
 			"SELECT *
@@ -207,7 +206,7 @@ class SubastasController extends AppController {
 			WHERE Subasta.id IN (
 				SELECT subasta_id
 				FROM ventas
-				WHERE estados_venta_id = 1
+				WHERE estados_venta_id = 2
 				AND user_id = $userID
 			)";
 		$subastas = $this->Subasta->query($query);
@@ -688,6 +687,9 @@ class SubastasController extends AppController {
 	}
 	
 	function __vendida($id = null) {
+		$venta=$this->Subasta->Venta->find('first',array("conditions"=>array("subasta_id"=>$id)));
+		$venta["Venta"]["estados_venta_id"]=2;
+		$this->Subasta->Venta->save($venta);
 		return true;
 	}
 

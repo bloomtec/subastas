@@ -11,6 +11,7 @@ class UsersController extends AppController {
 	function beforeFilter(){
 		parent::beforeFilter();
 		//$this->Auth->deny("login","abonarCreditosPorRecomendacion","checkEmail","register","checkPassword","rememberPassword","reponerCreditos","creditosUsuario","creditosSuficientes","descontarCreditos");
+	//	$this->Auth->allow("index","confirm",'login');
 	}
 	
 	function index() {
@@ -167,12 +168,12 @@ class UsersController extends AppController {
 		if(!empty($this->params['requested'])){
 			return $user["User"]["creditos"];
 		}
-		if($this->RequestHandler->isAjax()){
+		/*if($this->RequestHandler->isAjax()){
 			echo $user["User"]["creditos"];
 			Configure::write("debug",0);
 			$this->autoRender=false;
 			exit(0);
-		}
+		}*/
 	}
 	function getCreditos2(){// SE UTILIZA EN EL HOME PARA MOSTRAR LOS CREDITOS DEL USUARIO
 		$this->User->recursive=-1;
@@ -180,12 +181,12 @@ class UsersController extends AppController {
 		if(!empty($this->params['requested'])){
 			return $user["User"]["creditos"]+$user["User"]["bonos"];
 		}
-		if($this->RequestHandler->isAjax()){
+		/*if($this->RequestHandler->isAjax()){
 			echo $user["User"]["creditos"];
 			Configure::write("debug",0);
 			$this->autoRender=false;
 			exit(0);
-		}
+		}*/
 	}
 
 	function getBonos(){
@@ -257,6 +258,9 @@ class UsersController extends AppController {
 		$this->autorender=false;
 		exit(0);
 	}
+	function confirmRegister(){
+		
+	}
 	
 	function register(){
 		if (!empty($this->data)) {
@@ -286,6 +290,7 @@ class UsersController extends AppController {
 				
 				// Arreglo para añadir un usuario a Mad Mimi
 				//
+				
 				$userMimi = array(
 					'email' => $this->data['User']['email'],
 					'firstName' => $this->data['User']['username'],
@@ -295,9 +300,10 @@ class UsersController extends AppController {
 				// Añadir el usuario a Mad Mimi
 				//
 				$mailer->AddUser($userMimi);
+				$mailer->RemoveMembership("mailing",$this->data['User']['email']);
 				
 				$this->Session->setFlash(__('Su registro ha sido exitoso', true));
-				$this->Auth->login($this->data);
+				//$this->Auth->login($this->data);
 				$this->Cookie->write("registrado", true);
 				
 				// Opciones de configuracion para enviar un correo via Mad Mimi
@@ -395,7 +401,7 @@ class UsersController extends AppController {
 				if($this->referer()=="/") {
 					$this->redirect(array("controller"=>"subastas",'action' => 'index'));
 				} else {
-					$this->redirect(array("controller"=>"users",'action' => 'recomendar'));
+					$this->redirect(array("controller"=>"users",'action' => 'confirmRegister'));
 				}
 				
 			} else {
@@ -553,7 +559,7 @@ class UsersController extends AppController {
 
 	//LOGIN USER
 	function login(){
-				
+			
 		if (!empty($this->data) && !empty($this->Auth->data['User']['username'])) {
 
 			$user =
@@ -567,6 +573,7 @@ class UsersController extends AppController {
 						'recursive' => -1
 					)
 				);
+			
 		
 			if (!$user) {
 				$user =
@@ -583,7 +590,9 @@ class UsersController extends AppController {
 			}
 			
 			if (!empty($user) && $this->Auth->login($user)) {
-
+				if(!$user["User"]["email_validado"]){// SI NO HA VERIFICADO EL MAIL NO LO DEJA LOGUEAR
+					$this->redirect(array('action' => 'confirmar'));
+				}
 				$userId = $this->Auth->user('id');
 				$this->set("login", true);
 
@@ -612,7 +621,7 @@ class UsersController extends AppController {
 		$userMimi = array(
 			'email' => $_POST["email"],
 			'firstName' =>$_POST["name"],
-			'add_list' => 'cuentas-creadas'
+			'add_list' => 'mailing'
 		);
 		$mailer->AddUser($userMimi);
 		echo true;
@@ -653,10 +662,13 @@ class UsersController extends AppController {
 			}
 			
 			if (!empty($user) && $this->Auth->login($user)) {
-
+				if(!$user["User"]["email_validado"]){// SI NO HA VERIFICADO EL MAIL NO LO DEJA LOGUEAR
+					echo false
+				}else{
 				$userId = $this->Auth->user('id');
 				$this->set("login", true);
 					echo true;
+				}
 	
 
 			} else {

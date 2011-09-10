@@ -2,6 +2,11 @@
 class TestimoniosController extends AppController {
 
 	var $name = 'Testimonios';
+	function beforeFilter(){
+		parent::beforeFilter();
+		$this->Auth->allow("random");
+	}
+	
 
 	private function añadirTestimonio() {
 		if (!empty($this->data)) {

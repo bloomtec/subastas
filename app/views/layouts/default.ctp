@@ -37,7 +37,6 @@
 		echo $this -> Html -> script("http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js");
 
 		echo $this -> Html -> script("front.js");
-		echo $this -> Html -> script("subastas.js");
 		echo $this -> Html -> script("cufon-yui.js");
 		echo $this -> Html -> script("Helvetica_Neue_LT_Std_400.font.js");
 		echo $scripts_for_layout;
