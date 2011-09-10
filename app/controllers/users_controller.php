@@ -665,7 +665,7 @@ class UsersController extends AppController {
 			
 			if (!empty($user) && $this->Auth->login($user)) {
 				if(!$user["User"]["email_validado"]){// SI NO HA VERIFICADO EL MAIL NO LO DEJA LOGUEAR
-					echo false
+					echo false;
 				}else{
 				$userId = $this->Auth->user('id');
 				$this->set("login", true);
