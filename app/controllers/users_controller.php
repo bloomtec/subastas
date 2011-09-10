@@ -268,7 +268,7 @@ class UsersController extends AppController {
 			$this->User->recursive = 0;
 			$this->User->create();
 			$this->data['User']['role_id'] = 2; // Is set as a Basic user for default
-			$this->data['User']['creditos'] = $this->requestAction('/configs/creditosIniciales');
+			$this->data['User']['bonos'] = $this->requestAction('/configs/creditosIniciales');
 			if ($this->User->save($this->data)) {
 				$user_id = $this->User->id;
 				$encrypted_user_id = crypt($user_id, "23()23*$%g4F^aN!^^%");
