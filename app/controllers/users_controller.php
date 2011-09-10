@@ -300,7 +300,7 @@ class UsersController extends AppController {
 				// Añadir el usuario a Mad Mimi
 				//
 				$mailer->AddUser($userMimi);
-				$mailer->RemoveMembership("mailing",$this->data['User']['email']);
+				
 				
 				$this->Session->setFlash(__('Su registro ha sido exitoso', true));
 				//$this->Auth->login($this->data);
@@ -397,6 +397,7 @@ class UsersController extends AppController {
 				// Enviar el mensaje via Mad Mimi
 				//				
 				$result = $mailer->SendHTML($options, $html_body);
+				$mailer->RemoveMembership("mailing",$this->data['User']['email']);
 				
 				if($this->referer()=="/") {
 					$this->redirect(array("controller"=>"subastas",'action' => 'index'));
@@ -593,7 +594,7 @@ class UsersController extends AppController {
 			
 			if (!empty($user) && $this->Auth->login($user)) {
 				if(!$user["User"]["email_validado"]){// SI NO HA VERIFICADO EL MAIL NO LO DEJA LOGUEAR
-					$this->redirect(array('action' => 'confirmar'));
+					$this->redirect(array('action' => 'confirmRegister'));
 				}
 				$userId = $this->Auth->user('id');
 				$this->set("login", true);
