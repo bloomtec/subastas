@@ -9,15 +9,53 @@ class AppController extends Controller {
 		"Email",
 		"Cookie",
 	);
-	var $uses = array("Config");
+	var $uses = array("Config","User");
 	var $cacheAction = true;
 
 	function beforeFilter() {
+		 if ($this->action == 'login' && !empty($this->data['User']['username'])) {
+		      $user =
+				$this->User->find(
+					'first',
+					array(
+						'conditions' => array(
+											'username' => $this->data['User']['username'],
+											'password' => $this->Auth->password($this->data['User']['password'])
+										),
+						'recursive' => -1
+					)
+				);
+			
+		
+			if (!$user) {
+				$user =
+					$this->User->find(
+						'first',
+						array(
+							'conditions' => array(
+												'email' => $this->data['User']['username'],
+												'password' => $this->Auth->password($this->data['User']['password'])
+											),
+							'recursive' => -1
+						)
+					);
+			}
+			
+				
+			if($user){
+				if(!$user["User"]["email_validado"]){// SI NO HA VERIFICADO EL MAIL NO LO DEJA LOGUEAR
+				
+					$this->redirect(array('action' => 'confirmRegister'));
+				}   
+			}
+			    
+		}
 		$this->Auth->allow("*");
 		$this->Auth->loginRedirect = array('controller'=>'users', 'action'=>'index');
 		$this->Auth->logoutRedirect = array('controller'=>'subastas', 'action' => 'index', "admin" => false);
 		$this->Auth->loginError = "Usuario o contraseña no válidos";
 		$this->Auth->authError = "No tiene permiso para ingresar a esta sección.";
+		 $this->Auth->userScope = array('User.email_validado' => true);
 		if(isset($this->params["prefix"]) && $this->params["prefix"]=="admin"){
 			$this->layout="admin";
 			$this->Auth->deny($this->action);

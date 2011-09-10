@@ -269,15 +269,15 @@ class UsersController extends AppController {
 			$this->User->create();
 			$this->data['User']['role_id'] = 2; // Is set as a Basic user for default
 			$this->data['User']['creditos'] = $this->requestAction('/configs/creditosIniciales');
-			
 			if ($this->User->save($this->data)) {
 				$user_id = $this->User->id;
 				$encrypted_user_id = crypt($user_id, "23()23*$%g4F^aN!^^%");
 				$this->data['UserField']['user_id'] = $user_id; 
 				$this->User->UserField->save($this->data["UserField"]);
-				if (isset($this->data['User']['referido_por'])) {
-					$this->__abonarCreditosPorRecomendacion($this->data['User']['referido_por'], $this->data['User']['email']);
-				}
+				
+			/*	if (isset($this->data['User']['referido_por'])) {
+					$this->__abonarCreditosPorRecomendacion($this->data['User']['referido_por'],$this->data['User']['email'] );
+				}*/
 				
 				// Importar clases de Mad Mimi
 				//
@@ -437,6 +437,7 @@ class UsersController extends AppController {
 			}
 			$usuario['User']['email_validado'] = true;
 			if($this->User->save($usuario)) {
+				$this->__abonarCreditosPorRecomendacion($usuario['User']['referido_por'],$usuario['User']['email'] );
 				$this->Session->setFlash(__('Gracias por validar su cuenta', true));
 				$this->Auth->login($usuario);
 				$this->redirect(array("controller"=>"users",'action' => 'recomendar'));
@@ -593,9 +594,6 @@ class UsersController extends AppController {
 			}
 			
 			if (!empty($user) && $this->Auth->login($user)) {
-				if(!$user["User"]["email_validado"]){// SI NO HA VERIFICADO EL MAIL NO LO DEJA LOGUEAR
-					$this->redirect(array('action' => 'confirmRegister'));
-				}
 				$userId = $this->Auth->user('id');
 				$this->set("login", true);
 
