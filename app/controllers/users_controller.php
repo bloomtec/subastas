@@ -437,6 +437,8 @@ class UsersController extends AppController {
 			$usuario['User']['email_validado'] = true;
 			if($this->User->save($usuario)) {
 				$this->Session->setFlash(__('Gracias por validar su cuenta', true));
+				$this->Auth->login($usuario);
+				$this->redirect(array("controller"=>"users",'action' => 'recomendar'));
 			} else {
 				// Hacer algo si error?
 			}
