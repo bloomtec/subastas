@@ -16,13 +16,38 @@
 
 				<?php
 				$user = $this -> Session -> read('Auth');
-				echo $this -> Form -> input('user_id', array('type' => 'hidden', 'value' => $user['User']['id']));
-				echo $this -> Form -> input('correo_recomendado_1');
-				echo $this -> Form -> input('correo_recomendado_2');
-				echo $this -> Form -> input('correo_recomendado_3');
-				echo $this -> Form -> input('correo_recomendado_4');
-				echo $this -> Form -> input('correo_recomendado_5');
 				?>
+				<div class="input text">
+					<label for="UserCorreoRecomendado1">
+						Correo Recomendado 1
+					</label>
+					<input name="data[User][correo_recomendado_1]" type="text" id="UserCorreoRecomendado1">
+				</div>
+				<div class="input text">
+					<label for="UserCorreoRecomendado2">
+						Correo Recomendado 2
+					</label>
+					<input name="data[User][correo_recomendado_2]" type="text" id="UserCorreoRecomendado2">
+				</div>
+				<div class="input text">
+					<label for="UserCorreoRecomendado3">
+						Correo Recomendado 3
+					</label>
+					<input name="data[User][correo_recomendado_3]" type="text" id="UserCorreoRecomendado3">
+				</div>
+				<div class="input text">
+					<label for="UserCorreoRecomendado4">
+						Correo Recomendado 4
+					</label>
+					<input name="data[User][correo_recomendado_4]" type="text" id="UserCorreoRecomendado4">
+				</div>
+				<div class="input text">
+					<label for="UserCorreoRecomendado5">
+						Correo Recomendado 5
+					</label>
+					<input name="data[User][correo_recomendado_5]" type="text" id="UserCorreoRecomendado5">
+				</div>
+
 				<?php echo $this -> Form -> end(__(' ', true));?>
 			<div style="clear:both;"></div>
 			</div>
