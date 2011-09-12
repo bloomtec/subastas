@@ -1,4 +1,9 @@
-<div>
+<div id="left-content">
+	<?php echo $this -> element("left");?>
+</div>
+<div id="right-content">
+	<div class="corner">
+		<h1 class="titulo-amarillo">Testimonios</h1>
 	<h2><?php __('Testimonios');?></h2>
 	<table cellpadding="0" cellspacing="0">
 		<tr>
@@ -38,4 +43,5 @@
  |
 		<?php echo $this->Paginator->next(__('next', true) . ' >>', array(), null, array('class' => 'disabled'));?>
 	</div>
+</div>
 </div>

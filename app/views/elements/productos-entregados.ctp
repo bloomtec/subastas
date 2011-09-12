@@ -1,5 +1,5 @@
 <?php $config=$this->requestAction("/configs/config");?>
-<?php //$subastas=$this->requestAction("/subastas/entregados");?>
+<?php $subastas=$this->requestAction("/subastas/entregados");?>
 
 <h1 class="titulo-amarillo" style="color:white; background:url(../img/trama-verde.png) repeat-x scroll 0 0 transparent">Productos Entregados</h1>
 <?php if (!empty($subastas)):?>
