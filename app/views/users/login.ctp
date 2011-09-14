@@ -30,5 +30,5 @@
 		<?php echo $session->flash(); ?>
 	</div>
 	</div>
-	<?php echo $html -> link($html -> image("volver_inicio.png"), "/", array("escape" => false, "class" => "volver"));?>
+	<?php echo $html -> link($html -> image("volver_al_inicio.png"), "/", array("escape" => false, "class" => "volver"));?>
 </div>

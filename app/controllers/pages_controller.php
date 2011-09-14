@@ -25,6 +25,7 @@ class PagesController extends AppController {
 	}
 	
 	function view($slug = null) {
+		$this->layout="pages";
 		if (!$slug) {
 			$this->Session->setFlash(__('Página inválida', true));
 			$this->redirect(array('action' => 'index'));

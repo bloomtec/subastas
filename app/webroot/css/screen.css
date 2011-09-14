@@ -1185,7 +1185,7 @@ a#resaltar-registro{
 }
 /*PAGES*/
 .pages .WYSIWYG{
-	height:580px;
+	height:990px;
 	overflow-y:auto;
 }
 .subastas-ganadas.elemento{
@@ -1441,4 +1441,10 @@ table.creditos td{
 .mi-cuenta .mensaje{
 	padding-left:35px;
 	padding-top:10px;
+}
+.WYSIWYG ol{
+	list-style:decimal;
+}
+.WYSIWYG ul{
+	list-style:auto;
 }
