@@ -12,7 +12,7 @@ class VerificarVentasShell extends Shell {
 
 	function main(){
 
-		$this->out("\nInicio del CRON para verificar la tabla de ventas\n");
+		//$this->out("\nInicio del CRON para verificar la tabla de ventas\n");
 
 		// Encontrar las ventas con estado pendiente de pago
 		// y que se hayan pasado los dias de espera en la 'fecha_de_venta'
@@ -23,8 +23,8 @@ class VerificarVentasShell extends Shell {
 			$fechaCreacionVenta = $this->requestAction('/ventas/fechaCreacionVenta/' . $ventaPendienteDePago['Venta']['id']);
 			$diasEspera = $this->requestAction('/subastas/diasEspera/' . $ventaPendienteDePago['Venta']['subasta_id']);
 			
-			$this->out("Fecha de creacion de la venta\t: " . $fechaCreacionVenta);
-			$this->out("Dias de espera para la venta\t: " . $diasEspera);
+			//$this->out("Fecha de creacion de la venta\t: " . $fechaCreacionVenta);
+			//$this->out("Dias de espera para la venta\t: " . $diasEspera);
 
 			$date1 = date($fechaCreacionVenta);
 			$date1 = strtotime(date("Y-m-d H:i:s", strtotime($date1)) . " +" . $diasEspera . " day");
@@ -33,13 +33,13 @@ class VerificarVentasShell extends Shell {
 
 			$fechaVencimientoVenta = $date1->format('Y-m-d H:i:s');
 
-			$this->out("Fecha de vencimiento de la venta: " . $fechaVencimientoVenta);
+			//$this->out("Fecha de vencimiento de la venta: " . $fechaVencimientoVenta);
 
 			$gmt = 3600*-5; // GMT -5 para hora colombiana
 			$date2 = new DateTime(gmdate('Y-m-d H:i:s', time() + $gmt)); // Generar la fecha actual formateada para comparar con la fecha de mysql
 			$fechaActual = $date2->format('Y-m-d H:i:s');
 			
-			$this->out("Fecha actual del sistema\t: " . $fechaActual);
+			//$this->out("Fecha actual del sistema\t: " . $fechaActual);
 				
 			if ($date1 > $date2) {
 				$this->out("NO VENCIDA");
@@ -50,7 +50,7 @@ class VerificarVentasShell extends Shell {
 
 		}
 
-		$this->out("\nFin del CRON para verificar la tabla de ventas\n");
+		//$this->out("\nFin del CRON para verificar la tabla de ventas\n");
 
 	}
 
