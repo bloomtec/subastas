@@ -42,9 +42,9 @@ class VerificarVentasShell extends Shell {
 			//$this->out("Fecha actual del sistema\t: " . $fechaActual);
 				
 			if ($date1 > $date2) {
-				$this->out("NO VENCIDA");
+				//$this->out("NO VENCIDA");
 			} else {
-				$this->out("VENCIDA");
+				//$this->out("VENCIDA");
 				$this->requestAction('ventas/noPagada/' . $ventaPendienteDePago['Venta']['id']);
 			}
 
