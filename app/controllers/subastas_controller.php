@@ -429,12 +429,13 @@ class SubastasController extends AppController {
 		$this->set(compact('tipoSubastas', 'estadosSubastas'));
 	}
 	function admin_add5() {
-		$this->Subasta->query("TRUNCATE TABLE  `subastas`");
+		
 		if (!empty($this->data)) {
+		//$this->Subasta->query("TRUNCATE TABLE  `subastas`");
 			for($i=1;$i<=10;$i++){
 			$this->data["Subasta"]["name"]="test".$i;
 				$this->Subasta->create();
-				(this->Subasta->save($this->data)
+				$this->Subasta->save($this->data);
 				$this->__sincronizarPosiciones();
 			}
 			$this->redirect(array('action' => 'index'));
