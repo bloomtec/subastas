@@ -29,6 +29,7 @@ namespace :deploy do
   task :stop do ; end
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "cp /home/jucedogi/llevatelos.com/current/app/. /home/jucedogi/llevatelos.com/app -R"
+    run "cp /home/jucedogi/llevatelos.com/current/jars/. /home/jucedogi/llevatelos.com/jars -R"
     run "chmod 777 /home/jucedogi/llevatelos.com/app/tmp/ -R"
     run "chmod 777 /home/jucedogi/llevatelos.com/app/webroot/img/ -R"
   end
