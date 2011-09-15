@@ -428,6 +428,21 @@ class SubastasController extends AppController {
 		//$estadosSubastas = $this->Subasta->EstadosSubasta->find('list');
 		$this->set(compact('tipoSubastas', 'estadosSubastas'));
 	}
+	function admin_add5() {
+		$this->Subasta->query("TRUNCATE TABLE  `subastas`");
+		if (!empty($this->data)) {
+			for($i=1;$i<=10;$i++){
+			$this->data["Subasta"]["name"]="test".$i;
+				$this->Subasta->create();
+				(this->Subasta->save($this->data)
+				$this->__sincronizarPosiciones();
+			}
+			$this->redirect(array('action' => 'index'));
+		}
+		$tipoSubastas = $this->Subasta->TipoSubasta->find('list');
+		//$estadosSubastas = $this->Subasta->EstadosSubasta->find('list');
+		$this->set(compact('tipoSubastas', 'estadosSubastas'));
+	}
 
 	function admin_edit($id = null) {
 		if (!$id && empty($this->data)) {
