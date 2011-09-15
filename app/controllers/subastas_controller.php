@@ -418,7 +418,7 @@ class SubastasController extends AppController {
 			}
 		}
 		$tipoSubastas = $this->Subasta->TipoSubasta->find('list');
-		$estadosSubastas = $this->Subasta->EstadosSubasta->find('list');
+		//$estadosSubastas = $this->Subasta->EstadosSubasta->find('list');
 		$this->set(compact('tipoSubastas', 'estadosSubastas'));
 	}
 
