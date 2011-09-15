@@ -524,14 +524,19 @@ class SubastasController extends AppController {
 			)
 		);
 		
+		$this->loadModel('Config');
+		$config = $this->Config->read(null, 1);
+		$tamaño_cola = $config['Config']['tamano_cola'];
 		foreach ($subastasActivas as $subastaActiva) {
-			if (empty($subastaActiva['Subasta']['fecha_de_venta'])) {
-				$this->Subasta->read(null, $subastaActiva['Subasta']['id']);
-				$gmt = 3600*-5; // GMT -5 para hora colombiana
-				$duracionInicial = 60*$subastaActiva['Subasta']['duracion_inicial'];
-				$fechaDeVenta = gmdate('Y-m-d H:i:s', time() + $gmt + $duracionInicial);
-				$this->Subasta->set('fecha_de_venta', $fechaDeVenta);
-				$this->Subasta->save();
+			if($subastaActiva['Subasta']['posicion_en_cola'] <= $tamaño_cola) {
+				if (empty($subastaActiva['Subasta']['fecha_de_venta'])) {
+					$this->Subasta->read(null, $subastaActiva['Subasta']['id']);
+					$gmt = 3600*-5; // GMT -5 para hora colombiana
+					$duracionInicial = 60 * $subastaActiva['Subasta']['duracion_inicial'];
+					$fechaDeVenta = gmdate('Y-m-d H:i:s', time() + $gmt + $duracionInicial);
+					$this->Subasta->set('fecha_de_venta', $fechaDeVenta);
+					$this->Subasta->save();
+				}	
 			}
 		}
 		
