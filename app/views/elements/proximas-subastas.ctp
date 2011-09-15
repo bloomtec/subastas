@@ -7,7 +7,7 @@
 	 		$last=1;
 			$first=0;
 	 ?>
-	 <?php foreach ($subastas as $subasta):?>
+	 <?php foreach ($proximasSubastas as $subasta):?>
 	 <li <?php if($last++==4){ echo "class='last'"; $last=1;}?> <?php if($last==2) echo "class='first'"?>  id="<?php echo $subasta["Subasta"]["id"]; ?>" title="<?php echo $subasta["Subasta"]["nombre"]; ?>"> 
 		<div class="fecha_vencimiento">
 			<?php 
