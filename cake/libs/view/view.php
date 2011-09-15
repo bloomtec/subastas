@@ -5,12 +5,12 @@
  * PHP versions 4 and 5
  *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @copyright     Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.libs.view
@@ -489,7 +489,7 @@ class View extends Object {
 		$this->output = $this->_render($layoutFileName, $dataForLayout, $loadHelpers, true);
 
 		if ($this->output === false) {
-			$this->output = $this->_render($layoutFileName, $data_for_layout);
+			$this->output = $this->_render($layoutFileName, $dataForLayout);
 			trigger_error(sprintf(__("Error in layout %s, got: <blockquote>%s</blockquote>", true), $layoutFileName, $this->output), E_USER_ERROR);
 			return false;
 		}

@@ -6,12 +6,12 @@
  * PHP versions 4 and 5
  *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @copyright     Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.libs.cache
@@ -67,7 +67,8 @@ class MemcacheEngine extends CacheEngine {
 			'engine'=> 'Memcache', 
 			'prefix' => Inflector::slug(APP_DIR) . '_', 
 			'servers' => array('127.0.0.1'),
-			'compress'=> false
+			'compress'=> false,
+			'persistent' => true
 			), $settings)
 		);
 
@@ -82,7 +83,7 @@ class MemcacheEngine extends CacheEngine {
 			$this->__Memcache =& new Memcache();
 			foreach ($this->settings['servers'] as $server) {
 				list($host, $port) = $this->_parseServerString($server);
-				if ($this->__Memcache->addServer($host, $port)) {
+				if ($this->__Memcache->addServer($host, $port, $this->settings['persistent'])) {
 					$return = true;
 				}
 			}

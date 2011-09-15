@@ -7,12 +7,12 @@
  * PHP versions 4 and 5
  *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @copyright     Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.libs.view.helpers
@@ -290,7 +290,7 @@ class FormHelper extends AppHelper {
 		}
 		$this->requestType = strtolower($options['type']);
 
-		$htmlAttributes['action'] = $this->url($options['action']);
+		$action = $this->url($options['action']);
 		unset($options['type'], $options['action']);
 
 		if ($options['default'] == false) {
@@ -321,7 +321,7 @@ class FormHelper extends AppHelper {
 		}
 
 		$this->setEntity($model . '.', true);
-		$attributes = $this->_parseAttributes($htmlAttributes, null, '');
+		$attributes = sprintf('action="%s" ', $action) . $this->_parseAttributes($htmlAttributes, null, '');
 		return sprintf($this->Html->tags['form'], $attributes) . $append;
 	}
 
@@ -678,7 +678,9 @@ class FormHelper extends AppHelper {
  * ### Options
  *
  * See each field type method for more information. Any options that are part of
- * $attributes or $options for the different **type** methods can be included in `$options` for input().
+ * $attributes or $options for the different **type** methods can be included in `$options` for input().i
+ * Additionally, any unknown keys that are not in the list below, or part of the selected type's options
+ * will be treated as a regular html attribute for the generated input.
  *
  * - `type` - Force the type of widget you want. e.g. `type => 'select'`
  * - `label` - Either a string label, or an array of options for the label. See FormHelper::label()
@@ -1426,14 +1428,16 @@ class FormHelper extends AppHelper {
 			'escape' => true,
 			'secure' => null,
 			'empty' => '',
-			'showParents' => false
+			'showParents' => false,
+			'hiddenField' => true
 		);
 
 		$escapeOptions = $this->_extractOption('escape', $attributes);
 		$secure = $this->_extractOption('secure', $attributes);
 		$showEmpty = $this->_extractOption('empty', $attributes);
 		$showParents = $this->_extractOption('showParents', $attributes);
-		unset($attributes['escape'], $attributes['secure'], $attributes['empty'], $attributes['showParents']);
+		$hiddenField = $this->_extractOption('hiddenField', $attributes);
+		unset($attributes['escape'], $attributes['secure'], $attributes['empty'], $attributes['showParents'], $attributes['hiddenField']);
 
 		$attributes = $this->_initInputField($fieldName, array_merge(
 			(array)$attributes, array('secure' => false)
@@ -1452,17 +1456,19 @@ class FormHelper extends AppHelper {
 			$selected = $attributes['value'];
 		}
 
-		if (isset($attributes) && array_key_exists('multiple', $attributes)) {
+		if (!empty($attributes['multiple'])) {
 			$style = ($attributes['multiple'] === 'checkbox') ? 'checkbox' : null;
 			$template = ($style) ? 'checkboxmultiplestart' : 'selectmultiplestart';
 			$tag = $this->Html->tags[$template];
-			$hiddenAttributes = array(
-				'value' => '',
-				'id' => $attributes['id'] . ($style ? '' : '_'),
-				'secure' => false,
-				'name' => $attributes['name']
-			);
-			$select[] = $this->hidden(null, $hiddenAttributes);
+			if ($hiddenField) {
+				$hiddenAttributes = array(
+					'value' => '',
+					'id' => $attributes['id'] . ($style ? '' : '_'),
+					'secure' => false,
+					'name' => $attributes['name']
+				);
+				$select[] = $this->hidden(null, $hiddenAttributes);
+			}
 		} else {
 			$tag = $this->Html->tags['selectstart'];
 		}
@@ -1826,9 +1832,8 @@ class FormHelper extends AppHelper {
 
 				if (!empty($timeFormat)) {
 					$time = explode(':', $days[1]);
-					$check = str_replace(':', '', $days[1]);
 
-					if (($check > 115959) && $timeFormat == '12') {
+					if (($time[0] > 12) && $timeFormat == '12') {
 						$time[0] = $time[0] - 12;
 						$meridian = 'pm';
 					} elseif ($time[0] == '00' && $timeFormat == '12') {
@@ -2123,18 +2128,18 @@ class FormHelper extends AppHelper {
 			break;
 			case 'month':
 				if ($options['monthNames'] === true) {
-					$data['01'] = __('Enero', true);
-					$data['02'] = __('Febrero', true);
-					$data['03'] = __('Marzo', true);
-					$data['04'] = __('Abril', true);
-					$data['05'] = __('Mayo', true);
-					$data['06'] = __('Junio', true);
-					$data['07'] = __('Julio', true);
-					$data['08'] = __('Agosto', true);
-					$data['09'] = __('Septiembre', true);
-					$data['10'] = __('Octubre', true);
-					$data['11'] = __('Noviembre', true);
-					$data['12'] = __('Diciembre', true);
+					$data['01'] = __('January', true);
+					$data['02'] = __('February', true);
+					$data['03'] = __('March', true);
+					$data['04'] = __('April', true);
+					$data['05'] = __('May', true);
+					$data['06'] = __('June', true);
+					$data['07'] = __('July', true);
+					$data['08'] = __('August', true);
+					$data['09'] = __('September', true);
+					$data['10'] = __('October', true);
+					$data['11'] = __('November', true);
+					$data['12'] = __('December', true);
 				} else if (is_array($options['monthNames'])) {
 					$data = $options['monthNames'];
 				} else {
