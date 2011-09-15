@@ -29,25 +29,32 @@ class VerificarSubastasShell extends Shell {
 	}
 	
 	public function main(){
-		$this->out('Iniciando CRON para verificar la tabla de subastas');
+		//$this->out('Iniciando CRON para verificar la tabla de subastas');
 
 		// Encontrar las subastas con estado activo
 		// y que se encuentren en su 'fecha_de_venta'
 		//
 			
 
-		$subastasActivasParaVender = $this->Subasta->find("all",
-										array('conditions' => array('Subasta.estados_subasta_id' => '2',
-																	'Subasta.fecha_de_venta <=' => $this->now())));
+		$subastasActivasParaVender = $this->Subasta->find(
+														"all",
+														array(
+															'conditions' => array(
+																'Subasta.estados_subasta_id' => '2',
+																'Subasta.fecha_de_venta <=' => $this->now()
+															),
+															'recursive' => 0
+														)
+													);
 
 		foreach($subastasActivasParaVender as $subastaActivaParaVender){
 
-			$this->out("\n------------------------------------------------------------------------------\n");
-			$this->out("Verificando la subasta " . $subastaActivaParaVender['Subasta']['nombre']." que se encuentra con estado 'Activa' y su fecha de venta ha sido alcanzada");
+			//$this->out("\n------------------------------------------------------------------------------\n");
+			//$this->out("Verificando la subasta " . $subastaActivaParaVender['Subasta']['nombre']." que se encuentra con estado 'Activa' y su fecha de venta ha sido alcanzada");
 
 			// Mostrar la fecha de venta de la subasta
 			//
-			$this->out("Fecha de venta para la subasta " . $subastaActivaParaVender['Subasta']['fecha_de_venta']);
+			//$this->out("Fecha de venta para la subasta " . $subastaActivaParaVender['Subasta']['fecha_de_venta']);
 			
 			// Verificar que se hayan hecho ofertas por la subasta
 			//
@@ -79,13 +86,13 @@ class VerificarSubastasShell extends Shell {
 					// En este caso se pone la subasta en espera de pago
 					//
 					$this->requestAction('/subastas/actualizarEstadoSubasta/' . $subastaActivaParaVender['Subasta']['id'] . '/3');
-				}	
-			}				
+				}
+			}
 
-			$this->out("\n------------------------------------------------------------------------------\n");
+			//$this->out("\n------------------------------------------------------------------------------\n");
 		}
 
-		$this->out("Sincronizar los puestos");
+		//$this->out("Sincronizar los puestos");
 		$this->requestAction('/subastas/sync');
 
 	} // END main()

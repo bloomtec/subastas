@@ -5,12 +5,12 @@
  * PHP versions 4 and 5
  *
  * CakePHP(tm) Tests <http://book.cakephp.org/view/1196/Testing>
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  *  Licensed under The Open Group Test Suite License
  *  Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @copyright     Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://book.cakephp.org/view/1196/Testing CakePHP(tm) Tests
  * @package       cake
  * @subpackage    cake.tests.cases.libs
@@ -938,6 +938,40 @@ class SetTest extends CakeTestCase {
 		);
 		$result = Set::extract('/ParentNode/name', $hasMany);
 		$expected = array('Second');
+		$this->assertEqual($result, $expected);
+		
+		$data = array(
+			array(
+				'Category' => array(
+					'id' => 1,
+					'name' => 'First'
+				),
+				0 => array(
+					'value' => 50
+				)
+			),
+			array(
+				'Category' => array(
+					'id' => 2,
+					'name' => 'Second'
+				),
+				0 => array(
+					'value' => 60
+				)
+			)
+		);
+		$expected = array(
+			array(
+				'Category' => array(
+					'id' => 1,
+					'name' => 'First'
+				),
+				0 => array(
+					'value' => 50
+				)
+			)
+		);
+		$result = Set::extract('/Category[id=1]/..', $data);
 		$this->assertEqual($result, $expected);
 	}
 
