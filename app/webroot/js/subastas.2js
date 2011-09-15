@@ -1,4 +1,4 @@
-$(function(){
+/* $(function(){
 	var contadores=$(".activo .contador");
 if(contadores.length) {//envia solicitud de la subasta al servidor
 	var conteos=Object;//VAriable donde se guardanlos conteos regresivos
@@ -183,3 +183,4 @@ function obtenerUsuarioUltimaOferta($val,ultimaOferta,subasta_id) {
 	},1000);
 }
 });
+*/
