@@ -1,5 +1,4 @@
-﻿/*
-$(function () {
+﻿$(function () {
 $(window).keydown(function(){
 resetTime();
 });
@@ -179,4 +178,3 @@ $(function(){
 		});
 	},1000);
 });
-*/
