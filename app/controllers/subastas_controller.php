@@ -338,26 +338,33 @@ class SubastasController extends AppController {
 			$this->set('subastas', $this->paginate());
 		}
 	}
-
-	function proximasSubastas(){
-	 $config=$this->Config->read(null,1);
-	 if (!empty($this->params['requested'])) {
-	 	return $this->Subasta->find("all",array(
-			 	"conditions"=>array(
-			 		"Subasta.estados_subasta_id"=>2,//activa
-			 		"Subasta.posicion_en_cola >"=>$config["Config"]["tamano_cola"]
-	 	)
-	 	));
-	 } else {
-	 	$this->Paginate=array("Subasta",array(
-			 	"conditions"=>array(
-			 		"Subasta.estados_subasta_id"=>2,//activa
-					"Subasta.posicion_en_cola >"=>$config["Config"]["tamano_cola"]
-	 	)
-	 	));
-	 	$this->set('subastas', $this->paginate());
-	 }
+	
+	function proximasSubastas() {
+		$config=$this->Config->read(null,1);
+		if (!empty($this->params['requested'])) {
+			return $this->Subasta->find(
+				"all",
+				array(
+					"conditions" => array(
+						"Subasta.estados_subasta_id" => 2, //activa
+						"Subasta.posicion_en_cola >" => $config["Config"]["tamano_cola"]
+					)
+				)
+			);
+		} else {
+			$this->Paginate=array(
+				"Subasta",
+				array(
+					"conditions"=>array(
+						"Subasta.estados_subasta_id" => 2, //activa
+						"Subasta.posicion_en_cola >" => $config["Config"]["tamano_cola"]
+					)
+				)
+			);
+			$this->set('subastas', $this->paginate());
+		}
 	}
+	
 	function proximaSubasta(){
 	 $config=$this->Config->read(null,1);
 	 if (!empty($this->params['requested'])) {
