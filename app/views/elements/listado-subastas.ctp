@@ -26,19 +26,6 @@
 				<?php echo $html -> link('Registrate!!! y obtén 10 creditos', array("controller" => "users", "action" => "register"), array("id" => "resaltar-registro"));?>
 				<?php echo $html -> link(' ', array("controller" => "users", "action" => "register"), array("id" => "boton-registro"));?>
 		</div>
-		<div class="fecha_vencimiento">
-			<?php 
-			 		$fecha= date_create_from_format('Y-m-d H:i:s',	$subasta["Subasta"]["fecha_de_venta"]); 
-			 		echo $fecha->format('Y M d H:i:s');
-			 	?>
-			 </div>
-			 <div class="hora_servidor">
-			 	<?php 
-			 		$gmt = 3600*-5;
-					$fecha = gmdate('Y M d H:i:s', time() + $gmt);
-			 		echo $fecha;
-			 	?>
-			 </div>
 			 <?php echo $this->Html->para("nombre",$subasta["Subasta"]["nombre"]) ?>
 		 <?php echo $this->Html->image($subasta['Subasta']['imagen_path'],array("width"=>"200"))?>
 		 
