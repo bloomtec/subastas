@@ -1,4 +1,7 @@
-<?php $proximasSubastas = $this->requestAction('/subastas/proximasSubastas'); ?>
+<?php 
+	$proximasSubastas = $this->requestAction('/subastas/proximasSubastas'); 
+//	debug($proximasSubastas);
+?>
 <?php $config=$this->requestAction("/configs/config");?>
  <h1 class="titulo-amarillo">Próximas Ofertas </h1>
 <?php if (!empty($proximasSubastas)):?>
@@ -9,19 +12,6 @@
 	 ?>
 	 <?php foreach ($proximasSubastas as $subasta):?>
 	 <li <?php if($last++==4){ echo "class='last'"; $last=1;}?> <?php if($last==2) echo "class='first'"?>  id="<?php echo $subasta["Subasta"]["id"]; ?>" title="<?php echo $subasta["Subasta"]["nombre"]; ?>"> 
-		<div class="fecha_vencimiento">
-			<?php 
-			 		$fecha= date_create_from_format('Y-m-d H:i:s',	$subasta["Subasta"]["fecha_de_venta"]); 
-			 		echo $fecha->format('Y M d H:i:s');
-			 	?>
-			 </div>
-			 <div class="hora_servidor">
-			 	<?php 
-			 		$gmt = 3600*-5;
-					$fecha = gmdate('Y M d H:i:s', time() + $gmt);
-			 		echo $fecha;
-			 	?>
-			 </div>
 			 <?php echo $this->Html->para("nombre",$subasta["Subasta"]["nombre"]) ?>
 		 <?php echo $this->Html->image($subasta['Subasta']['imagen_path'],array("width"=>"200"))?>
 		 
