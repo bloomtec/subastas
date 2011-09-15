@@ -20,7 +20,7 @@
 		echo $this->Form->input('duracion_inicial', array("value" => "59", "label" => "Duración inicial de la subasta en minutos)"));
 		echo $this->Form->input('aumento_duracion', array("value" => "20", "label" => "Aumento a la duración en segundos"));
 		echo $this->Form->hidden('estados_subasta_id', array("value" => "2"));
-		echo $this->Form->hidden('imagen_path', array("id"=>"single-field"));
+		echo $this->Form->hidden('imagen_path', array("id"=>"single-field","value"=>"jugador_lateral.png"));
 		echo $this->Form->hidden('posicion_en_cola', array("value" => "-1"));
 	?>
 	</div>
