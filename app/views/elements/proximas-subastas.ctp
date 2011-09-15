@@ -1,5 +1,4 @@
 <?php $proximasSubastas = $this->requestAction('/subastas/proximasSubastas'); ?>
-<?php $proximasSubastas = $subastas; //QUITAR ESTO******************************?>
 <?php $config=$this->requestAction("/configs/config");?>
  <h1 class="titulo-amarillo">Próximas Ofertas </h1>
 <?php if (!empty($proximasSubastas)):?>
