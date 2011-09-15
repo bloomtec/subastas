@@ -431,7 +431,7 @@ class SubastasController extends AppController {
 	function admin_add5() {
 		
 		if (!empty($this->data)) {
-		//$this->Subasta->query("TRUNCATE TABLE  `subastas`");
+		$this->Subasta->query("TRUNCATE TABLE  `subastas`");
 			for($i=1;$i<=10;$i++){
 			$this->data["Subasta"]["name"]="test".$i;
 				$this->Subasta->create();
