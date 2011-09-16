@@ -64,23 +64,31 @@ class SubastasController extends AppController {
 	}
 	
 	function getStatus(){
-		$time=$_GET["ms"];
-		$date=date("Y-m-d H:i:s", substr($time,0,-3));
-		$dateTime=new DateTime($date);
-		$this->Subasta->Behaviors->attach('Containable');
-		$this->Subasta->recursive=2;
-		$subastas=$this->Subasta->find("all",array("conditions"=>array("Subasta.id"=>$_POST["subastas"]),'contain' => array(
-		'Oferta' => array(
-			'order' => array('Oferta.id DESC'),
-			'limit'=>1,
-			'User'
+		$config=$this->Config->read(null,1);
+		if($config["Config"]["congelado"]){//Si esta el sitio congelado
+			echo false;
+			Configure::write("debug",0);
+			$this->autoRender=false;
+			exit(0);
+		}else{
+			$time=$_GET["ms"];
+			$date=date("Y-m-d H:i:s", substr($time,0,-3));
+			$dateTime=new DateTime($date);
+			$this->Subasta->Behaviors->attach('Containable');
+			$this->Subasta->recursive=2;
+			$subastas=$this->Subasta->find("all",array("conditions"=>array("Subasta.id"=>$_POST["subastas"]),'contain' => array(
+			'Oferta' => array(
+				'order' => array('Oferta.id DESC'),
+				'limit'=>1,
+				'User'
+				
+			))));
 			
-		))));
-		
-		echo json_encode($subastas);
-		Configure::write("debug",0);
-		$this->autoRender=false;
-		exit(0);
+			echo json_encode($subastas);
+			Configure::write("debug",0);
+			$this->autoRender=false;
+			exit(0);
+		}
 	}
 	
 	function congelar() {
