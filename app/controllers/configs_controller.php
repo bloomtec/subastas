@@ -24,7 +24,27 @@ class ConfigsController extends AppController {
 		}
 	}
 	
+	function admin_congelar() {
+		$this->autoRender=false;
+		$this->Config->read(null, 1);
+		$this->Config->set('congelado', 1);
+					
+		if ($this->Config->save()) {
+			$this->requestAction('/subastas/congelar/');
+		}
+		$this->redirect($this->referer());
+	}
+	
+	function admin_descongelar() {
+		$this->autoRender=false;
+		$this->Config->read(null, 1);
+		$this->Config->set('congelado', 0);
+		$this->Config->save();
+		$this->redirect($this->referer());
+	}
+	
 	function congelar() {
+		$this->autoRender=false;
 		$this->Config->read(null, 1);
 		$this->Config->set('congelado', 1);
 					
@@ -34,6 +54,7 @@ class ConfigsController extends AppController {
 	}
 	
 	function descongelar() {
+		$this->autoRender=false;
 		$this->Config->read(null, 1);
 		$this->Config->set('congelado', 0);
 		$this->Config->save();
