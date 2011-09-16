@@ -49,7 +49,7 @@
 <?php endif; ?>
 <?php if(empty($subastas)): ?>
 <div class="mensaje">
-	No ha realizado ninguna subasta
+	No te has llevado ningún producto
 </div>
 <?php endif;?>
 </div>
