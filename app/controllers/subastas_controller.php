@@ -103,14 +103,12 @@ class SubastasController extends AppController {
 			
 			foreach ($subastas as $data) {
 				$subasta = $this->Subasta->read(null, $data['Subasta']['id']);
-				debug($subasta);
 				$fecha_de_venta = date($subasta['Subasta']['fecha_de_venta']);
 				$fecha_de_venta = strtotime(date("Y-m-d H:i:s", strtotime($fecha_de_venta)) . " +" . $duracion . " minutes");
 				$fecha_de_venta = date("Y-m-d H:i:s", $fecha_de_venta);
 				$fecha_de_venta = new DateTime($fecha_de_venta);
 				$fecha_de_venta = $fecha_de_venta->format('Y-m-d H:i:s');
 				$subasta['Subasta']['fecha_de_venta'] = $fecha_de_venta;
-				debug($subasta);
 				$this->Subasta->save($subasta);
 			}
 		}
