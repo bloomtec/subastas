@@ -134,7 +134,7 @@ $(function(){
 						}
 						//arregloSubastas[subasta.Subasta.id]["precio"].html("$ "+addCommas(subasta.Subasta.precio));
 						if(subasta.Subasta.contador_string==="00:00:00"){
-						arregloSubastas[subasta.Subasta.id]["contador"].html("--:--:--");
+							arregloSubastas[subasta.Subasta.id]["contador"].html("--:--:--");
 							arregloSubastas[subasta.Subasta.id]["boton"].unbind("click").bind("click",function(e){e.preventDefault();}).html("Procesando");
 						}
 						if(subasta.Subasta.estados_subasta_id==3||(arregloSubastas[subasta.Subasta.id]["boton"].html()=="Procesando")&&subasta.Subasta.faltante_timestamp<-3){
@@ -145,6 +145,7 @@ $(function(){
 						}
 						if(subasta.Subasta.estados_subasta_id==5){
 								arregloSubastas[subasta.Subasta.id]["boton"].removeClass("ofertar").unbind("click").bind("click",function(e){e.preventDefault();}).html("Cancelada");
+								arregloSubastas[subasta.Subasta.id]["contador"].html("--:--:--");
 						}
 						if(subasta.Oferta.length){					
 							if(subasta.Oferta[0].id!=arregloSubastas[subasta.Subasta.id]["ultimaOferta"]){
