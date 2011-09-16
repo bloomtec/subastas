@@ -86,7 +86,7 @@ class SubastasController extends AppController {
 	function congelar() {
 		$this->autoRender=false;
 		$config = $this->Config->read(null, 1);	
-		if($config['Config']['congelado'] == 0) {
+		if($config['Config']['congelado'] == 1) {
 			$duracion = $config['Config']['duracion_congelado']; // Falta cambiar esto por el valor en config
 			$subastas = $this->Subasta->find(
 				"all",
