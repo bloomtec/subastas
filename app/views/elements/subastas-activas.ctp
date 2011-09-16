@@ -16,20 +16,6 @@
 				<?php endforeach;?>
 		</div>
 		<div class="acciones-ofertas" rel="<?php echo $subasta["Subasta"]["id"]; ?>">
-			 <div class="fecha_vencimiento">
-			 	<?php 
-			 	
-			 		$fecha= date_create_from_format('Y-m-d H:i:s',	$subasta["Subasta"]["fecha_de_venta"]); 
-			 		echo $fecha->format('Y M d H:i:s');
-			 	?>
-			 </div>
-			 <div class="hora_servidor">
-			 	<?php 
-			 		$gmt = 3600*-5; 
-					$fecha = gmdate('Y M d H:i:s', time() + $gmt); 
-			 		echo $fecha;
-			 	?>
-			 </div>
 			 <?php echo $this->Html->para("pvp","PVP $ ".number_format($subasta["Subasta"]['valor'], 0, ' ', '.')) ?>
 		      <?php if(!$config["Config"]["congelado"]):?>
 			     <p class="contador"  id="contador<?php echo $subasta["Subasta"]["id"]?>"></p>
