@@ -84,6 +84,7 @@ class SubastasController extends AppController {
 	}
 	
 	function congelar() {
+		$this->autoRender=false;
 		$config = $this->Config->read(null, 1);	
 		if($config['Config']['congelado'] == 0) {
 			$duracion = $config['Config']['duracion_congelado']; // Falta cambiar esto por el valor en config
@@ -101,13 +102,15 @@ class SubastasController extends AppController {
 			);
 			
 			foreach ($subastas as $subasta) {
+				debug($subasta['Subasta']['fecha_de_venta']);
 				$fecha_de_venta = date($subasta['Subasta']['fecha_de_venta']);
 				$fecha_de_venta = strtotime(date("Y-m-d H:i:s", strtotime($fecha_de_venta)) . " +" . $duracion . " minutes");
 				$fecha_de_venta = date("Y-m-d H:i:s", $fecha_de_venta);
 				$fecha_de_venta = new DateTime($fecha_de_venta);
 				$fecha_de_venta = $fecha_de_venta->format('Y-m-d H:i:s');
 				$subasta['Subasta']['fecha_de_venta'] = $fecha_de_venta;
-				$this->Subasta->save($subasta);
+				debug($subasta['Subasta']['fecha_de_venta']);
+				//$this->Subasta->save($subasta);
 			}
 		}
 	}
