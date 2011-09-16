@@ -42,12 +42,12 @@ $(function(){
 		e.preventDefault();
 	});
 	$("a.ofertar").live("click",function(e) {
-	var link=$(this);
-	var ruta=link.attr("href")+"?ms="+new Date().getTime();
-	var subastaId=link.attr("rel");
+		var link=$(this);
+		var ruta=link.attr("href")+"?ms="+new Date().getTime();
+		var subastaId=link.attr("rel");
 	//console.log(subastaId);
-	e.preventDefault();
-	if(auth!=undefined && auth!=null) {
+		e.preventDefault();
+		if(auth!=undefined && auth!=null) {
 		jQuery.ajax({
 			url:ruta,
 			type: "GET",
@@ -59,8 +59,8 @@ $(function(){
 			success: function(oferta) {
 			//console.log(oferta);
 				if(oferta.success) {
-				$("#creditos").html(parseInt(oferta.User.creditos)+parseInt(oferta.User.bonos));
-				$("li#"+subastaId+" .ofertas").append('<div class="actualizado">'+oferta.Oferta.created+'</div>');
+				$("#creditos").html(parseInt(oferta.User.creditos) + parseInt(oferta.User.bonos));
+				$("li#"+subastaId+" .ofertas").append('<div class="actualizado">' + oferta.Oferta.created + '</div>');
 				$("li#"+subastaId+" .ofertas").scrollTop(10000);
 				} else {
 					alert(oferta.mensaje);
@@ -68,10 +68,10 @@ $(function(){
 			}
 		});
 
-	} else {
-		$(".formulario-login-subasta").hide();
-		$(".formulario-login-subasta").filter("[rel='"+$(this).attr("rel")+"']").show();
-	}
+		} else {
+			$(".formulario-login-subasta").hide();
+			$(".formulario-login-subasta").filter("[rel='"+$(this).attr("rel")+"']").show();
+		}
 
 	});
 	$(".ajax-form").find("input").focus(function(){

@@ -45,7 +45,7 @@
 			var auth=<?php echo json_encode($session -> read("Auth"));?>;<?php }else{?>var auth=null;<?php }?>
 			Cufon.replace("body",{
 				trim:"simple",
-				ignoreClass:"cerrar-formulario"
+				ignoreClass:"cerrar-formulario no-cufon"
 			});
 			
 		</script>
@@ -54,7 +54,7 @@
 		<div class="info-creditos">
 			<div class="username"> <?php echo $session->read("Auth.User.username")?></div>
 			<span>Creditos: </span>
-			<span id="creditos">
+			<span id="creditos" class="no-cufon">
 			<?php echo $this -> requestAction("/users/getCreditos2");?>
 			</span>
 			<?php echo $html->link("Cerrar sesión",array("controller"=>"users","action"=>"logout"));?>
