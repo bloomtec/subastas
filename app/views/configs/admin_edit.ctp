@@ -11,5 +11,11 @@
 		echo $this->Form->input('duracion_congelado', array('label'=>'Duración De La Pausa Del Sitio (En Minutos)'));		
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit', true));?>
+	<?php echo $this->Form->end(__('Submit', true));?>
+</div>
+<div>
+	<?php
+		echo $this->Html->link('Congelar', array('controller' => 'configs', 'action' => 'congelar'));
+		echo $this->Html->link('Descongelar', array('controller' => 'configs', 'action' => 'descongelar'));
+	;?>
 </div>
