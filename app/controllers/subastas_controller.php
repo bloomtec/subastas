@@ -106,8 +106,8 @@ class SubastasController extends AppController {
 				$fecha_de_venta = date("Y-m-d H:i:s", $fecha_de_venta);
 				$fecha_de_venta = new DateTime($fecha_de_venta);
 				$fecha_de_venta = $fecha_de_venta->format('Y-m-d H:i:s');
-				$this->Subasta->set('fecha_de_venta', $fecha_de_venta);
-				$this->Subasta->save();
+				$subasta['Subasta']['fecha_de_venta'] = $fecha_de_venta;
+				$this->Subasta->save($subasta);
 			}
 		}
 	}
