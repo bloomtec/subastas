@@ -61,7 +61,7 @@
 				echo $this->Form->hidden('paisComprador', array('name'=>'paisComprador', 'value'=>'Colombia'));
 				// URL de respuesta
 				//
-				echo $this->Form->hidden('urlRetorno', array('name'=>'urlRetorno', 'value'=>'http://llevatelos.com/subastas/users/validarCompra'));
+				echo $this->Form->hidden('urlRetorno', array('name'=>'urlRetorno', 'value'=>'http://llevatelos.com/users/validarCompra'));
 				// Finalizar el form
 				//
 				echo $this->Form->end(" ");
