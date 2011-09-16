@@ -25,7 +25,8 @@ class UsersController extends AppController {
 	
 	function validarCompra() {
 		$this->autoRender=false;
-		
+		debug($this);
+		/**
 		$datos = explode("-", $_POST['codigoFactura']);
 		$this->loadModel('User');
 		$user = $this->User->find('first', array('conditions'=>array('User.id'=>$datos[1])));
@@ -98,6 +99,7 @@ class UsersController extends AppController {
 			} 
 		}
 		//$this->redirect(array('action' => 'index'));
+		*/
 	}
 	
 	function ingresoPIN () {
