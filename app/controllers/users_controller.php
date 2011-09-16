@@ -25,7 +25,10 @@ class UsersController extends AppController {
 	
 	function validarCompra() {
 		$this->autoRender=false;
+		echo "Debug del post";
 		debug($_POST);
+		echo "Debug del get";
+		debug($_GET);
 		/**
 		$datos = explode("-", $_POST['codigoFactura']);
 		$this->loadModel('User');
