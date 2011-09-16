@@ -83,10 +83,10 @@ class SubastasController extends AppController {
 		exit(0);
 	}
 	
-	function congelar($duracion = null) {
-		
-		if ($duracion) {
-			
+	function congelar() {
+		$config = $this->Config->read(null, 1);	
+		if($config['Config']['congelado'] == 0) {
+			$duracion = $config['Config']['duracion_congelado']; // Falta cambiar esto por el valor en config
 			$subastas = $this->Subasta->find(
 				"all",
 				array(
@@ -109,9 +109,7 @@ class SubastasController extends AppController {
 				$this->Subasta->set('fecha_de_venta', $fecha_de_venta);
 				$this->Subasta->save();
 			}
-			
 		}
-		
 	}
 	
 	function admin_live() {

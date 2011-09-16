@@ -30,7 +30,7 @@ class ConfigsController extends AppController {
 			$this->Config->set('congelado', 1);
 						
 			if ($this->Config->save()) {
-				$this->requestAction('/subastas/congelar/' . $duracion);
+				$this->requestAction('/subastas/congelar/');
 			}
 			
 		}
