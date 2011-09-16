@@ -24,15 +24,12 @@ class ConfigsController extends AppController {
 		}
 	}
 	
-	function congelar($duracion = null) {
-		if ($duracion) {
-			$this->Config->read(null, 1);
-			$this->Config->set('congelado', 1);
-						
-			if ($this->Config->save()) {
-				$this->requestAction('/subastas/congelar/');
-			}
-			
+	function congelar() {
+		$this->Config->read(null, 1);
+		$this->Config->set('congelado', 1);
+					
+		if ($this->Config->save()) {
+			$this->requestAction('/subastas/congelar/');
 		}
 	}
 	
