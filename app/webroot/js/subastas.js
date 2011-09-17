@@ -17,7 +17,7 @@ setTimeout('redirect()', 900000); //15mins
 }
 function redirect() {
 //country = $.cookie('CakeCookie[country]');
-window.location = '/pages/inactivity';
+//window.location = '/pages/inactivity';
 }
 $(function(){
 	var subastas=new Array();
