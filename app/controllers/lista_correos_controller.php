@@ -61,7 +61,7 @@ class ListaCorreosController extends AppController {
 	
 	function admin_prueba() {
 		if(!empty($this->data)) {
-			$this -> enviarCorreos($this -> ListaCorreo -> find('list', array('fields' => 'correo', 'conditions' => array('id' => $this -> data['ListaCorreo']['correos']))));
+			$this -> enviarCorreos($this -> ListaCorreo -> find('list', array('fields' => 'correo', 'conditions' => array('id' => $this -> data['ListaCorreo']['correos']), 'recursive' => -1)));
 		}
 		$correos = $this->ListaCorreo->find('list');
 		$this->set(compact('correos'));
