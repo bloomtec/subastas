@@ -18,13 +18,16 @@
 				</p>
 			</div>
 			<div class="formulario">
-				<?php echo $form -> create("Page", array("action" => "contacto", "controller" => "pages"));?>
-				<?php echo $form -> input("nombre_contacto", array("label" => "Nombre (s):"));?>
-				<?php echo $form -> input("email", array( "label" => "E-mail:"));?>
-				<?php echo $form -> input("telefono", array( "label" => "Teléfono:"));?>
+				<?php echo $form -> create("Page", array("action" => "contacto", "controller" => "pages","id"=>"contacto-form","novalidate"=>"novalidate"));?>
+				<?php echo $form -> input("nombre_contacto", array("label" => "Nombre (s):","required"=>"required"));?>
+				<div class="input text">
+					<label for="email">E-mail:</label>
+					<input type="email" required="required" name="data[Page][email]" id="email"/>
+				</div>
+				<?php echo $form -> input("telefono", array( "label" => "Teléfono:","required"=>"required"));?>
 				<div style="clear:both;">
 				</div>
-				<?php echo $form -> input("comentario", array('type' => 'textarea', "label" => "Comentario (s)"));?>
+				<?php echo $form -> input("comentario", array('type' => 'textarea', "label" => "Comentario (s)","required"=>"required"));?>
 				<div style="clear:both;">
 				</div>
 				<?php echo $form -> end(__(' ', true), array('div' => false));?>

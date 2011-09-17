@@ -494,7 +494,7 @@ class UsersController extends AppController {
 			}
 
 		} else {
-			//$this->Session->setFlash("Ingrese su usuario/correo y contraseÃ±a");
+			$this->Session->setFlash("Ingrese su usuario/correo y contraseña");
 		}
 
 	}
