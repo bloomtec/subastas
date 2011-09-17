@@ -164,7 +164,7 @@ class Subasta extends AppModel {
 		
 		foreach($results as $key => $val) {
 			
-			if(isset($val['Subasta']['id'])) {
+			if((isset($val['Subasta']['id'])) && (isset($val['Subasta']['fecha_de_venta']))) {
 				$endDate = date($val['Subasta']['fecha_de_venta']);
 				$endDateTime = new DateTime($endDate);
 				$endDateTimeStamp = $endDateTime -> format('U');
