@@ -43,6 +43,10 @@ $( function() {
 				return true;
 			}
 		});
+		//CONTACTO
+		$("form#contacto-form").validator({
+			lang: 'es'
+		})
 	}();
 });
 function addCommas(nStr) {
