@@ -496,7 +496,7 @@ class SubastasController extends AppController {
 	function __sincronizarPosiciones(){
 		// << Sacar la subasta de la cola si su estado no es "Activa" >>
 		//
-		$subastasNoActivas = $this->Subasta->find("all", array('conditions' => array('Subasta.estados_subasta_id <>' => '2', 'Subasta.posicion_en_cola >' => '0')));
+		$subastasNoActivas = $this->Subasta->find("all", array('conditions' => array('Subasta.estados_subasta_id <>' => '2', 'Subasta.posicion_en_cola >' => '0'), 'recursive' => -1));
 
 		foreach($subastasNoActivas as $subastaNoActiva) {
 			$this->Subasta->read(null, $subastaNoActiva["Subasta"]["id"]);
@@ -507,7 +507,7 @@ class SubastasController extends AppController {
 		// << Reasignar numeros a las subastas con estado "Activa" >>
 		//
 
-		$subastasActivas = $this->Subasta->find("all", array('conditions' => array('Subasta.estados_subasta_id' => '2'), 'order' => array('Subasta.posicion_en_cola')));
+		$subastasActivas = $this->Subasta->find("all", array('conditions' => array('Subasta.estados_subasta_id' => '2'), 'order' => array('Subasta.posicion_en_cola'), 'recursive' => -1));
 
 		$posicion_en_cola = 1;
 		$subastasActivasPorPrimeraVez = array();
@@ -544,11 +544,10 @@ class SubastasController extends AppController {
 				),
 				'order' => array(
 					'Subasta.posicion_en_cola'
-				)
+				),
+				'recursive' => -1
 			)
 		);
-		
-		$this->loadModel('Config');
 		$config = $this->Config->read(null, 1);
 		$tamaño_cola = $config['Config']['tamano_cola'];
 		foreach ($subastasActivas as $subastaActiva) {
@@ -626,7 +625,7 @@ class SubastasController extends AppController {
 				// Aqui toca validar el estado actual de la subasta para ver que se hace
 				// Los diferentes casos a considerar son son si esta en espera de pago o no lo esta
 				//
-				$subasta = $this->Subasta->find('first', array('conditions'=>array('Subasta.id'=>$id)));
+				$subasta = $this->Subasta->find('first', array('conditions'=>array('Subasta.id'=>$id), 'recursive' => -1));
 				
 				// Tomar la decision de que hacer
 				//
