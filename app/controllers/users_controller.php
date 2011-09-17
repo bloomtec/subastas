@@ -34,7 +34,7 @@ class UsersController extends AppController {
 
 	function pasoFinalValidarCompra($user_id = null, $creditos = null) {
 		$user = $this -> User -> find('first', array('conditions' => array('User.id' => $user_id), 'recursive' => -1));
-		$this -> User -> read(null, $datos[1]);
+		$this -> User -> read(null, $user_id);
 		$this -> User -> set('creditos', $user['User']['creditos'] + $creditos);
 		$this -> User -> save();
 	}
