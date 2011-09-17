@@ -1,4 +1,3 @@
-<?php debug($_POST); ?>
 <div id="left-content">
 	<?php echo $this -> element("left");?>
 </div>
