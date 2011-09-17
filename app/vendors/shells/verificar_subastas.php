@@ -43,7 +43,7 @@ class VerificarSubastasShell extends Shell {
 																'Subasta.estados_subasta_id' => '2',
 																'Subasta.fecha_de_venta <=' => $this->now()
 															),
-															'recursive' => 0
+															'recursive' => -1
 														)
 													);
 
