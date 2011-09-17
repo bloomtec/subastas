@@ -3,7 +3,7 @@
 </div>
 <div id="right-content" class="pages">
 <h1 class="titulo-amarillo">Confirma tu registro</h1>
-<div class="WYSIWYG inactivity confirmar">
+<div class="WYSIWYG inactivity confirmar-compra">
 <?php
 $datos = explode("-", $_POST['codigoFactura']);
 

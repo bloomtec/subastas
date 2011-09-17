@@ -1,5 +1,5 @@
 /** General Style Info **/
-
+dddds
 body {
 	/*background-color:#1b1b1b;
 	/*background-repeat:no-repeat;
@@ -1445,6 +1445,9 @@ table.creditos td{
 .WYSIWYG ol{
 	list-style:decimal;
 }
-.WYSIWYG ul{
-	list-style:auto;
+.confirmar-compra button{
+	background: url(../img/continuar.png);
+	width:192px;
+	height: 67px;
+	border:0;
 }
