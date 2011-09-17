@@ -1,3 +1,9 @@
+<div id="left-content">
+	 <?php echo $this->element("left");?>
+</div>
+<div id="right-content" class="pages">
+<h1 class="titulo-amarillo">Confirma tu registro</h1>
+<div class="WYSIWYG inactivity confirmar">
 <?php
 $datos = explode("-", $_POST['codigoFactura']);
 
@@ -6,12 +12,12 @@ if ($_POST['codigoAutorizacion'] == "00") {
 	//
 	//$this->Session->setFlash('La compra no pudo realizarse');
 
-	echo "<center>";
+	echo "<p>";
 	echo "La compra no pudo realizarse";
 	echo "<form action='../../subastas'>";
 	echo "<br><button type='submit' name='boton'>Volver Al Inicio</button>";
 	echo "</form>";
-	echo "</center>";
+	echo "</p>";
 
 } else {
 	$llaveencripcion = "6b7c2e50e9f54b3fb630197255e034ac";
@@ -42,23 +48,25 @@ if ($_POST['codigoAutorizacion'] == "00") {
 
 		//$this->Session->setFlash('La compra fue exitosa');
 
-		echo "<center>";
+		echo "<p>";
 		echo "La compra fue exitosa";
 		echo "<form action='../../subastas'>";
 		echo "<br><button type='submit' name='boton'>Volver Al Inicio</button>";
 		echo "</form>";
-		echo "</center>";
+		echo "</p>";
 	} else {
 		//la firma es invalida
 		//
 		//$this->Session->setFlash('La compra no pudo realizarse - La firma de confirmacion no es valida');
 
-		echo "<center>";
+		echo "<p>";
 		echo "La compra no pudo realizarse - La firma de confirmacion no es valida";
 		echo "<form action='../../subastas'>";
 		echo "<br><button type='submit' name='boton'>Volver Al Inicio</button>";
 		echo "</form>";
-		echo "</center>";
+		echo "</p>";
 	}
 }
 ?>
+</div>
+</div>
