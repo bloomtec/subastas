@@ -99,7 +99,7 @@ class SubastasController extends AppController {
 			$subastas=$this->Subasta->find(
 				"all",
 				array(
-					'recursive' => -1,
+					'recursive' => 0,
 					"conditions" => array(
 						"Subasta.id"=>$_POST["subastas"]
 					),
