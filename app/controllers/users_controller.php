@@ -25,6 +25,8 @@ class UsersController extends AppController {
 
 	function validarCompra() {
 		$this -> loadModel('User');
+		debug($_POST);
+		debug($_GET);
 		$datos = explode("-", $_POST['codigoFactura']);
 		$user = $this -> User -> find('first', array('conditions' => array('User.id' => $datos[1]), 'recursive' => -1));
 		$this -> Auth -> login($user);
