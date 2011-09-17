@@ -2,7 +2,6 @@
 	<?php echo $this -> element("left");?>
 </div>
 <div id="right-content">
-
 	<div class="corner">
 		<h1 class="titulo-amarillo">Mi cuenta</h1>
 		<div class="paquetes">
@@ -16,19 +15,13 @@
 						<td>Comprar</td>
 					</tr>
 				</thead>
-				<?php foreach($paquetes as $paquete) : ?>
+				<?php foreach($paquetes as $paquete) :
+				?>
 				<tr>
-					<td>
-					<?php echo $paquete['Paquete']['nombre'];?>
-					</td>
-					<td>
-					<?php echo("$" . number_format($paquete['Paquete']['precio'], 0, ' ', '.'));?>
-					</td>
-					<td>
-					<?php echo $paquete['Paquete']['creditos'];?>
-					</td>
-					<td>
-					<?php
+					<td><?php echo $paquete['Paquete']['nombre'];?></td>
+					<td><?php echo("$" . number_format($paquete['Paquete']['precio'], 0, ' ', '.'));?></td>
+					<td><?php echo $paquete['Paquete']['creditos'];?></td>
+					<td><?php
 					// Crear el form
 					//
 					$form_id = $paquete['Paquete']['id'];
@@ -62,8 +55,7 @@
 					// Finalizar el form
 					//
 					echo $this -> Form -> end(" ");
-					?>
-					</td>
+					?></td>
 				</tr>
 				<?php endforeach;?>
 			</table>
