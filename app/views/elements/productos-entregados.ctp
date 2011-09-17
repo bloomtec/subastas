@@ -10,7 +10,7 @@
 	 ?>
 	 <?php foreach ($subastas as $subasta):?>
 	 <li <?php if($last++==4){ echo "class='last'"; $last=1;}?> <?php if($last==2) echo "class='first'"?>  id="<?php echo $subasta["Subasta"]["id"]; ?>" title="<?php echo $subasta["Subasta"]["nombre"]; ?>"> 
-			 <?php echo $this->Html->para("nombre",$subasta["Subasta"]["nombre"]) ?>
+		 <?php echo $this->Html->para("nombre",$subasta["Subasta"]["nombre"]) ?>
 		 <?php echo $this->Html->image($subasta['Subasta']['imagen_path'],array("width"=>"200"))?>
 		 
 	     <?php echo $this->Html->para("pvp","Precio Cial. $ ".number_format($subasta["Subasta"]['valor'], 0, ' ', '.')) ?>
@@ -24,15 +24,11 @@
 
 	     <p class="precio" title="pesos colombianos"><?php echo "$ ".number_format($subasta["Subasta"]['precio'], 0, ' ', '.');?><p>
 			<?php $ultimaOferta= $this->requestAction("/subastas/ultimaOferta/".$subasta["Subasta"]["id"]);?>
-			<?php $ultimaOferta= $this->requestAction("/subastas/ultimaOferta/".$subasta["Subasta"]["id"]);?>
 		<p class="ultimo-usuario" rel="<?php if($ultimaOferta) echo $ultimaOferta["Oferta"]["id"];?>">
 			<?php if($ultimaOferta) echo "Se lo llevo ".$ultimaOferta["User"]["username"];?>
 		 </p>
-	     <?php 
-	     	
-	  
-	     		echo $this->Html->link("Entregado",array("controller"=>"subastas","action"=>"ofertar",$subasta["Subasta"]['id']),array('class'=>'boton ofertar','rel'=>$subasta["Subasta"]['id']));
-			
+	     <?php
+	     	echo $this->Html->link("Entregado",array("controller"=>"subastas","action"=>"ofertar",$subasta["Subasta"]['id']),array('class'=>'boton ofertar','rel'=>$subasta["Subasta"]['id']));
 	     ?>
 	 	<div>
 	 </li>

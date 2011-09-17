@@ -16,7 +16,7 @@ class SubastasController extends AppController {
 	}
 	
 	function ultimaOferta($subastaID){
-		$oferta=$this->Subasta->Oferta->find("first",array("conditions"=>array("Oferta.subasta_id"=>$subastaID), "order"=>array("Oferta.id DESC"), 'recursive' => -1));
+		$oferta=$this->Subasta->Oferta->find("first",array("conditions"=>array("Oferta.subasta_id"=>$subastaID), "order"=>array("Oferta.id DESC"), 'recursive' => 0));
 		return $oferta;
 	}
 	
