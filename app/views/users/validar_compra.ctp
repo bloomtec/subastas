@@ -30,11 +30,7 @@
 					// Se compro un paquete de creditos
 					// Encontrar al usuario y sumarle los creditos
 					//
-					$this -> loadModel('User');
-					$user = $this -> User -> find('first', array('conditions' => array('User.id' => $datos[1])));
-					$this -> User -> read(null, $datos[1]);
-					$this -> User -> set('creditos', $user['User']['creditos'] + $datos[2]);
-					$this -> User -> save();
+					$this -> requestAction('/users/pasoFinalValidarCompra/' . $user['User']['id'] . '/' . $datos[2]);
 				} else {
 					if ($datos[0] == 2) {
 						// Se compro una subasta ganada
@@ -68,6 +64,6 @@
 				echo "</p>";
 			}
 		}
-	?>
+		?>
 	</div>
 </div>

@@ -24,11 +24,19 @@ class UsersController extends AppController {
 	}
 
 	function validarCompra() {
-		$this -> loadModel('User'); 
+		$this -> loadModel('User');
 		$datos = explode("-", $_POST['codigoFactura']);
 		$user = $this -> User -> find('first', array('conditions' => array('User.id' => $datos[1]), 'recursive' => -1));
 		$this -> Auth -> login($user);
 		$this -> set('_POST', $_POST);
+		$this -> set('user', $user);
+	}
+
+	function pasoFinalValidarCompra($user_id = null, $creditos = null) {
+		$user = $this -> User -> find('first', array('conditions' => array('User.id' => $user_id), 'recursive' => -1));
+		$this -> User -> read(null, $datos[1]);
+		$this -> User -> set('creditos', $user['User']['creditos'] + $creditos);
+		$this -> User -> save();
 	}
 
 	function ingresoPIN() {
@@ -495,7 +503,7 @@ class UsersController extends AppController {
 			}
 
 		} else {
-			$this->Session->setFlash("Ingrese su usuario/correo y contraseña");
+			$this -> Session -> setFlash("Ingrese su usuario/correo y contraseña");
 		}
 
 	}
