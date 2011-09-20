@@ -40,6 +40,12 @@ class FacturasController extends AppController {
 			$this -> Factura -> save();
 		}
 	}
+	
+	function limpiarRegistros() {
+		$this->autoRender=false;
+		$facturas = $this -> Factura -> find('all', array('recursive' => -1));
+		debug($facturas);
+	}
 
 	function obtenerIDFactura($codigo_factura = null) {
 		if (isset($codigo_factura) && !empty($codigo_factura)) {
@@ -47,18 +53,6 @@ class FacturasController extends AppController {
 			return $factura['Factura']['id'];
 		}
 	}
-	
-	/**
-	 * De TuCompra llega lo siguiente:
-	 * [transaccionAprobada]
-	 * [codigoFactura]
-	 * [valorFactura]
-	 * [tipoMoneda]
-	 * [codigoAutorizacion]
-	 * [numeroTransaccion]
-	 * [metodoPago]
-	 * [nombreMetodoPago]
-	 */
 
 	function recibirDatosCallback(
 		$codigo_factura = null, $transaccion_aprobada = null, $valor_factura = null, $tipo_moneda = null,
