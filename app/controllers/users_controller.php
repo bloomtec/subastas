@@ -56,7 +56,7 @@ class UsersController extends AppController {
 			$llaveencripcion = "6b7c2e50e9f54b3fb630197255e034ac";
 			$cadena = $llaveencripcion . ";" . $_POST['codigoFactura'] . ";" . $_POST['valorFactura'] . ";" . $_POST['codigoAutorizacion'];
 			if (md5($cadena) == $_POST['firmaTuCompra']) {
-				if(TRUE) {
+				if(!empty($factura['Factura']['venta_id'])) {
 					// Pago de producto realizado con exito
 					//
 					$this -> requestAction('/ventas/pagada/' . $factura['Factura']['venta_id']);
