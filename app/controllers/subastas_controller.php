@@ -10,7 +10,7 @@ class SubastasController extends AppController {
 	
 	function pruebas(){
 		$inicio=microtime();
-		$subastas=$this->Subasta->find("all");
+		$subastas=$this->Subasta->find("all",array("limit"=>5));
 		$result = Set::combine($subastas, '{n}.Subasta.id', '{n}.Subasta');
 		$subastasJSON=json_encode($result);
 		$archivoSubastas = fopen(WWW_ROOT."files".DS."subastas.txt","w+");  
