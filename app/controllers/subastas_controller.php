@@ -68,6 +68,7 @@ class SubastasController extends AppController {
 		}
 	}
 	function admin_getStatus(){
+		$inicio=microtime();
 		$time=$_GET["ms"];
 		$date=date("Y-m-d H:i:s", substr($time,0,-3));
 		$dateTime=new DateTime($date);
@@ -91,6 +92,8 @@ class SubastasController extends AppController {
 		);
 		
 		echo json_encode($subastas);
+		$final=microtime();
+		echo "duracion ".($inicio-$final);
 		Configure::write("debug",0);
 		$this->autoRender=false;
 		exit(0);
