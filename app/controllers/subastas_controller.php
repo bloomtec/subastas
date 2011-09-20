@@ -19,6 +19,15 @@ class SubastasController extends AppController {
 		debug($fin-$inicio);
 	
 	}
+	function pruebas2(){
+		$inicio=microtime();
+		$nombre_archivo=WWW_ROOT."files".DS."subastas.txt";
+		$archivoSubastas = fopen($nombre_archivo,"r");  
+		$subastas=fread($archivoSubastas,filesize($nombre_archivo));
+		echo $subastas;
+		$fin=microtime();
+		debug($fin-$inicio);		
+	}
 	
 	function ultimaOferta($subastaID){
 		$oferta=$this->Subasta->Oferta->find("first",array("conditions"=>array("Oferta.subasta_id"=>$subastaID), "order"=>array("Oferta.id DESC"), 'recursive' => 0));
