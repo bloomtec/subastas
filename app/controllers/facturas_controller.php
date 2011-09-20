@@ -19,11 +19,8 @@ class FacturasController extends AppController {
 	}
 
 	function generarCodigoFactura() {
-		//$max_codigo_factura = $this -> Factura -> query("SELECT MAX(`codigo_factura`) FROM `facturas` as Factura");
 		$max_codigo_factura = $this -> Factura -> find('first', array('fields' => array('MAX(Factura.codigo_factura) as max_code')));
 		if(!empty($max_codigo_factura['0']['max_code'])) {
-			debug('no esta vacio');
-			debug($max_codigo_factura['0']['max_code']);
 			return $max_codigo_factura['0']['max_code'] + 1;
 		} else {
 			return 1;
@@ -35,7 +32,7 @@ class FacturasController extends AppController {
 			$this -> Factura -> create();
 			$this -> Factura -> set("codigo_factura", $codigo_factura);
 			$this -> Factura -> set("user_id", $user_id);
-			if($tipo_compra) {
+			if($tipo_compra == 0) {
 				$this -> Factura -> set("creditos", $dato_compra);
 			} else {
 				$this -> Factura -> set("venta_id", $dato_compra);
