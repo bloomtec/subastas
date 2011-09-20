@@ -102,7 +102,7 @@ $(function(){
 	});
 	setInterval(function(){
 		jQuery.ajax({
-			url:"tests.llevatelos.com/index.php?ms="+new Date().getTime(),
+			url:"http://tests.llevatelos.com/index.php?ms="+new Date().getTime(),
 			type: "POST",
 			cache: false,
 			dataType:"json",
