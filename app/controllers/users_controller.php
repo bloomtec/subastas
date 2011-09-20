@@ -23,7 +23,16 @@ class UsersController extends AppController {
 		}
 	}
 
-	function validarCompra() {
+	function validarCompraCreditos() {
+		$this -> loadModel('User');
+		$factura = $this -> requestAction('/facturas/getFactura/' . $_POST['codigoFactura']);
+		$user = $this -> User -> find('first', array('recursive' => -1, 'conditions' => array('User.id' => $factura['Factura']['user_id'])));
+		$this -> Auth -> login($user);
+		$this -> set('_POST', $_POST);
+		$this -> set('user', $user);
+	}
+	
+	function validarCompraProducto() {
 		$this -> loadModel('User');
 		$datos = explode("-", $_POST['codigoFactura']);
 		$user = $this -> User -> find('first', array('conditions' => array('User.id' => $datos[1]), 'recursive' => -1));

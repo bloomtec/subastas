@@ -33,12 +33,11 @@ $user_id = $user["User"]["id"];
 				//
 				$form_id = $subasta['Subasta']['id'];
 				echo $this -> Form -> create(null, array('class' => 'formCompraSubasta', 'type' => 'POST', 'url' => 'http://demo.tucompra.com.co/tc/app/inputs/compra.jsp'));
-				// Datos de comercio
-				//
+				
+				/**
+				 * Datos de comercio
+				 */
 				echo $form -> hidden('usuario', array('name' => 'usuario', 'value' => 'o61qja192w81o1zb'));
-				$gmt = 3600 * -5;
-				// GMT -5 para hora colombiana
-				$fechaActual = gmdate('YmdHis', time() + $gmt);
 				$venta_id = $this -> requestAction('/ventas/obtenerIdVenta/' . $subasta['Subasta']['id']);
 				$factura_id = "2-" . $user_id . "-" . $venta_id . "-" . $fechaActual;
 				echo $this -> Form -> hidden('factura', array('name' => 'factura', 'value' => "$factura_id"));
@@ -59,7 +58,7 @@ $user_id = $user["User"]["id"];
 				echo $this -> Form -> hidden('paisComprador', array('name' => 'paisComprador', 'value' => 'Colombia'));
 				// URL de respuesta
 				//
-				echo $this -> Form -> hidden('urlRetorno', array('name' => 'urlRetorno', 'value' => 'http://llevatelos.com/users/validarCompra'));
+				echo $this -> Form -> hidden('urlRetorno', array('name' => 'urlRetorno', 'value' => 'http://llevatelos.com/users/validarCompraProducto'));
 				// Finalizar el form
 				//
 				echo $this -> Form -> end(" ");
