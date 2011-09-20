@@ -22,6 +22,50 @@ class UsersController extends AppController {
 			$this -> redirect(array("action" => "login"));
 		}
 	}
+	
+	function confirmacionPago() {
+		$this -> autoRender = false;
+		$this -> loadModel('User');
+		$factura = $this -> requestAction('/facturas/getFactura/' . $_POST['codigoFactura']);
+		$user = $this -> User -> read(null, $factura['Factura']['user_id']);
+		$this -> requestAction(
+			'/facturas/ingresarDatosConfirmacionPago/'
+			. $_POST['codigoFactura'] . '/'
+			. $_POST['transaccionAprobada'] . '/'
+			. $_POST['valorFactura'] . '/'
+			. $_POST['tipoMoneda'] . '/'
+			. $_POST['codigoAutorizacion'] . '/'
+			. $_POST['numeroTransaccion'] . '/'
+			. $_POST['metodoPago'] . '/'
+			. $_POST['nombreMetodoPago']
+		);
+		if ($_POST['codigoAutorizacion'] == "00") {
+			// La compra no pudo realizarse
+			//
+		} else {
+			$llaveencripcion = "6b7c2e50e9f54b3fb630197255e034ac";
+			$cadena = $llaveencripcion . ";" . $_POST['codigoFactura'] . ";" . $_POST['valorFactura'] . ";" . $_POST['codigoAutorizacion'];
+			if (md5($cadena) == $_POST['firmaTuCompra']) {
+				if(TRUE) {
+					// Pago de producto realizado con exito
+					//
+					$this -> requestAction('/ventas/pagada/' . $factura['Factura']['venta_id']);
+				} else {
+					// Compra de creditos realizada con exito
+					//
+					$this -> User -> set('creditos', $user['User']['creditos'] + $creditos);
+					$this -> User -> save();
+				}
+			} else {
+				//la firma no es valida; información no confirmada
+				//
+			}
+		}
+	}
+	
+	function retornoTuCompra() {
+		
+	}
 
 	function validarCompraCreditos() {
 		$this -> loadModel('User');
@@ -39,13 +83,6 @@ class UsersController extends AppController {
 		$this -> Auth -> login($user);
 		$this -> set('_POST', $_POST);
 		$this -> set('user', $user);
-	}
-
-	function pasoFinalValidarCompra($user_id = null, $creditos = null) {
-		$user = $this -> User -> find('first', array('conditions' => array('User.id' => $user_id), 'recursive' => -1));
-		$this -> User -> read(null, $user_id);
-		$this -> User -> set('creditos', $user['User']['creditos'] + $creditos);
-		$this -> User -> save();
 	}
 
 	function ingresoPIN() {
@@ -502,7 +539,7 @@ class UsersController extends AppController {
 			if (!empty($user) && $this -> Auth -> login($user)) {
 				$userId = $this -> Auth -> user('id');
 				$this -> set("login", true);
-
+				$this -> Cookie -> write('User.id', $userId);
 				if ($this -> Auth -> autoRedirect) {
 					$this -> redirect($this -> Auth -> redirect());
 				}
@@ -550,6 +587,7 @@ class UsersController extends AppController {
 					echo false;
 				} else {
 					$userId = $this -> Auth -> user('id');
+					$this -> Cookie -> write('User.id', $userId);
 					$this -> set("login", true);
 					echo true;
 				}
@@ -567,7 +605,29 @@ class UsersController extends AppController {
 	}
 
 	function admin_login() {
-		$this -> set("login", true);
+		if (!empty($this -> data) && !empty($this -> Auth -> data['User']['username'])) {
+
+			$user = $this -> User -> find('first', array('conditions' => array('username' => $this -> Auth -> data['User']['username'], 'password' => $this -> Auth -> data['User']['password']), 'recursive' => -1));
+
+			if (!$user) {
+				$user = $this -> User -> find('first', array('conditions' => array('email' => $this -> Auth -> data['User']['username'], 'password' => $this -> Auth -> data['User']['password']), 'recursive' => -1));
+			}
+
+			if (!empty($user) && $this -> Auth -> login($user)) {
+				$userId = $this -> Auth -> user('id');
+				$this -> set("login", true);
+				$this -> Cookie -> write('User.id', $userId);
+				if ($this -> Auth -> autoRedirect) {
+					$this -> redirect($this -> Auth -> redirect());
+				}
+
+			} else {
+				$this -> Session -> setFlash("Por favor revisa los datos ingresados e intenta de nuevo.");
+			}
+
+		} else {
+			$this -> Session -> setFlash("Ingrese su usuario/correo y contraseña");
+		}
 	}
 
 	//LOGOUT USER

@@ -54,7 +54,7 @@ class FacturasController extends AppController {
 		}
 	}
 
-	function recibirDatosCallback(
+	function ingresarDatosConfirmacionPago(
 		$codigo_factura = null, $transaccion_aprobada = null, $valor_factura = null, $tipo_moneda = null,
 		$codigo_autorizacion = null, $numero_transaccion = null, $metodo_pago = null, $nombre_metodo_pago = null
 	) {
