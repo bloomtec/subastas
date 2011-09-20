@@ -9,10 +9,25 @@ class SubastasController extends AppController {
 	}
 	
 	function pruebas(){
-		$subasta=$this->Subasta->find("first");
-		debug($subasta["Subasta"]["fecha_de_venta"]);
-		debug(gmdate('Y-m-d H:i:s', time() + (3600 * -5) + 1));
-		debug(gmdate('Y-m-d H:i:s', time() + (3600 * -5)));
+		$inicio=microtime();
+		$subastas=$this->Subasta->find("all",array("limit"=>5));
+		$result = Set::combine($subastas, '{n}.Subasta.id', '{n}.Subasta');
+		$subastasJSON=json_encode($result);
+		$archivoSubastas = fopen(WWW_ROOT."files".DS."subastas.txt","w+");  
+		fwrite($archivoSubastas,$subastasJSON);
+		$fin=microtime();
+		debug($fin-$inicio);
+		
+	
+	}
+	function pruebas2(){
+		$inicio=microtime();
+		$nombre_archivo=WWW_ROOT."files".DS."subastas.txt";
+		$archivoSubastas = fopen($nombre_archivo,"r");  
+		$subastas=fread($archivoSubastas,filesize($nombre_archivo));
+		echo $subastas;
+		$fin=microtime();
+		echo ($nombre_archivo);		
 	}
 	
 	function ultimaOferta($subastaID){
@@ -54,6 +69,7 @@ class SubastasController extends AppController {
 		}
 	}
 	function admin_getStatus(){
+		$inicio=microtime();
 		$time=$_GET["ms"];
 		$date=date("Y-m-d H:i:s", substr($time,0,-3));
 		$dateTime=new DateTime($date);
@@ -77,6 +93,8 @@ class SubastasController extends AppController {
 		);
 		
 		echo json_encode($subastas);
+		$final=microtime();
+		echo "duracion ".($inicio-$final);
 		Configure::write("debug",0);
 		$this->autoRender=false;
 		exit(0);

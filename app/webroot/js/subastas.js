@@ -101,8 +101,9 @@ $(function(){
 		$(this).parent().hide();
 	});
 	setInterval(function(){
+		
 		jQuery.ajax({
-			url:server+"subastas/getStatus?ms="+new Date().getTime(),
+			url:"/subastas/getStatus?ms="+new Date().getTime(),
 			type: "POST",
 			cache: false,
 			dataType:"json",
