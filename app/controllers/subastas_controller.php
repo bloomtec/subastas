@@ -17,6 +17,7 @@ class SubastasController extends AppController {
 		fwrite($archivoSubastas,$subastasJSON);
 		$fin=microtime();
 		debug($fin-$inicio);
+		
 	
 	}
 	function pruebas2(){
@@ -26,7 +27,10 @@ class SubastasController extends AppController {
 		$subastas=fread($archivoSubastas,filesize($nombre_archivo));
 		echo $subastas;
 		$fin=microtime();
-		debug($fin-$inicio);		
+		echo ($fin-$inicio);		
+		Configure::write("debug",0);
+		$this->autoRender=false;
+		exit(0);
 	}
 	
 	function ultimaOferta($subastaID){
