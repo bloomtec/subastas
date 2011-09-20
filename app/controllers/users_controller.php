@@ -63,8 +63,8 @@ class UsersController extends AppController {
 				} else {
 					// Compra de creditos realizada con exito
 					//
-					$this -> User -> set('creditos', $user['User']['creditos'] + $factura['Factura']['creditos']);
-					$this -> User -> save();
+					$user['User']['creditos'] = $user['User']['creditos'] + $factura['Factura']['creditos'];
+					$this -> User -> save($user);
 				}
 			} else {
 				//la firma no es valida; información no confirmada
