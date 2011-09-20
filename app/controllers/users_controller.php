@@ -23,6 +23,16 @@ class UsersController extends AppController {
 		}
 	}
 	
+	function readCookieUserID() {
+		$user_id = $this -> Cookie -> read('User.id');
+		return $user_id;
+	}
+	
+	function writeCookieUserID() {
+		$user_id = $this -> Session -> read('Auth.User.id');
+		$this -> Cookie -> write('User.id', $user_id);		
+	}
+	
 	function confirmacionPago() {
 		$this -> autoRender = false;
 		$this -> loadModel('User');
@@ -556,6 +566,7 @@ class UsersController extends AppController {
 				} else {
 					$userId = $this -> Auth -> user('id');
 					$this -> set("login", true);
+					$this->writeCookieUserID();
 					echo true;
 				}
 			} else {
@@ -579,6 +590,7 @@ class UsersController extends AppController {
 			if (!empty($user) && $this -> Auth -> login($user)) {
 				$userId = $this -> Auth -> user('id');
 				$this -> set("login", true);
+				$this->writeCookieUserID();
 				if ($this -> Auth -> autoRedirect) {
 					$this -> redirect($this -> Auth -> redirect());
 				}
@@ -599,6 +611,7 @@ class UsersController extends AppController {
 			if (!empty($user) && $this -> Auth -> login($user)) {
 				$userId = $this -> Auth -> user('id');
 				$this -> set("login", true);
+				$this->writeCookieUserID();
 				if ($this -> Auth -> autoRedirect) {
 					$this -> redirect($this -> Auth -> redirect());
 				}

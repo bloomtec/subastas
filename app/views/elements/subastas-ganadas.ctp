@@ -66,7 +66,7 @@ $user_id = $user["User"]["id"];
 				echo $this -> Form -> hidden('paisComprador', array('name' => 'paisComprador', 'value' => 'Colombia'));
 				// URL de respuesta
 				//
-				echo $this -> Form -> hidden('urlRetorno', array('name' => 'urlRetorno', 'value' => 'http://llevatelos.com/users/retornoTuCompra'));
+				//echo $this -> Form -> hidden('urlRetorno', array('name' => 'urlRetorno', 'value' => 'http://llevatelos.com/users/retornoTuCompra'));
 				// Finalizar el form
 				//
 				echo $this -> Form -> end(" ");
