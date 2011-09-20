@@ -20,12 +20,12 @@ class FacturasController extends AppController {
 
 	function generarCodigoFactura() {
 		$max_codigo_factura = $this -> Factura -> query("SELECT MAX(`codigo_factura`) FROM `facturas` as Factura");
-		if(!empty($max_codigo_factura)) {
+		if(!empty($max_codigo_factura['0'])) {
 			debug('no esta vacio');
-			debug($max_codigo_factura);
+			debug($max_codigo_factura['0']);
 		} else {
 			debug('esta vacio');
-			debug($max_codigo_factura);
+			debug($max_codigo_factura['0']);
 		}
 		//$codigo = $max_codigo_factura + 1;
 		return 0;
