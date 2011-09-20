@@ -525,35 +525,6 @@ class UsersController extends AppController {
 		$this -> redirect(array('action' => 'index'));
 	}
 
-	//LOGIN USER
-	function login() {
-
-		if (!empty($this -> data) && !empty($this -> Auth -> data['User']['username'])) {
-
-			$user = $this -> User -> find('first', array('conditions' => array('username' => $this -> Auth -> data['User']['username'], 'password' => $this -> Auth -> data['User']['password']), 'recursive' => -1));
-
-			if (!$user) {
-				$user = $this -> User -> find('first', array('conditions' => array('email' => $this -> Auth -> data['User']['username'], 'password' => $this -> Auth -> data['User']['password']), 'recursive' => -1));
-			}
-
-			if (!empty($user) && $this -> Auth -> login($user)) {
-				$userId = $this -> Auth -> user('id');
-				$this -> set("login", true);
-				$this -> Cookie -> write('User.id', $userId);
-				if ($this -> Auth -> autoRedirect) {
-					$this -> redirect($this -> Auth -> redirect());
-				}
-
-			} else {
-				$this -> Session -> setFlash("Por favor revisa los datos ingresados e intenta de nuevo.");
-			}
-
-		} else {
-			$this -> Session -> setFlash("Ingrese su usuario/correo y contraseña");
-		}
-
-	}
-
 	function registerMadMimi() {
 		// Importar clases de Mad Mimi
 		//
@@ -570,6 +541,38 @@ class UsersController extends AppController {
 		$this -> autoRender = false;
 		exit(0);
 	}
+
+	//LOGIN USER
+	function login() {
+
+		if (!empty($this -> data) && !empty($this -> Auth -> data['User']['username'])) {
+
+			$user = $this -> User -> find('first', array('conditions' => array('username' => $this -> Auth -> data['User']['username'], 'password' => $this -> Auth -> data['User']['password']), 'recursive' => -1));
+
+			if (!$user) {
+				$user = $this -> User -> find('first', array('conditions' => array('email' => $this -> Auth -> data['User']['username'], 'password' => $this -> Auth -> data['User']['password']), 'recursive' => -1));
+			}
+
+			if (!empty($user) && $this -> Auth -> login($user)) {
+				$userId = $this -> Auth -> user('id');
+				debug($userId);
+				$this -> set("login", true);
+				$this -> Cookie -> write('User.id', $userId);
+				$tmp_id = $this->Cookie->read('User.id');
+				debug();
+				if ($this -> Auth -> autoRedirect) {
+					//$this -> redirect($this -> Auth -> redirect());
+				}
+			} else {
+				$this -> Session -> setFlash("Por favor revisa los datos ingresados e intenta de nuevo.");
+			}
+		} else {
+			$this -> Session -> setFlash("Ingrese su usuario/correo y contraseña");
+		}
+
+	}
+
+	
 
 	function ajaxLogin() {
 		$this -> Auth -> data['User']['username'] = $_POST["data"]["User"]["username"];
@@ -1017,9 +1020,6 @@ class UsersController extends AppController {
 			$user = $this -> User -> read(null, $userID);
 			$this -> loadModel('UserField');
 			$user_fields = $this -> UserField -> find('first', array('conditions' => array('user_id' => $user['User']['id']), 'recursive' => -1));
-
-			// TODO : Enviar el correo a $correoDestino con el enlace y la $IDEncriptada
-			//
 
 			if ($correoDestino) {
 				App::import('Vendor', 'MadMimi', array('file' => 'madmimi' . DS . 'MadMimi.class.php'));
