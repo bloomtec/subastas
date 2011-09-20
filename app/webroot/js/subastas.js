@@ -101,8 +101,9 @@ $(function(){
 		$(this).parent().hide();
 	});
 	setInterval(function(){
+		
 		jQuery.ajax({
-			url:"http://tests.llevatelos.com/index.php?ms="+new Date().getTime(),
+			url:"http://servicio.llevatelos.com/index.php?ms="+new Date().getTime(),
 			type: "POST",
 			cache: false,
 			dataType:"json",
