@@ -29,20 +29,20 @@ $user_id = $user["User"]["id"];
 				<h3>Fecha límite de pago</h3>
 				<h3 style="color:#ec212a;" >Falta fecha limite de pago</h3>
 				<?php
+
 				// Crear el form
 				//
-				$form_id = $subasta['Subasta']['id'];
 				echo $this -> Form -> create(null, array('class' => 'formCompraSubasta', 'type' => 'POST', 'url' => 'http://demo.tucompra.com.co/tc/app/inputs/compra.jsp'));
-				
+
 				/**
 				 * Datos de comercio
 				 */
 				echo $form -> hidden('usuario', array('name' => 'usuario', 'value' => 'o61qja192w81o1zb'));
-				
+
 				// Obtener el id de la venta
 				//
 				$venta_id = $this -> requestAction('/ventas/obtenerIdVenta/' . $subasta['Subasta']['id']);
-				
+
 				// Crear el código de factura
 				//
 				$factura_id = $this -> requestAction('/facturas/generarCodigoFactura');
@@ -51,6 +51,7 @@ $user_id = $user["User"]["id"];
 				echo $this -> Form -> hidden('valor', array('name' => 'valor', 'value' => $subasta['Subasta']['precio']));
 				$nombre = $subasta['Subasta']['nombre'];
 				echo $this -> Form -> hidden('descripcionFactura', array('name' => 'descripcionFactura', 'value' => "Compra de la subasta ganada $nombre en llevatelos.com"));
+
 				// Datos de usuario
 				// Se pide: documento, nombre, apellido, correo,
 				// direccion, telefono, celular, ciudad, pais
