@@ -63,7 +63,7 @@ class UsersController extends AppController {
 				} else {
 					// Compra de creditos realizada con exito
 					//
-					$this -> User -> set('creditos', $user['User']['creditos'] + $creditos);
+					$this -> User -> set('creditos', $user['User']['creditos'] + $factura['Factura']['creditos']);
 					$this -> User -> save();
 				}
 			} else {
