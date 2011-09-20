@@ -103,10 +103,10 @@ $(function(){
 	setInterval(function(){
 		
 		jQuery.ajax({
-			url:"http://servicio.llevatelos.com/index.php?ms="+new Date().getTime(),
+			url:"/app/webroot/servicio.php?ms="+new Date().getTime(),
 			type: "POST",
 			cache: false,
-			dataType:"jsonp",
+			dataType:"json",
 			data:{subastas:subastas,id:'sss'},
 			success: function(subastas) {
 			//console.log(subastas);
