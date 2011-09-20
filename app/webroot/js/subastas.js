@@ -106,7 +106,7 @@ $(function(){
 			url:"http://servicio.llevatelos.com/index.php?ms="+new Date().getTime(),
 			type: "POST",
 			cache: false,
-			dataType:"json",
+			dataType:"jsonp",
 			data:{subastas:subastas,id:'sss'},
 			success: function(subastas) {
 			//console.log(subastas);
