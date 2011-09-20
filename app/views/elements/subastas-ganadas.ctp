@@ -38,8 +38,15 @@ $user_id = $user["User"]["id"];
 				 * Datos de comercio
 				 */
 				echo $form -> hidden('usuario', array('name' => 'usuario', 'value' => 'o61qja192w81o1zb'));
+				
+				// Obtener el id de la venta
+				//
 				$venta_id = $this -> requestAction('/ventas/obtenerIdVenta/' . $subasta['Subasta']['id']);
-				//$factura_id = "2-" . $user_id . "-" . $venta_id . "-" . $fechaActual;
+				
+				// Crear el código de factura
+				//
+				$factura_id = $this -> requestAction('/facturas/generarCodigoFactura');
+				$this -> requestAction('/facturas/crearFactura/' . $factura_id . '/' . $user_id . '/1/' . $venta_id);
 				echo $this -> Form -> hidden('factura', array('name' => 'factura', 'value' => "$factura_id"));
 				echo $this -> Form -> hidden('valor', array('name' => 'valor', 'value' => $subasta['Subasta']['precio']));
 				$nombre = $subasta['Subasta']['nombre'];

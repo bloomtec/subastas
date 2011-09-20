@@ -10,7 +10,6 @@
 		if ($_POST['codigoAutorizacion'] == "00") {
 			// La compra no pudo realizarse
 			//
-
 			echo "<p>";
 			echo "La compra no pudo realizarse";
 			echo "<form action='../../subastas'>";
