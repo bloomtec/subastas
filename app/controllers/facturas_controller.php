@@ -23,7 +23,8 @@ class FacturasController extends AppController {
 			"SELECT MAX(`codigo_factura`)
 			FROM `facturas` as Factura"
 		);
-		return $max_codigo_factura + 1;
+		$codigo = $max_codigo_factura + 1;
+		return $codigo;
 	}
 
 	function crearFactura($codigo_factura = null, $user_id = null, $tipo_compra = null, $dato_compra = null) {

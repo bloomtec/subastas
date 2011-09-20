@@ -39,7 +39,7 @@ $user_id = $user["User"]["id"];
 				 */
 				echo $form -> hidden('usuario', array('name' => 'usuario', 'value' => 'o61qja192w81o1zb'));
 				$venta_id = $this -> requestAction('/ventas/obtenerIdVenta/' . $subasta['Subasta']['id']);
-				$factura_id = "2-" . $user_id . "-" . $venta_id . "-" . $fechaActual;
+				//$factura_id = "2-" . $user_id . "-" . $venta_id . "-" . $fechaActual;
 				echo $this -> Form -> hidden('factura', array('name' => 'factura', 'value' => "$factura_id"));
 				echo $this -> Form -> hidden('valor', array('name' => 'valor', 'value' => $subasta['Subasta']['precio']));
 				$nombre = $subasta['Subasta']['nombre'];
