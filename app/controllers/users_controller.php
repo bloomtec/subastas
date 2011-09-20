@@ -542,63 +542,25 @@ class UsersController extends AppController {
 		exit(0);
 	}
 
-	//LOGIN USER
-	function login() {
-
-		if (!empty($this -> data) && !empty($this -> Auth -> data['User']['username'])) {
-
-			$user = $this -> User -> find('first', array('conditions' => array('username' => $this -> Auth -> data['User']['username'], 'password' => $this -> Auth -> data['User']['password']), 'recursive' => -1));
-
-			if (!$user) {
-				$user = $this -> User -> find('first', array('conditions' => array('email' => $this -> Auth -> data['User']['username'], 'password' => $this -> Auth -> data['User']['password']), 'recursive' => -1));
-			}
-
-			if (!empty($user) && $this -> Auth -> login($user)) {
-				$userId = $this -> Auth -> user('id');
-				debug($userId);
-				$this -> set("login", true);
-				$this -> Cookie -> write('User.id', $userId);
-				$tmp_id = $this->Cookie->read('User.id');
-				debug();
-				if ($this -> Auth -> autoRedirect) {
-					//$this -> redirect($this -> Auth -> redirect());
-				}
-			} else {
-				$this -> Session -> setFlash("Por favor revisa los datos ingresados e intenta de nuevo.");
-			}
-		} else {
-			$this -> Session -> setFlash("Ingrese su usuario/correo y contraseña");
-		}
-
-	}
-
-	
-
 	function ajaxLogin() {
 		$this -> Auth -> data['User']['username'] = $_POST["data"]["User"]["username"];
 		$this -> Auth -> data['User']['password'] = $this -> Auth -> password($_POST["data"]["User"]["password"]);
 		if (!empty($this -> Auth -> data['User']['username']) && !empty($this -> Auth -> data['User']['password'])) {
-
 			$user = $this -> User -> find('first', array('conditions' => array('username' => $this -> Auth -> data['User']['username'], 'password' => $this -> Auth -> data['User']['password']), 'recursive' => -1));
-
 			if (!$user) {
 				$user = $this -> User -> find('first', array('conditions' => array('email' => $this -> Auth -> data['User']['username'], 'password' => $this -> Auth -> data['User']['password']), 'recursive' => -1));
 			}
-
 			if (!empty($user) && $this -> Auth -> login($user)) {
 				if (!$user["User"]["email_validado"]) {// SI NO HA VERIFICADO EL MAIL NO LO DEJA LOGUEAR
 					echo false;
 				} else {
 					$userId = $this -> Auth -> user('id');
-					$this -> Cookie -> write('User.id', $userId);
 					$this -> set("login", true);
 					echo true;
 				}
-
 			} else {
 				echo false;
 			}
-
 		} else {
 			echo false;
 		}
@@ -607,27 +569,42 @@ class UsersController extends AppController {
 		exit(0);
 	}
 
-	function admin_login() {
+	//LOGIN USER
+	function login() {
 		if (!empty($this -> data) && !empty($this -> Auth -> data['User']['username'])) {
-
 			$user = $this -> User -> find('first', array('conditions' => array('username' => $this -> Auth -> data['User']['username'], 'password' => $this -> Auth -> data['User']['password']), 'recursive' => -1));
-
 			if (!$user) {
 				$user = $this -> User -> find('first', array('conditions' => array('email' => $this -> Auth -> data['User']['username'], 'password' => $this -> Auth -> data['User']['password']), 'recursive' => -1));
 			}
-
 			if (!empty($user) && $this -> Auth -> login($user)) {
 				$userId = $this -> Auth -> user('id');
 				$this -> set("login", true);
-				$this -> Cookie -> write('User.id', $userId);
 				if ($this -> Auth -> autoRedirect) {
 					$this -> redirect($this -> Auth -> redirect());
 				}
-
 			} else {
 				$this -> Session -> setFlash("Por favor revisa los datos ingresados e intenta de nuevo.");
 			}
+		} else {
+			$this -> Session -> setFlash("Ingrese su usuario/correo y contraseña");
+		}
+	}
 
+	function admin_login() {
+		if (!empty($this -> data) && !empty($this -> Auth -> data['User']['username'])) {
+			$user = $this -> User -> find('first', array('conditions' => array('username' => $this -> Auth -> data['User']['username'], 'password' => $this -> Auth -> data['User']['password']), 'recursive' => -1));
+			if (!$user) {
+				$user = $this -> User -> find('first', array('conditions' => array('email' => $this -> Auth -> data['User']['username'], 'password' => $this -> Auth -> data['User']['password']), 'recursive' => -1));
+			}
+			if (!empty($user) && $this -> Auth -> login($user)) {
+				$userId = $this -> Auth -> user('id');
+				$this -> set("login", true);
+				if ($this -> Auth -> autoRedirect) {
+					$this -> redirect($this -> Auth -> redirect());
+				}
+			} else {
+				$this -> Session -> setFlash("Por favor revisa los datos ingresados e intenta de nuevo.");
+			}
 		} else {
 			$this -> Session -> setFlash("Ingrese su usuario/correo y contraseña");
 		}
