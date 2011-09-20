@@ -9,10 +9,15 @@ class SubastasController extends AppController {
 	}
 	
 	function pruebas(){
-		$subasta=$this->Subasta->find("first");
-		debug($subasta["Subasta"]["fecha_de_venta"]);
-		debug(gmdate('Y-m-d H:i:s', time() + (3600 * -5) + 1));
-		debug(gmdate('Y-m-d H:i:s', time() + (3600 * -5)));
+		$inicio=microtime();
+		$subastas=$this->Subasta->find("all");
+		$result = Set::combine($subastas, '{n}.Subasta.id', '{n}.Subasta');
+		$subastasJSON=json_encode($result);
+		$archivoSubastas = fopen(WWW_ROOT."files".DS."subastas.txt","w+");  
+		fwrite($archivoSubastas,$subastasJSON);
+		$fin=microtime();
+		debug($fin-$inicio);
+	
 	}
 	
 	function ultimaOferta($subastaID){
