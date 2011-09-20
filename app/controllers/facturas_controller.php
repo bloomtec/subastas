@@ -23,7 +23,13 @@ class FacturasController extends AppController {
 			"SELECT MAX(`codigo_factura`)
 			FROM `facturas` as Factura"
 		);
-		debug($max_codigo_factura);
+		if(!empty($max_codigo_factura)) {
+			debug('no esta vacio');
+			debug($max_codigo_factura);
+		} else {
+			debug('esta vacio');
+			debug($max_codigo_factura);
+		}
 		//$codigo = $max_codigo_factura + 1;
 		return 0;
 	}
