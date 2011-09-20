@@ -49,7 +49,7 @@ class FacturasController extends AppController {
 
 	function obtenerIDFactura($codigo_factura = null) {
 		if (isset($codigo_factura) && !empty($codigo_factura)) {
-			$factura = $this -> Factura -> find('first', array('conditions' => array('Factura.codigo_factura'), 'recursive' => -1));
+			$factura = $this -> Factura -> find('first', array('conditions' => array('Factura.codigo_factura' => $codigo_factura), 'recursive' => -1));
 			return $factura['Factura']['id'];
 		}
 	}
