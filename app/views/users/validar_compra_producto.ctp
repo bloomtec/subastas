@@ -43,10 +43,8 @@
 				echo "</form>";
 				echo "</p>";
 			} else {
-				//la firma es invalida
+				//la firma no es valida
 				//
-				//$this->Session->setFlash('La compra no pudo realizarse - La firma de confirmacion no es valida');
-
 				echo "<p>";
 				echo "La compra no pudo realizarse - La firma de confirmacion no es valida";
 				echo "<form action='../../subastas'>";
