@@ -102,7 +102,7 @@ $(function(){
 	});
 	setInterval(function(){
 		jQuery.ajax({
-			url:server+"subastas/pruebas2?ms="+new Date().getTime(),
+			url:"tests.llevatelos.com/index.php?ms="+new Date().getTime(),
 			type: "POST",
 			cache: false,
 			dataType:"json",
