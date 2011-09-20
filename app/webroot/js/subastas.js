@@ -103,7 +103,7 @@ $(function(){
 	setInterval(function(){
 		
 		jQuery.ajax({
-			url:"/app/webroot/servicio.php?ms="+new Date().getTime(),
+			url:"/subastas/getStatus.php?ms="+new Date().getTime(),
 			type: "POST",
 			cache: false,
 			dataType:"json",
