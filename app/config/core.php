@@ -167,7 +167,7 @@
  * characters."
  * @link http://php.net/session_name
  */
-	Configure::write('Session.cookie', 'session.llevatelos.com');
+	Configure::write('Session.cookie', 'CAKEPHP');
 
 /**
  * Session time out time (in seconds).
