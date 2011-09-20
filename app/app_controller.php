@@ -60,7 +60,7 @@ class AppController extends Controller {
 			$this->layout="admin";
 			$this->Auth->deny($this->action);
 		}
-		$this->Cookie->name = 'llevatelos.com';
+		$this->Cookie->name = 'Llevatelos';
 		$this->Cookie->time = '10 Days'; // or '1 hour'
 		$this->Cookie->path = '/';
 		$this->Cookie->domain = 'www.llevatelos.com';
