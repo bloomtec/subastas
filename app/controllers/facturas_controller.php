@@ -24,12 +24,10 @@ class FacturasController extends AppController {
 		if(!empty($max_codigo_factura['0']['max_code'])) {
 			debug('no esta vacio');
 			debug($max_codigo_factura['0']['max_code']);
+			return $max_codigo_factura['0']['max_code'] + 1;
 		} else {
-			debug('esta vacio');
-			debug($max_codigo_factura['0']['max_code']);
+			return 1;
 		}
-		//$codigo = $max_codigo_factura + 1;
-		return 0;
 	}
 
 	function crearFactura($codigo_factura = null, $user_id = null, $tipo_compra = null, $dato_compra = null) {
