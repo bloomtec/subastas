@@ -215,7 +215,7 @@ a.banner-productos{
 #header .banner-principal {
 	clear:both;	
 	width: 496px;
-	height:209px;
+	height:189px;
 	margin-top:10px;
 }
 /*END HEADER*/
@@ -1247,7 +1247,7 @@ a#resaltar-registro{
 	overflow:hidden;
 }
 .WYSIWYG.inactivity p{
-	font-size:36px;
+	font-size:28px;
 	width:474px;
 	text-align:center;
 	margin:0;

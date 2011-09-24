@@ -23,7 +23,7 @@
 				echo $this -> Form -> input('UserField.nombres');
 				echo $this -> Form -> input('UserField.apellidos');
 				echo $this -> Form -> input('UserField.cedula');
-				echo $this -> Form -> input('UserField.fecha_de_nacimiento');
+				echo $this -> Form -> input('UserField.fecha_de_nacimiento',array("minYear"=>"1930"));
 				echo $this -> Form -> input('UserField.sexo',array("options"=>array("hombre"=>"Hombre","mujer"=>"Mujer")));
 				echo $this -> Form -> hidden('email');
 				echo $this -> Form -> input('UserField.direccion', array("type" => "hidden", "value" => $user['User']['email']));
