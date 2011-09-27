@@ -12,7 +12,7 @@ class UsersController extends AppController {
 	function beforeFilter() {
 		parent::beforeFilter();
 		//$this->Auth->deny("login","abonarCreditosPorRecomendacion","checkEmail","register","checkPassword","rememberPassword","reponerCreditos","creditosUsuario","creditosSuficientes","descontarCreditos");
-		//	$this->Auth->allow("index","confirm",'login');
+		$this->Auth->allow('readCookie');
 	}
 	
 	function writeCookie() {
@@ -20,7 +20,7 @@ class UsersController extends AppController {
 	    $this->Cookie->name = 'lleva_proc_tuComp';
 	    $this->Cookie->time = 36000; // or '1 hour'
 	    $this->Cookie->path = '/';
-	    $this->Cookie->domain = 'www.llevatelos.com';
+	    $this->Cookie->domain = 'llevatelos.com';
 	    $this->Cookie->secure = false; //i.e. only sent if using secure HTTPS
 	    $this->Cookie->key = 'Keajalein64512f86?!!*"!';
 		$this->Cookie->write('_data', $this->Session->read('Auth.User.id'));
@@ -31,7 +31,7 @@ class UsersController extends AppController {
 	    $this->Cookie->name = 'lleva_proc_tuComp';
 	    $this->Cookie->time = 36000; // or '1 hour'
 	    $this->Cookie->path = '/';
-	    $this->Cookie->domain = 'www.llevatelos.com';
+	    $this->Cookie->domain = 'llevatelos.com';
 	    $this->Cookie->secure = false; //i.e. only sent if using secure HTTPS
 	    $this->Cookie->key = 'Keajalein64512f86?!!*"!';
 	    return $this->Cookie->read('_data');
@@ -44,16 +44,6 @@ class UsersController extends AppController {
 		if (empty($user)) {
 			$this -> redirect(array("action" => "login"));
 		}
-	}
-	
-	function readCookieUserID() {
-		$user_id = $this -> Cookie -> read('User.id');
-		return $user_id;
-	}
-	
-	function writeCookieUserID() {
-		$user_id = $this -> Session -> read('Auth.User.id');
-		$this -> Cookie -> write('User.id', $user_id);		
 	}
 	
 	function confirmacionPago() {
