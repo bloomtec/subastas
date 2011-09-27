@@ -17,23 +17,23 @@ class UsersController extends AppController {
 	
 	function writeCookie() {
 		$this->autoRender=false;
-	    $this->Cookie->name = 'lleva_proc_tuComp';
-	    $this->Cookie->time = 36000; // or '1 hour'
-	    $this->Cookie->path = '/';
-	    $this->Cookie->domain = 'llevatelos.com';
-	    $this->Cookie->secure = false; //i.e. only sent if using secure HTTPS
-	    $this->Cookie->key = 'Keajalein64512f86?!!*"!';
+	    //$this->Cookie->name = 'lleva_proc_tuComp';
+	    //$this->Cookie->time = 36000; // or '1 hour'
+	    //$this->Cookie->path = '/';
+	    //$this->Cookie->domain = 'llevatelos.com';
+	    //$this->Cookie->secure = false; //i.e. only sent if using secure HTTPS
+	    //$this->Cookie->key = 'Keajalein64512f86?!!*"!';
 		$this->Cookie->write('_data', $this->Session->read('Auth.User.id'));
 	}
 	
 	function readCookie() {
 		$this->autoRender=false;
-	    $this->Cookie->name = 'lleva_proc_tuComp';
-	    $this->Cookie->time = 36000; // or '1 hour'
-	    $this->Cookie->path = '/';
-	    $this->Cookie->domain = 'llevatelos.com';
-	    $this->Cookie->secure = false; //i.e. only sent if using secure HTTPS
-	    $this->Cookie->key = 'Keajalein64512f86?!!*"!';
+	    //$this->Cookie->name = 'lleva_proc_tuComp';
+	    //$this->Cookie->time = 36000; // or '1 hour'
+	    //$this->Cookie->path = '/';
+	    //$this->Cookie->domain = 'llevatelos.com';
+	    //$this->Cookie->secure = false; //i.e. only sent if using secure HTTPS
+	    //$this->Cookie->key = 'Keajalein64512f86?!!*"!';
 	    return $this->Cookie->read('_data');
 	}
 
