@@ -97,6 +97,7 @@ class UsersController extends AppController {
 	}
 	
 	function retornoTuCompra() {
+		$this->autoRender=false;
 		$this->loadModel('User');
 		$user_id = $this->requestAction('/users/readCookie');
 		if($user_id) {
