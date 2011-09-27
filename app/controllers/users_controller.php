@@ -2,6 +2,7 @@
 class UsersController extends AppController {
 
 	var $name = 'Users';
+	var $components = array('Cookie');
 
 	private $directorioFoto = "";
 	private $administradorRolId = 1;
@@ -12,6 +13,28 @@ class UsersController extends AppController {
 		parent::beforeFilter();
 		//$this->Auth->deny("login","abonarCreditosPorRecomendacion","checkEmail","register","checkPassword","rememberPassword","reponerCreditos","creditosUsuario","creditosSuficientes","descontarCreditos");
 		//	$this->Auth->allow("index","confirm",'login');
+	}
+	
+	function writeCookie() {
+		$this->autoRender=false;
+	    $this->Cookie->name = 'lleva_proc_tuComp';
+	    $this->Cookie->time = 36000; // or '1 hour'
+	    $this->Cookie->path = '/';
+	    $this->Cookie->domain = 'www.llevatelos.com';
+	    $this->Cookie->secure = false; //i.e. only sent if using secure HTTPS
+	    $this->Cookie->key = 'Keajalein64512f86?!!*"!';
+		$this->Cookie->write('_data', $this->Session->read('Auth.User.id'));
+	}
+	
+	function readCookie() {
+		$this->autoRender=false;
+	    $this->Cookie->name = 'lleva_proc_tuComp';
+	    $this->Cookie->time = 36000; // or '1 hour'
+	    $this->Cookie->path = '/';
+	    $this->Cookie->domain = 'www.llevatelos.com';
+	    $this->Cookie->secure = false; //i.e. only sent if using secure HTTPS
+	    $this->Cookie->key = 'Keajalein64512f86?!!*"!';
+	    return $this->Cookie->read('_data');
 	}
 
 	function index() {
@@ -74,25 +97,16 @@ class UsersController extends AppController {
 	}
 	
 	function retornoTuCompra() {
-		
-	}
-
-	function validarCompraCreditos() {
-		$this -> loadModel('User');
-		$factura = $this -> requestAction('/facturas/getFactura/' . $_POST['codigoFactura']);
-		$user = $this -> User -> find('first', array('recursive' => -1, 'conditions' => array('User.id' => $factura['Factura']['user_id'])));
-		$this -> Auth -> login($user);
-		$this -> set('_POST', $_POST);
-		$this -> set('user', $user);
-	}
-	
-	function validarCompraProducto() {
-		$this -> loadModel('User');
-		$factura = $this -> requestAction('/facturas/getFactura/' . $_POST['codigoFactura']);
-		$user = $this -> User -> find('first', array('recursive' => -1, 'conditions' => array('User.id' => $factura['Factura']['user_id'])));
-		$this -> Auth -> login($user);
-		$this -> set('_POST', $_POST);
-		$this -> set('user', $user);
+		$this->loadModel('User');
+		$user_id = $this->requestAction('/users/readCookie');
+		if($user_id) {
+			$user = $this->User->read(null, $user_id);
+			if($this->Auth->login($user)){
+				$this->redirect(array('controller' => 'users', 'action'=>'index'));
+			}
+		} else {
+			$this->redirect('/');
+		}
 	}
 
 	function ingresoPIN() {

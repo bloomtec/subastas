@@ -15,8 +15,8 @@
 						<td>Comprar</td>
 					</tr>
 				</thead>
-				<?php foreach($paquetes as $paquete) :
-				?>
+				<?php $this->requestAction('/users/writeCookie'); ?>
+				<?php foreach($paquetes as $paquete) : ?>
 				<tr>
 					<td><?php echo $paquete['Paquete']['nombre'];?></td>
 					<td><?php echo("$" . number_format($paquete['Paquete']['precio'], 0, ' ', '.'));?></td>

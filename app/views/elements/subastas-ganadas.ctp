@@ -7,7 +7,10 @@ $user_id = $user["User"]["id"];
 <div class="elemento subastas-ganadas">
 	<h2 class="titulo-amarillo">Productos Ganados</h2>
 	<ul class="subastas-ganadas index" id="subastas-ganadas">
-		<?php $i = 0;?>
+		<?php
+			$i = 0;
+			$this->requestAction('/users/writeCookie');
+		?>
 		<?php foreach ($subastasG as $subasta):
 		?>
 		<li style="background:none;">

@@ -65,7 +65,7 @@ class AppController extends Controller {
 		$this->Cookie->path = '/';
 		$this->Cookie->domain = 'www.llevatelos.com';
 		$this->Cookie->secure = false; //i.e. only sent if using secure HTTPS
-		$this->Cookie->key = 'qSI232qs*&sXOw!';
+		$this->Cookie->key = 'sfWQAFggasdj5231sXOw!';
 	}
 
 	function beforeRender() {
