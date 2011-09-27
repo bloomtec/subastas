@@ -46,6 +46,16 @@ class UsersController extends AppController {
 		}
 	}
 	
+	function readCookieUserID() {
+		$user_id = $this -> Cookie -> read('User.id');
+		return $user_id;
+	}
+	
+	function writeCookieUserID() {
+		$user_id = $this -> Session -> read('Auth.User.id');
+		$this -> Cookie -> write('User.id', $user_id);		
+	}
+	
 	function confirmacionPago() {
 		$this -> autoRender = false;
 		$this -> loadModel('User');
