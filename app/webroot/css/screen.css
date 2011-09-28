@@ -1,5 +1,4 @@
 /** General Style Info **/
-
 body {
 	/*background-color:#1b1b1b;
 	/*background-repeat:no-repeat;
@@ -216,7 +215,7 @@ a.banner-productos{
 #header .banner-principal {
 	clear:both;	
 	width: 496px;
-	height:209px;
+	height:189px;
 	margin-top:10px;
 }
 /*END HEADER*/
@@ -607,7 +606,7 @@ h1.titleForms{
 	width:32%;
 	float:left;
 	display:block;
-	font-size:100%;
+	font-size:12px;
 	margin-top:5px;
 }
 .forms legend{
@@ -1248,7 +1247,7 @@ a#resaltar-registro{
 	overflow:hidden;
 }
 .WYSIWYG.inactivity p{
-	font-size:36px;
+	font-size:28px;
 	width:474px;
 	text-align:center;
 	margin:0;
@@ -1445,6 +1444,9 @@ table.creditos td{
 .WYSIWYG ol{
 	list-style:decimal;
 }
-.WYSIWYG ul{
-	list-style:auto;
+.confirmar-compra button{
+	background: url(../img/continuar.png);
+	width:192px;
+	height: 67px;
+	border:0;
 }

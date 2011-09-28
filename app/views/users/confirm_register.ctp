@@ -7,6 +7,6 @@
 	<p>
 		Tus datos han sido registrados. Revisa tu email, activa tu cuenta y empieza a atrapar tus sue&ntilde;os.
 	</p>
-	<div class="continuar" style="margin-top:22px;"><?php echo $html->link($html->image("continuar.png"),"/",array("escape"=>false));?></div>
+	<div class="continuar" style="margin-top:55px;"><?php echo $html->link($html->image("continuar.png"),"/",array("escape"=>false));?></div>
 </div>
 </div>

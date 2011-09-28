@@ -2,7 +2,6 @@
 	<?php echo $this -> element("left");?>
 </div>
 <div id="right-content">
-
 	<div class="corner">
 		<h1 class="titulo-amarillo">Mi cuenta</h1>
 		<div class="paquetes">
@@ -16,37 +15,36 @@
 						<td>Comprar</td>
 					</tr>
 				</thead>
+				<?php $this->requestAction('/users/writeCookie'); ?>
 				<?php foreach($paquetes as $paquete) : ?>
 				<tr>
-					<td>
-					<?php echo $paquete['Paquete']['nombre'];?>
-					</td>
-					<td>
-					<?php echo("$" . number_format($paquete['Paquete']['precio'], 0, ' ', '.'));?>
-					</td>
-					<td>
-					<?php echo $paquete['Paquete']['creditos'];?>
-					</td>
-					<td>
-					<?php
+					<td><?php echo $paquete['Paquete']['nombre'];?></td>
+					<td><?php echo("$" . number_format($paquete['Paquete']['precio'], 0, ' ', '.'));?></td>
+					<td><?php echo $paquete['Paquete']['creditos'];?></td>
+					<td><?php
+
 					// Crear el form
 					//
-					$form_id = $paquete['Paquete']['id'];
 					echo $this -> Form -> create(null, array('class' => 'formCompraCreditos', 'type' => 'POST', 'url' => 'http://demo.tucompra.com.co/tc/app/inputs/compra.jsp'));
-					// Datos de comercio
-					//
+
+					/**
+					 * Datos de comercio
+					 */
 					echo $form -> hidden('usuario', array('name' => 'usuario', 'value' => 'o61qja192w81o1zb'));
-					$gmt = 3600 * -5;
-					// GMT -5 para hora colombiana
-					$fechaActual = gmdate('YmdHis', time() + $gmt);
-					$factura_id = "1-" . $user_id . "-" . $paquete['Paquete']['creditos'] . "-" . $fechaActual;
+
+					// Crear el código de factura
+					//
+					$factura_id = $this -> requestAction('/facturas/generarCodigoFactura');
+					$this -> requestAction('/facturas/crearFactura/' . $factura_id . '/' . $user_id . '/0/' . $paquete['Paquete']['creditos']);
 					echo $this -> Form -> hidden('factura', array('name' => 'factura', 'value' => "$factura_id"));
 					echo $this -> Form -> hidden('valor', array('name' => 'valor', 'value' => $paquete['Paquete']['precio']));
 					$nombre = $paquete['Paquete']['nombre'];
 					echo $this -> Form -> hidden('descripcionFactura', array('name' => 'descripcionFactura', 'value' => "Compra del paquete $nombre de llevatelos.com"));
-					// Datos de usuario
-					// Se pide: documento, nombre, apellido, correo,
-					// direccion, telefono, celular, ciudad, pais
+
+					/**
+					 * Datos de usuario, se pide:
+					 * documento, nombre, apellido, correo, direccion, telefono, celular, ciudad, pais
+					 */
 					$datos = $this -> requestAction('/user_fields/listFields/' . $user_id);
 					echo $this -> Form -> hidden('documentoComprador', array('name' => 'documentoComprador', 'value' => $datos['UserField']['cedula']));
 					echo $this -> Form -> hidden('nombreComprador', array('name' => 'nombreComprador', 'value' => $datos['UserField']['nombres']));
@@ -56,14 +54,15 @@
 					echo $this -> Form -> hidden('telefonoComprador', array('name' => 'telefonoComprador', 'value' => $datos['UserField']['telefono_fijo']));
 					echo $this -> Form -> hidden('ciudadComprador', array('name' => 'ciudadComprador', 'value' => $datos['UserField']['ciudad']));
 					echo $this -> Form -> hidden('paisComprador', array('name' => 'paisComprador', 'value' => 'Colombia'));
+
 					// URL de respuesta
 					//
-					echo $this -> Form -> hidden('urlRetorno', array('name' => 'urlRetorno', 'value' => 'http://www.llevatelos.com/users/validarCompra'));
+					//echo $this -> Form -> hidden('urlRetorno', array('name' => 'urlRetorno', 'value' => 'http://www.llevatelos.com/users/retornoTuCompra'));
+
 					// Finalizar el form
 					//
 					echo $this -> Form -> end(" ");
-					?>
-					</td>
+					?></td>
 				</tr>
 				<?php endforeach;?>
 			</table>

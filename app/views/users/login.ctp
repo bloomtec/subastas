@@ -27,7 +27,7 @@
 		?>
 		<div style="clear:both;"></div>	
 		<br />
-		<?php echo $session->flash(); ?>
+		<?php echo $session->flash(); ?> 
 	</div>
 	</div>
 	<?php echo $html -> link($html -> image("volver_al_inicio.png"), "/", array("escape" => false, "class" => "volver"));?>

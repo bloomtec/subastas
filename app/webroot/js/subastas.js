@@ -17,7 +17,7 @@ setTimeout('redirect()', 900000); //15mins
 }
 function redirect() {
 //country = $.cookie('CakeCookie[country]');
-window.location = '/pages/inactivity';
+//window.location = '/pages/inactivity';
 }
 $(function(){
 	var subastas=new Array();
@@ -101,8 +101,9 @@ $(function(){
 		$(this).parent().hide();
 	});
 	setInterval(function(){
+		
 		jQuery.ajax({
-			url:server+"subastas/getStatus?ms="+new Date().getTime(),
+			url:"/subastas/getStatus?ms="+new Date().getTime(),
 			type: "POST",
 			cache: false,
 			dataType:"json",

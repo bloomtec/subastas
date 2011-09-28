@@ -20,7 +20,7 @@ class TestimoniosController extends AppController {
 		}
 	}
 	function random(){
-		return $this->Testimonio->find("first",array("order"=>array("id desc")));
+		return $this->Testimonio->find("first",array("order"=>"rand()"));
 	}
 	function index() {
 		$this->Testimonio->recursive = 0;

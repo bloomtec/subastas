@@ -55,7 +55,7 @@ class AppController extends Controller {
 		$this->Auth->logoutRedirect = array('controller'=>'subastas', 'action' => 'index', "admin" => false);
 		$this->Auth->loginError = "Usuario o contraseña no válidos";
 		$this->Auth->authError = "No tiene permiso para ingresar a esta sección.";
-		 $this->Auth->userScope = array('User.email_validado' => true);
+		$this->Auth->userScope = array('User.email_validado' => true);
 		if(isset($this->params["prefix"]) && $this->params["prefix"]=="admin"){
 			$this->layout="admin";
 			$this->Auth->deny($this->action);
@@ -65,7 +65,7 @@ class AppController extends Controller {
 		$this->Cookie->path = '/';
 		$this->Cookie->domain = 'www.llevatelos.com';
 		$this->Cookie->secure = false; //i.e. only sent if using secure HTTPS
-		$this->Cookie->key = 'qSI232qs*&sXOw!';
+		$this->Cookie->key = 'sfWQAFggasdj5231sXOw!';
 	}
 
 	function beforeRender() {

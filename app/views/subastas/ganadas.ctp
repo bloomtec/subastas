@@ -49,8 +49,9 @@
 <?php endif; ?>
 <?php if(empty($subastas)): ?>
 <div class="mensaje">
-	No te has llevado ningún producto
+	No te has llevado ningï¿½n producto
 </div>
 <?php endif;?>
 </div>
+<?php echo $html -> link($html -> image("volver_cuenta.png"), "/users", array("escape" => false, "class" => "volver"));?>
 </div>

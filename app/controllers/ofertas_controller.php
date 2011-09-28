@@ -38,17 +38,17 @@ class OfertasController extends AppController {
 	}
 	
 	function getOfertas($subastaID){
-		return $this->Oferta->find("all", array("conditions"=>array("subasta_id"=>$subastaID), "order"=>array("Oferta.created DESC")));
+		return $this->Oferta->find("all", array("conditions"=>array("subasta_id"=>$subastaID), "order"=>array("Oferta.created DESC"), 'recursive' => -1));
 	}
 	
 	function getCantidadOfertasSubasta($subastaID) {
-		return $this->Oferta->find("count", array("conditions"=>array("subasta_id"=>$subastaID)));
+		return $this->Oferta->find("count", array("conditions"=>array("subasta_id"=>$subastaID), 'recursive' => -1));
 	}
 	
 	function getOfertasUsuarioSubasta($user_id, $subasta_id) {
 		$this->autoRender = false;
 		if($user_id && $subasta_id) {
-			return $this->Oferta->find('all', array('conditions' => array('user_id' => $user_id, 'subasta_id' => $subasta_id)));			
+			return $this->Oferta->find('all', array('conditions' => array('user_id' => $user_id, 'subasta_id' => $subasta_id), 'recursive' => -1));			
 		} else {
 			return array();
 		}
@@ -57,7 +57,7 @@ class OfertasController extends AppController {
 	function getTotalBonosUsuarioSubasta($user_id, $subasta_id) {
 		$this->autoRender = false;
 		if($user_id && $subasta_id) {
-			$ofertasUsuarioSubasta = $this->Oferta->find('all', array('conditions' => array('user_id' => $user_id, 'subasta_id' => $subasta_id)));
+			$ofertasUsuarioSubasta = $this->Oferta->find('all', array('conditions' => array('user_id' => $user_id, 'subasta_id' => $subasta_id), 'recursive' => -1));
 			$totalBonos = 0;
 			foreach ($ofertasUsuarioSubasta as $key => $value) {
 				$totalBonos += $value['Oferta']['bonos_descontados'];
@@ -71,7 +71,7 @@ class OfertasController extends AppController {
 	function getTotalCreditosUsuarioSubasta($user_id, $subasta_id) {
 		$this->autoRender = false;
 		if($user_id && $subasta_id) {
-			$ofertasUsuarioSubasta = $this->Oferta->find('all', array('conditions' => array('user_id' => $user_id, 'subasta_id' => $subasta_id)));
+			$ofertasUsuarioSubasta = $this->Oferta->find('all', array('conditions' => array('user_id' => $user_id, 'subasta_id' => $subasta_id), 'recursive' => -1));
 			$totalCreditos = 0;
 			foreach ($ofertasUsuarioSubasta as $key => $value) {
 				$totalCreditos += $value['Oferta']['creditos_descontados'];
@@ -228,19 +228,19 @@ class OfertasController extends AppController {
 	 */
 
 	function obtenerTotalOfertas($subastaID = null) {
-		return $this->Oferta->find('count', array('conditions' => array('Oferta.subasta_id' => $subastaID)));
+		return $this->Oferta->find('count', array('conditions' => array('Oferta.subasta_id' => $subastaID), 'recursive' => -1));
 	}
 	
 	function obtenerOfertasSubasta($subastaID = null) {
 		/**
 		 * Obtener todas las ofertas hechas a una subasta
 		 */
-		return $this->Oferta->find('all', array('conditions' => array('Oferta.subasta_id' => $subastaID)));
+		return $this->Oferta->find('all', array('conditions' => array('Oferta.subasta_id' => $subastaID), 'recursive' => -1));
 	}
 	
 	function obtenerTotalCreditosDescontados($subasta_id = null){
 		$creditos_ofertados = 0;
-		$ofertas_subasta = $this->Oferta->find('all', array('conditions' => array('Oferta.subasta_id' => $subasta_id)));
+		$ofertas_subasta = $this->Oferta->find('all', array('conditions' => array('Oferta.subasta_id' => $subasta_id), 'recursive' => -1));
 		foreach($ofertas_subasta as $oferta_subasta) {
 			$creditos_ofertados += $oferta_subasta['Oferta']['creditos_descontados'];
 		}
@@ -248,13 +248,13 @@ class OfertasController extends AppController {
 	}
 
 	function obtenerUsuarioGanadorSubasta($subastaID = null){
-		$ofertaGanadora = $this->Oferta->find("first", array('order' => 'Oferta.id DESC', 'conditions' => array('Oferta.subasta_id' => $subastaID)));
+		$ofertaGanadora = $this->Oferta->find("first", array('order' => 'Oferta.id DESC', 'conditions' => array('Oferta.subasta_id' => $subastaID), 'recursive' => -1));
 		return $ofertaGanadora['User']['id'];
 	}
 	
 	function eliminarOfertasSubasta($subasta_id = null) {
 		if($subasta_id){
-			$ids = $this->Oferta->find('list', array('fields'=>array('Oferta.id'), 'conditions'=>array('Oferta.subasta_id'=>$subasta_id)));
+			$ids = $this->Oferta->find('list', array('fields'=>array('Oferta.id'), 'conditions'=>array('Oferta.subasta_id'=>$subasta_id), 'recursive' => -1));
 			if ($ids){
 				foreach($ids as $id){
 					$this->Oferta->delete($id);

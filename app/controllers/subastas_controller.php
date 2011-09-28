@@ -9,14 +9,29 @@ class SubastasController extends AppController {
 	}
 	
 	function pruebas(){
-	$subasta=$this->Subasta->find("first");
-		debug($subasta["Subasta"]["fecha_de_venta"]);
-		debug(gmdate('Y-m-d H:i:s', time() + (3600 * -5) + 1));
-		debug(gmdate('Y-m-d H:i:s', time() + (3600 * -5)));
+		$inicio=microtime();
+		$subastas=$this->Subasta->find("all",array("limit"=>5));
+		$result = Set::combine($subastas, '{n}.Subasta.id', '{n}.Subasta');
+		$subastasJSON=json_encode($result);
+		$archivoSubastas = fopen(WWW_ROOT."files".DS."subastas.txt","w+");  
+		fwrite($archivoSubastas,$subastasJSON);
+		$fin=microtime();
+		debug($fin-$inicio);
+		
+	
+	}
+	function pruebas2(){
+		$inicio=microtime();
+		$nombre_archivo=WWW_ROOT."files".DS."subastas.txt";
+		$archivoSubastas = fopen($nombre_archivo,"r");  
+		$subastas=fread($archivoSubastas,filesize($nombre_archivo));
+		echo $subastas;
+		$fin=microtime();
+		echo ($nombre_archivo);		
 	}
 	
 	function ultimaOferta($subastaID){
-		$oferta=$this->Subasta->Oferta->find("first",array("conditions"=>array("Oferta.subasta_id"=>$subastaID),"order"=>array("Oferta.id DESC")));
+		$oferta=$this->Subasta->Oferta->find("first",array("conditions"=>array("Oferta.subasta_id"=>$subastaID), "order"=>array("Oferta.id DESC"), 'recursive' => 0));
 		return $oferta;
 	}
 	
@@ -26,38 +41,60 @@ class SubastasController extends AppController {
 		$gmt = 3600*-5;
 		$fechaActual = gmdate('Y-m-d H:i:s', time() + $gmt);
 		if (!empty($this->params['requested'])) {
-			return $this->Subasta->find("all",array(
-			 	"conditions"=>array(
-			 		"Subasta.estados_subasta_id"=>2,//activa
-			 		"Subasta.posicion_en_cola <="=>$config["Config"]["tamano_cola"],
-			 		"Subasta.fecha_de_venta >"=>"$fechaActual"
-			)
-			));
+			return $this->Subasta->find(
+				"all",
+				array(
+	 				"conditions"=>array(
+		 				"Subasta.estados_subasta_id"=>2,//activa
+		 				"Subasta.posicion_en_cola <="=>$config["Config"]["tamano_cola"],
+		 				"Subasta.fecha_de_venta >"=>"$fechaActual"
+					),
+					'recursive' => -1
+				)
+			);
 		} else {
-			$subastas=$this->Subasta->find("all",array(
-			 	"conditions"=>array(
-			 		"Subasta.estados_subasta_id"=>2,//activa
-			 		"Subasta.posicion_en_cola <="=>$config["Config"]["tamano_cola"],
-			 		"Subasta.fecha_de_venta >"=>"$fechaActual"
-			)));
+			$subastas=$this->Subasta->find(
+				"all",
+				array(
+			 		"conditions"=>array(
+				 		"Subasta.estados_subasta_id"=>2,//activa
+				 		"Subasta.posicion_en_cola <="=>$config["Config"]["tamano_cola"],
+				 		"Subasta.fecha_de_venta >"=>"$fechaActual"
+				 	),
+				 	'recursive' => -1
+				)
+			);
 			$this->set('subastas',$subastas);
 
 		}
 	}
 	function admin_getStatus(){
+		$inicio=microtime();
 		$time=$_GET["ms"];
 		$date=date("Y-m-d H:i:s", substr($time,0,-3));
 		$dateTime=new DateTime($date);
 		$this->Subasta->Behaviors->attach('Containable');
 		$this->Subasta->recursive=2;
-		$subastas=$this->Subasta->find("all",array("conditions"=>array("Subasta.id"=>$_POST["subastas"]),'contain' => array(
-		'Oferta' => array(
-			'order' => array('Oferta.id DESC'),
-			'User'
-			
-		))));
+		$subastas=$this->Subasta->find(
+			"all",
+			array(
+				"conditions" => array(
+					"Subasta.id"=>$_POST["subastas"]
+				),
+				'contain' => array(
+					'Oferta' => array(
+						'order' => array(
+							'Oferta.id DESC'
+						),
+						'User'
+					)
+				)
+			)
+		);
 		
 		echo json_encode($subastas);
+		$final=microtime();
+		echo "duracion ".($inicio-$final);
 		Configure::write("debug",0);
 		$this->autoRender=false;
 		exit(0);
@@ -76,13 +113,23 @@ class SubastasController extends AppController {
 			$dateTime=new DateTime($date);
 			$this->Subasta->Behaviors->attach('Containable');
 			$this->Subasta->recursive=2;
-			$subastas=$this->Subasta->find("all",array("conditions"=>array("Subasta.id"=>$_POST["subastas"]),'contain' => array(
-			'Oferta' => array(
-				'order' => array('Oferta.id DESC'),
-				'limit'=>1,
-				'User'
-				
-			))));
+			$subastas=$this->Subasta->find(
+				"all",
+				array(
+					"conditions" => array(
+						"Subasta.id"=>$_POST["subastas"]
+					),
+					'contain' => array(
+						'Oferta' => array(
+							'order' => array(
+								'Oferta.id DESC'
+							),
+							'limit'=>1,
+							'User'
+						)
+					)
+				)
+			);
 			
 			echo json_encode($subastas);
 			Configure::write("debug",0);
@@ -105,7 +152,8 @@ class SubastasController extends AppController {
 					),
 					'order' => array(
 						'Subasta.posicion_en_cola'
-					)
+					),
+					'recursive' => -1
 				)
 			);
 			
@@ -128,27 +176,35 @@ class SubastasController extends AppController {
 		$gmt = 3600*-5;
 		$fechaActual = gmdate('Y-m-d H:i:s', time() + $gmt);
 		if (!empty($this->params['requested'])) {
-			return $this->Subasta->find("all",array(
-			 	"conditions"=>array(
-			 		"Subasta.estados_subasta_id"=>2,//activa
-			 		"Subasta.posicion_en_cola <="=>$config["Config"]["tamano_cola"],
-			 		"Subasta.fecha_de_venta >"=>"$fechaActual"
-			)
-			));
+			return $this->Subasta->find(
+				"all",
+				array(
+					"conditions"=>array(
+						"Subasta.estados_subasta_id"=>2,//activa
+						"Subasta.posicion_en_cola <="=>$config["Config"]["tamano_cola"],
+						"Subasta.fecha_de_venta >"=>"$fechaActual"
+					),
+					'recursive' => -1
+				)
+			);
 		} else {
-			$subastas=$this->Subasta->find("all",array(
-			 	"conditions"=>array(
-			 		"Subasta.estados_subasta_id"=>2,//activa
-			 		"Subasta.posicion_en_cola <="=>$config["Config"]["tamano_cola"],
-			 		"Subasta.fecha_de_venta >"=>"$fechaActual"
-			)));
+			$subastas=$this->Subasta->find(
+				"all",array(
+					"conditions"=>array(
+						"Subasta.estados_subasta_id"=>2,//activa
+			 			"Subasta.posicion_en_cola <="=>$config["Config"]["tamano_cola"],
+			 			"Subasta.fecha_de_venta >"=>"$fechaActual"
+			 		),
+			 		'recursive' => -1
+				)
+			);
 			$this->set('subastas',$subastas);
 			$this->set("registrado",$this->Cookie->read("registrado"));
 		}
 	}
 	
 	function admin_cola(){
-		$this->set("subastas",$this->Subasta->find("all",array("conditions"=>array("Subasta.posicion_en_cola >"=>0),"order"=>"Subasta.posicion_en_cola ASC")));
+		$this->set("subastas",$this->Subasta->find("all",array("conditions"=>array("Subasta.posicion_en_cola >"=>0),"order"=>"Subasta.posicion_en_cola ASC", 'recursive' => -1)));
 	}
 
 	/**
@@ -244,7 +300,7 @@ class SubastasController extends AppController {
 		return $subastas;
 	}
 	function subastasFinalizadas(){
-		$subastas=$this->Subasta->find("all",array("conditions"=>array("estados_subasta_id >"=>2)));
+		$subastas=$this->Subasta->find("all",array("conditions"=>array("estados_subasta_id >"=>2), 'recursive' => -1));
 		$this->set(compact("subastas"));
 	}
 
@@ -316,7 +372,7 @@ class SubastasController extends AppController {
 			 		"Subasta.estados_subasta_id"=>2,//activa
 			 		"Subasta.posicion_en_cola <="=>$config["Config"]["tamano_cola"],
 			 		"Subasta.fecha_de_venta >"=>"$fechaActual"
-			)
+			), 'recursive' => -1
 			));
 		} else {
 			$subastas=$this->Subasta->find("all",array(
@@ -324,7 +380,7 @@ class SubastasController extends AppController {
 			 		"Subasta.estados_subasta_id"=>2,//activa
 			 		"Subasta.posicion_en_cola <="=>$config["Config"]["tamano_cola"],
 			 		"Subasta.fecha_de_venta >"=>"$fechaActual"
-			)));
+			), 'recursive' => -1));
 			$this->set('subastas',$subastas);
 			$this->set("registrado",$this->Cookie->read("registrado"));
 		}
@@ -335,7 +391,7 @@ class SubastasController extends AppController {
 			return $this->Subasta->find("all",array(
 			 	"conditions"=>array(
 			 		"Subasta.estados_subasta_id"=>7//vendida
-			)
+			), 'recursive' => -1
 			));
 		} else {
 			$this->Paginate=array("Subasta",array(
@@ -356,7 +412,7 @@ class SubastasController extends AppController {
 					"conditions" => array(
 						"Subasta.estados_subasta_id" => 2, //activa
 						"Subasta.posicion_en_cola >" => $config["Config"]["tamano_cola"]
-					)
+					), 'recursive' => -1
 				)
 			);
 		} else {
@@ -380,7 +436,7 @@ class SubastasController extends AppController {
 			 	"conditions"=>array(
 			 		"Subasta.estados_subasta_id"=>2,//activa
 			 		"Subasta.posicion_en_cola >"=>$config["Config"]["tamano_cola"]
-	 	)
+	 	), 'recursive' => -1
 	 	));
 	 	if(isset($subastas[0])){
 	 		return $subastas[0];
@@ -496,7 +552,7 @@ class SubastasController extends AppController {
 	function __sincronizarPosiciones(){
 		// << Sacar la subasta de la cola si su estado no es "Activa" >>
 		//
-		$subastasNoActivas = $this->Subasta->find("all", array('conditions' => array('Subasta.estados_subasta_id <>' => '2', 'Subasta.posicion_en_cola >' => '0')));
+		$subastasNoActivas = $this->Subasta->find("all", array('conditions' => array('Subasta.estados_subasta_id <>' => '2', 'Subasta.posicion_en_cola >' => '0'), 'recursive' => -1));
 
 		foreach($subastasNoActivas as $subastaNoActiva) {
 			$this->Subasta->read(null, $subastaNoActiva["Subasta"]["id"]);
@@ -507,7 +563,7 @@ class SubastasController extends AppController {
 		// << Reasignar numeros a las subastas con estado "Activa" >>
 		//
 
-		$subastasActivas = $this->Subasta->find("all", array('conditions' => array('Subasta.estados_subasta_id' => '2'), 'order' => array('Subasta.posicion_en_cola')));
+		$subastasActivas = $this->Subasta->find("all", array('conditions' => array('Subasta.estados_subasta_id' => '2'), 'order' => array('Subasta.posicion_en_cola'), 'recursive' => -1));
 
 		$posicion_en_cola = 1;
 		$subastasActivasPorPrimeraVez = array();
@@ -544,11 +600,10 @@ class SubastasController extends AppController {
 				),
 				'order' => array(
 					'Subasta.posicion_en_cola'
-				)
+				),
+				'recursive' => -1
 			)
 		);
-		
-		$this->loadModel('Config');
 		$config = $this->Config->read(null, 1);
 		$tamaño_cola = $config['Config']['tamano_cola'];
 		foreach ($subastasActivas as $subastaActiva) {
@@ -626,7 +681,7 @@ class SubastasController extends AppController {
 				// Aqui toca validar el estado actual de la subasta para ver que se hace
 				// Los diferentes casos a considerar son son si esta en espera de pago o no lo esta
 				//
-				$subasta = $this->Subasta->find('first', array('conditions'=>array('Subasta.id'=>$id)));
+				$subasta = $this->Subasta->find('first', array('conditions'=>array('Subasta.id'=>$id), 'recursive' => -1));
 				
 				// Tomar la decision de que hacer
 				//
@@ -676,7 +731,7 @@ class SubastasController extends AppController {
 	function __subastaActiva($id = null){
 		//Encontrar la cantidad de subastas activas
 		//
-		$cantidadSubastasActivas = $this->Subasta->find('count', array('conditions' => array('Subasta.estados_subasta_id' => '2')));
+		$cantidadSubastasActivas = $this->Subasta->find('count', array('conditions' => array('Subasta.estados_subasta_id' => '2'), 'recursive' => -1));
 
 		$this->Subasta->read(null, $id);
 		$this->Subasta->set('posicion_en_cola', $cantidadSubastasActivas + 1);
@@ -732,7 +787,7 @@ class SubastasController extends AppController {
 	}
 	
 	function __vendida($id = null) {
-		$venta=$this->Subasta->Venta->find('first',array("conditions"=>array("subasta_id"=>$id)));
+		$venta=$this->Subasta->Venta->find('first',array("conditions"=>array("subasta_id"=>$id), 'recursive' => -1));
 		$venta["Venta"]["estados_venta_id"]=2;
 		$this->Subasta->Venta->save($venta);
 		return true;
@@ -823,7 +878,7 @@ class SubastasController extends AppController {
 
 	function obtenerListaCorreoOfertas($subasta_id = null) {
 		$this->loadModel('Oferta');
-		$correos = $this->Oferta->find('all', array('conditios'=>array('Oferta.subasta_id'=>$subasta_id), 'fields'=>array('DISTINCT User.email')));
+		$correos = $this->Oferta->find('all', array('conditios'=>array('Oferta.subasta_id'=>$subasta_id), 'fields'=>array('DISTINCT User.email'), 'recursive' => -1));
 		return $correos;
 	}
 
