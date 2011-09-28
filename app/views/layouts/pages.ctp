@@ -50,7 +50,7 @@
 			
 		</script>
 	</head>
-	<body class="<?php if($session->read("Auth.User")) echo 'logueado'?>">
+	<body class="no-cufon <?php if($session->read("Auth.User")) echo 'logueado'?>">
 		<div class="info-creditos">
 			<div class="username"> <?php echo $session->read("Auth.User.username")?></div>
 			<span>Creditos: </span>
