@@ -1474,3 +1474,9 @@ table.creditos td{
 }
 .testimonio .escrito{
 }
+.imagen-home{
+position:relative;
+}
+.imagen-home img{
+	position:absolute;
+}
