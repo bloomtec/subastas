@@ -257,10 +257,10 @@ min-width:620px;
 	float:right;
 	width:30%;
 }
-.image-form .preview{
+.images .preview{
 	height: 250px;
 }
-.image-form .preview .img{
+.images .preview img{
 	width:250px;
 	height: 250px;
 }

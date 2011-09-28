@@ -1450,3 +1450,27 @@ table.creditos td{
 	height: 67px;
 	border:0;
 }
+/*	TESTIMONIOS */
+.testimonio{
+	clear:both;
+	margin-bottom:2em;
+}
+.testimonio .image{
+	float:left;
+	text-align:center;
+	width:50%;
+}
+.testimonio .image img{
+	width:90%;
+}
+.testimonio .info{
+	float:left;
+	width:50%;
+	text-align:justify;
+}
+.testimonio h2{
+	font-size:22px;
+	margin-bottom:1em;
+}
+.testimonio .escrito{
+}

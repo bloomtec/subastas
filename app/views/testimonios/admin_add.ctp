@@ -1,4 +1,4 @@
-<div>
+<div class="form2">
 <?php echo $this->Form->create('Testimonio');?>
 	<fieldset>
  		<legend><?php __('Ingrese Su Testimonio'); ?></legend>
@@ -7,12 +7,13 @@
 			echo $this->Form->input('texto', array('label'=>'Descripción'));
 			echo $this->Form->hidden('imagen_path', array('id'=>'single-field'));
 		?>
-		<div class="images">
+		
+	</fieldset>
+	<?php echo $this->Form->end(__('Enviar', true));?>
+</div>
+<div class="images">
 			<h2>Imagen</h2>
 			<div class="preview">
 			</div>
 			<div id="single-upload" controller="testimonios"> </div>			
-		</div>
-	</fieldset>
-	<?php echo $this->Form->end(__('Enviar', true));?>
 </div>

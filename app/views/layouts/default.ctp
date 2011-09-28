@@ -161,7 +161,7 @@
 				<?php echo $html->link($html->image("social/youtubelogo.png",array("width"=>40)),"#",array("escape"=>false,"class"=>"social"));?>
 				<div class="derechos">
 					&copy; 2011 llevatelos.com. Todos los derechos reservados - desarrollo web por 
-					<?php echo $html->link($html->image("bloom-black.jpg",array("width"=>40)),"http://www.bloomweb.co",array("escape"=>false));?>
+					<?php echo $html->link($html->image("bloom-black.jpg",array("width"=>40)),"http://www.bloomweb.co",array("escape"=>false,"targer"=>"_blank"));?>
 				</div>
 				<div style="clear:both;"></div>
 			</div>

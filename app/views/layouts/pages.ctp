@@ -28,6 +28,7 @@
 		<?php
 		echo $this -> Html -> meta('icon');
 		//	echo $this -> Html -> css("ie");
+		echo $this -> Html -> css('reset');
 		echo $this -> Html -> css('usuarios');
 		echo $this -> Html -> css('screen');
 		//EStilos del layout
@@ -44,7 +45,7 @@
 			var auth=<?php echo json_encode($session -> read("Auth"));?>;<?php }else{?>var auth=null;<?php }?>
 			Cufon.replace("body",{
 				trim:"simple",
-				ignoreClass:"cerrar-formulario WYSIWYG"
+				ignoreClass:"cerrar-formulario no-cufon"
 			});
 			
 		</script>
@@ -53,7 +54,7 @@
 		<div class="info-creditos">
 			<div class="username"> <?php echo $session->read("Auth.User.username")?></div>
 			<span>Creditos: </span>
-			<span id="creditos">
+			<span id="creditos" class="no-cufon">
 			<?php echo $this -> requestAction("/users/getCreditos2");?>
 			</span>
 			<?php echo $html->link("Cerrar sesión",array("controller"=>"users","action"=>"logout"));?>
@@ -63,8 +64,8 @@
 			<div id="header">
 				<div class="banner-referido">
 					<h1>Pagos seguros en línea</h1>
-					<?php echo $html->link($html->image("pse.jpg"),"http://www.pse.com.co",array("escape"=>false));?>
-					<?php echo $html->link($html->image("logo-tucompra.png"),"http://www.tucompra.com.co",array("escape"=>false));?>
+					<?php echo $html->link($html->image("pse.jpg"),"http://www.pse.com.co",array("escape"=>false,"target"=>"_blank"));?>
+					<?php echo $html->link($html->image("logo-tucompra.png"),"http://www.tucompra.com.co",array("escape"=>false,"target"=>"_blank"));?>
 				</div>
 				<div class="wrapper">
 					<ul id="main-menu" class="corner15">
@@ -160,7 +161,7 @@
 				<?php echo $html->link($html->image("social/youtubelogo.png",array("width"=>40)),"#",array("escape"=>false,"class"=>"social"));?>
 				<div class="derechos">
 					&copy; 2011 llevatelos.com. Todos los derechos reservados - desarrollo web por 
-					<?php echo $html->link($html->image("bloom-black.jpg",array("width"=>40)),"http://www.bloomweb.co",array("escape"=>false));?>
+					<?php echo $html->link($html->image("bloom-black.jpg",array("width"=>40)),"http://www.bloomweb.co",array("escape"=>false,"targer"=>"_blank"));?>
 				</div>
 				<div style="clear:both;"></div>
 			</div>
