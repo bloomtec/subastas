@@ -57,7 +57,7 @@
 
 					// URL de respuesta
 					//
-					//echo $this -> Form -> hidden('urlRetorno', array('name' => 'urlRetorno', 'value' => 'http://www.llevatelos.com/users/retornoTuCompra'));
+					echo $this -> Form -> hidden('urlRetorno', array('name' => 'urlRetorno', 'value' => 'http://www.llevatelos.com/users/retornoTuCompra'));
 
 					// Finalizar el form
 					//

@@ -123,7 +123,7 @@ class UserFieldsController extends AppController {
 	}
 	
 	function listFields($id = null) {
-		return $this->UserField->find('first', array('conditions'=>array('user_id'=>$id), 'recursive' => -1));
+		return $this->UserField->find('first', array('conditions'=>array('user_id'=>$id)));
 	}
 	
 }

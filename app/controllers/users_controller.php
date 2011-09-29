@@ -11,9 +11,7 @@ class UsersController extends AppController {
 
 	function beforeFilter(){ 
 		parent::beforeFilter();
-		//debug($_COOKIE["_data"]);
-		//$this->Auth->deny("login","abonarCreditosPorRecomendacion","checkEmail","register","checkPassword","rememberPassword","reponerCreditos","creditosUsuario","creditosSuficientes","descontarCreditos");
-		$this->Auth->allow('readCookie');
+		$this->Auth->allow('readCookie','login','getCreditos2','logout');
 	}
 	
 	function writeCookie() {
@@ -879,6 +877,7 @@ class UsersController extends AppController {
 			// Proceder a enviar correos
 			//
 			$user_email = $this->Session->read('Auth.User.email');
+			$this -> data['User']['user_id']= $this->Session->read('Auth.User.id');
 			if (
 				(!$this -> User -> find('first', array('conditions' => array('User.email' => $this -> data['User']['correo_recomendado_1']), 'recursive' => -1)))
 				&& ($user_email != $this -> data['User']['correo_recomendado_1'])
@@ -909,7 +908,7 @@ class UsersController extends AppController {
 			) {
 				$this -> __enviarCorreoRecomendado($this -> data['User']['user_id'], $this -> data['User']['correo_recomendado_5']);
 			}
-			$this -> redirect(array("controller" => "users", 'action' => 'modificarDatos'));
+			//$this -> redirect(array("controller" => "users", 'action' => 'modificarDatos'));
 		}
 	}
 

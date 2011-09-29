@@ -2,7 +2,10 @@
 class ConfigsController extends AppController {
 
 	var $name = 'Configs';
-
+	function beforeFilter(){
+		parent::beforeFilter();
+		$this->Auth->allow("config");
+	}
 	function config(){
 		return  $this->Config->read(null, 1);
 	}

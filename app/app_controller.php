@@ -50,7 +50,6 @@ class AppController extends Controller {
 			}
 			    
 		}
-		$this->Auth->allow("*");
 		$this->Auth->loginRedirect = array('controller'=>'users', 'action'=>'index');
 		$this->Auth->logoutRedirect = array('controller'=>'subastas', 'action' => 'index', "admin" => false);
 		$this->Auth->loginError = "Usuario o contraseña no válidos";

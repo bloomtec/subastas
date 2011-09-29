@@ -5,7 +5,7 @@ class SubastasController extends AppController {
 	
 	function beforeFilter(){
 		parent::beforeFilter();
-		$this->Auth->allow("index","subastasFinalizadas","ultimaOferta","pruebas");
+		$this->Auth->allow("index","subastasFinalizadas","ultimaOferta","pruebas",'getStatus','subastasActivas','finalizadas','entregados','entregadosIndex','subastasFinalizadas', 'ultimasSubastas','proximasSubastas'	);
 	}
 	
 	function pruebas(){
@@ -299,6 +299,7 @@ class SubastasController extends AppController {
 		$subastas = $this->Subasta->query($query);
 		return $subastas;
 	}
+	
 	function subastasFinalizadas(){
 		$subastas=$this->Subasta->find("all",array("conditions"=>array("estados_subasta_id >"=>2), 'recursive' => -1));
 		$this->set(compact("subastas"));
@@ -402,7 +403,7 @@ class SubastasController extends AppController {
 			$this->set('subastas', $this->paginate());
 		}
 	}
-	
+
 	function proximasSubastas() {
 		$config=$this->Config->read(null,1);
 		if (!empty($this->params['requested'])) {
