@@ -11,7 +11,7 @@ class UsersController extends AppController {
 
 	function beforeFilter(){ 
 		parent::beforeFilter();
-		$this->Auth->allow('readCookie','login','getCreditos2','logout');
+		$this->Auth->allow('readCookie','login','getCreditos2','logout','retornoTuCompra','confirmacionPago');
 	}
 	
 	function writeCookie() {
