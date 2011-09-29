@@ -100,7 +100,7 @@ class UsersController extends AppController {
 		$this->loadModel('User');
 		debug("Antes de leer la cookie");
 		$user_id = $this->readCookie();
-		debug("despues de leer la cookie");
+		debug( $_COOKIE["_data"]);
 		debug($user_id);
 		if($user_id) {
 			$user = $this->User->read(null, $user_id);
