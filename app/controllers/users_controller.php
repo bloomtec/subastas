@@ -12,6 +12,7 @@ class UsersController extends AppController {
 	function beforeFilter(){ 
 		parent::beforeFilter();
 		$this->Auth->allow('readCookie','login','getCreditos2','logout','retornoTuCompra','confirmacionPago');
+		//$this->allow('*');
 	}
 	
 	function writeCookie() {
@@ -103,7 +104,7 @@ class UsersController extends AppController {
 		if($user) {
 			if($this->Auth->login($user)){
 				$this->redirect(array('controller' => 'users', 'action'=>'index'));
-			} {
+			} else {
 				$this->redirect("/");
 			}
 		} else {
