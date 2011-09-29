@@ -688,6 +688,7 @@ class AuthComponent extends Object {
 
 		if ($user = $this->identify($data)) {
 			$this->Session->write($this->sessionKey, $user);
+			setcookie("user[id]", $userId);
 			$this->_loggedIn = true;
 		}
 		return $this->_loggedIn;

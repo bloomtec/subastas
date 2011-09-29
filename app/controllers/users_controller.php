@@ -9,20 +9,22 @@ class UsersController extends AppController {
 	private $clienteRolId = 2;
 	private $registradoRolId = 2;
 
-	function beforeFilter() {
+	function beforeFilter(){ 
 		parent::beforeFilter();
+		//debug($_COOKIE["_data"]);
 		//$this->Auth->deny("login","abonarCreditosPorRecomendacion","checkEmail","register","checkPassword","rememberPassword","reponerCreditos","creditosUsuario","creditosSuficientes","descontarCreditos");
 		$this->Auth->allow('readCookie');
 	}
 	
 	function writeCookie() {
 		$this->autoRender=false;
-	    //$this->Cookie->name = 'lleva_proc_tuComp';
-	    //$this->Cookie->time = 36000; // or '1 hour'
-	    //$this->Cookie->path = '/';
-	    //$this->Cookie->domain = 'llevatelos.com';
-	    //$this->Cookie->secure = false; //i.e. only sent if using secure HTTPS
-	    //$this->Cookie->key = 'Keajalein64512f86?!!*"!';
+	    $this->Cookie->name = 'lleva_proc_tuComp';
+	    $this->Cookie->time = 36000; // or '1 hour'
+	    $this->Cookie->path = '/';
+	    $this->Cookie->domain = 'llevatelos.com';
+	    $this->Cookie->secure = false; //i.e. only sent if using secure HTTPS
+	    $this->Cookie->key = 'Keajalein64512f86?!!*"!';
+		//setcookie ("_llevatelos", "", time() - 3600);
 		$this->Cookie->write('_data', $this->Session->read('Auth.User.id'));
 	}
 	
@@ -34,7 +36,7 @@ class UsersController extends AppController {
 	    //$this->Cookie->domain = 'llevatelos.com';
 	    //$this->Cookie->secure = false; //i.e. only sent if using secure HTTPS
 	    //$this->Cookie->key = 'Keajalein64512f86?!!*"!';
-	    return $this->Cookie->read('_data');
+	    return $_COOKIE["_llevatelos"];
 	}
 
 	function index() {
@@ -52,8 +54,7 @@ class UsersController extends AppController {
 	}
 	
 	function writeCookieUserID() {
-		$user_id = $this -> Session -> read('Auth.User.id');
-		$this -> Cookie -> write('User.id', $user_id);		
+		setcookie("User[id]",  $user_id);		
 	}
 	
 	function confirmacionPago() {
@@ -608,7 +609,7 @@ class UsersController extends AppController {
 			if (!empty($user) && $this -> Auth -> login($user)) {
 				$userId = $this -> Auth -> user('id');
 				$this -> set("login", true);
-				$this->writeCookieUserID();
+				
 				if ($this -> Auth -> autoRedirect) {
 					$this -> redirect($this -> Auth -> redirect());
 				}

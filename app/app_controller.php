@@ -63,15 +63,20 @@ class AppController extends Controller {
 		$this->Cookie->name = 'Llevatelos';
 		$this->Cookie->time = '10 Days'; // or '1 hour'
 		$this->Cookie->path = '/';
-		$this->Cookie->domain = 'www.llevatelos.com';
+		$this->Cookie->domain = 'localhost';
 		$this->Cookie->secure = false; //i.e. only sent if using secure HTTPS
 		$this->Cookie->key = 'sfWQAFggasdj5231sXOw!';
+		
+		if($this->Auth->user("id")) {
+			setcookie("_data", $this->Auth->user("id"), time() + 3600, "/");
+		}
 	}
 
 	function beforeRender() {
 		$PAGE_TITLE="Llévatelos :: ";
 		$this->set(compact("PAGE_TITLE"));
 		$this->set('base_url', 'http://'.$_SERVER['SERVER_NAME'].Router::url('/'));
+		
 	}
 
 }
