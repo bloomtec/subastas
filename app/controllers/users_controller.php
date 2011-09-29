@@ -96,19 +96,17 @@ class UsersController extends AppController {
 	}
 	
 	function retornoTuCompra() {
-		$this->autoRender=false;
+		$this->layout="ajax";
 		$this->loadModel('User');
-		debug("Antes de leer la cookie");
-		$user_id = $this->readCookie();
-		debug( $_COOKIE["_data"]);
-		debug($user_id);
-		if($user_id) {
-			$user = $this->User->read(null, $user_id);
-			debug($user);
-			$this->Auth->login($user);
-			$this->redirect(array('controller' => 'users', 'action'=>'index'));
+		$user = $this->User->read(null, $_COOKIE["_data"]);
+		if($user) {
+			if($this->Auth->login($user)){
+				$this->redirect(array('controller' => 'users', 'action'=>'index'));
+			} {
+				$this->redirect("/");
+			}
 		} else {
-			$this->redirect('/');
+			$this->redirect("/");
 		}
 	}
 
