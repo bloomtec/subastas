@@ -125,7 +125,7 @@
 					echo $this -> Form -> hidden('paisComprador', array('name' => 'paisComprador', 'value' => 'Colombia'));
 					// URL de respuesta
 					//
-					echo $this -> Form -> hidden('urlRetorno', array('name' => 'urlRetorno', 'value' => 'http://www.llevatelos.com/users/validarCompra'));
+					echo $this -> Form -> hidden('urlRetorno', array('name' => 'urlRetorno', 'value' => 'http://www.llevatelos.com/users/retornoTuCompra'));
 					// Finalizar el form
 					//
 					echo $this -> Form -> end(" ");
