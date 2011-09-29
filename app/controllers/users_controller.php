@@ -99,7 +99,6 @@ class UsersController extends AppController {
 	function retornoTuCompra() {
 	debug($_POST);
 	debug($_GET);
-		$this->layout="ajax";
 		$this->loadModel('User');
 		$user_id = $_COOKIE["_data"];
 		$user = $this->User->find('first', array('conditions'=>array('User.id'=>$user_id)));
