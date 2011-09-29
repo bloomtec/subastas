@@ -98,7 +98,8 @@ class UsersController extends AppController {
 	function retornoTuCompra() {
 		$this->layout="ajax";
 		$this->loadModel('User');
-		$user = $this->User->read(null, $_COOKIE["_data"]);
+		$user_id = $_COOKIE["_data"];
+		$user = $this->User->find('first', array('conditions'=>array('User.id'=>$user_id)));
 		if($user) {
 			if($this->Auth->login($user)){
 				$this->redirect(array('controller' => 'users', 'action'=>'index'));
