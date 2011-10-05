@@ -11,7 +11,7 @@ class UsersController extends AppController {
 
 	function beforeFilter(){ 
 		parent::beforeFilter();
-		$this->Auth->allow('readCookie','login','getCreditos2','logout','retornoTuCompra','confirmacionPago');
+		$this->Auth->allow('__abonarCreditosPorRecomendacion','__obtenerCorreoReferente','checkEmail','validateEmail','reponerCreditos','creditosUsuario','creditosSuficientes','descontarCreditos','redimirCreditos','getUsuario','__enviarCorreoAbonoPorRecomendar','__enviarCorreo','__enviarCorreoRecomendado','readCookie','login','getCreditos2','logout','retornoTuCompra','confirmacionPago','reponerCreditos');
 		//$this->allow('*');
 	}
 	
@@ -128,7 +128,7 @@ class UsersController extends AppController {
 
 			// Sumarle los creditos al usuario
 			//
-			$user = $this -> User -> find('first', array('conditions' => array('User.id' => $this -> Auth -> user('id')), 'recursive' => -1));
+			$user = $this -> User -> find('first', array('conditions' => array('User.id' => $this -> Auth -> user('id'))));
 			$this -> User -> read(null, $this -> Auth -> user('id'));
 			$this -> User -> set('creditos', $user['User']['creditos'] + $code['Code']['creditos']);
 			$this -> User -> save();
@@ -223,7 +223,7 @@ class UsersController extends AppController {
 		// Encontrar el total de usuarios registrados
 		//
 		//$totalUsuarios = $this->User->find('first', array('conditions' => array()));
-		$max_id = $this -> User -> find('first', array('fields' => array('MAX(User.id) as user_id'), 'recursive' => -1));
+		$max_id = $this -> User -> find('first', array('fields' => array('MAX(User.id) as user_id')));
 		$usuario = null;
 		for ($id = 1; $id <= $max_id; $id++) {
 			if ($encryptedID == crypt($id, "23()23*$%g4F^aN!^^%")) {
@@ -419,7 +419,7 @@ class UsersController extends AppController {
 			// Encontrar el total de usuarios registrados
 			//
 			//$totalUsuarios = $this->User->find('first', array('conditions' => array()));
-			$max_id = $this -> User -> find('first', array('fields' => array('MAX(User.id) as user_id'), 'recursive' => -1));
+			$max_id = $this -> User -> find('first', array('fields' => array('MAX(User.id) as user_id')));
 			$usuario = null;
 			for ($id_tested = 1; $id_tested <= $max_id; $id_tested++) {
 				if ($id_tested == crypt($encryptedID, "23()23*$%g4F^aN!^^%")) {
@@ -572,9 +572,9 @@ class UsersController extends AppController {
 		$this -> Auth -> data['User']['username'] = $_POST["data"]["User"]["username"];
 		$this -> Auth -> data['User']['password'] = $this -> Auth -> password($_POST["data"]["User"]["password"]);
 		if (!empty($this -> Auth -> data['User']['username']) && !empty($this -> Auth -> data['User']['password'])) {
-			$user = $this -> User -> find('first', array('conditions' => array('username' => $this -> Auth -> data['User']['username'], 'password' => $this -> Auth -> data['User']['password']), 'recursive' => -1));
+			$user = $this -> User -> find('first', array('conditions' => array('username' => $this -> Auth -> data['User']['username'], 'password' => $this -> Auth -> data['User']['password'])));
 			if (!$user) {
-				$user = $this -> User -> find('first', array('conditions' => array('email' => $this -> Auth -> data['User']['username'], 'password' => $this -> Auth -> data['User']['password']), 'recursive' => -1));
+				$user = $this -> User -> find('first', array('conditions' => array('email' => $this -> Auth -> data['User']['username'], 'password' => $this -> Auth -> data['User']['password'])));
 			}
 			if (!empty($user) && $this -> Auth -> login($user)) {
 				if (!$user["User"]["email_validado"]) {// SI NO HA VERIFICADO EL MAIL NO LO DEJA LOGUEAR
@@ -599,9 +599,9 @@ class UsersController extends AppController {
 	//LOGIN USER
 	function login() {
 		if (!empty($this -> data) && !empty($this -> Auth -> data['User']['username'])) {
-			$user = $this -> User -> find('first', array('conditions' => array('username' => $this -> Auth -> data['User']['username'], 'password' => $this -> Auth -> data['User']['password']), 'recursive' => -1));
+			$user = $this -> User -> find('first', array('conditions' => array('username' => $this -> Auth -> data['User']['username'], 'password' => $this -> Auth -> data['User']['password'])));
 			if (!$user) {
-				$user = $this -> User -> find('first', array('conditions' => array('email' => $this -> Auth -> data['User']['username'], 'password' => $this -> Auth -> data['User']['password']), 'recursive' => -1));
+				$user = $this -> User -> find('first', array('conditions' => array('email' => $this -> Auth -> data['User']['username'], 'password' => $this -> Auth -> data['User']['password'])));
 			}
 			if (!empty($user) && $this -> Auth -> login($user)) {
 				$userId = $this -> Auth -> user('id');
@@ -620,9 +620,9 @@ class UsersController extends AppController {
 
 	function admin_login() {
 		if (!empty($this -> data) && !empty($this -> Auth -> data['User']['username'])) {
-			$user = $this -> User -> find('first', array('conditions' => array('username' => $this -> Auth -> data['User']['username'], 'password' => $this -> Auth -> data['User']['password']), 'recursive' => -1));
+			$user = $this -> User -> find('first', array('conditions' => array('username' => $this -> Auth -> data['User']['username'], 'password' => $this -> Auth -> data['User']['password'])));
 			if (!$user) {
-				$user = $this -> User -> find('first', array('conditions' => array('email' => $this -> Auth -> data['User']['username'], 'password' => $this -> Auth -> data['User']['password']), 'recursive' => -1));
+				$user = $this -> User -> find('first', array('conditions' => array('email' => $this -> Auth -> data['User']['username'], 'password' => $this -> Auth -> data['User']['password'])));
 			}
 			if (!empty($user) && $this -> Auth -> login($user)) {
 				$userId = $this -> Auth -> user('id');
@@ -662,7 +662,7 @@ class UsersController extends AppController {
 	function rememberPassword() {
 		if (!empty($this -> data)) {
 			$this -> User -> recursive = 0;
-			$user = $this -> User -> find("first", array('conditions' => array('User.email' => trim($this -> data['User']['email'])), 'recursive' => -1));
+			$user = $this -> User -> find("first", array('conditions' => array('User.email' => trim($this -> data['User']['email']))));
 
 			$newPassword = $this -> generarPassword();
 			//debug($newPassword);
@@ -878,31 +878,31 @@ class UsersController extends AppController {
 			$user_email = $this->Session->read('Auth.User.email');
 			$this -> data['User']['user_id']= $this->Session->read('Auth.User.id');
 			if (
-				(!$this -> User -> find('first', array('conditions' => array('User.email' => $this -> data['User']['correo_recomendado_1']), 'recursive' => -1)))
+				(!$this -> User -> find('first', array('conditions' => array('User.email' => $this -> data['User']['correo_recomendado_1']))))
 				&& ($user_email != $this -> data['User']['correo_recomendado_1'])
 			) {
 				$this -> __enviarCorreoRecomendado($this -> data['User']['user_id'], $this -> data['User']['correo_recomendado_1']);
 			}
 			if (
-				(!$this -> User -> find('first', array('conditions' => array('User.email' => $this -> data['User']['correo_recomendado_2']), 'recursive' => -1)))
+				(!$this -> User -> find('first', array('conditions' => array('User.email' => $this -> data['User']['correo_recomendado_2']))))
 				&& ($user_email != $this -> data['User']['correo_recomendado_2'])
 			) {
 				$this -> __enviarCorreoRecomendado($this -> data['User']['user_id'], $this -> data['User']['correo_recomendado_2']);
 			}
 			if (
-				(!$this -> User -> find('first', array('conditions' => array('User.email' => $this -> data['User']['correo_recomendado_3']), 'recursive' => -1)))
+				(!$this -> User -> find('first', array('conditions' => array('User.email' => $this -> data['User']['correo_recomendado_3']))))
 				&& ($user_email != $this -> data['User']['correo_recomendado_3'])
 			) {
 				$this -> __enviarCorreoRecomendado($this -> data['User']['user_id'], $this -> data['User']['correo_recomendado_3']);
 			}
 			if (
-				(!$this -> User -> find('first', array('conditions' => array('User.email' => $this -> data['User']['correo_recomendado_4']), 'recursive' => -1)))
+				(!$this -> User -> find('first', array('conditions' => array('User.email' => $this -> data['User']['correo_recomendado_4']))))
 				&& ($user_email != $this -> data['User']['correo_recomendado_4'])
 			) {
 				$this -> __enviarCorreoRecomendado($this -> data['User']['user_id'], $this -> data['User']['correo_recomendado_4']);
 			}
 			if (
-				(!$this -> User -> find('first', array('conditions' => array('User.email' => $this -> data['User']['correo_recomendado_5']), 'recursive' => -1)))
+				(!$this -> User -> find('first', array('conditions' => array('User.email' => $this -> data['User']['correo_recomendado_5']))))
 				&& ($user_email != $this -> data['User']['correo_recomendado_5'])
 			) {
 				$this -> __enviarCorreoRecomendado($this -> data['User']['user_id'], $this -> data['User']['correo_recomendado_5']);
@@ -913,7 +913,7 @@ class UsersController extends AppController {
 
 	function getUsuario($userID = null) {
 		if ($userID) {
-			return $this -> User -> find('first', array('conditions' => array('User.id' => $userID), 'recursive' => -1));
+			return $this -> User -> find('first', array('conditions' => array('User.id' => $userID)));
 		} else {
 			return null;
 		}
@@ -932,9 +932,9 @@ class UsersController extends AppController {
 		//
 		if ($correoDestino && $email_usuario) {
 
-			$user = $this -> User -> find('first', array('conditions' => array('User.email' => $correoDestino), 'recursive' => -1));
+			$user = $this -> User -> find('first', array('conditions' => array('User.email' => $correoDestino)));
 			$this -> loadModel('UserField');
-			$user_fields = $this -> UserField -> find('first', array('conditions' => array('UserField.user_id' => $user['User']['id']), 'recursive' => -1));
+			$user_fields = $this -> UserField -> find('first', array('conditions' => array('UserField.user_id' => $user['User']['id'])));
 			$bonos = $this -> requestAction('/configs/creditosPorRecomendacion');
 
 			App::import('Vendor', 'MadMimi', array('file' => 'madmimi' . DS . 'MadMimi.class.php'));
@@ -1026,7 +1026,7 @@ class UsersController extends AppController {
 			$IDEncriptada = crypt($userID, "23()23*$%g4F^aN!^^%");
 			$user = $this -> User -> read(null, $userID);
 			$this -> loadModel('UserField');
-			$user_fields = $this -> UserField -> find('first', array('conditions' => array('user_id' => $user['User']['id']), 'recursive' => -1));
+			$user_fields = $this -> UserField -> find('first', array('conditions' => array('user_id' => $user['User']['id'])));
 
 			if ($correoDestino) {
 				App::import('Vendor', 'MadMimi', array('file' => 'madmimi' . DS . 'MadMimi.class.php'));

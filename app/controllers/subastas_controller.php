@@ -5,7 +5,7 @@ class SubastasController extends AppController {
 	
 	function beforeFilter(){
 		parent::beforeFilter();
-		$this->Auth->allow("index","subastasFinalizadas","ultimaOferta","pruebas",'getStatus','subastasActivas','finalizadas','entregados','entregadosIndex','subastasFinalizadas', 'ultimasSubastas','proximasSubastas'	);
+		$this->Auth->allow('enviarCorreoSubastaCancelada','__sincronizarPosiciones',"index","subastasFinalizadas","ultimaOferta","pruebas",'getStatus','subastasActivas','finalizadas','entregados','entregadosIndex','subastasFinalizadas', 'ultimasSubastas','proximasSubastas','actualizarEstadoSubasta','sync','__cambiarEstadoSubasta','__subastaActiva','__crearVenta','__subastaVencida','__cancelEsperaDePago','__cambiarEstadoSubasta','__cancel','__sincronizarPosiciones','__subastaEsperandoActivacion','__subastaActiva','__vendida','obtenerListaCorreoOfertas','diasEspera','enviarCorreoSubastaCancelada','enviarCorreoSubastaGanada','congelar','_ofertar','_sincronizarPosiciones','__verificarFechaDeVentaSubastasActivas','__cambiarEstadoSubasta','__cerrar','actualizarEstadoSubasta');
 	}
 	
 	function pruebas(){
@@ -665,7 +665,7 @@ class SubastasController extends AppController {
 				$this->__cambiarEstadoSubasta($id, $estados_subasta_id);
 				return $this->__crearVenta($id);
 				break;
-
+				//VERIFICADO
 				/**
 				 * Subasta Vencida
 				 * Nota : Acorde los ultimos cambios
@@ -681,7 +681,7 @@ class SubastasController extends AppController {
 			case 5:
 				// Aqui toca validar el estado actual de la subasta para ver que se hace
 				// Los diferentes casos a considerar son son si esta en espera de pago o no lo esta
-				//
+				//VERIFICADO
 				$subasta = $this->Subasta->find('first', array('conditions'=>array('Subasta.id'=>$id), 'recursive' => -1));
 				
 				// Tomar la decision de que hacer
@@ -879,7 +879,8 @@ class SubastasController extends AppController {
 
 	function obtenerListaCorreoOfertas($subasta_id = null) {
 		$this->loadModel('Oferta');
-		$correos = $this->Oferta->find('all', array('conditios'=>array('Oferta.subasta_id'=>$subasta_id), 'fields'=>array('DISTINCT User.email'), 'recursive' => -1));
+		//NO -1
+		$correos = $this->Oferta->find('all', array('conditios'=>array('Oferta.subasta_id'=>$subasta_id), 'fields'=>array('DISTINCT User.email')));
 		return $correos;
 	}
 
@@ -1178,7 +1179,7 @@ class SubastasController extends AppController {
 						"\r\n" . 
 						'Reply-To: webmaster@example.com' . "\r\n" . 
 						'X-Mailer: PHP/' . phpversion();
-					mail($correo, "Subasta Terminada", "La subasta ha terminado", $cabeceras);
+					mail($correo['User']['email'], "Subasta Terminada", "La subasta ha terminado", $cabeceras);
 					
 				}
 

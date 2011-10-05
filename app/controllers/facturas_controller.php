@@ -8,7 +8,6 @@ class FacturasController extends AppController {
 			$factura = $this -> Factura -> find(
 				'first',
 				array(
-					'recursive' => -1,
 					'conditions' => array(
 						'Factura.codigo_factura' => $codigo_factura
 					)
@@ -43,13 +42,13 @@ class FacturasController extends AppController {
 	
 	function limpiarRegistros() {
 		$this->autoRender=false;
-		$facturas = $this -> Factura -> find('all', array('recursive' => -1));
+		$facturas = $this -> Factura -> find('all');
 		debug($facturas);
 	}
 
 	function obtenerIDFactura($codigo_factura = null) {
 		if (isset($codigo_factura) && !empty($codigo_factura)) {
-			$factura = $this -> Factura -> find('first', array('conditions' => array('Factura.codigo_factura' => $codigo_factura), 'recursive' => -1));
+			$factura = $this -> Factura -> find('first', array('conditions' => array('Factura.codigo_factura' => $codigo_factura)));
 			return $factura['Factura']['id'];
 		}
 	}

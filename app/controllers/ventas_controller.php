@@ -2,7 +2,10 @@
 class VentasController extends AppController {
 
 	var $name = 'Ventas';
-
+	function beforeFilter(){
+		parent::beforeFilter();
+		$this->Auth->allow('crearVenta','fechaCreacionVenta','noPagada','pagada','ultimoGanador','obtenerIdVenta');
+	}
 	function index() {
 		$this->Venta->recursive = 0;
 		$this->set('ventas', $this->paginate());
@@ -166,7 +169,7 @@ class VentasController extends AppController {
 	
 	function obtenerIdVenta($subasta_id = null){
 		if ($subasta_id) {
-			$venta = $this->Venta->find('first', array('recursive' => -1, 'conditions'=>array('subasta_id'=>$subasta_id), 'fields'=>array('id')));
+			$venta = $this->Venta->find('first', array('conditions'=>array('subasta_id'=>$subasta_id), 'fields'=>array('id')));
 			return $venta['Venta']['id'];
 		}
 	}

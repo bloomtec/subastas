@@ -35,20 +35,16 @@ class VerificarSubastasShell extends Shell {
 		// y que se encuentren en su 'fecha_de_venta'
 		//
 			
-
 		$subastasActivasParaVender = $this->Subasta->find(
 														"all",
 														array(
 															'conditions' => array(
 																'Subasta.estados_subasta_id' => '2',
 																'Subasta.fecha_de_venta <=' => $this->now()
-															),
-															'recursive' => -1
+															)
 														)
 													);
-
 		foreach($subastasActivasParaVender as $subastaActivaParaVender){
-
 			//$this->out("\n------------------------------------------------------------------------------\n");
 			//$this->out("Verificando la subasta " . $subastaActivaParaVender['Subasta']['nombre']." que se encuentra con estado 'Activa' y su fecha de venta ha sido alcanzada");
 
@@ -59,17 +55,16 @@ class VerificarSubastasShell extends Shell {
 			// Verificar que se hayan hecho ofertas por la subasta
 			//
 			$ofertasRealizadas = $this->requestAction('/ofertas/getOfertas/' . $subastaActivaParaVender['Subasta']['id']);
-			
 			if(empty($ofertasRealizadas)) {
 				// En este caso cancelar la subasta
 				// Actualizar el estado de la subasta a cancelado
-				//
 				$this->requestAction('/subastas/actualizarEstadoSubasta/' . $subastaActivaParaVender['Subasta']['id'] . '/5');
+					
 			} else {
 				// Revisar el total de creditos descontados
-				//
+
 				$totalCreditosDescontados = $this->requestAction('/ofertas/obtenerTotalCreditosDescontados/' . $subastaActivaParaVender['Subasta']['id']);
-	
+				$this->out("si hay ofertas realizadas");
 				// Segun el cambio toca verificar que $totalCreditosDescontados >= $minimoDeCreditos
 				// si no se alcanza dicho minimo se cancela la subasta
 				//
@@ -89,12 +84,11 @@ class VerificarSubastasShell extends Shell {
 				}
 			}
 
-			//$this->out("\n------------------------------------------------------------------------------\n");
 		}
 
 		//$this->out("Sincronizar los puestos");
 		$this->requestAction('/subastas/sync');
-
+		//$this->out("finalizo");
 	} // END main()
 }
 ?>

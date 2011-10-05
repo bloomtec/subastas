@@ -19,7 +19,7 @@
 #
 ################################################################################
 LIB=${0/%cake/}
-APP=`pwd`
+APP=`/home/usuario/Escritorio/httdocs/subastas/app`
 
 exec php -q ${LIB}cake.php -working "${APP}" "$@"
 

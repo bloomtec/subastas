@@ -4,7 +4,7 @@ class ConfigsController extends AppController {
 	var $name = 'Configs';
 	function beforeFilter(){
 		parent::beforeFilter();
-		$this->Auth->allow("config");
+		$this->Auth->allow("config",'tamanoCola','congelar','descongelar','isCongelado','tamanoCola','creditosPorRecomendacion','creditosIniciales');
 	}
 	function config(){
 		return  $this->Config->read(null, 1);
