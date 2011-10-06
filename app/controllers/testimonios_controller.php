@@ -4,7 +4,7 @@ class TestimoniosController extends AppController {
 	var $name = 'Testimonios';
 	function beforeFilter(){
 		parent::beforeFilter();
-		$this->Auth->allow("random");
+		$this->Auth->allow("random",'index','view');
 	}
 	
 
