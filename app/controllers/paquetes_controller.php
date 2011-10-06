@@ -2,7 +2,10 @@
 class PaquetesController extends AppController {
 
 	var $name = 'Paquetes';
-
+	function beforeFilter(){
+		parent::beforeFilter();
+		$this->Auth->allow('index','get','view','adquirir');
+	}
 	function index() {
 		$this->Paquete->recursive = 0;
 		$this->set('paquetes', $this->paginate());

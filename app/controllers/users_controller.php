@@ -11,7 +11,7 @@ class UsersController extends AppController {
 
 	function beforeFilter(){ 
 		parent::beforeFilter();
-		$this->Auth->allow('__abonarCreditosPorRecomendacion','__obtenerCorreoReferente','checkEmail','validateEmail','reponerCreditos','creditosUsuario','creditosSuficientes','descontarCreditos','redimirCreditos','getUsuario','__enviarCorreoAbonoPorRecomendar','__enviarCorreo','__enviarCorreoRecomendado','readCookie','login','getCreditos2','logout','retornoTuCompra','confirmacionPago','reponerCreditos');
+		$this->Auth->allow('register','__abonarCreditosPorRecomendacion','__obtenerCorreoReferente','checkEmail','validateEmail','reponerCreditos','creditosUsuario','creditosSuficientes','descontarCreditos','redimirCreditos','getUsuario','__enviarCorreoAbonoPorRecomendar','__enviarCorreo','__enviarCorreoRecomendado','readCookie','login','getCreditos2','logout','retornoTuCompra','confirmacionPago','reponerCreditos');
 		//$this->allow('*');
 	}
 	

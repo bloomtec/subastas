@@ -4,7 +4,7 @@ class PagesController extends AppController {
 	var $name = 'Pages';
   function beforeFilter(){
 		parent::beforeFilter();
-		$this->Auth->allow('view','como_funciona');
+		$this->Auth->allow('view','como_funciona','bannerHome','creditos','bannerLateral','contacto','registro');
 	}
 	function inactivity(){
 	
